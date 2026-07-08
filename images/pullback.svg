@@ -1,0 +1,15 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 上涨 -->
+  <polyline points="14,96 40,84 66,70 86,60" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <!-- 回调 (绿跌) -->
+  <polyline points="86,60 104,72 120,82" fill="none" stroke="var(--down)" stroke-width="2"/>
+  <!-- 继续上涨 -->
+  <polyline points="120,82 140,66 160,48 174,38" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <!-- 节点 -->
+  <circle cx="86" cy="60" r="3.5" fill="var(--up)"/>
+  <circle cx="120" cy="82" r="3.5" fill="var(--down)"/>
+  <circle cx="174" cy="38" r="3.5" fill="var(--up)"/>
+  <text x="92" y="56" font-size="9" fill="var(--up)">涨</text>
+  <text x="104" y="92" font-size="9" fill="var(--down)">回调</text>
+  <text x="150" y="44" font-size="9" fill="var(--up)">续涨</text>
+</svg>

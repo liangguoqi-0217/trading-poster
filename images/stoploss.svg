@@ -1,0 +1,23 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 价格走势 -->
+  <polyline points="14,90 40,70 66,54 92,42 118,46 144,58 170,50" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <g stroke-width="2">
+    <rect x="14" y="86" width="7" height="8" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="40" y="66" width="7" height="8" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="66" y="50" width="7" height="8" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="92" y="38" width="7" height="8" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="118" y="42" width="7" height="8" fill="var(--down)" stroke="var(--down)"/>
+    <rect x="144" y="54" width="7" height="8" fill="var(--down)" stroke="var(--down)"/>
+  </g>
+  <!-- 止损线 -->
+  <line x1="14" y1="100" x2="170" y2="100" stroke="var(--phase-red)" stroke-width="2" stroke-dasharray="6 3"/>
+  <circle cx="92" cy="42" r="4" fill="none" stroke="var(--accent-blue)" stroke-width="2"/>
+  <text x="98" y="36" font-size="9" fill="var(--accent-blue)">入场</text>
+  <text x="120" y="112" font-size="9" fill="var(--phase-red)">止损位</text>
+  <path d="M150,96 L150,88" stroke="var(--phase-red)" stroke-width="2" marker-end="url(#arrRed)"/>
+  <defs>
+    <marker id="arrRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="none" stroke="var(--phase-red)" stroke-width="1.5"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,26 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 突破回调结构 -->
+  <polyline points="14,96 40,82 66,68 92,58 110,68 124,76 140,66 156,52 172,40" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <g stroke-width="2">
+    <rect x="14" y="92" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="40" y="78" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="66" y="64" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="92" y="54" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="110" y="64" width="6" height="9" fill="var(--down)" stroke="var(--down)"/>
+    <rect x="124" y="72" width="6" height="9" fill="var(--down)" stroke="var(--down)"/>
+    <rect x="140" y="62" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="156" y="48" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="172" y="36" width="6" height="9" fill="var(--up)" stroke="var(--up)"/>
+  </g>
+  <!-- 下降趋势线 (回调) -->
+  <line x1="92" y1="44" x2="130" y2="86" stroke="var(--phase-yellow)" stroke-width="2" stroke-dasharray="5 3"/>
+  <!-- 突破入场箭头 -->
+  <circle cx="140" cy="62" r="4" fill="none" stroke="var(--accent-blue)" stroke-width="2"/>
+  <path d="M140,58 L140,44" stroke="var(--accent-blue)" stroke-width="2" marker-end="url(#arB)"/>
+  <defs>
+    <marker id="arB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="none" stroke="var(--accent-blue)" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <text x="146" y="40" font-size="9" fill="var(--accent-blue)">突破买</text>
+</svg>

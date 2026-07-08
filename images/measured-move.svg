@@ -1,0 +1,20 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 第一段 上涨 -->
+  <polyline points="14,96 50,60" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <g stroke-width="2">
+    <rect x="14" y="92" width="7" height="9" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="50" y="56" width="7" height="9" fill="var(--up)" stroke="var(--up)"/>
+  </g>
+  <!-- 回调 -->
+  <polyline points="50,60 78,76" fill="none" stroke="var(--down)" stroke-width="2"/>
+  <rect x="78" y="72" width="7" height="9" fill="var(--down)" stroke="var(--down)"/>
+  <!-- 第二段 等距 -->
+  <polyline points="78,76 118,40" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <rect x="118" y="36" width="7" height="9" fill="var(--up)" stroke="var(--up)"/>
+  <!-- 等距投影虚线 -->
+  <line x1="50" y1="60" x2="118" y2="40" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="14" y1="92" x2="78" y2="72" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="4 3"/>
+  <!-- 标注距 -->
+  <text x="120" y="24" font-size="9" fill="var(--up)">T2 等距目标</text>
+  <text x="20" y="110" font-size="9" fill="var(--text)">第一段 = 第二段</text>
+</svg>

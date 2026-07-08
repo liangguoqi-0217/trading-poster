@@ -1,0 +1,16 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 四阶段折线 -->
+  <polyline points="14,90 44,80 74,68 104,54 134,48 164,52" fill="none" stroke="var(--line)" stroke-width="2"/>
+  <!-- 阶段分隔点 -->
+  <circle cx="44" cy="80" r="4" fill="var(--phase-green)"/>
+  <circle cx="74" cy="68" r="4" fill="var(--phase-green)"/>
+  <circle cx="104" cy="54" r="4" fill="var(--phase-yellow)"/>
+  <circle cx="134" cy="48" r="4" fill="var(--phase-red)"/>
+  <!-- 标注 -->
+  <text x="20" y="108" font-size="10" fill="var(--phase-green)">启动</text>
+  <text x="52" y="108" font-size="10" fill="var(--phase-green)">加速</text>
+  <text x="86" y="108" font-size="10" fill="var(--phase-yellow)">衰退</text>
+  <text x="120" y="108" font-size="10" fill="var(--phase-red)">末期</text>
+  <!-- 虚线趋势 -->
+  <line x1="14" y1="100" x2="164" y2="100" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="4 3"/>
+</svg>

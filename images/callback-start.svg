@@ -1,0 +1,23 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 上涨后到顶 -->
+  <polyline points="14,96 40,82 66,66 90,52" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <g stroke-width="2">
+    <rect x="14" y="92" width="6" height="8" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="40" y="78" width="6" height="10" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="66" y="62" width="6" height="10" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="90" y="48" width="6" height="10" fill="var(--up)" stroke="var(--up)"/>
+  </g>
+  <!-- 回调开始 (绿跌) -->
+  <g stroke-width="2">
+    <rect x="104" y="56" width="6" height="8" fill="var(--down)" stroke="var(--down)"/>
+    <line x1="107" y1="52" x2="107" y2="66" stroke="var(--down)"/>
+    <rect x="118" y="64" width="6" height="8" fill="var(--down)" stroke="var(--down)"/>
+    <line x1="121" y1="60" x2="121" y2="74" stroke="var(--down)"/>
+    <rect x="132" y="72" width="6" height="8" fill="var(--down)" stroke="var(--down)"/>
+    <line x1="135" y1="68" x2="135" y2="82" stroke="var(--down)"/>
+    <rect x="146" y="80" width="6" height="8" fill="var(--down)" stroke="var(--down)"/>
+    <line x1="149" y1="76" x2="149" y2="90" stroke="var(--down)"/>
+  </g>
+  <circle cx="90" cy="52" r="4" fill="none" stroke="var(--accent-blue)" stroke-width="2"/>
+  <text x="72" y="42" font-size="9" fill="var(--accent-blue)">回调起点</text>
+</svg>

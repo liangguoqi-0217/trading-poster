@@ -1,0 +1,412 @@
+/* ============================================================
+   双周期交易系统 · 七问详解总览  (Trading Playbook)
+   4K 可缩放海报 · 样式表
+   ============================================================ */
+
+/* ---------- 设计令牌 (CSS Variables) ---------- */
+:root {
+  /* 基础配色 */
+  --bg:            #f8f9fb;
+  --bg-card:       #FFFFFF;
+  --title:         #111111;
+  --text:          #444444;
+  --text-soft:     #6b7280;
+  --border:        #D6D6D6;
+
+  /* 功能色 */
+  --accent-blue:   #0B5ED7;
+  --accent-green:  #198754;
+  --up:            #e63946;   /* 红涨 (中国习惯) */
+  --down:          #2a9d8f;   /* 绿跌 (中国习惯) */
+  --phase-green:   #198754;
+  --phase-yellow:  #e0a800;
+  --phase-red:     #e63946;
+
+  /* 中性/辅助 */
+  --line:           #374151;
+  --line-soft:      #9ca3af;
+  --ma3:            #6b7280;
+  --vol:            #9ca3af;
+
+  /* 时间周期层级 */
+  --tf1: #0B5ED7;
+  --tf2: #3b82f6;
+  --tf3: #60a5fa;
+  --tf4: #93c5fd;
+
+  /* 形状 */
+  --radius:   12px;
+  --shadow:   0 4px 12px rgba(0,0,0,.08);
+
+  /* 字体 */
+  --font-sans: "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-num:  "DIN", "Roboto Mono", "HarmonyOS Sans SC", ui-monospace, monospace;
+}
+
+/* ---------- 全局重置 ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #e9edf2;
+  font-family: var(--font-sans);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 缩放视口容器 ---------- */
+.viewport {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+  overflow: auto;
+}
+
+/* ---------- 4K 画布 (以 3840 为基准) ---------- */
+.canvas {
+  width: 3840px;
+  background: var(--bg);
+  padding: 64px 72px 80px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.15);
+  transform-origin: top center;
+  position: relative;
+}
+
+/* ---------- 顶部标题 ---------- */
+.poster-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.poster-header h1 {
+  font-size: 88px;
+  font-weight: 800;
+  color: var(--title);
+  letter-spacing: 4px;
+  line-height: 1.1;
+}
+.poster-header .sub {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  margin-top: 12px;
+  letter-spacing: 2px;
+}
+.poster-header .divider {
+  width: 520px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  margin: 32px auto 0;
+  border-radius: 2px;
+}
+
+/* ---------- 区块标题 ---------- */
+.section {
+  margin-bottom: 56px;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+  padding-left: 8px;
+}
+.section-head .bar {
+  width: 14px;
+  height: 64px;
+  border-radius: 7px;
+}
+.section--trend .bar { background: var(--accent-blue); }
+.section--trade .bar { background: var(--accent-green); }
+.section-head h2 {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--title);
+  letter-spacing: 2px;
+}
+.section--trend h2 { color: var(--accent-blue); }
+.section--trade h2 { color: var(--accent-green); }
+.section-head .tag {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--text-soft);
+  padding: 6px 20px;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+}
+
+/* ---------- 七问 Grid 矩阵 ---------- */
+.grid-7 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 22px;
+}
+
+/* ---------- 决策卡片 ---------- */
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card .card__head {
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+  padding: 18px 16px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.section--trend .card .card__head { background: var(--accent-blue); }
+.section--trade .card .card__head { background: var(--accent-green); }
+
+.card__media {
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--border);
+  background: #fbfcfd;
+  display: flex;
+  justify-content: center;
+}
+.card__media svg { width: 100%; height: auto; max-height: 150px; }
+
+.card__explain {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  flex: 1;
+}
+.card__explain .q-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--title);
+  margin-bottom: 8px;
+}
+.card__explain .one-liner {
+  font-size: 24px;
+  color: var(--text);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+.card__explain .rule {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  border-left: 5px solid var(--accent-blue);
+  color: var(--title);
+}
+.section--trade .card__explain .rule { border-left-color: var(--accent-green); }
+
+.card__criteria {
+  padding: 14px 18px 18px;
+  background: #fafbfc;
+}
+.card__criteria .crit-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.card__criteria ul { list-style: none; }
+.card__criteria li {
+  font-size: 23px;
+  line-height: 1.5;
+  color: var(--text);
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 6px;
+}
+.card__criteria li::before {
+  content: "✔";
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--accent-green);
+  font-weight: 700;
+  font-size: 21px;
+}
+.card__criteria li.warn::before { content: "✕"; color: var(--phase-red); }
+
+/* ---------- 底部三模块 ---------- */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr;
+  gap: 28px;
+}
+.module {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 36px;
+}
+.module h3 {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--title);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 3px solid var(--accent-blue);
+}
+.module--profit h3 { border-bottom-color: var(--accent-green); }
+
+.module .block { margin-bottom: 24px; }
+.module .block .lbl {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  margin-bottom: 10px;
+}
+.module--profit .block .lbl { color: var(--accent-green); }
+.module .block ul { list-style: none; }
+.module .block li {
+  font-size: 25px;
+  line-height: 1.5;
+  color: var(--text);
+  padding-left: 28px;
+  position: relative;
+  margin-bottom: 6px;
+}
+.module .block li::before {
+  content: "›";
+  position: absolute; left: 6px; top: 0;
+  color: var(--accent-blue); font-weight: 700;
+}
+.module--profit .block li::before { color: var(--accent-green); }
+
+.slogan {
+  font-size: 27px;
+  font-weight: 800;
+  color: var(--title);
+  background: #f1f5f9;
+  border-left: 6px solid var(--accent-blue);
+  padding: 16px 20px;
+  border-radius: 8px;
+  line-height: 1.4;
+}
+.module--profit .slogan { border-left-color: var(--accent-green); }
+
+/* T档 阶梯 */
+.tier {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.tier .badge {
+  flex: none;
+  width: 56px; height: 56px;
+  border-radius: 12px;
+  background: var(--accent-green);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-num);
+}
+.tier .desc { font-size: 24px; color: var(--text); line-height: 1.35; }
+.tier .arrow { color: var(--text-soft); font-size: 26px; }
+
+.module__media { display: flex; justify-content: center; margin-top: 18px; }
+.module__media svg { width: 100%; max-width: 360px; height: auto; }
+
+/* 走势生长 */
+.growth li { font-size: 25px; color: var(--text); line-height: 1.55; margin-bottom: 10px; padding-left: 28px; position: relative; }
+.growth li::before { content: "◆"; position: absolute; left: 4px; top: 0; color: var(--accent-blue); }
+
+/* 执行 Checklist 六原则 */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.principle {
+  background: #fafbfc;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 18px;
+  text-align: center;
+}
+.principle .svg-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 14px;
+  display: block;
+}
+.principle .p-no {
+  font-family: var(--font-num);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent-blue);
+}
+.principle .p-title {
+  font-size: 27px;
+  font-weight: 700;
+  color: var(--title);
+  margin: 6px 0 8px;
+}
+.principle .p-desc {
+  font-size: 21px;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.footnote {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 24px;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* ---------- 控制条 (固定,不随画布缩放) ---------- */
+.toolbar {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 14px;
+  z-index: 999;
+}
+.toolbar button {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent-blue);
+  border: none;
+  border-radius: 10px;
+  padding: 16px 26px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(11,94,215,.35);
+  transition: transform .15s ease, background .15s ease;
+}
+.toolbar button:hover { background: #0a4fb8; transform: translateY(-2px); }
+.toolbar button.ghost { background: #fff; color: var(--accent-blue); border: 2px solid var(--accent-blue); box-shadow: none; }
+.toolbar button.ghost:hover { background: #eef4ff; }
+.toolbar .hint { font-size: 16px; color: var(--text-soft); align-self: center; }
+
+/* ---------- 打印 (A1 / A2) ---------- */
+@media print {
+  @page { size: A1 landscape; margin: 0; }
+  html, body { background: #fff; }
+  .viewport { padding: 0; display: block; }
+  .canvas {
+    transform: none !important;
+    width: 100%;
+    box-shadow: none;
+    padding: 24mm 20mm;
+  }
+  .toolbar { display: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .card, .module, .principle { break-inside: avoid; }
+}
+
+/* ---------- 小屏自适应兜底 ---------- */
+@media (max-width: 1280px) {
+  .viewport { padding: 12px; }
+}

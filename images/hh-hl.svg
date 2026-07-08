@@ -1,0 +1,24 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- Higher High -->
+  <polyline points="16,90 50,60 84,40 118,30" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <circle cx="50" cy="60" r="3.5" fill="var(--up)"/>
+  <circle cx="118" cy="30" r="3.5" fill="var(--up)"/>
+  <text x="56" y="56" font-size="9" fill="var(--up)">HH</text>
+  <text x="120" y="26" font-size="9" fill="var(--up)">HH</text>
+  <!-- Higher Low -->
+  <polyline points="20,100 54,86 88,74" fill="none" stroke="var(--down)" stroke-width="2"/>
+  <circle cx="54" cy="86" r="3.5" fill="var(--down)"/>
+  <circle cx="88" cy="74" r="3.5" fill="var(--down)"/>
+  <text x="60" y="90" font-size="9" fill="var(--down)">HL</text>
+  <text x="92" y="78" font-size="9" fill="var(--down)">HL</text>
+  <!-- 跌破 HL (破坏) -->
+  <polyline points="88,74 120,80 150,96" fill="none" stroke="var(--phase-red)" stroke-width="2" stroke-dasharray="5 3"/>
+  <circle cx="120" cy="80" r="3.5" fill="var(--phase-red)"/>
+  <circle cx="150" cy="96" r="3.5" fill="var(--phase-red)"/>
+  <path d="M140,70 L152,82" stroke="var(--phase-red)" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="none" stroke="var(--phase-red)" stroke-width="1.5"/>
+    </marker>
+  </defs>
+</svg>

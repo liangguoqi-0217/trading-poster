@@ -1,0 +1,7 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+  <circle cx="22" cy="20" r="6" fill="none" stroke="var(--accent-blue)" stroke-width="2"/>
+  <polyline points="22,26 22,40 16,50" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="22,32 34,28 44,34" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="22,40 32,44 42,42" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="44,34 50,30" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

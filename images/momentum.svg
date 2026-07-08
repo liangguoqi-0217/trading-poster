@@ -1,0 +1,21 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 强趋势 (左, 红涨陡) -->
+  <text x="10" y="14" font-size="10" fill="var(--up)">强趋势</text>
+  <polyline points="14,96 36,84 58,66 80,44 92,28" fill="none" stroke="var(--up)" stroke-width="2"/>
+  <g stroke-width="2">
+    <rect x="14" y="92" width="5" height="8" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="36" y="80" width="5" height="10" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="58" y="62" width="5" height="10" fill="var(--up)" stroke="var(--up)"/>
+    <rect x="80" y="40" width="5" height="12" fill="var(--up)" stroke="var(--up)"/>
+  </g>
+  <line x1="100" y1="14" x2="100" y2="108" stroke="var(--line-soft)" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- 弱趋势 (右, 绿跌缓) -->
+  <text x="112" y="14" font-size="10" fill="var(--down)">弱趋势</text>
+  <polyline points="106,96 128,90 150,86 172,84" fill="none" stroke="var(--down)" stroke-width="2"/>
+  <g stroke-width="2">
+    <rect x="106" y="94" width="5" height="5" fill="var(--down)" stroke="var(--down)"/>
+    <rect x="128" y="89" width="5" height="5" fill="var(--down)" stroke="var(--down)"/>
+    <rect x="150" y="85" width="5" height="5" fill="var(--down)" stroke="var(--down)"/>
+    <rect x="172" y="83" width="5" height="4" fill="var(--down)" stroke="var(--down)"/>
+  </g>
+</svg>

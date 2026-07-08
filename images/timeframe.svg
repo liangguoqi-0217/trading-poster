@@ -1,0 +1,14 @@
+<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" class="svg-chart">
+  <!-- 四层周期 递进 -->
+  <g font-family="var(--font-num)" font-size="11" fill="var(--text)">
+    <rect x="14" y="14" width="152" height="18" rx="4" fill="var(--tf1)" stroke="var(--line)" stroke-width="1.5"/>
+    <text x="22" y="27">周线 WEEKLY</text>
+    <rect x="30" y="40" width="136" height="18" rx="4" fill="var(--tf2)" stroke="var(--line)" stroke-width="1.5"/>
+    <text x="38" y="53">日线 DAILY</text>
+    <rect x="46" y="66" width="120" height="18" rx="4" fill="var(--tf3)" stroke="var(--line)" stroke-width="1.5"/>
+    <text x="54" y="79">4小时 4H</text>
+    <rect x="62" y="92" width="104" height="18" rx="4" fill="var(--tf4)" stroke="var(--line)" stroke-width="1.5"/>
+    <text x="70" y="105">15分钟 15M</text>
+  </g>
+  <path d="M90,32 L90,40 M106,58 L106,66 M122,84 L122,92" stroke="var(--line-soft)" stroke-width="1.5" fill="none"/>
+</svg>
