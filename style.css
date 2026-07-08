@@ -253,7 +253,7 @@ html, body {
   padding-bottom: 14px;
   border-bottom: 3px solid var(--accent-blue);
 }
-.module--profit h3 { border-bottom-color: var(--accent-green); }
+.module--stop h3 { border-bottom-color: var(--accent-green); }
 
 .module .block { margin-bottom: 24px; }
 .module .block .lbl {
@@ -262,7 +262,7 @@ html, body {
   color: var(--accent-blue);
   margin-bottom: 10px;
 }
-.module--profit .block .lbl { color: var(--accent-green); }
+.module--stop .block .lbl { color: var(--accent-green); }
 .module .block ul { list-style: none; }
 .module .block li {
   font-size: 25px;
@@ -277,7 +277,7 @@ html, body {
   position: absolute; left: 6px; top: 0;
   color: var(--accent-blue); font-weight: 700;
 }
-.module--profit .block li::before { color: var(--accent-green); }
+.module--stop .block li::before { color: var(--accent-green); }
 
 .slogan {
   font-size: 27px;
@@ -289,7 +289,7 @@ html, body {
   border-radius: 8px;
   line-height: 1.4;
 }
-.module--profit .slogan { border-left-color: var(--accent-green); }
+.module--stop .slogan { border-left-color: var(--accent-green); }
 
 /* T档 阶梯 */
 .tier {
