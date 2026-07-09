@@ -34,9 +34,9 @@
   --tf3: #60a5fa;
   --tf4: #93c5fd;
 
-  /* 形状 */
-  --radius:   12px;
-  --shadow:   0 4px 12px rgba(0,0,0,.08);
+  /* 形状 (规范：统一 8px) */
+  --radius:   8px;
+  --shadow:   0 2px 6px rgba(0,0,0,.08);
 
   /* 字体 */
   --font-sans: "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
@@ -62,18 +62,25 @@ html, body {
   overflow: auto;
 }
 
+/* ---------- canvas 外层 wrapper：显式声明缩放后的宽高，避免 zoom/overflow 截断 ---------- */
+.canvas-wrapper {
+  position: relative;
+  /* JS 会在 resize 时动态写入 width / height */
+  margin: 0 auto;
+}
+
 /* ---------- 4K 固定画布 (3840 × 2160) ---------- */
 .canvas {
   width: 3648px;          /* 3840 × 95% */
   height: 2160px;          /* 固定高度 */
   background: var(--bg);
   padding: 48px 40px;     /* 左右边距 40px, 上下内边距 */
-  box-shadow: 0 10px 40px rgba(0,0,0,.15);
-  transform-origin: top center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  transform-origin: top left;
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* 画布内可用宽度 = 3648 - 40 - 40 = 3568px */
@@ -102,8 +109,8 @@ html, body {
 }
 .poster-header .divider {
   width: 520px;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  height: 3px;
+  background: var(--accent-blue);
   margin: 22px auto 0;
   border-radius: 2px;
 }
@@ -140,8 +147,8 @@ html, body {
   font-weight: 600;
   color: var(--text-soft);
   padding: 5px 18px;
-  border: 2px solid var(--border);
-  border-radius: 999px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
 
 /* ---------- 七问 Grid 矩阵 (固定 7 列) ---------- */
@@ -157,7 +164,7 @@ html, body {
 .card {
   width: 496px;
   background: var(--bg-card);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -253,7 +260,7 @@ html, body {
 }
 .module {
   background: var(--bg-card);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 26px 30px;
@@ -314,7 +321,7 @@ html, body {
 .tier .badge {
   flex: none;
   width: 52px; height: 52px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--accent-green);
   color: #fff;
   font-size: 24px;
@@ -340,8 +347,8 @@ html, body {
 }
 .principle {
   background: #fafbfc;
-  border: 2px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 18px 14px;
   text-align: center;
 }
@@ -392,13 +399,13 @@ html, body {
   color: #fff;
   background: var(--accent-blue);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 16px 26px;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(11,94,215,.35);
-  transition: transform .15s ease, background .15s ease;
+  box-shadow: var(--shadow);
+  transition: background .15s ease;
 }
-.toolbar button:hover { background: #0a4fb8; transform: translateY(-2px); }
-.toolbar button.ghost { background: #fff; color: var(--accent-blue); border: 2px solid var(--accent-blue); box-shadow: none; }
+.toolbar button:hover { background: #0a4fb8; }
+.toolbar button.ghost { background: #fff; color: var(--accent-blue); border: 1px solid var(--accent-blue); box-shadow: none; }
 .toolbar button.ghost:hover { background: #eef4ff; }
 .toolbar .hint { font-size: 16px; color: var(--text-soft); align-self: center; }
