@@ -13,15 +13,17 @@
   <div class="inner">
     <a class="brand" href="index.html">
       <span class="logo">K</span>
-      <span>Knowledge Atlas</span>
+      <span>Knowledge OS</span>
     </a>
     <nav>
       <a href="index.html" class="active">首页</a>
-      <a href="trading/index.html">📈 Trading</a>
-      <a href="pharma/index.html">🏭 Pharma</a>
-      <a href="sap/index.html">⚙ SAP</a>
-      <a href="ai/index.html">🤖 AI</a>
-      <a href="maps/index.html">🧠 Maps</a>
+      <a href="Trading/index.html">Trading</a>
+      <a href="SAP/index.html">SAP</a>
+      <a href="MES/index.html">MES</a>
+      <a href="AI/index.html">AI</a>
+      <a href="Business/index.html">Business</a>
+      <a href="SupplyChain/index.html">SupplyChain</a>
+      <a href="maps/index.html">Maps</a>
     </nav>
   </div>
 </div>
@@ -30,12 +32,12 @@
 
   <!-- 站点标题 -->
   <header class="site-head">
-    <div class="kicker">Personal Knowledge Atlas</div>
-    <h1>我的知识图谱</h1>
-    <p class="lead">所有知识作品的中心枢纽 —— 海报、流程图、思维导图、框架图，统一沉淀、随时检索、一键导出。</p>
+    <div class="kicker">Personal Knowledge OS</div>
+    <h1>我的知识操作系统</h1>
+    <p class="lead">所有知识作品的中心枢纽 —— 海报、流程图、思维导图、框架图，统一设计语言、随时检索、一键导出。</p>
     <div class="meta">
       <span><b id="mTotal">0</b> 个知识图</span>
-      <span><b>5</b> 个一级栏目</span>
+      <span><b>8</b> 个一级栏目</span>
       <span>更新于 <b>2026-07</b></span>
     </div>
   </header>
@@ -47,14 +49,32 @@
     <span class="count" id="count"></span>
   </div>
 
-  <!-- 分类导航 -->
+  <!-- 分类导航 (SVG 图标，无 emoji) -->
   <div class="cats" id="cats">
-    <div class="cat-chip active" data-cat="all"><span class="dot"></span>全部</div>
-    <div class="cat-chip" data-cat="trading"><span class="dot"></span>📈 Trading Playbook</div>
-    <div class="cat-chip" data-cat="pharma"><span class="dot"></span>🏭 Pharma Digital</div>
-    <div class="cat-chip" data-cat="sap"><span class="dot"></span>⚙ SAP Playbook</div>
-    <div class="cat-chip" data-cat="ai"><span class="dot"></span>🤖 AI Toolkit</div>
-    <div class="cat-chip" data-cat="maps"><span class="dot"></span>🧠 Knowledge Maps</div>
+    <div class="cat-chip active" data-cat="all">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      全部
+    </div>
+    <div class="cat-chip" data-cat="trading">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-6 4 3 5-8 4 5"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
+      Trading Playbook
+    </div>
+    <div class="cat-chip" data-cat="pharma">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3l8 8-7 7a3 3 0 0 1-4-4l7-7"/><line x1="7" y1="14" x2="10" y2="17"/></svg>
+      Pharma Digital
+    </div>
+    <div class="cat-chip" data-cat="sap">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/></svg>
+      SAP Playbook
+    </div>
+    <div class="cat-chip" data-cat="ai">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
+      AI Toolkit
+    </div>
+    <div class="cat-chip" data-cat="maps">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M6 8.5v3a3 3 0 0 0 3 3h.5M18 8.5v3a3 3 0 0 1-3 3H15"/></svg>
+      Knowledge Maps
+    </div>
   </div>
 
   <!-- 知识卡片网格 -->
