@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -457,21 +457,18 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
   const canvas = document.getElementById('poster');
-  function fitScale() {
-    if (window.matchMedia && window.matchMedia('print').matches) return;
+  const NATIVE_W = 3648;
+  function fitOnce() {
+    if (window.matchMedia && window.matchMedia('print').matches) { canvas.style.zoom = 1; return; }
     const avail = window.innerWidth - 48;
-    const scale = Math.min(avail / 3840, 1);
-    canvas.style.transform = 'scale(' + scale + ')';
-    canvas.style.height = (canvas.offsetHeight * scale) + 'px';
+    canvas.style.zoom = Math.min(avail / NATIVE_W, 1);
   }
-  window.addEventListener('resize', fitScale);
-  window.addEventListener('load', fitScale);
+  window.addEventListener('resize', fitOnce);
+  window.addEventListener('load', fitOnce);
 
   document.getElementById('btnPng').addEventListener('click', function () {
-    const prev = canvas.style.transform;
-    const prevH = canvas.style.height;
-    canvas.style.transform = 'none';
-    canvas.style.height = 'auto';
+    const prev = canvas.style.zoom;
+    canvas.style.zoom = 1;
     html2canvas(canvas, {
       backgroundColor: '#f8f9fb',
       scale: 1,
@@ -481,8 +478,7 @@
       windowWidth: 3840,
       windowHeight: 2160
     }).then(function (img) {
-      canvas.style.transform = prev;
-      canvas.style.height = prevH;
+      canvas.style.zoom = prev;
       const a = document.createElement('a');
       a.download = '双周期交易系统-七问总览.png';
       a.href = img.toDataURL('image/png');
@@ -493,3 +489,5 @@
 
 </body>
 </html>
+
+
