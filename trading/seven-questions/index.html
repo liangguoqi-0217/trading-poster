@@ -522,12 +522,40 @@ const DATA = {
   ]
 };
 
+/* 将原始形态骨架细分插值扩展到 target 根 (保持涨跌节奏与高低点形态) */
+function expandOHLC(src, target) {
+  if (src.length >= target) return src;
+  const seg = src.length - 1;
+  const per = Math.floor((target - src.length) / seg);
+  let extra = (target - src.length) - per * seg;
+  const out = [];
+  for (let i = 0; i < seg; i++) {
+    const a = src[i], b = src[i + 1];
+    out.push(a);
+    let ins = per + (extra > 0 ? 1 : 0);
+    if (extra > 0) extra--;
+    for (let j = 1; j <= ins; j++) {
+      const t = j / (ins + 1);
+      const midO = a[1] + (b[0] - a[1]) * (t - 0.06);
+      const midC = a[1] + (b[0] - a[1]) * (t + 0.06);
+      const span = Math.abs(b[0] - a[1]) || 20;
+      const wick = Math.max(8, span * 0.18);
+      const o = midO, c = midC;
+      const h = Math.max(o, c) + wick;
+      const l = Math.min(o, c) - wick;
+      out.push([Math.round(o), Math.round(c), Math.round(h), Math.round(l)]);
+    }
+  }
+  out.push(src[src.length - 1]);
+  return out;
+}
+
 function buildCandles(key, wide) {
   const W = wide ? 340 : 480;
   const H = wide ? 120 : 160;
   const PAD_T = 10, PAD_B = 16, PAD_X = 6;
   const spec = DATA[key];
-  const ohlc = spec.ohlc || spec;
+  const ohlc = expandOHLC(spec.ohlc || spec, 24);
   const n = ohlc.length;
   const innerW = W - PAD_X * 2;
   const innerH = H - PAD_T - PAD_B;
@@ -569,8 +597,9 @@ function buildCandles(key, wide) {
     });
   }
   if (spec.trailing) {
+    const tn = spec.trailing.length;
     const pts = spec.trailing.map((t, i) => {
-      const x = PAD_X + slot * (i + 0.5);
+      const x = PAD_X + innerW * (i / (tn - 1));
       return x.toFixed(1) + ',' + toY(t).toFixed(1);
     }).join(' ');
     svg += '<polyline points="' + pts + '" fill="none" stroke="' + DOWN + '" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.9"/>';
