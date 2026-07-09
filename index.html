@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=3840, initial-scale=1.0">
 <title>双周期交易系统 · 七问详解总览</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -678,11 +678,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
-  // 视口缩放：以 3840 为基准，按窗口宽度等比 scale
+  // 整体等比例缩放：以 3840 为基准，按窗口可用宽度等比 scale
+  // 注意：只缩放画布显示，不改变任何布局与尺寸
   const canvas = document.getElementById('poster');
   function fitScale() {
-    if (window.matchMedia('print').matches) return;
-    const avail = window.innerWidth - 48; // 减去 .viewport padding
+    if (window.matchMedia && window.matchMedia('print').matches) return;
+    const avail = window.innerWidth - 48; // 视口左右留白
     const scale = Math.min(avail / 3840, 1);
     canvas.style.transform = 'scale(' + scale + ')';
     canvas.style.height = (canvas.offsetHeight * scale) + 'px';
@@ -690,17 +691,23 @@
   window.addEventListener('resize', fitScale);
   window.addEventListener('load', fitScale);
 
-  // 导出 PNG
+  // 导出 PNG (像素级一致：复位到 1:1 真实 4K 像素)
   document.getElementById('btnPng').addEventListener('click', function () {
     const prev = canvas.style.transform;
+    const prevH = canvas.style.height;
     canvas.style.transform = 'none';           // 复位以截真实 4K 像素
+    canvas.style.height = 'auto';
     html2canvas(canvas, {
       backgroundColor: '#f8f9fb',
       scale: 1,
       width: 3840,
-      useCORS: true
+      height: 2160,
+      useCORS: true,
+      windowWidth: 3840,
+      windowHeight: 2160
     }).then(function (img) {
       canvas.style.transform = prev;
+      canvas.style.height = prevH;
       const a = document.createElement('a');
       a.download = '双周期交易系统-七问总览.png';
       a.href = img.toDataURL('image/png');
