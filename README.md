@@ -1,65 +1,66 @@
-# 双周期交易系统 · 七问详解总览 (Trading Playbook)
+# Knowledge Atlas · 个人知识图谱
 
-一张以 **HTML + CSS + 纯手写 SVG** 实现的 4K 交易知识库海报。浏览器打开即 4K 海报，
-可无限放大、一键导出 PNG、打印 A2/A1 不糊。可直接作为「交易检查清单（Checklist）」每天过一遍。
+一个**长期维护的个人知识操作系统**。打开一个网址，即可检索、浏览、打印、导出你所有由 AI 生成的知识作品——交易海报、流程图、思维导图、框架图，统一沉淀、随时查阅。
 
-## 设计基调
+> 风格：Bloomberg Terminal + TradingView + Apple Design + 企业知识门户。
+> 设计：固定宽度（非响应式）· PC / 4K 优先 · 打印优先 · 统一设计令牌。
 
-- 风格：TradingView + Bloomberg + Apple Design（金融数据海报 / 性冷淡商务）
-- 配色：背景 `#f8f9fb`、标题 `#111111`、趋势周期蓝色 `#0B5ED7`、交易周期绿色 `#198754`、边框 `#D6D6D6`
-- 圆角 `12px`、阴影 `0 4px 12px rgba(0,0,0,.08)`
-- 字体：标题/正文 `HarmonyOS Sans SC`，数字 `DIN`（缺失时优雅回退）
-- 图表：2px 线性 SVG，红涨绿跌（中国习惯），无渐变 / 无 3D / 无卡通 / 无 Emoji
+## 五个一级栏目
+
+| 栏目 | 定位 |
+|---|---|
+| 📈 **Trading Playbook** | 交易系统、策略、风控、复盘图 |
+| 🏭 **Pharma Digital** | 制药数字化：MES、LIMS、SAP、稳定性研究、质量管理 |
+| ⚙ **SAP Playbook** | MM / PP / PM / QM / PS 等所有 SAP 知识图 |
+| 🤖 **AI Toolkit** | AI 工具、Agent、工作流、提示词、自动化 |
+| 🧠 **Knowledge Maps** | 商业分析、供应链、投资、长期思考 |
 
 ## 目录结构
 
 ```
-Trading-System-Poster/
-├── index.html          # 海报主体（内联全部 SVG，导出不丢失）
-├── style.css           # 设计令牌(CSS变量) / 3840画布 / Grid / 打印样式
-├── images/             # 图表示意图源文件（breakout / ma-bull / phases / momentum …）
-├── icons/              # 六原则线性图标（trend / big-small / wait / risk / run / checklist）
-└── README.md
+Knowledge-Atlas/
+├── index.html              # 首页 Dashboard（搜索 + 分类 + 卡片网格）
+├── global.css             # 全站统一设计令牌 + 布局（固定宽度）
+├── atlas.js               # 首页搜索/筛选交互（纯前端）
+├── trading/              # 📈 Trading Playbook
+│   ├── index.html        # 栏目页
+│   └── seven-questions/
+│       └── index.html    # 双周期交易系统 · 七问详解（4K 海报）
+├── pharma/  sap/  ai/  maps/   # 各栏目页（占位，待填充）
+└── (images/ icons/)     # 复用 SVG 资产
 ```
-
-> 说明：`index.html` 中 SVG 为**内联**写法（保证 html2canvas 导出与打印 100% 保留）；
-> `images/`、`icons/` 下保留同名 `.svg` 源文件，作为可复用资产与后续改图参考。
-
-## 布局
-
-1. 顶部标题：双周期交易系统 · 七问详解总览（看大做小）
-2. 趋势周期（蓝）：7 张决策卡 —— 图 / 解释+判定规则 / 指标标准
-3. 交易周期（绿）：7 张决策卡 —— 图 / 解释+判定规则 / 指标标准
-4. 底部三模块：止损止盈 / 走势生长 / 执行 Checklist（六原则图标卡）
-
-> 每张卡片都是「决策卡片」：除判断标准外，额外给出一句话**判定规则**，
-> 例如「满足 3 项以上 → 强动能，否则放弃」「启动/加速允许交易，衰退/末期禁止开仓」。
 
 ## 如何使用
 
-1. 直接用浏览器打开 `index.html`（无需服务器、无构建步骤）。
-2. 页面默认按窗口宽度等比缩放（以 3840 为基准），全屏自适应。
-3. **导出 PNG**：点击右下角「导出 PNG」—— 临时复位缩放后按真实 4K 像素渲染下载。
-4. **打印 / 存 PDF**：点击「打印 / 存PDF」—— 走浏览器打印，已配置 `@media print`（A1 横向、隐藏按钮、保留背景色），
-   在打印对话框选「另存为 PDF」并设纸张 A1/A2 即可获得高清矢量级输出。
+1. 用浏览器打开 `index.html`（无需服务器、无构建步骤）。
+2. 顶部搜索框按关键词检索；分类标签按栏目筛选。
+3. 点击任意知识卡片 → 进入对应知识图页面。
+4. 知识图页支持：
+   - **整体等比例缩放**（以 3840 为基准，位置恒定，仅缩放）
+   - **导出 PNG**：点击右下角「导出 PNG」→ 复位到真实 4K 像素渲染下载
+   - **打印 / 存 PDF**：点击「打印 / 存PDF」→ 浏览器打印（已隐藏导航与按钮）
 
-## 如何扩展（知识库化）
+## 如何新增一个知识图（不改已有页面）
 
-后续增加新规则（如趋势衰竭、假突破、RSI 背离、MACD、ATR 止损、仓位管理等），只需：
+1. 在对应栏目目录新建子目录，如 `trading/atr/index.html`。
+2. 复制 `trading/seven-questions/index.html` 为模板，替换导航 active、面包屑、标题与海报内容（沿用 `style.css` 的 4K 卡片模板 + `global.css` 的导航外壳）。
+3. 在**首页** `index.html` 的 `#grid` 内追加一张卡片：
+   ```html
+   <a class="card-atlas" href="trading/atr/index.html"
+      data-cat="trading" data-keywords="ATR 止损 波动">
+     <div class="thumb"><span class="cat-tag" style="color:var(--cat-trading)">TRADING</span><span class="glyph" style="color:var(--cat-trading)">A</span></div>
+     <div class="body"><h3>标题</h3><div class="desc">简介</div>
+       <div class="foot"><span>2026-07</span><span class="enter">点击进入 →</span></div></div>
+   </a>
+   ```
+4. （可选）在栏目页 `trading/index.html` 的 `.subgrid` 也加一张入口卡片。
+5. 提交推送，GitHub Pages 自动更新。
 
-1. 在 `images/`（或 `icons/`）新增一个 `.svg`，遵循统一规范：
-   - `viewBox="0 0 180 120"`（图标 `0 0 64 64`）、`stroke-width="2"`
-   - 颜色一律用 CSS 变量（`var(--up)` 红涨 / `var(--down)` 绿跌 / `var(--accent-blue)` 等），不写死
-   - 无渐变、无 3D、扁平线性
-2. 在 `index.html` 对应区块复制一张 `<article class="card">`（或 `<div class="principle">`），
-   把内联 SVG 与文案替换为新内容即可，**不影响整体布局**。
-
-## 换主题
-
-所有颜色集中在 `style.css` 的 `:root` CSS 变量，改一处即全站换色（含 SVG 内部）。
+> 所有颜色集中在 `global.css` 的 `:root` 与 `style.css` 的 `:root` CSS 变量，改一处即全站换色。
 
 ## 技术备注
 
-- 纯静态站点，无构建工具；`html2canvas` 通过 CDN 引入（需联网导出 PNG；打印功能离线可用）。
-- 画布固定 `3840px` 宽度 + `transform: scale()` 适配视口，保证导出分辨率精确为 4K。
-- 字体依赖系统/浏览器字体回退，未内置字体文件（如需严格一致可后续内嵌 woff2）。
+- 纯静态站点，无构建工具；`html2canvas` 通过 CDN 引入（联网导出 PNG，打印离线可用）。
+- 全站**固定宽度 1600px 容器**，海报页固定 3840×2160 画布 + `transform: scale()` 等比缩放。
+- **无任何响应式 / Media Query / flex-wrap / auto-fit / vw-vh**：布局恒定，任何缩放比例下元素位置一致。
+- 字体依赖系统/浏览器字体回退，未内置字体文件。
