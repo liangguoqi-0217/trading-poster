@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 $ErrorActionPreference = 'Stop'
-$ROOT = 'd:\我的项目\画图'
+$ROOT = 'd:\我的项目\个人知识库'
 
 # 用 UTF-8 无 BOM 写入
 function Write-Utf8($path, $content) {

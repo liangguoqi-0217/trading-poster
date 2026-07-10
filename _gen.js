@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 const fs = require('fs');
-const ROOT = 'd:\\我的项目\\画图';
+const ROOT = 'd:\\我的项目\\个人知识库';
 
 function writeUtf8(p, c) {
   fs.writeFileSync(p, c, { encoding: 'utf8' });
