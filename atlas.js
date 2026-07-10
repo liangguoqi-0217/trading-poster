@@ -1,4 +1,4 @@
-/* Knowledge Atlas · 首页搜索 + 分类筛选
+/* 个人知识库 · 首页搜索 + 分类筛选
    纯前端，基于卡片 data-cat / data-keywords，新增知识图无需改此处 */
 (function () {
   var q = document.getElementById('q');
