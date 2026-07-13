@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K线形态大全 — 单根·双根·多根组合图解</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #f5f6f8;
+    color: #1f2937;
+    line-height: 1.6;
+  }
+  /* ── 顶部标题栏 ── */
+  .header {
+    background: #0f1923;
+    padding: 40px 60px 32px;
+    text-align: center;
+    color: #fff;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; }
+  .header p  { font-size: 14px; color: #8899aa; }
+  .badge-row { margin-top: 14px; display: flex; justify-content: center; gap: 20px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  }
+  .badge-bull { background: rgba(34,197,94,.18); color: #4ade80; }
+  .badge-bear { background: rgba(239,68,68,.18); color: #f87171; }
+  .badge-neut { background: rgba(148,163,184,.18); color: #94a3b8; }
+
+  /* ── 内容容器 ── */
+  .container { max-width: 1300px; margin: 0 auto; padding: 40px 30px 80px; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 52px; }
+  .section-title {
+    font-size: 20px; font-weight: 700; color: #1E3A5F;
+    border-left: 4px solid #1E3A5F; padding-left: 14px;
+    margin-bottom: 22px; letter-spacing: 1px;
+  }
+  .section-subtitle {
+    font-size: 15px; font-weight: 600; color: #475569;
+    margin: 26px 0 14px; padding-left: 4px;
+  }
+
+  /* ── 卡片网格 ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 18px; }
+  .card {
+    background: #fff; border-radius: 10px; padding: 20px 22px;
+    border: 1px solid #e5e7eb;
+    display: flex; gap: 18px; align-items: center;
+    transition: box-shadow .18s;
+  }
+  .card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.06); }
+
+  /* ── 蜡烛图 SVG 区域 ── */
+  .candle-box {
+    flex-shrink: 0; width: 110px; height: 90px;
+    display: flex; align-items: center; justify-content: center;
+    background: #fafbfc; border-radius: 6px; border: 1px dashed #e5e7eb;
+  }
+  .candle-box svg { display: block; }
+
+  /* ── 说明文字 ── */
+  .info { flex: 1; min-width: 0; }
+  .info .name {
+    font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 4px;
+  }
+  .info .tag {
+    display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
+    border-radius: 3px; margin-right: 4px; margin-bottom: 6px;
+  }
+  .tag-bull { background: #dcfce7; color: #166534; }
+  .tag-bear { background: #fef2f2; color: #991b1b; }
+  .tag-rev { background: #fef9e7; color: #92400e; }
+  .tag-neut { background: #f1f5f9; color: #475569; }
+  .info .desc { font-size: 13px; color: #64748b; line-height: 1.65; }
+
+  /* ── 响应式 ── */
+  @media (max-width: 760px) {
+    .header { padding: 28px 20px 24px; }
+    .header h1 { font-size: 21px; }
+    .container { padding: 24px 14px 60px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>K线形态大全</h1>
+  <p>单根 · 双根 · 多根 K 线组合形态图解及含义</p>
+  <div class="badge-row">
+    <span class="badge badge-bull">● 看涨信号</span>
+    <span class="badge badge-bear">● 看跌信号</span>
+    <span class="badge badge-neut">● 中性/反转信号</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!--  一、单根 K 线                                                -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">一、单根 K 线形态</div>
+
+  <!-- 1.1 实体大小类 -->
+  <div class="section-subtitle">▸ 实体大小分类</div>
+  <div class="grid">
+
+    <!-- 大阳线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <!-- 实体 60% 长度，影线极短 -->
+          <line x1="40" y1="8" x2="40" y2="12" stroke="#ef4444" stroke-width="3"/>
+          <rect x="26" y="12" width="28" height="46" fill="#ef4444" rx="1"/>
+          <line x1="40" y1="58" x2="40" y2="62" stroke="#ef4444" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">大阳线</div>
+        <span class="tag tag-bull">看涨</span>
+        <div class="desc">实体长（≥5%），影线极短。多方完全主导，买盘强劲，趋势延续或启动信号。</div>
+      </div>
+    </div>
+
+    <!-- 大阴线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="8" x2="40" y2="12" stroke="#22c55e" stroke-width="3"/>
+          <rect x="26" y="12" width="28" height="46" fill="#22c55e" rx="1"/>
+          <line x1="40" y1="58" x2="40" y2="62" stroke="#22c55e" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">大阴线</div>
+        <span class="tag tag-bear">看跌</span>
+        <div class="desc">实体长（≥5%），影线极短。空方完全主导，抛压沉重，下跌趋势启动或加速。</div>
+      </div>
+    </div>
+
+    <!-- 中阳线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="16" x2="40" y2="22" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="30" y="22" width="20" height="26" fill="#ef4444" rx="1"/>
+          <line x1="40" y1="48" x2="40" y2="54" stroke="#ef4444" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">中阳线</div>
+        <span class="tag tag-bull">偏涨</span>
+        <div class="desc">实体中等（2%~5%），多方占优但力度不及大阳线，后市谨慎看多。</div>
+      </div>
+    </div>
+
+    <!-- 中阴线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="16" x2="40" y2="22" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="30" y="22" width="20" height="26" fill="#22c55e" rx="1"/>
+          <line x1="40" y1="48" x2="40" y2="54" stroke="#22c55e" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">中阴线</div>
+        <span class="tag tag-bear">偏跌</span>
+        <div class="desc">实体中等（2%~5%），空方占优但力度不及大阴线，后市谨慎看空。</div>
+      </div>
+    </div>
+
+    <!-- 小阳线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="20" x2="40" y2="28" stroke="#ef4444" stroke-width="2"/>
+          <rect x="32" y="28" width="16" height="14" fill="#ef4444" rx="1"/>
+          <line x1="40" y1="42" x2="40" y2="50" stroke="#ef4444" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">小阳线</div>
+        <span class="tag tag-neut">中性</span>
+        <div class="desc">实体小（&lt;2%），多方略占优势，方向不明，需结合前后 K 线判断。</div>
+      </div>
+    </div>
+
+    <!-- 小阴线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="20" x2="40" y2="28" stroke="#22c55e" stroke-width="2"/>
+          <rect x="32" y="28" width="16" height="14" fill="#22c55e" rx="1"/>
+          <line x1="40" y1="42" x2="40" y2="50" stroke="#22c55e" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">小阴线</div>
+        <span class="tag tag-neut">中性</span>
+        <div class="desc">实体小（&lt;2%），空方略占优势，方向不明，需结合前后 K 线判断。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1.2 特殊形态类 -->
+  <div class="section-subtitle">▸ 特殊单根形态</div>
+  <div class="grid">
+
+    <!-- 流星线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <!-- 长上影 + 小实体在底部 -->
+          <line x1="40" y1="6" x2="40" y2="42" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="32" y="42" width="16" height="14" fill="#22c55e" rx="1"/>
+          <line x1="40" y1="56" x2="40" y2="62" stroke="#22c55e" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">流星线</div>
+        <span class="tag tag-bear">见顶看跌</span>
+        <div class="desc">上影线 ≥ 实体 2 倍，下影线极短。高位出现意味多方上攻遇阻，空方反扑，见顶反转信号。</div>
+      </div>
+    </div>
+
+    <!-- 锤线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <!-- 长下影 + 小实体在顶部 -->
+          <line x1="40" y1="8" x2="40" y2="14" stroke="#ef4444" stroke-width="2"/>
+          <rect x="32" y="14" width="16" height="14" fill="#ef4444" rx="1"/>
+          <line x1="40" y1="28" x2="40" y2="62" stroke="#ef4444" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">锤线（锤子线）</div>
+        <span class="tag tag-bull">见底看涨</span>
+        <div class="desc">下影线 ≥ 实体 2 倍，上影线极短。低位出现意味空方砸盘被多方托起，见底反转信号。</div>
+      </div>
+    </div>
+
+    <!-- 倒锤线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="6" x2="40" y2="42" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="32" y="42" width="16" height="14" fill="#ef4444" rx="1"/>
+          <line x1="40" y1="56" x2="40" y2="62" stroke="#ef4444" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">倒锤线</div>
+        <span class="tag tag-rev">潜在反转</span>
+        <div class="desc">长上影 + 底部小实体。低位出现需次日阳线确认，若次日收阳则为看涨反转信号。</div>
+      </div>
+    </div>
+
+    <!-- 丁字线 (T字线) -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="6" x2="40" y2="10" stroke="#ef4444" stroke-width="2"/>
+          <line x1="32" y1="10" x2="48" y2="10" stroke="#ef4444" stroke-width="3.5"/>
+          <rect x="36" y="10" width="8" height="4" fill="#ef4444" rx="1"/>
+          <line x1="40" y1="14" x2="40" y2="62" stroke="#ef4444" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">丁字线（T 字线）</div>
+        <span class="tag tag-bull">低位看涨</span>
+        <div class="desc">开盘=收盘≈最高价，长下影线。低位出现意味下方支撑极强，空方砸盘被多方全部收回，强烈看涨。</div>
+      </div>
+    </div>
+
+    <!-- 倒丁字线 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="6" x2="40" y2="46" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="36" y="46" width="8" height="4" fill="#22c55e" rx="1"/>
+          <line x1="32" y1="50" x2="48" y2="50" stroke="#22c55e" stroke-width="3.5"/>
+          <line x1="40" y1="54" x2="40" y2="60" stroke="#22c55e" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">倒丁字线（倒 T 线）</div>
+        <span class="tag tag-bear">高位看跌</span>
+        <div class="desc">开盘=收盘≈最低价，长上影线。高位出现意为多方上攻被空方全部打回，强烈看跌。</div>
+      </div>
+    </div>
+
+    <!-- 十字星 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="6" x2="40" y2="62" stroke="#64748b" stroke-width="2"/>
+          <line x1="28" y1="32" x2="52" y2="32" stroke="#64748b" stroke-width="4.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">十字星</div>
+        <span class="tag tag-rev">变盘信号</span>
+        <div class="desc">开盘≈收盘，上下影线均等。多空力量暂时均衡，趋势可能反转，需次日方向确认。</div>
+      </div>
+    </div>
+
+    <!-- 长腿十字星 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="80" height="70" viewBox="0 0 80 70">
+          <line x1="40" y1="6" x2="40" y2="62" stroke="#64748b" stroke-width="2"/>
+          <line x1="26" y1="32" x2="54" y2="32" stroke="#64748b" stroke-width="4.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">长腿十字星</div>
+        <span class="tag tag-rev">剧烈分歧</span>
+        <div class="desc">上下影线都极长，日内多空激烈拉锯。出现在趋势末端是强反转预警。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  二、双根 K 线组合                                             -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">二、双根 K 线组合</div>
+
+  <div class="grid">
+
+    <!-- 阳包阴 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <!-- 第一根：阴线 -->
+          <line x1="25" y1="14" x2="25" y2="20" stroke="#22c55e" stroke-width="2.2"/>
+          <rect x="18" y="20" width="14" height="24" fill="#22c55e" rx="1"/>
+          <line x1="25" y1="44" x2="25" y2="50" stroke="#22c55e" stroke-width="2.2"/>
+          <!-- 第二根：大阳线包住阴线 -->
+          <line x1="65" y1="6" x2="65" y2="12" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="56" y="12" width="18" height="42" fill="#ef4444" rx="1"/>
+          <line x1="65" y1="54" x2="65" y2="58" stroke="#ef4444" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">阳包阴（看涨吞没）</div>
+        <span class="tag tag-bull">强看涨</span>
+        <div class="desc">后一根阳线实体完全包住前一根阴线实体。下跌末端出现意味多头全面反攻，强烈反转信号。</div>
+      </div>
+    </div>
+
+    <!-- 阴包阳 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <!-- 第一根：阳线 -->
+          <line x1="25" y1="14" x2="25" y2="20" stroke="#ef4444" stroke-width="2.2"/>
+          <rect x="18" y="20" width="14" height="24" fill="#ef4444" rx="1"/>
+          <line x1="25" y1="44" x2="25" y2="50" stroke="#ef4444" stroke-width="2.2"/>
+          <!-- 第二根：大阴线包住阳线 -->
+          <line x1="65" y1="6" x2="65" y2="12" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="56" y="12" width="18" height="42" fill="#22c55e" rx="1"/>
+          <line x1="65" y1="54" x2="65" y2="58" stroke="#22c55e" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">阴包阳（看跌吞没）</div>
+        <span class="tag tag-bear">强看跌</span>
+        <div class="desc">后一根阴线实体完全包住前一根阳线实体。上涨末端出现意味空头全面反扑，强烈反转信号。</div>
+      </div>
+    </div>
+
+    <!-- 乌云盖顶 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <!-- 第一根：大阳线 -->
+          <line x1="25" y1="10" x2="25" y2="14" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="17" y="14" width="16" height="38" fill="#ef4444" rx="1"/>
+          <line x1="25" y1="52" x2="25" y2="56" stroke="#ef4444" stroke-width="2.5"/>
+          <!-- 第二根：高开低走阴线嵌入阳线实体 >50% -->
+          <line x1="65" y1="6" x2="65" y2="18" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="57" y="18" width="16" height="30" fill="#22c55e" rx="1"/>
+          <line x1="65" y1="48" x2="65" y2="54" stroke="#22c55e" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">乌云盖顶</div>
+        <span class="tag tag-bear">见顶看跌</span>
+        <div class="desc">先大阳后大阴，阴线高开低走，收盘嵌入阳线实体 50% 以上。上升趋势末端出现为明确见顶信号。</div>
+      </div>
+    </div>
+
+    <!-- 刺穿线 (曙光初现) -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <!-- 第一根：大阴线 -->
+          <line x1="25" y1="10" x2="25" y2="14" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="17" y="14" width="16" height="38" fill="#22c55e" rx="1"/>
+          <line x1="25" y1="52" x2="25" y2="56" stroke="#22c55e" stroke-width="2.5"/>
+          <!-- 第二根：低开高走阳线嵌入阴线 >50% -->
+          <line x1="65" y1="16" x2="65" y2="18" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="57" y="18" width="16" height="30" fill="#ef4444" rx="1"/>
+          <line x1="65" y1="48" x2="65" y2="54" stroke="#ef4444" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">刺穿线（曙光初现）</div>
+        <span class="tag tag-bull">见底看涨</span>
+        <div class="desc">先大阴后大阳，阳线低开高走，收盘嵌入阴线实体 50% 以上。下跌末端出现为明确见底信号。</div>
+      </div>
+    </div>
+
+    <!-- 孕线（阳孕阴） -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <!-- 第一根：大阳线 -->
+          <line x1="22" y1="6" x2="22" y2="12" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="14" y="12" width="16" height="42" fill="#ef4444" rx="1"/>
+          <line x1="22" y1="54" x2="22" y2="60" stroke="#ef4444" stroke-width="2.5"/>
+          <!-- 第二根：小阴线被包含在大阳线内 -->
+          <line x1="62" y1="24" x2="62" y2="28" stroke="#22c55e" stroke-width="2"/>
+          <rect x="57" y="28" width="10" height="16" fill="#22c55e" rx="1"/>
+          <line x1="62" y1="44" x2="62" y2="48" stroke="#22c55e" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">孕线（阳孕阴）</div>
+        <span class="tag tag-rev">顶部反转</span>
+        <div class="desc">第二根 K 线实体完全被第一根包含。上升趋势中阳孕阴为顶部反转预警；下跌趋势中阴孕阳为底部信号。</div>
+      </div>
+    </div>
+
+    <!-- 孕线（阴孕阳） -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="100" height="70" viewBox="0 0 100 70">
+          <line x1="22" y1="6" x2="22" y2="12" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="14" y="12" width="16" height="42" fill="#22c55e" rx="1"/>
+          <line x1="22" y1="54" x2="22" y2="60" stroke="#22c55e" stroke-width="2.5"/>
+          <line x1="62" y1="24" x2="62" y2="28" stroke="#ef4444" stroke-width="2"/>
+          <rect x="57" y="28" width="10" height="16" fill="#ef4444" rx="1"/>
+          <line x1="62" y1="44" x2="62" y2="48" stroke="#ef4444" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">孕线（阴孕阳）</div>
+        <span class="tag tag-rev">底部反转</span>
+        <div class="desc">第二根阳线实体被前一根阴线完全包含。下跌末端的阴孕阳是潜在见底信号。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  三、三根及以上 K 线组合                                        -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">三、三根及多根 K 线组合</div>
+
+  <div class="grid">
+
+    <!-- 黄昏星 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="140" height="70" viewBox="0 0 140 70">
+          <!-- K1: 大阳线 -->
+          <line x1="18" y1="8" x2="18" y2="12" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="10" y="12" width="16" height="40" fill="#ef4444" rx="1"/>
+          <line x1="18" y1="52" x2="18" y2="56" stroke="#ef4444" stroke-width="2.5"/>
+          <!-- K2: 星线（小实体跳空高开） -->
+          <line x1="58" y1="4" x2="58" y2="24" stroke="#64748b" stroke-width="2"/>
+          <rect x="52" y="24" width="12" height="8" fill="#64748b" rx="1"/>
+          <line x1="58" y1="32" x2="58" y2="54" stroke="#64748b" stroke-width="2"/>
+          <!-- K3: 大阴线 嵌入K1 -->
+          <line x1="98" y1="8" x2="98" y2="12" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="90" y="12" width="16" height="40" fill="#22c55e" rx="1"/>
+          <line x1="98" y1="52" x2="98" y2="56" stroke="#22c55e" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">黄昏星</div>
+        <span class="tag tag-bear">顶部反转</span>
+        <div class="desc">上升趋势末：大阳线 → 跳空高开小星线 → 大阴线回落。多方力竭、空方反攻，强烈见顶信号。</div>
+      </div>
+    </div>
+
+    <!-- 启明星 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="140" height="70" viewBox="0 0 140 70">
+          <!-- K1: 大阴线 -->
+          <line x1="18" y1="8" x2="18" y2="12" stroke="#22c55e" stroke-width="2.5"/>
+          <rect x="10" y="12" width="16" height="40" fill="#22c55e" rx="1"/>
+          <line x1="18" y1="52" x2="18" y2="56" stroke="#22c55e" stroke-width="2.5"/>
+          <!-- K2: 星线（跳空低开小实体） -->
+          <line x1="58" y1="8" x2="58" y2="24" stroke="#64748b" stroke-width="2"/>
+          <rect x="52" y="24" width="12" height="8" fill="#64748b" rx="1"/>
+          <line x1="58" y1="32" x2="58" y2="54" stroke="#64748b" stroke-width="2"/>
+          <!-- K3: 大阳线嵌入K1 -->
+          <line x1="98" y1="8" x2="98" y2="12" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="90" y="12" width="16" height="40" fill="#ef4444" rx="1"/>
+          <line x1="98" y1="52" x2="98" y2="56" stroke="#ef4444" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">启明星（晨星）</div>
+        <span class="tag tag-bull">底部反转</span>
+        <div class="desc">下跌趋势末：大阴线 → 跳空低开小星线 → 大阳线回升。空方力竭、多方反攻，强烈见底信号。</div>
+      </div>
+    </div>
+
+    <!-- 红三兵 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="145" height="70" viewBox="0 0 145 70">
+          <!-- 三根连续阳线，逐步抬高 -->
+          <line x1="18" y1="16" x2="18" y2="22" stroke="#ef4444" stroke-width="2.2"/>
+          <rect x="10" y="22" width="16" height="24" fill="#ef4444" rx="1"/>
+          <line x1="18" y1="46" x2="18" y2="52" stroke="#ef4444" stroke-width="2.2"/>
+          <line x1="58" y1="12" x2="58" y2="18" stroke="#ef4444" stroke-width="2.2"/>
+          <rect x="50" y="18" width="16" height="28" fill="#ef4444" rx="1"/>
+          <line x1="58" y1="46" x2="58" y2="52" stroke="#ef4444" stroke-width="2.2"/>
+          <line x1="98" y1="8" x2="98" y2="14" stroke="#ef4444" stroke-width="2.2"/>
+          <rect x="90" y="14" width="16" height="32" fill="#ef4444" rx="1"/>
+          <line x1="98" y1="46" x2="98" y2="52" stroke="#ef4444" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">红三兵</div>
+        <span class="tag tag-bull">强看涨</span>
+        <div class="desc">连续三根阳线，每根收盘价逐步抬高。低位出现意味多方持续进场，趋势反转或启动信号。</div>
+      </div>
+    </div>
+
+    <!-- 黑三兵 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="145" height="70" viewBox="0 0 145 70">
+          <!-- 三根连续阴线，逐步走低 -->
+          <line x1="18" y1="14" x2="18" y2="18" stroke="#22c55e" stroke-width="2.2"/>
+          <rect x="10" y="18" width="16" height="24" fill="#22c55e" rx="1"/>
+          <line x1="18" y1="42" x2="18" y2="48" stroke="#22c55e" stroke-width="2.2"/>
+          <line x1="58" y1="10" x2="58" y2="14" stroke="#22c55e" stroke-width="2.2"/>
+          <rect x="50" y="14" width="16" height="28" fill="#22c55e" rx="1"/>
+          <line x1="58" y1="42" x2="58" y2="48" stroke="#22c55e" stroke-width="2.2"/>
+          <line x1="98" y1="6" x2="98" y2="10" stroke="#22c55e" stroke-width="2.2"/>
+          <rect x="90" y="10" width="16" height="32" fill="#22c55e" rx="1"/>
+          <line x1="98" y1="42" x2="98" y2="48" stroke="#22c55e" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">黑三兵（三只乌鸦）</div>
+        <span class="tag tag-bear">强看跌</span>
+        <div class="desc">连续三根阴线，每根收盘价逐步走低。高位出现意味空方持续施压，趋势反转或加速下跌信号。</div>
+      </div>
+    </div>
+
+    <!-- 多方炮 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="145" height="70" viewBox="0 0 145 70">
+          <!-- 阳 → 阴 → 阳，两阳夹一阴 -->
+          <line x1="18" y1="14" x2="18" y2="20" stroke="#ef4444" stroke-width="2.2"/>
+          <rect x="10" y="20" width="16" height="26" fill="#ef4444" rx="1"/>
+          <line x1="18" y1="46" x2="18" y2="52" stroke="#ef4444" stroke-width="2.2"/>
+          <line x1="58" y1="22" x2="58" y2="28" stroke="#22c55e" stroke-width="2"/>
+          <rect x="52" y="28" width="12" height="14" fill="#22c55e" rx="1"/>
+          <line x1="58" y1="42" x2="58" y2="48" stroke="#22c55e" stroke-width="2"/>
+          <line x1="98" y1="10" x2="98" y2="16" stroke="#ef4444" stroke-width="2.2"/>
+          <rect x="90" y="16" width="16" height="30" fill="#ef4444" rx="1"/>
+          <line x1="98" y1="46" x2="98" y2="52" stroke="#ef4444" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">多方炮（两阳夹一阴）</div>
+        <span class="tag tag-bull">看涨中继</span>
+        <div class="desc">阳→阴→阳，中间阴线被包在两根阳线之间。上升途中为洗盘信号，后市续涨。</div>
+      </div>
+    </div>
+
+    <!-- 空方炮 -->
+    <div class="card">
+      <div class="candle-box">
+        <svg width="145" height="70" viewBox="0 0 145 70">
+          <line x1="18" y1="14" x2="18" y2="20" stroke="#22c55e" stroke-width="2.2"/>
+          <rect x="10" y="20" width="16" height="26" fill="#22c55e" rx="1"/>
+          <line x1="18" y1="46" x2="18" y2="52" stroke="#22c55e" stroke-width="2.2"/>
+          <line x1="58" y1="22" x2="58" y2="28" stroke="#ef4444" stroke-width="2"/>
+          <rect x="52" y="28" width="12" height="14" fill="#ef4444" rx="1"/>
+          <line x1="58" y1="42" x2="58" y2="48" stroke="#ef4444" stroke-width="2"/>
+          <line x1="98" y1="10" x2="98" y2="16" stroke="#22c55e" stroke-width="2.2"/>
+          <rect x="90" y="16" width="16" height="30" fill="#22c55e" rx="1"/>
+          <line x1="98" y1="46" x2="98" y2="52" stroke="#22c55e" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="name">空方炮（两阴夹一阳）</div>
+        <span class="tag tag-bear">看跌中继</span>
+        <div class="desc">阴→阳→阴，中间阳线被包在两根阴线之间。下跌途中为反弹诱多，后市续跌。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  四、速查总表                                                  -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">四、信号强度速查</div>
+  <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:13px; background:#fff; border-radius:8px; overflow:hidden; border:1px solid #e5e7eb;">
+      <thead>
+        <tr style="background:#1E3A5F; color:#fff;">
+          <th style="padding:10px 14px; text-align:left;">形态</th>
+          <th style="padding:10px 14px; text-align:center;">K线数</th>
+          <th style="padding:10px 14px; text-align:center;">方向</th>
+          <th style="padding:10px 14px; text-align:center;">信号强度</th>
+          <th style="padding:10px 14px; text-align:left;">核心逻辑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">大阳线</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★</td><td>多方绝对控盘</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">大阴线</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★</td><td>空方绝对控盘</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">流星线</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★★</td><td>高位冲高回落</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">锤线</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★★</td><td>低位探底回升</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">丁字线</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★★</td><td>空方砸盘被全部收回</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">倒丁字线</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★★</td><td>多方上攻被全部打回</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">十字星</td><td style="text-align:center;">1</td><td style="text-align:center;"><span class="tag tag-rev" style="font-size:11px;">变盘</span></td><td style="text-align:center;">★★★</td><td>多空均衡，方向待定</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">阳包阴</td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★★★</td><td>多头全面反攻包住空方</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">阴包阳</td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★★★</td><td>空头全面反攻包住多方</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">乌云盖顶</td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★★★</td><td>阴线高开低走嵌入阳线 &gt;50%</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">刺穿线</td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★★★</td><td>阳线低开高走嵌入阴线 &gt;50%</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">孕线</td><td style="text-align:center;">2</td><td style="text-align:center;"><span class="tag tag-rev" style="font-size:11px;">反转</span></td><td style="text-align:center;">★★★★</td><td>趋势动能衰竭</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">黄昏星</td><td style="text-align:center;">3</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★★★</td><td>上升趋势顶部三K反转</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">启明星</td><td style="text-align:center;">3</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★★★</td><td>下跌趋势底部三K反转</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">红三兵</td><td style="text-align:center;">3</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★★</td><td>三连阳逐步抬高</td></tr>
+        <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:9px 14px; font-weight:600;">黑三兵</td><td style="text-align:center;">3</td><td style="text-align:center;"><span class="tag tag-bear" style="font-size:11px;">看跌</span></td><td style="text-align:center;">★★★★</td><td>三连阴逐步走低</td></tr>
+        <tr><td style="padding:9px 14px; font-weight:600;">多方炮</td><td style="text-align:center;">3</td><td style="text-align:center;"><span class="tag tag-bull" style="font-size:11px;">看涨</span></td><td style="text-align:center;">★★★</td><td>两阳夹一阴洗盘</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  五、交易要点                                                  -->
+<!-- ============================================================ -->
+<div class="section">
+  <div class="section-title">五、实战注意</div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px;">
+    <div style="background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:18px 20px;">
+      <div style="font-weight:700; font-size:15px; color:#1E3A5F; margin-bottom:8px;">① 位置比形态更重要</div>
+      <div style="font-size:13px; color:#64748b;">同一形态在顶部是反转信号，在途中可能是中继。始终先判断当前处于趋势的哪个阶段。</div>
+    </div>
+    <div style="background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:18px 20px;">
+      <div style="font-weight:700; font-size:15px; color:#1E3A5F; margin-bottom:8px;">② 等待确认信号</div>
+      <div style="font-size:13px; color:#64748b;">单根 K 线信号较弱，需次日 K 线确认方向。双根和三根组合信号可靠性更高。</div>
+    </div>
+    <div style="background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:18px 20px;">
+      <div style="font-weight:700; font-size:15px; color:#1E3A5F; margin-bottom:8px;">③ 结合成交量</div>
+      <div style="font-size:13px; color:#64748b;">反转信号配合放量更可靠。缩量的 K 线形态可信度下降。</div>
+    </div>
+    <div style="background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:18px 20px;">
+      <div style="font-weight:700; font-size:15px; color:#1E3A5F; margin-bottom:8px;">④ 多周期验证</div>
+      <div style="font-size:13px; color:#64748b;">日线级别的反转信号，结合周线趋势判断。大周期定方向，小周期找买点。</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .container -->
+
+</body>
+</html>
