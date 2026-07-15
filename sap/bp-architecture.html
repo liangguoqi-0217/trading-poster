@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP S/4HANA Business Partner 架构全景图</title>
+<style>
+/* ============================================================
+   SAP BP Architecture Poster — McKinsey + SAP Fiori Style
+   16:9 4K · A3 打印 · 学习海报
+   ============================================================ */
+
+:root {
+  --sap-navy:    #1E3A5F;
+  --sap-blue:    #0070D2;
+  --sap-accent:  #0854A0;
+  --sap-light:   #F0F4FA;
+  --sap-bg:      #F8FAFC;
+  --sap-white:   #FFFFFF;
+  --sap-border:  #D0D7E2;
+  --sap-gray:    #64748B;
+  --sap-dark:    #1E293B;
+  --sap-gold:    #B8860B;
+  --sap-green:   #0F766E;
+  --sap-teal:    #0891B2;
+  --sap-role-fi:   #0070D2;
+  --sap-role-pur:  #2563EB;
+  --sap-role-cus:  #0F766E;
+  --sap-role-sales:#0891B2;
+  --sap-table-bg:  #EBF0F7;
+  --sap-ecc-bg:    #FFF7ED;
+  --sap-org-bg:    #F0F9FF;
+  --sap-flow-bg:   #F8FAFC;
+  --sap-sum-bg:    #EFF6FF;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { background:#E8ECF2; }
+body {
+  background:var(--sap-bg);
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",sans-serif;
+  color:var(--sap-dark);
+  -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+  padding:24px 0;
+}
+
+.poster {
+  width:1680px;
+  min-height:945px;
+  background:var(--sap-white);
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ========== Header ========== */
+.poster-header {
+  background:var(--sap-navy);
+  color:#fff;
+  padding:28px 48px 24px;
+  display:flex; align-items:center;
+  justify-content:space-between;
+  position:relative;
+}
+.poster-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--sap-blue), #38BDF8, var(--sap-blue));
+}
+.header-left h1 {
+  font-size:28px; font-weight:700; letter-spacing:1px; line-height:1.2;
+}
+.header-left .subtitle {
+  font-size:15px; color:#94A3B8; margin-top:6px; letter-spacing:.5px;
+}
+.header-right {
+  text-align:right;
+  font-size:13px; color:#94A3B8; line-height:1.6;
+}
+.header-right .tag {
+  display:inline-block; background:rgba(255,255,255,.12);
+  padding:3px 10px; border-radius:3px; font-size:12px; letter-spacing:1px;
+  margin-bottom:6px;
+}
+
+/* ========== Main Grid Layout ========== */
+.poster-body {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:auto auto auto auto auto;
+  gap:0;
+  position:relative;
+}
+
+/* ========== Section Styles ========== */
+.section { position:relative; padding:20px 24px; border:1px solid var(--sap-border); }
+.section-title {
+  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:2px;
+  color:var(--sap-gray); margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.section-title .dot {
+  width:8px; height:8px; border-radius:50%; flex-shrink:0;
+}
+
+/* ========== BUT000 General Data (Full Width Top) ========== */
+.section-but000 {
+  grid-column:1 / -1;
+  background:linear-gradient(135deg, #F8FAFC 0%, #F0F4FA 100%);
+  border-bottom:2px solid var(--sap-navy);
+}
+.section-but000 .section-title .dot { background:var(--sap-navy); }
+.but000-grid {
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+  gap:16px;
+}
+.but000-item {
+  background:var(--sap-white);
+  border:1px solid var(--sap-border);
+  border-radius:4px; padding:12px 14px;
+}
+.but000-item .label {
+  font-size:10px; font-weight:700; color:var(--sap-gray); letter-spacing:1px;
+  text-transform:uppercase; margin-bottom:4px;
+}
+.but000-item .value {
+  font-size:14px; font-weight:600; color:var(--sap-dark);
+}
+.but000-item .code {
+  font-size:11px; font-family:"JetBrains Mono","Consolas",monospace;
+  color:var(--sap-accent); background:#F0F4FA;
+  padding:2px 6px; border-radius:2px; display:inline-block; margin-top:2px;
+}
+.but000-badge {
+  position:absolute; top:20px; right:24px;
+  background:var(--sap-navy); color:#fff;
+  font-size:11px; font-weight:700; letter-spacing:1px;
+  padding:4px 12px; border-radius:3px;
+}
+
+/* ========== Sub Tables Section (Row 2, Span 3 cols) ========== */
+.section-subtables {
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  padding:0; border:none; gap:0;
+}
+.sub-table-card {
+  padding:18px 20px; border:1px solid var(--sap-border);
+  background:var(--sap-white);
+}
+.sub-table-card h4 {
+  font-size:13px; font-weight:700; color:var(--sap-navy);
+  margin-bottom:10px; display:flex; align-items:center; gap:6px;
+}
+.sub-table-card h4 .icon {
+  width:20px; height:20px; border-radius:3px; display:flex;
+  align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; color:#fff;
+}
+.sub-table-card h4 .icon.i-addr { background:var(--sap-blue); }
+.sub-table-card h4 .icon.i-cont { background:var(--sap-teal); }
+.sub-table-card h4 .icon.i-comm { background:var(--sap-green); }
+
+.sub-table-card .fields {
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.sub-table-card .field-tag {
+  font-size:11px; padding:4px 10px; background:var(--sap-table-bg);
+  border-radius:3px; font-family:"JetBrains Mono","Consolas",monospace;
+  color:var(--sap-accent); font-weight:500; letter-spacing:.3px;
+}
+
+/* ========== BP Role Section - Full Width ========== */
+.section-roles {
+  grid-column:1 / -1;
+  background:var(--sap-white);
+  position:relative;
+}
+.section-roles .section-title .dot { background:var(--sap-blue); }
+.roles-grid {
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+.role-card {
+  border:1px solid var(--sap-border);
+  border-radius:6px; overflow:hidden;
+}
+.role-card .role-head {
+  padding:12px 14px; display:flex; align-items:center; gap:8px;
+  cursor:default;
+}
+.role-card .role-head .icon-diamond {
+  width:28px; height:28px; border-radius:4px; display:flex;
+  align-items:center; justify-content:center;
+  font-size:10px; font-weight:700; color:#fff; flex-shrink:0;
+  font-family:"JetBrains Mono","Consolas",monospace;
+}
+.role-card .role-head .role-name {
+  font-size:12px; font-weight:700; color:var(--sap-dark); line-height:1.3;
+}
+.role-card .role-head .role-code {
+  font-size:10px; font-family:"JetBrains Mono","Consolas",monospace;
+  color:var(--sap-gray); letter-spacing:.5px;
+}
+
+.role-fi      .role-head { background:#EFF6FF; } .role-fi      .icon-diamond { background:var(--sap-role-fi); }
+.role-pur     .role-head { background:#EFF6FF; } .role-pur     .icon-diamond { background:var(--sap-role-pur); }
+.role-cus-fi  .role-head { background:#F0FDFA; } .role-cus-fi  .icon-diamond { background:var(--sap-role-cus); }
+.role-cus-sal .role-head { background:#ECFEFF; } .role-cus-sal .icon-diamond { background:var(--sap-role-sales); }
+
+.role-card .role-body {
+  padding:12px 14px; font-size:11px; color:var(--sap-gray); line-height:1.7;
+  border-top:1px solid var(--sap-border);
+}
+.role-card .role-body .compat {
+  margin-top:8px; padding-top:8px; border-top:1px dashed var(--sap-border);
+}
+.role-card .role-body .compat-label {
+  font-size:10px; font-weight:700; color:var(--sap-gold); letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.role-card .role-body .compat-table {
+  font-family:"JetBrains Mono","Consolas",monospace;
+  font-size:11px; color:var(--sap-dark); background:var(--sap-ecc-bg);
+  padding:3px 8px; border-radius:2px; display:inline-block; margin-top:3px;
+}
+.role-card .role-body ul {
+  list-style:none; padding:0;
+}
+.role-card .role-body ul li::before {
+  content:'·'; color:var(--sap-accent); font-weight:700; margin-right:6px;
+}
+
+/* ========== Bank Section ========== */
+.section-bank {
+  grid-column:1 / 2;
+  background:var(--sap-white);
+}
+.section-bank .section-title .dot { background:var(--sap-gold); }
+.bank-fields {
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.bank-field {
+  font-size:11px; padding:5px 10px; background:var(--sap-ecc-bg);
+  border:1px solid #FED7AA; border-radius:4px;
+  font-family:"JetBrains Mono","Consolas",monospace;
+  color:var(--sap-dark); font-weight:500;
+}
+.bank-note {
+  margin-top:10px; font-size:11px; color:var(--sap-gray);
+  border-top:1px solid var(--sap-border); padding-top:8px;
+}
+
+/* ========== Organization Section ========== */
+.section-org {
+  grid-column:2 / 4;
+  background:var(--sap-white);
+}
+.section-org .section-title .dot { background:var(--sap-teal); }
+.org-tree {
+  display:flex; align-items:center; gap:0; font-size:12px;
+}
+.org-node {
+  flex:1; text-align:center; padding:10px 8px;
+  border:1px solid var(--sap-border); background:var(--sap-org-bg);
+  border-radius:4px; font-weight:600; color:var(--sap-dark);
+  margin:0 4px; position:relative;
+}
+.org-node .org-code {
+  font-size:10px; font-family:"JetBrains Mono","Consolas",monospace;
+  color:var(--sap-gray); display:block; margin-top:3px;
+}
+.org-arrow {
+  font-size:18px; color:var(--sap-gray); flex-shrink:0;
+}
+.org-ref {
+  margin-top:12px; padding-top:10px; border-top:1px solid var(--sap-border);
+  display:flex; gap:16px; flex-wrap:wrap;
+}
+.org-ref-item {
+  font-size:11px; color:var(--sap-gray);
+  background:var(--sap-table-bg); padding:4px 10px; border-radius:3px;
+}
+
+/* ========== Business Process Section (Full Width) ========== */
+.section-process {
+  grid-column:1 / -1;
+  background:var(--sap-white);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.section-process .section-title {
+  grid-column:1 / -1; padding:0 0 12px; border-bottom:1px solid var(--sap-border);
+}
+.section-process .section-title .dot { background:var(--sap-green); }
+
+.process-p2p, .process-o2c {
+  padding:16px 20px;
+}
+.process-p2p { border-right:1px solid var(--sap-border); }
+
+.process-p2p h4, .process-o2c h4 {
+  font-size:14px; font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:8px;
+}
+.process-p2p h4 { color:var(--sap-purple, #7C3AED); }
+.process-o2c h4 { color:var(--sap-green); }
+
+.process-p2p h4 .badge, .process-o2c h4 .badge {
+  font-size:10px; font-weight:700; letter-spacing:1px; padding:3px 8px;
+  border-radius:3px; color:#fff;
+}
+.process-p2p h4 .badge { background:#7C3AED; }
+.process-o2c h4 .badge { background:var(--sap-green); }
+
+.flow-row {
+  display:flex; align-items:center; gap:0; margin-bottom:0;
+}
+.flow-step {
+  flex:1; text-align:center; padding:10px 6px;
+  background:var(--sap-table-bg); border:1px solid var(--sap-border);
+  border-radius:4px; margin:0 2px;
+}
+.flow-step .step-icon {
+  font-size:18px; margin-bottom:3px;
+}
+.flow-step .step-name {
+  font-size:10px; font-weight:600; color:var(--sap-dark); line-height:1.3;
+}
+.flow-step .step-tcode {
+  font-size:9px; font-family:"JetBrains Mono","Consolas",monospace;
+  color:var(--sap-gray); margin-top:2px;
+}
+.flow-arrow {
+  font-size:14px; color:var(--sap-gray); flex-shrink:0; font-weight:700;
+}
+
+/* ========== Bottom Summary Section (Full Width) ========== */
+.section-summary {
+  grid-column:1 / -1;
+  background:var(--sap-sum-bg);
+  border-top:3px solid var(--sap-navy);
+  padding:18px 24px;
+  display:flex; align-items:center; justify-content:center;
+  gap:12px;
+}
+.sum-flow {
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.sum-step {
+  padding:8px 16px; background:var(--sap-white); border:1px solid var(--sap-border);
+  border-radius:4px; text-align:center;
+}
+.sum-step .sum-label {
+  font-size:9px; font-weight:700; letter-spacing:1px; color:var(--sap-gray);
+  text-transform:uppercase; margin-bottom:3px;
+}
+.sum-step .sum-value {
+  font-size:13px; font-weight:700; color:var(--sap-dark);
+}
+.sum-arrow {
+  font-size:20px; color:var(--sap-accent); font-weight:700;
+}
+
+/* ========== Footer ========== */
+.poster-footer {
+  padding:12px 48px; background:var(--sap-navy); color:#94A3B8;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:11px; letter-spacing:.5px;
+}
+.poster-footer .left { font-weight:600; color:#CBD5E1; }
+.poster-footer .right { display:flex; gap:20px; }
+
+/* ========== Connector Lines ========== */
+.connector-down {
+  position:absolute; left:50%; width:2px; background:var(--sap-border);
+  transform:translateX(-50%);
+}
+.connector-label {
+  position:absolute; font-size:10px; color:var(--sap-gray);
+  background:var(--sap-white); padding:2px 6px; border-radius:2px;
+  white-space:nowrap;
+}
+
+/* ========== Legend ========== */
+.legend-bar {
+  display:flex; gap:20px; padding:8px 24px;
+  border-top:1px solid var(--sap-border);
+  background:#FAFBFC; flex-wrap:wrap; align-items:center;
+}
+.legend-item {
+  display:flex; align-items:center; gap:6px; font-size:10px; color:var(--sap-gray);
+}
+.legend-dot {
+  width:10px; height:10px; border-radius:2px; flex-shrink:0;
+}
+
+/* Print */
+@media print {
+  html { background:#fff; }
+  body { padding:0; }
+  .poster { box-shadow:none; width:100%; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- ===== Header ===== -->
+  <header class="poster-header">
+    <div class="header-left">
+      <h1>SAP S/4HANA Business Partner（BP）架构全景图</h1>
+      <div class="subtitle">唯一业务伙伴主数据对象（Master Data Object）· 供应商 & 客户统一模型</div>
+    </div>
+    <div class="header-right">
+      <div class="tag">S/4HANA 2024</div><br>
+      A3 学习海报 · 4K 高清<br>
+      适合打印 & PPT 展示
+    </div>
+  </header>
+
+  <!-- ===== Legend Bar ===== -->
+  <div class="legend-bar">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sap-navy)"></div>BP 核心表 (BUT*)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sap-blue)"></div>BP Role / 角色</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FED7AA"></div>ECC 兼容视图 (LFB1/LFM1/LFBK)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sap-teal)"></div>组织层级</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7C3AED"></div>P2P 采购到付款</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sap-green)"></div>O2C 订单到收款</div>
+  </div>
+
+  <!-- ===== Poster Body Grid ===== -->
+  <div class="poster-body">
+
+    <!-- ===== Section 1: BUT000 General Data (Full Width) ===== -->
+    <section class="section section-but000">
+      <div class="section-title"><span class="dot"></span>1. 通用主数据层（General Data）— 所有 BP 共享，与 Role 无关</div>
+      <div class="but000-badge">核心表 · BUT000</div>
+      <div class="but000-grid">
+        <div class="but000-item">
+          <div class="label">BP 编号</div>
+          <div class="value">PARTNER</div>
+          <span class="code">BU_PARTNER</span>
+        </div>
+        <div class="but000-item">
+          <div class="label">名称</div>
+          <div class="value">BU_DESCRIP</div>
+          <span class="code">NAME_ORG1 / NAME_LAST</span>
+        </div>
+        <div class="but000-item">
+          <div class="label">类型</div>
+          <div class="value">Person / Organization / Group</div>
+          <span class="code">TYPE</span>
+        </div>
+        <div class="but000-item">
+          <div class="label">搜索词</div>
+          <div class="value">Search Term 1 / 2</div>
+          <span class="code">BU_SORT1 / BU_SORT2</span>
+        </div>
+        <div class="but000-item">
+          <div class="label">创建信息</div>
+          <div class="value">创建者 / 创建日期</div>
+          <span class="code">CREATED_BY / CREATED_AT</span>
+        </div>
+        <div class="but000-item">
+          <div class="label">状态</div>
+          <div class="value">归档标记 / 删除标记</div>
+          <span class="code">BU_GROUP / XPCPT</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 2: Sub-tables (Full Width, 3 cols) ===== -->
+    <section class="section-subtables">
+      <div class="sub-table-card">
+        <h4><span class="icon i-addr">址</span> BUT020 — 地址数据</h4>
+        <div class="fields">
+          <span class="field-tag">ADDRNUMBER</span>
+          <span class="field-tag">ADDR_TYPE</span>
+          <span class="field-tag">ADDR_ORIGIN</span>
+          <span class="field-tag">VALID_FROM</span>
+          <span class="field-tag">VALID_TO</span>
+          <span class="field-tag">XDFADR</span>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--sap-gray);">
+          引用 ADRC（地址）、ADR6（邮件）、ADR2（电话）等标准地址表
+        </div>
+      </div>
+
+      <div class="sub-table-card">
+        <h4><span class="icon i-cont">联</span> BUT021 — 联系人关系</h4>
+        <div class="fields">
+          <span class="field-tag">RELATION_ID</span>
+          <span class="field-tag">RELTYP</span>
+          <span class="field-tag">RELNR</span>
+          <span class="field-tag">VALID_FROM</span>
+          <span class="field-tag">VALID_TO</span>
+          <span class="field-tag">FUNCTION</span>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--sap-gray);">
+          BP 与其他 BP 的关系（如联系人→公司、员工→部门）
+        </div>
+      </div>
+
+      <div class="sub-table-card">
+        <h4><span class="icon i-comm">讯</span> ADRC / ADR6 / ADR2</h4>
+        <div class="fields">
+          <span class="field-tag">ADRC: 地址</span>
+          <span class="field-tag">ADR6: 邮箱</span>
+          <span class="field-tag">ADR2: 电话</span>
+          <span class="field-tag">ADR3: 传真</span>
+          <span class="field-tag">ADR12: FTP/URL</span>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--sap-gray);">
+          标准 SAP 通讯数据表，通过地址编号（ADDRNUMBER）与 BUT020 关联
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 3: BP Roles (Full Width, 4 cols) ===== -->
+    <section class="section section-roles">
+      <div class="section-title"><span class="dot"></span>2. BP Role 层（角色分类）— 决定 BP 在哪些业务场景中使用</div>
+      <div class="roles-grid">
+
+        <!-- FLVN00 - Supplier FI -->
+        <div class="role-card role-fi">
+          <div class="role-head">
+            <div class="icon-diamond">FI</div>
+            <div>
+              <div class="role-name">财务供应商</div>
+              <div class="role-code">FLVN00 · Supplier (FI)</div>
+            </div>
+          </div>
+          <div class="role-body">
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Company Code 层</strong>
+            <ul style="margin-top:4px;">
+              <li>对账科目（AKONT）</li>
+              <li>付款条件（ZTERM）</li>
+              <li>催款程序（MAHNA）</li>
+              <li>付款方式（ZWELS）</li>
+              <li>预扣税（QSREC）</li>
+            </ul>
+            <div class="compat">
+              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-table">LFB1（供应商公司代码）</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLVN01 - Supplier Purchasing -->
+        <div class="role-card role-pur">
+          <div class="role-head">
+            <div class="icon-diamond">PU</div>
+            <div>
+              <div class="role-name">采购供应商</div>
+              <div class="role-code">FLVN01 · Supplier Purchasing</div>
+            </div>
+          </div>
+          <div class="role-body">
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Purchasing Org 层</strong>
+            <ul style="margin-top:4px;">
+              <li>采购币种（WAERS）</li>
+              <li>国际贸易条款（INCO1）</li>
+              <li>自动 PO（BSART）</li>
+              <li>最小订单金额（MINBW）</li>
+              <li>计划交货时间（PLIFZ）</li>
+            </ul>
+            <div class="compat">
+              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-table">LFM1（供应商采购组织数据）</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLCU00 - Customer FI -->
+        <div class="role-card role-cus-fi">
+          <div class="role-head">
+            <div class="icon-diamond">CF</div>
+            <div>
+              <div class="role-name">财务客户</div>
+              <div class="role-code">FLCU00 · Customer (FI)</div>
+            </div>
+          </div>
+          <div class="role-body">
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Company Code 层</strong>
+            <ul style="margin-top:4px;">
+              <li>对账科目（AKONT）</li>
+              <li>付款条件（ZTERM）</li>
+              <li>催款程序（MAHNA）</li>
+              <li>容差组（TOGRU）</li>
+              <li>预扣税（WT_WITHCD）</li>
+            </ul>
+            <div class="compat">
+              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-table">KNB1（客户公司代码数据）</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLCU01 - Customer Sales -->
+        <div class="role-card role-cus-sal">
+          <div class="role-head">
+            <div class="icon-diamond">SD</div>
+            <div>
+              <div class="role-name">销售客户</div>
+              <div class="role-code">FLCU01 · Customer Sales</div>
+            </div>
+          </div>
+          <div class="role-body">
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Sales Org 层</strong>
+            <ul style="margin-top:4px;">
+              <li>销售区域（VKORG/VTWEG）</li>
+              <li>定价程序（KALKS）</li>
+              <li>装运条件（VSBED）</li>
+              <li>交货工厂（DWERK）</li>
+              <li>客户统计组（VERSG）</li>
+            </ul>
+            <div class="compat">
+              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-table">KNVV（客户销售区域数据）</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Section 4: Bank Info (1 col) + Section 5: Organization (2 cols) ===== -->
+    <section class="section section-bank">
+      <div class="section-title"><span class="dot"></span>3. 银行信息 — 兼容 Vendor Bank</div>
+      <div style="font-size:11px;color:var(--sap-gray);margin-bottom:10px;">
+        BP 银行详情 → 兼容 ECC 供应商银行主数据
+      </div>
+      <div class="bank-fields">
+        <span class="bank-field">LFBK</span>
+        <span class="bank-field">Bank Key (BANKK)</span>
+        <span class="bank-field">Account No. (BANKN)</span>
+        <span class="bank-field">IBAN</span>
+        <span class="bank-field">SWIFT/BIC</span>
+        <span class="bank-field">Partner Bank Type</span>
+        <span class="bank-field">Bank Control Key</span>
+        <span class="bank-field">Reference Details</span>
+      </div>
+      <div class="bank-note">
+        <strong style="color:var(--sap-dark);">关联路径：</strong><br>
+        <code style="font-size:10px;">BP → BUT0BK → BUT0BANK → LFBK（兼容视图）</code><br>
+        支持多银行账户，区分自有银行 / 伙伴银行类型
+      </div>
+    </section>
+
+    <section class="section section-org">
+      <div class="section-title"><span class="dot"></span>4. 组织层级 — Role 数据归属的维度</div>
+      <div class="org-tree">
+        <div class="org-node">
+          公司代码
+          <span class="org-code">Company Code (BUKRS)</span>
+        </div>
+        <span class="org-arrow">→</span>
+        <div class="org-node">
+          采购组织
+          <span class="org-code">Purchasing Org (EKORG)</span>
+        </div>
+        <span class="org-arrow">→</span>
+        <div class="org-node">
+          销售组织
+          <span class="org-code">Sales Org (VKORG)</span>
+        </div>
+        <span class="org-arrow">→</span>
+        <div class="org-node">
+          信贷管理
+          <span class="org-code">Credit Segment (KKBER)</span>
+        </div>
+      </div>
+      <div class="org-ref">
+        <div class="org-ref-item">FLVN00 数据 → Company Code 层</div>
+        <div class="org-ref-item">FLVN01 数据 → Purchasing Org 层</div>
+        <div class="org-ref-item">FLCU00 数据 → Company Code 层</div>
+        <div class="org-ref-item">FLCU01 数据 → Sales Org 层</div>
+        <div class="org-ref-item">信贷数据 → Credit Segment 层</div>
+        <div class="org-ref-item">通用数据 → 全局（与组织无关）</div>
+      </div>
+    </section>
+
+    <!-- ===== Section 6: Business Processes (Full Width) ===== -->
+    <section class="section section-process">
+      <div class="section-title"><span class="dot"></span>5. 业务流程 — 围绕 BP 运转的核心业务链</div>
+
+      <!-- P2P -->
+      <div class="process-p2p">
+        <h4><span class="badge">P2P</span> Procure-to-Pay 采购到付款</h4>
+        <div class="flow-row">
+          <div class="flow-step">
+            <div class="step-icon">🏭</div>
+            <div class="step-name">Supplier</div>
+            <div class="step-tcode">BP (FLVN00/01)</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">📋</div>
+            <div class="step-name">采购申请</div>
+            <div class="step-tcode">ME51N · PR</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">📦</div>
+            <div class="step-name">采购订单</div>
+            <div class="step-tcode">ME21N · PO</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">📥</div>
+            <div class="step-name">收货</div>
+            <div class="step-tcode">MIGO · GR</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">🧾</div>
+            <div class="step-name">发票校验</div>
+            <div class="step-tcode">MIRO · Invoice</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">💳</div>
+            <div class="step-name">付款</div>
+            <div class="step-tcode">F110 · Payment</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:10px;color:var(--sap-gray);padding:8px;background:var(--sap-table-bg);border-radius:4px;">
+          <strong>涉及 BP Role：</strong>FLVN00（FI 付款/对账）+ FLVN01（采购条件）<br>
+          <strong>ECC 兼容表：</strong>LFB1（公司代码）、LFM1（采购组织）、LFBK（银行）
+        </div>
+      </div>
+
+      <!-- O2C -->
+      <div class="process-o2c">
+        <h4><span class="badge">O2C</span> Order-to-Cash 订单到收款</h4>
+        <div class="flow-row">
+          <div class="flow-step">
+            <div class="step-icon">👤</div>
+            <div class="step-name">Customer</div>
+            <div class="step-tcode">BP (FLCU00/01)</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">📝</div>
+            <div class="step-name">销售订单</div>
+            <div class="step-tcode">VA01 · SO</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">🚚</div>
+            <div class="step-name">交货</div>
+            <div class="step-tcode">VL01N · Delivery</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">📄</div>
+            <div class="step-name">开票</div>
+            <div class="step-tcode">VF01 · Billing</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="step-icon">💰</div>
+            <div class="step-name">收款</div>
+            <div class="step-tcode">F-28 · Payment</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:10px;color:var(--sap-gray);padding:8px;background:var(--sap-table-bg);border-radius:4px;">
+          <strong>涉及 BP Role：</strong>FLCU00（FI 对账/催款）+ FLCU01（定价/装运条件）<br>
+          <strong>ECC 兼容表：</strong>KNB1（公司代码）、KNVV（销售区域）、KNC1（客户主数据）
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 7: Bottom Summary (Full Width) ===== -->
+    <section class="section section-summary" style="grid-column:1/-1;">
+      <div style="width:100%;">
+        <div style="font-size:13px;font-weight:700;color:var(--sap-navy);margin-bottom:14px;text-align:center;letter-spacing:1px;">
+          ▎ S/4HANA BP 数据架构总结 — 从通用数据到业务流程的完整链路
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
+          <div class="sum-step">
+            <div class="sum-label">Step 1</div>
+            <div class="sum-value">Business Partner</div>
+            <div style="font-size:9px;color:var(--sap-gray);">创建 BP 主数据</div>
+          </div>
+          <span class="sum-arrow">↓</span>
+          <div class="sum-step">
+            <div class="sum-label">Step 2</div>
+            <div class="sum-value">General Data</div>
+            <div style="font-size:9px;color:var(--sap-gray);">BUT000 / BUT020 / BUT021</div>
+          </div>
+          <span class="sum-arrow">↓</span>
+          <div class="sum-step">
+            <div class="sum-label">Step 3</div>
+            <div class="sum-value">BP Role</div>
+            <div style="font-size:9px;color:var(--sap-gray);">FLVN00 / FLVN01 / FLCU00 / FLCU01</div>
+          </div>
+          <span class="sum-arrow">↓</span>
+          <div class="sum-step">
+            <div class="sum-label">Step 4</div>
+            <div class="sum-value">Organization</div>
+            <div style="font-size:9px;color:var(--sap-gray);">CoCode / PurOrg / SalesOrg / Credit</div>
+          </div>
+          <span class="sum-arrow">↓</span>
+          <div class="sum-step">
+            <div class="sum-label">Step 5</div>
+            <div class="sum-value">Business Process</div>
+            <div style="font-size:9px;color:var(--sap-gray);">P2P（采购到付款）· O2C（订单到收款）</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /poster-body -->
+
+  <!-- ===== Footer ===== -->
+  <footer class="poster-footer">
+    <span class="left">SAP S/4HANA Business Partner Architecture · A3 Learning Poster</span>
+    <span class="right">
+      <span>© 知识库 · SAP Playbook</span>
+      <span>v1.0 · 2024</span>
+    </span>
+  </footer>
+
+</div><!-- /poster -->
+
+</body>
+</html>
