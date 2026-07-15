@@ -251,6 +251,21 @@ body {
   padding:7px 10px;
   font-size:9.5px; color:var(--gray); line-height:1.5;
 }
+.pain-card .pain-sol {
+  padding:6px 10px 8px;
+  background:var(--green-bg);
+  border-top:1px solid #CFFAFE;
+}
+.pain-card .pain-sol .ps-label {
+  font-size:8.5px; font-weight:700; color:var(--green); margin-bottom:3px;
+}
+.pain-card .pain-sol .ps-item {
+  font-size:8.5px; color:var(--dark); line-height:1.55;
+  padding-left:9px; position:relative;
+}
+.pain-card .pain-sol .ps-item::before {
+  content:'→'; position:absolute; left:0; color:var(--green); font-weight:700; font-size:7px;
+}
 
 /* ========== S6: Cross-Dept Conflicts ========== */
 .conflict-grid {
@@ -590,22 +605,52 @@ body {
     <div class="pain-card">
       <div class="pain-head">检验积压成为放行瓶颈</div>
       <div class="pain-desc">样品量持续增长，人员和仪器能力跟不上，生产部门不断催报告</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立检验周期KPI与预警机制，异常延迟自动触发升级</div>
+        <div class="ps-item">基于风险的检验项目分级：低风险项目减频、高风险项目加严</div>
+        <div class="ps-item">引入自动化样品前处理和多通道仪器提升批次通量</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">OOS 调查压力巨大</div>
       <div class="pain-desc">一旦出现超标结果，需要在极短时间内完成调查，同时面临 QA 和生产的双重压力</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立分阶段OOS调查标准化checklist模板，降低调查遗漏风险</div>
+        <div class="ps-item">明确实验室偏差与生产偏差的调查分界，避免责任推诿</div>
+        <div class="ps-item">培养1-2名专职OOS调查协调员，确保调查深度与速度兼顾</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">数据完整性风险</div>
       <div class="pain-desc">检验记录、电子数据、审计追踪的合规管理越来越严，任何疏忽都可能成为审计发现项</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">部署LIMS/CDS，实现电子数据自动采集与审计追踪全覆盖</div>
+        <div class="ps-item">每季度开展数据完整性自查，将差距转化为持续改善计划</div>
+        <div class="ps-item">推动文化转型：从"怕审计发现问题"转向"经得起任何审计"</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">高端仪器依赖专人</div>
       <div class="pain-desc">HPLC/GC/LC-MS 等仪器操作和故障处理依赖少数熟练人员，人一走就停摆</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立仪器操作与常见故障排除知识库，将个人经验组织化</div>
+        <div class="ps-item">制定强制交叉培训与轮岗计划，每种关键仪器至少2人可独立操作</div>
+        <div class="ps-item">与仪器厂商签订SLA快速响应服务协议，降低宕机等待时间</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">检验效率与合规的平衡</div>
       <div class="pain-desc">严格按 SOP 操作效率低，快速放行风险高，始终在效率与合规之间艰难权衡</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">导入精益实验室管理：识别并消除检验流程中的等待与搬运浪费</div>
+        <div class="ps-item">推行PAT过程分析技术，将终端检验压力前置到过程控制</div>
+        <div class="ps-item">SOP与实际操作偏差定期回顾，让文件跟着实际走而非相反</div>
+      </div>
     </div>
   </div>
 </div>

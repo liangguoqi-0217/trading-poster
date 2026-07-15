@@ -251,6 +251,21 @@ body {
   padding:7px 10px;
   font-size:9.5px; color:var(--gray); line-height:1.5;
 }
+.pain-card .pain-sol {
+  padding:6px 10px 8px;
+  background:var(--green-bg);
+  border-top:1px solid #CFFAFE;
+}
+.pain-card .pain-sol .ps-label {
+  font-size:8.5px; font-weight:700; color:var(--green); margin-bottom:3px;
+}
+.pain-card .pain-sol .ps-item {
+  font-size:8.5px; color:var(--dark); line-height:1.55;
+  padding-left:9px; position:relative;
+}
+.pain-card .pain-sol .ps-item::before {
+  content:'→'; position:absolute; left:0; color:var(--green); font-weight:700; font-size:7px;
+}
 
 /* ========== S6: Cross-Dept Conflicts ========== */
 .conflict-grid {
@@ -590,22 +605,52 @@ body {
     <div class="pain-card">
       <div class="pain-head">审计压力持续不断</div>
       <div class="pain-desc">官方检查、客户审计、总部审计轮番上阵，每次审计都是高压"大考"</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立常态化审计准备机制，审计checklist持续维护更新</div>
+        <div class="ps-item">每半年组织一次全真模拟审计演练，提前暴露问题</div>
+        <div class="ps-item">培养各部门审计应对专员，审计时各司其职而非全部压在QA</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">偏差CAPA越积越多</div>
       <div class="pain-desc">各部门写了偏差但 CAPA 推进缓慢，QA 催不动，KPI 挂在那里关不掉</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">偏差分级处理：微小偏差7天快速关闭通道，重大偏差深度根因分析</div>
+        <div class="ps-item">CAPA纳入责任部门KPI考核，月底未关闭自动上报管理层</div>
+        <div class="ps-item">每月召开CAPA回顾推动会议，QA+执行部门+管理层三方会诊</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">变更控制阻力大</div>
       <div class="pain-desc">业务部门认为变更流程繁琐"卡脖子"，QA 夹在合规要求和业务需求之间</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">变更分级管理：同类替换走简易流程，涉及工艺/设备的走标准流程</div>
+        <div class="ps-item">变更预评估前置，在业务部门提变更前先给快速合规意见</div>
+        <div class="ps-item">用流程优化思维替代制度对抗思维，让变更流程本身"瘦身"</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">现场QA人力永远不够</div>
       <div class="pain-desc">多个车间多条线，现场QA疲于奔命，巡检深度不足，只能"抽检式"监督</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">风险导向配置：按产品/工艺风险等级动态分配现场QA资源</div>
+        <div class="ps-item">关键工序部署在线监控系统替代人工巡检，提升覆盖深度</div>
+        <div class="ps-item">培养车间一线质量联络员制度，让生产自身具备质量自查能力</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">文件体系臃肿老化</div>
       <div class="pain-desc">SOP 越写越多、越写越厚，实际操作与文件脱节，"两张皮"现象严重</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">每年定期文件回顾清理：合并重复、废除过时、精简冗余内容</div>
+        <div class="ps-item">推行无纸化电子质量体系(eQMS)，降低文件管理成本</div>
+        <div class="ps-item">SOP模板标准化瘦身，回归"写你做的、做你写的"核心原则</div>
+      </div>
     </div>
   </div>
 </div>
