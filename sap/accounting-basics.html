@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>会计六大要素与借贷方向规律学习图</title>
+<style>
+/* ============================================================
+   会计六大要素与借贷方向 · SAP MM顾问学习材料
+   16:9 4K · A3打印 · 培训海报
+   ============================================================ */
+
+:root {
+  --navy:      #1E3A5F;
+  --blue:      #2563EB;
+  --accent:    #1D4ED8;
+  --light:     #F0F4FA;
+  --bg:        #F8FAFC;
+  --white:     #FFFFFF;
+  --border:    #D0D7E2;
+  --gray:      #64748B;
+  --dark:      #1E293B;
+  --gold:      #92400E;
+  --debit:     #DC2626;
+  --debit-bg:  #FEF2F2;
+  --credit:    #0F766E;
+  --credit-bg: #F0FDF9;
+  --asset:     #1E3A5F;
+  --liability: #2563EB;
+  --equity:    #7C3AED;
+  --revenue:   #0F766E;
+  --expense:   #DC2626;
+  --cost:      #D97706;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { background:#E8ECF2; }
+body {
+  background:var(--bg);
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",sans-serif;
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+  padding:24px 0;
+}
+
+.poster {
+  width:1680px;
+  min-height:945px;
+  background:var(--white);
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ========== Header ========== */
+.poster-header {
+  background:var(--navy);
+  color:#fff;
+  padding:26px 48px 22px;
+  display:flex; align-items:center;
+  justify-content:space-between;
+  position:relative;
+}
+.poster-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), #38BDF8, var(--blue));
+}
+.header-left h1 {
+  font-size:26px; font-weight:700; letter-spacing:1px; line-height:1.2;
+}
+.header-left .subtitle {
+  font-size:14px; color:#94A3B8; margin-top:5px; letter-spacing:.5px;
+}
+.header-right {
+  text-align:right;
+  font-size:12px; color:#94A3B8; line-height:1.6;
+}
+.header-right .tag {
+  display:inline-block; background:rgba(255,255,255,.12);
+  padding:3px 10px; border-radius:3px; font-size:11px; letter-spacing:1px;
+  margin-bottom:5px;
+}
+
+/* ========== Main Layout ========== */
+.poster-body {
+  padding:20px 36px 24px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
+}
+
+.section-title {
+  font-size:15px; font-weight:700;
+  color:var(--navy);
+  padding-bottom:10px;
+  border-bottom:2px solid var(--border);
+  margin-bottom:16px;
+  display:flex; align-items:center; gap:8px;
+}
+.section-title .num {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:4px;
+  background:var(--navy); color:#fff;
+  font-size:13px; font-weight:700;
+  flex-shrink:0;
+}
+
+/* ========== Section 1 ========== */
+.sec-elements {
+  grid-column:1 / -1;
+}
+
+.element-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:14px;
+}
+
+.element-card {
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:16px 18px;
+  position:relative;
+  border-left:4px solid transparent;
+}
+.element-card::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:4px;
+  border-radius:6px 0 0 6px;
+}
+.elem-asset   { border-left-color:var(--asset); }
+.elem-liability{ border-left-color:var(--liability); }
+.elem-equity  { border-left-color:var(--equity); }
+.elem-revenue { border-left-color:var(--revenue); }
+.elem-expense { border-left-color:var(--expense); }
+.elem-cost    { border-left-color:var(--cost); }
+
+.elem-header {
+  display:flex; align-items:center; gap:10px; margin-bottom:10px;
+}
+.elem-icon {
+  width:38px; height:38px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; font-weight:800; color:#fff; flex-shrink:0;
+}
+.elem-asset   .elem-icon { background:var(--asset); }
+.elem-liability .elem-icon { background:var(--liability); }
+.elem-equity  .elem-icon { background:var(--equity); }
+.elem-revenue .elem-icon { background:var(--revenue); }
+.elem-expense .elem-icon { background:var(--expense); }
+.elem-cost    .elem-icon { background:var(--cost); }
+
+.elem-name {
+  font-size:16px; font-weight:700; color:var(--dark);
+}
+.elem-def {
+  font-size:11px; color:var(--gray); margin-top:2px; line-height:1.5;
+}
+
+.elem-accounts {
+  display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;
+}
+.elem-accounts .acct-tag {
+  background:#F1F5F9;
+  color:var(--dark);
+  font-size:10px; padding:3px 8px; border-radius:3px;
+  font-weight:500;
+}
+.elem-sap {
+  margin-top:10px;
+  font-size:10px; color:var(--gray);
+  background:var(--light);
+  padding:6px 10px; border-radius:4px;
+  line-height:1.5;
+}
+.elem-sap::before {
+  content:'SAP: ';
+  font-weight:700; color:var(--navy);
+}
+
+/* ========== Section 2 - Debit/Credit ========== */
+.sec-debit-credit {
+  grid-column:1 / -1;
+}
+
+.debit-credit-layout {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* Core Rule Card */
+.rule-card {
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+}
+.rule-card-title {
+  font-size:13px; font-weight:700;
+  padding:10px 16px;
+  color:#fff; text-align:center; letter-spacing:1px;
+}
+.rule-card-title.debit-title  { background:var(--debit); }
+.rule-card-title.credit-title { background:var(--credit); }
+
+.rule-card-body {
+  padding:14px 16px;
+  display:flex; flex-direction:column; gap:8px;
+}
+
+.rule-item {
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:600;
+  padding:8px 12px;
+  border-radius:4px;
+}
+.rule-item.debit-item  { background:var(--debit-bg); color:var(--debit); }
+.rule-item.credit-item { background:var(--credit-bg); color:var(--credit); }
+
+.rule-item .arrow {
+  font-size:16px; font-weight:700;
+}
+
+/* Detail Table */
+.detail-table-wrap {
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+}
+.detail-table-wrap .table-title {
+  font-size:13px; font-weight:700;
+  padding:10px 16px;
+  background:var(--navy); color:#fff; text-align:center; letter-spacing:1px;
+}
+.detail-table {
+  width:100%; border-collapse:collapse;
+  font-size:12px;
+}
+.detail-table th {
+  background:var(--light);
+  font-weight:700; color:var(--navy);
+  padding:10px 12px; text-align:center; font-size:11px;
+  letter-spacing:.5px;
+  border-bottom:1px solid var(--border);
+}
+.detail-table td {
+  padding:9px 12px; text-align:center;
+  border-bottom:1px solid #EEF2F6;
+  color:var(--dark);
+}
+.detail-table tr:last-child td { border-bottom:none; }
+.detail-table .col-name { font-weight:700; text-align:left; }
+.detail-table .col-inc { font-weight:700; }
+.detail-table .col-dec { color:var(--gray); }
+.detail-table .col-example { text-align:left; font-size:11px; color:var(--gray); }
+.detail-table .inc-debit { color:var(--debit); }
+.detail-table .inc-credit { color:var(--credit); }
+
+/* ========== Section 3 - Mnemonics ========== */
+.sec-mnemonics {
+  grid-column:1 / -1;
+}
+
+.mnemonics-box {
+  display:flex; align-items:center; justify-content:center; gap:40px;
+  padding:20px 24px;
+  background:linear-gradient(135deg, #F8FAFC, #F0F4FA);
+  border:1px solid var(--border);
+  border-radius:6px;
+}
+
+.mnemonic-group {
+  display:flex; align-items:center; gap:12px;
+}
+
+.mnemonic-left {
+  display:flex; flex-direction:column; gap:4px;
+  background:var(--debit-bg);
+  padding:14px 20px; border-radius:6px;
+  border-left:4px solid var(--debit);
+}
+.mnemonic-left .mn-head { font-size:11px; color:var(--debit); font-weight:700; letter-spacing:1px; }
+.mnemonic-left .mn-text { font-size:16px; font-weight:800; color:var(--debit); }
+
+.mnemonic-right {
+  display:flex; flex-direction:column; gap:4px;
+  background:var(--credit-bg);
+  padding:14px 20px; border-radius:6px;
+  border-left:4px solid var(--credit);
+}
+.mnemonic-right .mn-head { font-size:11px; color:var(--credit); font-weight:700; letter-spacing:1px; }
+.mnemonic-right .mn-text { font-size:16px; font-weight:800; color:var(--credit); }
+
+.mnemonic-vs {
+  font-size:14px; color:var(--gray); font-weight:600; letter-spacing:1px;
+}
+
+/* ========== Bottom Flow ========== */
+.sec-flow {
+  grid-column:1 / -1;
+}
+
+.flow-strip {
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:16px 24px;
+  background:var(--navy);
+  border-radius:6px;
+  flex-wrap:wrap;
+}
+.flow-step {
+  background:rgba(255,255,255,.12);
+  color:#fff; padding:8px 16px; border-radius:4px;
+  font-size:12px; font-weight:600; white-space:nowrap;
+}
+.flow-arrow {
+  color:#94A3B8; font-size:18px; font-weight:700;
+}
+.flow-step.highlight {
+  background:var(--debit); font-weight:700;
+}
+.flow-step.highlight2 {
+  background:var(--credit); font-weight:700;
+}
+
+/* ========== Footer ========== */
+.poster-footer {
+  padding:14px 36px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-top:1px solid var(--border);
+  font-size:11px; color:var(--gray);
+}
+
+/* ========== Legend ========== */
+.legend-bar {
+  display:flex; gap:20px; padding:0 36px 12px;
+  align-items:center;
+  font-size:10px; color:var(--gray);
+}
+.legend-item {
+  display:flex; align-items:center; gap:5px;
+}
+.legend-dot {
+  width:10px; height:10px; border-radius:2px; flex-shrink:0;
+}
+
+/* ========== Accounting Equation Banner ========== */
+.equation-banner {
+  grid-column:1 / -1;
+  background:linear-gradient(135deg, var(--navy), #1E4B7C);
+  color:#fff;
+  padding:16px 24px;
+  border-radius:6px;
+  text-align:center;
+  font-size:18px; font-weight:800; letter-spacing:2px;
+}
+.equation-banner span { color:#93C5FD; }
+
+/* ========== SAP Tips sidebar in Section 2 ========== */
+.sap-tips {
+  margin-top:10px;
+  padding:10px 14px;
+  background:#FFF7ED;
+  border:1px solid #FED7AA;
+  border-radius:4px;
+  font-size:10px; color:var(--gold); line-height:1.6;
+}
+.sap-tips strong { color:#92400E; }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- ==================== Header ==================== -->
+  <div class="poster-header">
+    <div class="header-left">
+      <h1>会计六大要素与借贷方向规律</h1>
+      <div class="subtitle">面向 SAP MM 顾问的会计基础学习海报 · 业务交易如何影响财务科目</div>
+    </div>
+    <div class="header-right">
+      <div class="tag">会计基础</div>
+      <div>SAP MM 顾问培训材料 · A3 学习海报</div>
+    </div>
+  </div>
+
+  <div class="poster-body">
+
+    <!-- ==================== 会计恒等式 Banner ==================== -->
+    <div class="equation-banner">
+      会计恒等式：<span>资产 = 负债 + 所有者权益</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      利润 = 收入 - 费用 - 成本
+    </div>
+
+    <!-- ==================== 一、会计六大要素 ==================== -->
+    <div class="sec-elements">
+      <div class="section-title">
+        <span class="num">1</span> 会计六大要素 — 定义、科目与 SAP 业务场景
+      </div>
+
+      <div class="element-grid">
+
+        <!-- 资产 -->
+        <div class="element-card elem-asset">
+          <div class="elem-header">
+            <div class="elem-icon">资</div>
+            <div>
+              <div class="elem-name">资产</div>
+              <div class="elem-def">企业拥有或控制的资源，能够带来未来经济利益</div>
+            </div>
+          </div>
+          <div class="elem-accounts">
+            <span class="acct-tag">银行存款</span>
+            <span class="acct-tag">应收账款</span>
+            <span class="acct-tag">原材料库存</span>
+            <span class="acct-tag">库存商品</span>
+            <span class="acct-tag">固定资产</span>
+            <span class="acct-tag">无形资产</span>
+          </div>
+          <div class="elem-sap">采购收货后形成库存资产；设备采购形成固定资产</div>
+        </div>
+
+        <!-- 负债 -->
+        <div class="element-card elem-liability">
+          <div class="elem-header">
+            <div class="elem-icon">负</div>
+            <div>
+              <div class="elem-name">负债</div>
+              <div class="elem-def">企业过去交易形成的现时义务，需要未来偿还</div>
+            </div>
+          </div>
+          <div class="elem-accounts">
+            <span class="acct-tag">应付账款</span>
+            <span class="acct-tag">短期借款</span>
+            <span class="acct-tag">长期借款</span>
+            <span class="acct-tag">应交税费</span>
+            <span class="acct-tag">GR/IR 暂估</span>
+          </div>
+          <div class="elem-sap">采购发票校验形成供应商应付；收货未开票形成 GR/IR</div>
+        </div>
+
+        <!-- 所有者权益 -->
+        <div class="element-card elem-equity">
+          <div class="elem-header">
+            <div class="elem-icon">权</div>
+            <div>
+              <div class="elem-name">所有者权益</div>
+              <div class="elem-def">企业资产扣除负债后属于股东的权益</div>
+            </div>
+          </div>
+          <div class="elem-accounts">
+            <span class="acct-tag">实收资本</span>
+            <span class="acct-tag">资本公积</span>
+            <span class="acct-tag">盈余公积</span>
+            <span class="acct-tag">未分配利润</span>
+          </div>
+          <div class="elem-sap">股东投入资金；企业经营利润积累</div>
+        </div>
+
+        <!-- 收入 -->
+        <div class="element-card elem-revenue">
+          <div class="elem-header">
+            <div class="elem-icon">收</div>
+            <div>
+              <div class="elem-name">收入</div>
+              <div class="elem-def">企业经营活动中产生的经济利益流入</div>
+            </div>
+          </div>
+          <div class="elem-accounts">
+            <span class="acct-tag">主营业务收入</span>
+            <span class="acct-tag">其他业务收入</span>
+          </div>
+          <div class="elem-sap">销售产品产生收入（SD模块）</div>
+        </div>
+
+        <!-- 费用 -->
+        <div class="element-card elem-expense">
+          <div class="elem-header">
+            <div class="elem-icon">费</div>
+            <div>
+              <div class="elem-name">费用</div>
+              <div class="elem-def">企业经营过程中发生的资源消耗（当期损益）</div>
+            </div>
+          </div>
+          <div class="elem-accounts">
+            <span class="acct-tag">管理费用</span>
+            <span class="acct-tag">销售费用</span>
+            <span class="acct-tag">财务费用</span>
+            <span class="acct-tag">办公费</span>
+            <span class="acct-tag">差旅费</span>
+          </div>
+          <div class="elem-sap">采购办公用品直接计入费用；部门日常运营支出</div>
+        </div>
+
+        <!-- 成本 -->
+        <div class="element-card elem-cost">
+          <div class="elem-header">
+            <div class="elem-icon">成</div>
+            <div>
+              <div class="elem-name">成本</div>
+              <div class="elem-def">为生产产品或提供服务发生的资源投入，最终形成产品价值</div>
+            </div>
+          </div>
+          <div class="elem-accounts">
+            <span class="acct-tag">生产成本</span>
+            <span class="acct-tag">制造费用</span>
+            <span class="acct-tag">直接材料</span>
+            <span class="acct-tag">直接人工</span>
+          </div>
+          <div class="elem-sap">生产领料 261 进入生产成本；完工后形成产品成本</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== 会计恒等式补充说明 ==================== -->
+    <div style="grid-column:1/-1; display:flex; align-items:center; justify-content:center; gap:10px; padding:6px 0 0; font-size:11px; color:var(--gray); flex-wrap:wrap;">
+      <span style="font-weight:700; color:var(--navy);">费用 vs 成本的区别</span>
+      <span style="color:var(--border);">|</span>
+      <span><strong style="color:var(--expense);">费用</strong>：当期消耗，直接减少利润</span>
+      <span style="color:var(--border);">|</span>
+      <span><strong style="color:var(--cost);">成本</strong>：计入产品价值，销售后才结转费用</span>
+      <span style="color:var(--border);">|</span>
+      <span style="color:var(--navy);font-weight:600;">SAP 中：生产领料→成本对象（CO），办公用品→费用科目（FI）</span>
+    </div>
+
+    <!-- ==================== 二、借贷方向规律 ==================== -->
+    <div class="sec-debit-credit">
+      <div class="section-title">
+        <span class="num">2</span> 借贷方向规律 — 核心记忆框架
+      </div>
+
+      <div class="debit-credit-layout">
+
+        <!-- 左侧：借贷核心规则 -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+
+          <div class="rule-card">
+            <div class="rule-card-title debit-title">借方（Debit）记增</div>
+            <div class="rule-card-body">
+              <div class="rule-item debit-item">
+                <span class="arrow">+</span> 资产增加记借方
+              </div>
+              <div class="rule-item debit-item">
+                <span class="arrow">+</span> 费用增加记借方
+              </div>
+              <div class="rule-item debit-item">
+                <span class="arrow">+</span> 成本增加记借方
+              </div>
+            </div>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-card-title credit-title">贷方（Credit）记增</div>
+            <div class="rule-card-body">
+              <div class="rule-item credit-item">
+                <span class="arrow">+</span> 负债增加记贷方
+              </div>
+              <div class="rule-item credit-item">
+                <span class="arrow">+</span> 所有者权益增加记贷方
+              </div>
+              <div class="rule-item credit-item">
+                <span class="arrow">+</span> 收入增加记贷方
+              </div>
+            </div>
+          </div>
+
+          <div class="sap-tips">
+            <strong>MM顾问关键理解：</strong><br>
+            采购收货 → 库存资产增加（借方）+ GR/IR 增加（贷方）= 一借一贷<br>
+            发票校验 → GR/IR 减少（借方）+ 应付账款增加（贷方）= 一借一贷
+          </div>
+
+        </div>
+
+        <!-- 右侧：明细表格 -->
+        <div class="detail-table-wrap">
+          <div class="table-title">六大要素借贷方向明细表</div>
+          <table class="detail-table">
+            <thead>
+              <tr>
+                <th>会计要素</th>
+                <th>增加方向</th>
+                <th>减少方向</th>
+                <th style="width:35%;">SAP 典型业务示例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-name" style="color:var(--asset);">资产</td>
+                <td class="col-inc inc-debit">借方</td>
+                <td class="col-dec">贷方</td>
+                <td class="col-example">采购收货：库存增加，借记库存科目</td>
+              </tr>
+              <tr>
+                <td class="col-name" style="color:var(--liability);">负债</td>
+                <td class="col-inc inc-credit">贷方</td>
+                <td class="col-dec">借方</td>
+                <td class="col-example">供应商发票：应付账款增加，贷记应付科目</td>
+              </tr>
+              <tr>
+                <td class="col-name" style="color:var(--equity);">所有者权益</td>
+                <td class="col-inc inc-credit">贷方</td>
+                <td class="col-dec">借方</td>
+                <td class="col-example">股东投入资本，贷记实收资本</td>
+              </tr>
+              <tr>
+                <td class="col-name" style="color:var(--revenue);">收入</td>
+                <td class="col-inc inc-credit">贷方</td>
+                <td class="col-dec">借方</td>
+                <td class="col-example">销售产品确认收入，贷记主营业务收入</td>
+              </tr>
+              <tr>
+                <td class="col-name" style="color:var(--expense);">费用</td>
+                <td class="col-inc inc-debit">借方</td>
+                <td class="col-dec">贷方</td>
+                <td class="col-example">报销差旅费，借记管理费用（FI 过账）</td>
+              </tr>
+              <tr>
+                <td class="col-name" style="color:var(--cost);">成本</td>
+                <td class="col-inc inc-debit">借方</td>
+                <td class="col-dec">贷方</td>
+                <td class="col-example">生产领料 261 移动类型，借记生产成本（CO）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== 三、记忆口诀 ==================== -->
+    <div class="sec-mnemonics">
+      <div class="section-title">
+        <span class="num">3</span> 记忆口诀
+      </div>
+
+      <div class="mnemonics-box">
+        <div class="mnemonic-group">
+          <div class="mnemonic-left">
+            <div class="mn-head">借增贷减</div>
+            <div class="mn-text">资产 · 费用 · 成本</div>
+          </div>
+        </div>
+        <div class="mnemonic-vs">VS</div>
+        <div class="mnemonic-group">
+          <div class="mnemonic-right">
+            <div class="mn-head">贷增借减</div>
+            <div class="mn-text">负债 · 权益 · 收入</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 四、业务发生→借贷方向 流程 ==================== -->
+    <div class="sec-flow">
+      <div class="section-title">
+        <span class="num" style="background:var(--blue);">4</span> 从业务到分录 — MM 顾问日常决策链路
+      </div>
+
+      <div class="flow-strip">
+        <div class="flow-step">业务发生</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">判断涉及哪些会计要素</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">确定各要素增加or减少</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight">借增要素（资产/费用/成本）</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight2">贷增要素（负债/权益/收入）</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">生成会计凭证（FI 过账）</div>
+      </div>
+
+      <div style="margin-top:12px; padding:10px 16px; background:var(--light); border-radius:4px; font-size:11px; color:var(--dark); line-height:1.6;">
+        <strong style="color:var(--navy);">MM 顾问实战示例：</strong>
+        采购订单收货（MIGO 101）→ 库存资产增加（借） + GR/IR 暂估增加（贷）→ 系统自动生成 FI 凭证（OBYC 配置决定科目）
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== Legend ==================== -->
+  <div class="legend-bar">
+    <span style="font-weight:700; color:var(--dark);">图例：</span>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--debit)"></div>借方记增（资产/费用/成本）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--credit)"></div>贷方记增（负债/权益/收入）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div>会计要素定义</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFF7ED;border:1px solid #FED7AA;"></div>SAP MM 实战提示</div>
+  </div>
+
+  <!-- ==================== Footer ==================== -->
+  <div class="poster-footer">
+    <span>会计六大要素与借贷方向规律 · SAP MM 顾问学习海报</span>
+    <span>A3 打印 · 4K 显示 · 企业培训材料</span>
+  </div>
+
+</div>
+
+</body>
+</html>
