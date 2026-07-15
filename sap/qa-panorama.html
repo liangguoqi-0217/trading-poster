@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>QA部门业务全景、组织职责及跨部门协同分析</title>
+<style>
+/* ============================================================
+   QA部门业务全景、组织职责及跨部门协同分析
+   麦肯锡咨询风格 · 16:9 · A3 打印
+   ============================================================ */
+
+:root {
+  --navy:      #1E3A5F;
+  --blue:      #2563EB;
+  --bg:        #F8FAFC;
+  --white:     #FFFFFF;
+  --border:    #D0D7E2;
+  --gray:      #64748B;
+  --dark:      #1E293B;
+  --green:     #0F766E;
+  --green-bg:  #ECFDF5;
+  --orange:    #D97706;
+  --orange-bg: #FFF7ED;
+  --red:       #DC2626;
+  --red-bg:    #FEF2F2;
+  --purple:    #7C3AED;
+  --purple-bg: #F5F3FF;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { background:#E8ECF2; }
+body {
+  background:var(--bg);
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",sans-serif;
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+  padding:24px 0;
+}
+
+.poster {
+  width:1680px;
+  background:var(--white);
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ========== Header ========== */
+.poster-header {
+  background:var(--navy);
+  color:#fff;
+  padding:20px 48px 16px;
+  display:flex; align-items:center;
+  justify-content:space-between;
+  position:relative;
+}
+.poster-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--purple), #A78BFA, var(--purple));
+}
+.header-left h1 {
+  font-size:22px; font-weight:700; letter-spacing:1px; line-height:1.3;
+}
+.header-left .subtitle {
+  font-size:12px; color:#94A3B8; margin-top:3px; letter-spacing:.5px;
+}
+.header-right {
+  text-align:right;
+  font-size:11px; color:#94A3B8; line-height:1.6;
+}
+.header-right .tag {
+  display:inline-block; background:rgba(255,255,255,.12);
+  padding:3px 10px; border-radius:3px; font-size:10px; letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+/* ========== Mission Banner ========== */
+.mission-banner {
+  background: linear-gradient(90deg, #F5F3FF, #EDE9FE, #F5F3FF);
+  padding:14px 48px;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:12px;
+}
+.mission-banner .icon { font-size:22px; }
+.mission-banner .core-msg {
+  font-size:14px; font-weight:700; color:var(--purple); line-height:1.5;
+}
+.mission-banner .core-desc {
+  font-size:11.5px; color:var(--gray); line-height:1.5;
+}
+
+/* ========== Section Headers ========== */
+.section-wrap {
+  padding:0 36px;
+}
+.section-title {
+  padding:18px 0 8px;
+  border-bottom:2px solid var(--navy);
+  margin-bottom:14px;
+  display:flex; align-items:baseline; gap:10px;
+}
+.section-title .num {
+  font-size:28px; font-weight:800; color:var(--navy); line-height:1;
+}
+.section-title .text {
+  font-size:17px; font-weight:700; color:var(--navy);
+}
+
+/* ========== S1: Org Chart ========== */
+.org-chart {
+  display:flex; flex-direction:column; align-items:center;
+  padding:12px 0 8px;
+}
+.org-top {
+  background:var(--navy); color:#fff;
+  padding:10px 36px; border-radius:4px;
+  font-size:14px; font-weight:700; letter-spacing:1px;
+}
+.org-connector {
+  width:2px; height:18px; background:var(--border);
+}
+.org-line {
+  width:860px; height:2px; background:var(--border);
+  position:relative;
+}
+.org-branch {
+  display:flex; gap:12px; margin-top:2px;
+}
+.org-dept {
+  width:160px;
+  border:1px solid var(--border); border-radius:4px;
+  background:var(--white);
+  text-align:center;
+  overflow:hidden;
+}
+.org-dept .dept-head {
+  background:var(--navy); color:#fff;
+  font-size:11px; font-weight:700; padding:6px 4px; letter-spacing:.5px;
+}
+.org-dept .dept-respons {
+  padding:6px 6px;
+  font-size:9px; color:var(--dark); line-height:1.7;
+  text-align:left;
+}
+.org-dept .dept-respons span {
+  display:block; padding-left:8px; position:relative;
+}
+.org-dept .dept-respons span::before {
+  content:'·'; position:absolute; left:0; color:var(--purple); font-weight:700;
+}
+
+/* ========== S2: Work Domains ========== */
+.work-grid {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
+  padding:4px 0 8px;
+}
+.work-card {
+  border:1px solid var(--border); border-radius:5px;
+  padding:12px 14px;
+  background:var(--white);
+  display:flex; gap:10px; align-items:flex-start;
+}
+.work-card .w-icon {
+  width:36px; height:36px; border-radius:4px;
+  background:var(--purple);
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; font-weight:800; flex-shrink:0;
+}
+.work-card .w-name {
+  font-size:12.5px; font-weight:700; color:var(--dark); margin-bottom:3px;
+}
+.work-card .w-items {
+  font-size:9.5px; color:var(--gray); line-height:1.7;
+}
+.work-card .w-items span {
+  display:inline-block;
+  background:#F1F5F9; padding:1.5px 6px; border-radius:2px;
+  margin:1px 2px;
+}
+
+/* ========== S3: Business Value ========== */
+.value-row {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
+  padding:4px 0 8px;
+}
+.value-card {
+  border:1px solid var(--border); border-radius:5px; padding:14px;
+  background:var(--white);
+  text-align:center;
+}
+.value-card .v-icon {
+  width:42px; height:42px; border-radius:6px;
+  margin:0 auto 8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:800;
+}
+.value-card .v-icon.vi1 { background:#F5F3FF; color:var(--purple); }
+.value-card .v-icon.vi2 { background:#ECFDF5; color:var(--green); }
+.value-card .v-icon.vi3 { background:#FFF7ED; color:var(--orange); }
+.value-card .v-icon.vi4 { background:#EEF2FF; color:var(--navy); }
+.value-card .v-name {
+  font-size:12.5px; font-weight:700; color:var(--dark); margin-bottom:4px;
+}
+.value-card .v-desc {
+  font-size:9.5px; color:var(--gray); line-height:1.5;
+}
+
+/* ========== S4: Boss Expectations ========== */
+.expect-list {
+  display:flex; gap:10px; padding:4px 0 8px;
+}
+.expect-item {
+  flex:1;
+  border:1px solid var(--border); border-radius:5px;
+  padding:12px 10px;
+  background:var(--white);
+  position:relative;
+  text-align:center;
+}
+.expect-item .e-num {
+  width:24px; height:24px; border-radius:50%;
+  background:var(--purple); color:#fff;
+  font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 6px;
+}
+.expect-item .e-text {
+  font-size:11px; color:var(--dark); font-weight:600; line-height:1.5;
+}
+
+/* ========== S5: Manager Pain Points ========== */
+.pain-grid {
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:10px;
+  padding:4px 0 8px;
+}
+.pain-card {
+  border:1px solid #FECACA; border-radius:5px;
+  overflow:hidden;
+  background:var(--white);
+}
+.pain-card .pain-head {
+  background:var(--red-bg);
+  padding:8px 10px;
+  font-size:11px; font-weight:700; color:var(--red);
+  line-height:1.4;
+}
+.pain-card .pain-desc {
+  padding:7px 10px;
+  font-size:9.5px; color:var(--gray); line-height:1.5;
+}
+
+/* ========== S6: Cross-Dept Conflicts ========== */
+.conflict-grid {
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:10px;
+  padding:4px 0 0;
+}
+.conf-card {
+  border:1px solid var(--border); border-radius:5px;
+  overflow:hidden;
+  background:var(--white);
+}
+.conf-card .conf-top {
+  display:grid; grid-template-columns:1fr 24px 1fr;
+  background:#F8FAFC;
+  border-bottom:1px solid var(--border);
+}
+.conf-card .conf-top .ct-qa {
+  padding:6px 6px; text-align:center; background:#F5F3FF;
+}
+.conf-card .conf-top .ct-qa .ct-name {
+  font-size:10px; font-weight:700; color:var(--purple);
+}
+.conf-card .conf-top .ct-other {
+  padding:6px 6px; text-align:center;
+}
+.conf-card .conf-top .ct-other .ct-name {
+  font-size:10px; font-weight:700; color:var(--gray);
+}
+.conf-card .conf-top .ct-vs {
+  display:flex; align-items:center; justify-content:center;
+  background:#F1F5F9;
+  font-size:9px; font-weight:800; color:var(--red);
+}
+.conf-card .conf-theme {
+  padding:7px 8px; font-size:10.5px; font-weight:700; color:var(--dark);
+  border-bottom:1px solid #E5E7EB; line-height:1.4;
+  background:#FAFBFC; min-height:40px;
+}
+.conf-card .conf-root {
+  padding:5px 8px; font-size:9px; color:var(--dark);
+  background:var(--red-bg);
+  border-bottom:1px solid #FEE2E2;
+  line-height:1.6;
+}
+.conf-card .conf-root strong { color:var(--red); font-size:9px; }
+.conf-card .conf-sol {
+  padding:5px 8px;
+}
+.conf-card .conf-sol .cs-label {
+  font-size:8.5px; font-weight:700; color:var(--green); margin-bottom:2px;
+}
+.conf-card .conf-sol .cs-item {
+  font-size:8.5px; color:var(--dark); line-height:1.55;
+  padding-left:8px; position:relative;
+}
+.conf-card .conf-sol .cs-item::before {
+  content:'✓'; position:absolute; left:0; color:var(--green); font-weight:700; font-size:7px;
+}
+
+/* ========== Final Message ========== */
+.final-msg {
+  margin:0 36px;
+  padding:14px 28px;
+  background: linear-gradient(90deg, #F5F3FF, #EDE9FE);
+  border-top:1px solid var(--border);
+  font-size:13px; font-weight:700; color:var(--purple);
+  text-align:center;
+  letter-spacing:1px;
+  line-height:1.6;
+}
+
+/* ========== Footer ========== */
+.poster-footer {
+  padding:10px 36px 12px;
+  font-size:10px; color:#94A3B8;
+  display:flex; justify-content:space-between;
+  border-top:1px solid #E5E7EB;
+  margin:0 36px;
+}
+
+.sec-spacer { height:8px; }
+
+@media print {
+  html { background:#fff; }
+  body { padding:0; }
+  .poster { box-shadow:none; width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+<!-- ====== Header ====== -->
+<div class="poster-header">
+  <div class="header-left">
+    <h1>QA 部门业务全景、组织职责及跨部门协同分析</h1>
+    <div class="subtitle">制造业（重点适用制药企业）· QA 部门定位：不是"找茬的警察"，而是企业质量体系的设计者、维护者和推动者</div>
+  </div>
+  <div class="header-right">
+    <div class="tag">组织设计 · 业务全景</div>
+    <div>咨询分析 · A3 打印</div>
+    <div>2026-07</div>
+  </div>
+</div>
+
+<!-- ====== Mission Banner ====== -->
+<div class="mission-banner">
+  <div class="icon">📋</div>
+  <div>
+    <div class="core-msg">核心使命：建立并维护质量管理体系，确保从研发、采购、生产到放行的全过程始终处于受控状态，实现"质量源于设计、成于执行、证于体系"。</div>
+    <div class="core-desc">QA 不是"找茬的警察"，而是企业质量体系的设计者、维护者和推动者。从变更控制到偏差管理，从供应商审计到自检内审，QA 让质量成为系统能力而非个人自觉。</div>
+  </div>
+</div>
+
+<!-- ====== Section 1: 组织架构 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">一</span>
+    <span class="text">QA 部门典型组织架构</span>
+  </div>
+
+  <div class="org-chart">
+    <div class="org-top">QA 经理 / 质量保证总监</div>
+    <div class="org-connector"></div>
+    <div class="org-line"></div>
+    <div class="org-branch">
+      <div class="org-dept">
+        <div class="dept-head">质量体系组</div>
+        <div class="dept-respons">
+          <span>QMS体系维护</span>
+          <span>SOP体系管理</span>
+          <span>年度质量回顾</span>
+          <span>管理评审</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">现场QA组</div>
+        <div class="dept-respons">
+          <span>生产过程监控</span>
+          <span>清场/清洁确认</span>
+          <span>批记录审核</span>
+          <span>产品放行</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">文件与培训组</div>
+        <div class="dept-respons">
+          <span>文件发放与回收</span>
+          <span>GMP培训管理</span>
+          <span>档案管理</span>
+          <span>记录归档</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">验证管理组</div>
+        <div class="dept-respons">
+          <span>工艺验证</span>
+          <span>清洁验证</span>
+          <span>设备确认</span>
+          <span>计算机化系统验证</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">合规与供应商组</div>
+        <div class="dept-respons">
+          <span>自检内审</span>
+          <span>供应商审计</span>
+          <span>官方检查应对</span>
+          <span>法规更新跟踪</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 2: 核心工作全景 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">二</span>
+    <span class="text">QA 部门核心工作全景</span>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="w-icon">01</div>
+      <div>
+        <div class="w-name">质量体系管理</div>
+        <div class="w-items">
+          <span>QMS框架维护</span><span>质量方针与目标</span><span>年度质量回顾</span><span>管理评审</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">02</div>
+      <div>
+        <div class="w-name">偏差与CAPA</div>
+        <div class="w-items">
+          <span>偏差调查与定级</span><span>根因分析</span><span>CAPA制定与跟踪</span><span>有效性评估</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">03</div>
+      <div>
+        <div class="w-name">变更控制</div>
+        <div class="w-items">
+          <span>变更申请评估</span><span>变更行动计划</span><span>变更批准与关闭</span><span>变更有效性确认</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">04</div>
+      <div>
+        <div class="w-name">现场质量监控</div>
+        <div class="w-items">
+          <span>生产过程巡检</span><span>清场确认</span><span>批记录审核</span><span>产品放行决策</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">05</div>
+      <div>
+        <div class="w-name">文件与培训管理</div>
+        <div class="w-items">
+          <span>SOP生命周期管理</span><span>文件受控分发</span><span>GMP培训体系</span><span>人员资质管理</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">06</div>
+      <div>
+        <div class="w-name">验证管理</div>
+        <div class="w-items">
+          <span>验证主计划VMP</span><span>工艺验证</span><span>清洁验证</span><span>计算机化系统验证CSV</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">07</div>
+      <div>
+        <div class="w-name">供应商质量管理</div>
+        <div class="w-items">
+          <span>供应商审计</span><span>供应商质量协议</span><span>供应商绩效评估</span><span>供应商变更管理</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">08</div>
+      <div>
+        <div class="w-name">自检与外部审计</div>
+        <div class="w-items">
+          <span>年度自检计划</span><span>内部审计执行</span><span>官方检查应对</span><span>客户审计协调</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 3: 企业价值 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">三</span>
+    <span class="text">QA 部门创造的企业价值</span>
+  </div>
+
+  <div class="value-row">
+    <div class="value-card">
+      <div class="v-icon vi1">🏛</div>
+      <div class="v-name">体系构建</div>
+      <div class="v-desc">建立质量管理系统，让质量不依赖个人英雄主义，而是依靠制度与流程</div>
+    </div>
+    <div class="value-card">
+      <div class="v-icon vi2">🛡</div>
+      <div class="v-name">合规屏障</div>
+      <div class="v-desc">满足GMP/FDA/EMA/NMPA要求，守住企业生产经营的合规底线</div>
+    </div>
+    <div class="value-card">
+      <div class="v-icon vi3">🔍</div>
+      <div class="v-name">风险前置</div>
+      <div class="v-desc">通过变更控制、偏差管理将质量风险拦截在发生之前，而非事后补救</div>
+    </div>
+    <div class="value-card">
+      <div class="v-icon vi4">🔄</div>
+      <div class="v-name">持续改进</div>
+      <div class="v-desc">通过CAPA闭环和趋势分析推动全公司质量文化提升和流程优化</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 4: 老板期待 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">四</span>
+    <span class="text">企业老板对 QA 部门的期待</span>
+  </div>
+
+  <div class="expect-list">
+    <div class="expect-item">
+      <div class="e-num">1</div>
+      <div class="e-text">通过所有监管审计<br>不被开出警告信</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">2</div>
+      <div class="e-text">质量体系稳健<br>偏差CAPA不堆积</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">3</div>
+      <div class="e-text">问题前置发现<br>不在客户和监管面前暴露</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">4</div>
+      <div class="e-text">变更管控到位<br>不因变更引发质量事故</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">5</div>
+      <div class="e-text">从"警察"转型<br>成为业务部门可信赖的质量伙伴</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 5: QA经理痛点 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">五</span>
+    <span class="text">QA 经理核心痛点</span>
+  </div>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-head">审计压力持续不断</div>
+      <div class="pain-desc">官方检查、客户审计、总部审计轮番上阵，每次审计都是高压"大考"</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">偏差CAPA越积越多</div>
+      <div class="pain-desc">各部门写了偏差但 CAPA 推进缓慢，QA 催不动，KPI 挂在那里关不掉</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">变更控制阻力大</div>
+      <div class="pain-desc">业务部门认为变更流程繁琐"卡脖子"，QA 夹在合规要求和业务需求之间</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">现场QA人力永远不够</div>
+      <div class="pain-desc">多个车间多条线，现场QA疲于奔命，巡检深度不足，只能"抽检式"监督</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">文件体系臃肿老化</div>
+      <div class="pain-desc">SOP 越写越多、越写越厚，实际操作与文件脱节，"两张皮"现象严重</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 6: 跨部门矛盾 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">六</span>
+    <span class="text">QA 部门与兄弟部门典型矛盾及解决方案</span>
+  </div>
+
+  <div class="conflict-grid">
+    <!-- 1. 生产部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-qa"><div class="ct-name">QA 部门</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">生产部门</div></div>
+      </div>
+      <div class="conf-theme">生产进度优先 vs 质量监控不放行</div>
+      <div class="conf-root">
+        <strong>根因：</strong>生产关注产量与交付，QA 必须独立行使质量否决权，双方天然存在张力
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">将质量指标纳入生产KPI考核</div>
+        <div class="cs-item">建立偏差快速分级通道（微小偏差现场关闭）</div>
+        <div class="cs-item">QA参与工艺优化早期而非最后把关</div>
+      </div>
+    </div>
+
+    <!-- 2. QC部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-qa"><div class="ct-name">QA 部门</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">QC 部门</div></div>
+      </div>
+      <div class="conf-theme">OOS调查责任归属与数据审核的冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>OOS出现时 QC 倾向实验室根本原因，QA 要求全面的生产调查，责任认定存在灰色地带
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">制定OOS调查分级流程明确QC/QA职责边界</div>
+        <div class="cs-item">QA提前参与关键批次的检验数据复核</div>
+        <div class="cs-item">建立QC-QA联合年度趋势分析机制</div>
+      </div>
+    </div>
+
+    <!-- 3. 设备动力部 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-qa"><div class="ct-name">QA 部门</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">设备动力部</div></div>
+      </div>
+      <div class="conf-theme">设备变更验证周期与维修紧迫性的冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>设备维修后急于恢复运行，QA 要求完成变更评估和验证才能投入使用
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">建立设备变更分级：同类替换简化流程</div>
+        <div class="cs-item">制定预防性维护后的标准化验证模板</div>
+        <div class="cs-item">关键设备维修变更预评估前置</div>
+      </div>
+    </div>
+
+    <!-- 4. 研发部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-qa"><div class="ct-name">QA 部门</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">研发部门</div></div>
+      </div>
+      <div class="conf-theme">技术转移质量要求与研发灵活性的冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>研发关注快速推进产品上市，QA 要求技术转移过程需满足GMP可追溯性和可重复性
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">建立研发到生产的技术转移标准流程</div>
+        <div class="cs-item">QA在研发后期提前介入熟悉工艺</div>
+        <div class="cs-item">研发记录逐步向GMP规范靠拢而非一步到位</div>
+      </div>
+    </div>
+
+    <!-- 5. 供应链 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-qa"><div class="ct-name">QA 部门</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">供应链部门</div></div>
+      </div>
+      <div class="conf-theme">供应商审计门槛与供应保障的冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>供应链需要多家供应商保障供货，QA 对供应商审计有严格的合规准入门槛
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">建立供应商风险分级审计：高风险现场、低风险问卷</div>
+        <div class="cs-item">关键物料双供应商策略+合格供应商库</div>
+        <div class="cs-item">供应链早期参与QA供应商准入评估</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Final Message ====== -->
+<div class="final-msg">
+  QA 部门的本质：不是业务的"绊脚石"，而是企业质量体系的设计者与守护者 — 让质量成为系统能力，而非事后救火。
+</div>
+
+<!-- ====== Footer ====== -->
+<div class="poster-footer">
+  <span>QA 部门业务全景、组织职责及跨部门协同分析 · 制造业（制药企业）</span>
+  <span>适用对象：QA 管理者 · QC 管理者 · 生产管理者 · 企业数字化架构师 · SAP QM顾问 · GMP合规负责人</span>
+</div>
+
+</div>
+</body>
+</html>
