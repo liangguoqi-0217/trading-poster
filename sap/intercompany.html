@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP 公司间交易（Intercompany）架构全景图</title>
+<style>
+/* ============================================================
+   SAP Intercompany Architecture Poster
+   McKinsey + SAP Fiori Style · 16:9 4K · A3 打印
+   ============================================================ */
+:root {
+  --sap-navy:#1E3A5F;
+  --sap-blue:#0070D2;
+  --sap-accent:#0854A0;
+  --sap-bg:#F8FAFC;
+  --sap-white:#FFFFFF;
+  --sap-border:#D0D7E2;
+  --sap-gray:#64748B;
+  --sap-dark:#1E293B;
+  --sap-gold:#B8860B;
+  --sap-green:#0F766E;
+  --sap-teal:#0891B2;
+  --sap-amber:#D97706;
+  --sap-rose:#E11D48;
+  --sap-table-bg:#EBF0F7;
+  --sap-ecc-bg:#FFF7ED;
+  --sap-proc-bg:#EFF6FF;
+  --sap-sales-bg:#F0FDFA;
+  --sap-sto-bg:#ECFEFF;
+  --sap-warn-bg:#FEF2F2;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { background:#E8ECF2; }
+body {
+  background:var(--sap-bg);
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",sans-serif;
+  color:var(--sap-dark);
+  -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+  padding:24px 0;
+}
+
+.poster {
+  width:1800px;
+  min-height:945px;
+  background:var(--sap-white);
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ===== Header ===== */
+.poster-header {
+  background:var(--sap-navy); color:#fff;
+  padding:24px 40px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:relative;
+}
+.poster-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--sap-blue), #38BDF8, var(--sap-blue));
+}
+.header-left h1 {
+  font-size:26px; font-weight:700; letter-spacing:1px; line-height:1.2;
+}
+.header-left .subtitle {
+  font-size:13px; color:#94A3B8; margin-top:4px;
+}
+.header-right {
+  text-align:right; font-size:12px; color:#94A3B8; line-height:1.6;
+}
+.header-right .tag {
+  display:inline-block; background:rgba(255,255,255,.12);
+  padding:2px 10px; border-radius:3px; font-size:11px; letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+/* ===== Body Grid ===== */
+.poster-body {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0;
+}
+
+/* ===== Section Base ===== */
+.section {
+  padding:16px 18px;
+  border:1px solid var(--sap-border);
+  position:relative;
+}
+.section-hdr {
+  font-size:11px; font-weight:700; letter-spacing:2px;
+  color:var(--sap-gray); margin-bottom:12px;
+  display:flex; align-items:center; gap:6px;
+  text-transform:uppercase;
+}
+.section-hdr .dot {
+  width:7px; height:7px; border-radius:50%; flex-shrink:0;
+}
+
+/* ===== Section 1: Org + Concept (Full Width) ===== */
+.section-overview {
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:350px 1fr;
+  background:linear-gradient(135deg, #F8FAFC 0%, #F0F4FA 100%);
+  border-bottom:2px solid var(--sap-navy);
+  padding:12px 18px; gap:20px;
+}
+.org-chart {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:4px;
+}
+.org-node-root {
+  padding:8px 24px; background:var(--sap-navy); color:#fff;
+  border-radius:4px; font-weight:700; font-size:15px;
+}
+.org-node-cc {
+  padding:8px 18px; border:1px solid var(--sap-border); border-radius:4px;
+  background:var(--sap-white); font-weight:600; font-size:13px; text-align:center;
+}
+.org-node-plant {
+  padding:6px 14px; border:1px dashed var(--sap-border); border-radius:4px;
+  background:var(--sap-table-bg); font-size:12px; color:var(--sap-gray); text-align:center;
+}
+.org-line { font-size:18px; color:var(--sap-gray); line-height:1; }
+.org-branch {
+  display:flex; gap:40px; align-items:flex-start;
+}
+.org-branch-col {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.concept-area { padding:0 8px; }
+.concept-title {
+  font-size:12px; font-weight:700; color:var(--sap-navy); margin-bottom:10px;
+  letter-spacing:1px;
+}
+.concept-grid {
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:8px;
+}
+.concept-item {
+  padding:10px 14px; border:1px solid var(--sap-border); border-radius:4px;
+  background:var(--sap-white); font-size:12px; line-height:1.6;
+}
+.concept-item .key {
+  font-weight:700; color:var(--sap-navy); font-size:13px; display:block;
+}
+.concept-item .desc {
+  color:var(--sap-gray); font-size:11px; margin-top:2px;
+}
+.judge-box {
+  margin-top:10px; padding:10px 14px;
+  background:var(--sap-ecc-bg); border:1px solid #FED7AA; border-radius:4px;
+  font-size:12px; line-height:1.7;
+}
+.judge-box strong { color:var(--sap-amber); }
+
+/* ===== Role Cards (Full Width 3 col row) ===== */
+.section-modes-title {
+  grid-column:1 / -1;
+  padding:14px 18px 6px;
+  font-size:12px; font-weight:700; color:var(--sap-navy);
+  letter-spacing:1px; border-bottom:1px solid var(--sap-border);
+  display:flex; align-items:center; gap:8px;
+}
+.section-modes-title::before {
+  content:''; width:3px; height:16px; background:var(--sap-navy); border-radius:2px;
+}
+
+/* ===== Mode Card ===== */
+.mode-card {
+  border:none; border-right:1px solid var(--sap-border);
+  display:flex; flex-direction:column;
+}
+.mode-card:last-child { border-right:none; }
+
+.mode-card .mode-head {
+  padding:12px 14px; display:flex; align-items:center; gap:8px;
+  border-bottom:1px solid var(--sap-border);
+}
+.mode-card .mode-icon {
+  width:36px; height:36px; border-radius:6px; display:flex;
+  align-items:center; justify-content:center;
+  font-size:16px; font-weight:700; color:#fff; flex-shrink:0;
+}
+.mode-card.m-proc .mode-head { background:var(--sap-proc-bg); } .m-proc .mode-icon { background:var(--sap-blue); }
+.mode-card.m-sales .mode-head { background:var(--sap-sales-bg); } .m-sales .mode-icon { background:var(--sap-green); }
+.mode-card.m-sto .mode-head { background:var(--sap-sto-bg); } .m-sto .mode-icon { background:var(--sap-teal); }
+
+.mode-card .mode-name { font-size:14px; font-weight:700; color:var(--sap-dark); }
+.mode-card .mode-sub { font-size:10px; color:var(--sap-gray); }
+
+.mode-card .mode-body {
+  padding:10px 14px; flex:1; font-size:11px; line-height:1.7;
+}
+.mode-card .mode-body .row-label {
+  font-size:10px; font-weight:700; color:var(--sap-gray); letter-spacing:1px;
+  text-transform:uppercase; margin:8px 0 2px;
+}
+.mode-card .mode-body .row-label:first-child { margin-top:0; }
+
+.flow-mini {
+  display:flex; align-items:center; gap:0; flex-wrap:wrap; margin:4px 0;
+}
+.flow-mini-step {
+  padding:4px 8px; background:var(--sap-table-bg);
+  border:1px solid var(--sap-border); border-radius:3px;
+  font-size:10px; font-weight:600; white-space:nowrap;
+}
+.flow-mini-arrow { font-size:12px; color:var(--sap-gray); margin:0 2px; font-weight:700; }
+.flow-mini-tcode { font-size:9px; color:var(--sap-accent); font-family:"JetBrains Mono","Consolas",monospace; }
+
+.code-tag {
+  display:inline-block; font-size:10px;
+  font-family:"JetBrains Mono","Consolas",monospace;
+  background:var(--sap-table-bg); color:var(--sap-accent);
+  padding:2px 6px; border-radius:2px; margin:1px 2px;
+}
+.code-tag.mvt {
+  background:#EBF5FF; color:var(--sap-blue); border:1px solid #BFDBFE;
+  font-weight:700; font-size:12px;
+}
+.code-tag.supplier {
+  background:var(--sap-ecc-bg); border:1px solid #FED7AA;
+  color:var(--sap-amber);
+}
+
+.pitfall-box {
+  margin-top:8px; padding:8px 10px;
+  background:var(--sap-warn-bg); border-left:3px solid var(--sap-rose);
+  border-radius:0 4px 4px 0; font-size:10px; line-height:1.6;
+}
+.pitfall-box .pf-title {
+  font-weight:700; color:var(--sap-rose); font-size:11px;
+}
+
+/* ===== STO Sub-modes Section (Full Width) ===== */
+.section-sto-detail {
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  border-top:2px solid var(--sap-teal);
+}
+.sto-sub-card {
+  padding:14px 16px; border-right:1px solid var(--sap-border);
+}
+.sto-sub-card:last-child { border-right:none; }
+.sto-sub-card h4 {
+  font-size:13px; font-weight:700; color:var(--sap-teal); margin-bottom:10px;
+}
+.sto-sub-card h4 .sto-badge {
+  font-size:9px; padding:2px 6px; border-radius:3px; font-weight:700;
+  margin-left:6px; letter-spacing:.5px;
+}
+.sto-sub-card h4 .sto-badge.one { background:#E0F2FE; color:var(--sap-teal); }
+.sto-sub-card h4 .sto-badge.two { background:#CCFBF1; color:var(--sap-green); }
+.sto-sub-card h4 .sto-badge.dlv { background:#DBEAFE; color:var(--sap-blue); }
+
+/* ===== Comparison Table (Full Width) ===== */
+.section-compare {
+  grid-column:1 / -1;
+  background:var(--sap-table-bg);
+  border-top:2px solid var(--sap-navy);
+  padding:0;
+}
+.compare-table {
+  width:100%; border-collapse:collapse; font-size:11px;
+}
+.compare-table th {
+  background:var(--sap-navy); color:#fff; font-size:10px; font-weight:700;
+  letter-spacing:1px; padding:8px 10px; text-align:left;
+}
+.compare-table td {
+  padding:8px 10px; border-bottom:1px solid var(--sap-border);
+  background:var(--sap-white); vertical-align:top;
+}
+.compare-table tr:last-child td { border-bottom:none; }
+.compare-table .highlight { font-weight:700; color:var(--sap-accent); }
+
+/* ===== Pitfalls Section (Full Width) ===== */
+.section-pitfalls {
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:0;
+  background:#FFFBEB;
+}
+.pf-card {
+  padding:14px 16px; border-right:1px solid #FDE68A;
+}
+.pf-card:last-child { border-right:none; }
+.pf-card .pf-num {
+  font-size:9px; font-weight:700; color:var(--sap-amber); margin-bottom:4px;
+  letter-spacing:1px;
+}
+.pf-card .pf-head {
+  font-size:12px; font-weight:700; color:var(--sap-dark); margin-bottom:4px;
+}
+.pf-card .pf-body {
+  font-size:10px; color:var(--sap-gray); line-height:1.6;
+}
+
+/* ===== Pharma Section (Full Width) ===== */
+.section-pharma {
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  background:var(--sap-navy); color:#CBD5E1;
+}
+.pharma-left {
+  padding:18px 24px; border-right:1px solid rgba(255,255,255,.1);
+}
+.pharma-left h4 { font-size:13px; font-weight:700; color:#fff; margin-bottom:10px; }
+.pharma-left .rank-list {
+  display:flex; flex-direction:column; gap:6px;
+}
+.pharma-left .rank-item {
+  font-size:12px; padding:8px 12px; border-radius:4px;
+  border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; gap:8px;
+}
+.pharma-left .rank-item .rank-num {
+  font-size:20px; font-weight:700; color:#38BDF8; width:28px; text-align:center;
+}
+.pharma-left .rank-item .rank-label { font-weight:600; color:#E2E8F0; }
+.pharma-left .rank-item .rank-detail { font-size:10px; color:#94A3B8; }
+
+.pharma-right {
+  padding:18px 24px;
+}
+.pharma-right h4 { font-size:13px; font-weight:700; color:#fff; margin-bottom:10px; }
+.pharma-right .flow-rec {
+  display:flex; flex-direction:column; gap:5px;
+}
+.pharma-right .rec-step {
+  font-size:11px; padding:6px 10px; border-radius:3px;
+  border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; gap:8px;
+  color:#CBD5E1;
+}
+.pharma-right .rec-step .rec-arrow {
+  color:#38BDF8; font-weight:700; font-size:14px;
+}
+
+/* ===== Legend ===== */
+.legend-bar {
+  grid-column:1 / -1;
+  display:flex; gap:16px; padding:8px 18px;
+  border-top:1px solid var(--sap-border);
+  background:#FAFBFC; flex-wrap:wrap; align-items:center;
+}
+.legend-item {
+  display:flex; align-items:center; gap:5px; font-size:10px; color:var(--sap-gray);
+}
+.legend-dot {
+  width:9px; height:9px; border-radius:2px; flex-shrink:0;
+}
+
+/* ===== Footer ===== */
+.poster-footer {
+  padding:10px 40px; background:var(--sap-navy); color:#94A3B8;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; letter-spacing:.5px;
+}
+.poster-footer .left { font-weight:600; color:#CBD5E1; }
+
+@media print {
+  html { background:#fff; }
+  body { padding:0; }
+  .poster { box-shadow:none; width:100%; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- ===== Header ===== -->
+  <header class="poster-header">
+    <div class="header-left">
+      <h1>SAP 公司间交易（Intercompany）架构全景图</h1>
+      <div class="subtitle">三大模式：公司间采购 · 公司间销售 · 公司间库存调拨（STO）· 制药行业推荐方案</div>
+    </div>
+    <div class="header-right">
+      <div class="tag">SAP S/4HANA / ECC</div><br>
+      A3 学习海报 · 4K<br>
+      产品经理视角 · 避坑指南
+    </div>
+  </header>
+
+  <!-- ===== Overview: Org Chart + Core Concept ===== -->
+  <div class="poster-body">
+
+    <section class="section-overview">
+      <!-- Org Chart -->
+      <div class="org-chart" style="border-right:1px solid var(--sap-border); padding-right:16px;">
+        <div class="org-node-root">集团</div>
+        <div class="org-line">│</div>
+        <div class="org-branch">
+          <div class="org-branch-col">
+            <div class="org-node-cc">公司代码 A（法人 A）</div>
+            <div class="org-line">│</div>
+            <div class="org-node-plant">工厂 A</div>
+          </div>
+          <div class="org-branch-col">
+            <div class="org-node-cc">公司代码 B（法人 B）</div>
+            <div class="org-line">│</div>
+            <div class="org-node-plant">工厂 B</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Concept -->
+      <div class="concept-area">
+        <div class="concept-title">▎核心概念</div>
+        <div class="concept-grid">
+          <div class="concept-item">
+            <span class="key">公司代码 = 法律主体</span>
+            <div class="desc">独立的法人实体，需独立出具财务报表</div>
+          </div>
+          <div class="concept-item">
+            <span class="key">工厂 = 物流地点</span>
+            <div class="desc">物料的物理存放和生产场所，从属于公司代码</div>
+          </div>
+        </div>
+        <div class="judge-box">
+          <strong>判断标准：是否跨公司代码？</strong><br>
+          同公司代码、不同工厂 → <span style="color:var(--sap-green);font-weight:700;">不是公司间交易</span><br>
+          不同公司代码、同一集团 → <span style="color:var(--sap-rose);font-weight:700;">是公司间交易，必须体现内部交易</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Legend ===== -->
+    <div class="legend-bar">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sap-blue)"></div>公司间采购</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sap-green)"></div>公司间销售</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sap-teal)"></div>库存调拨 STO</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sap-rose)"></div>避坑要点</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sap-amber)"></div>移动类型</div>
+    </div>
+
+    <!-- ===== Three Modes Title ===== -->
+    <div class="section-modes-title">▎三大模式对比 — 业务场景 → 单据链 → 创建主体 → 移动类型 → 风险点</div>
+
+    <!-- ===== Mode 1: Intercompany Procurement ===== -->
+    <div class="section mode-card m-proc">
+      <div class="mode-head">
+        <div class="mode-icon">购</div>
+        <div>
+          <div class="mode-name">模式一：公司间采购</div>
+          <div class="mode-sub">Intercompany Procurement</div>
+        </div>
+      </div>
+      <div class="mode-body">
+        <div class="row-label">业务场景</div>
+        <div style="font-weight:600;color:var(--sap-dark);">
+          A 公司缺料 → 向集团内部 B 公司采购 → B 公司供货
+        </div>
+        <div style="font-size:10px;color:var(--sap-gray);margin-top:2px;">
+          例：西安药业向上海药业采购原料
+        </div>
+
+        <div class="row-label">单据链</div>
+        <div class="flow-mini">
+          <div class="flow-mini-step">采购申请</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">采购订单</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">B 发货</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">A 收货</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">发票</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">付款</div>
+        </div>
+
+        <div class="row-label">谁创建</div>
+        <div>A 公司采购部门 <span class="code-tag">ME51N</span> → <span class="code-tag">ME21N</span></div>
+        <div style="font-size:10px;color:var(--sap-gray);">供应商填写 B 公司编码（如 100000 上海药业）</div>
+
+        <div class="row-label">移动类型</div>
+        <div>
+          <span class="code-tag mvt">101</span> 采购收货
+          &nbsp;<span class="code-tag mvt">102</span> 退货
+        </div>
+
+        <div class="pitfall-box">
+          <div class="pf-title">⚠ 三个坑</div>
+          <div>① B 公司必须在 A 采购组织下建立供应商主数据，否则无法采购</div>
+          <div>② 内部交易价格需提前明确：标准成本 / 转移价 / 市场价？影响利润归属</div>
+          <div>③ 不同法人 = 真实销售，可能涉及增值税和发票</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Mode 2: Intercompany Sales ===== -->
+    <div class="section mode-card m-sales">
+      <div class="mode-head">
+        <div class="mode-icon">销</div>
+        <div>
+          <div class="mode-name">模式二：公司间销售</div>
+          <div class="mode-sub">Intercompany Sales（最经典模式）</div>
+        </div>
+      </div>
+      <div class="mode-body">
+        <div class="row-label">业务场景</div>
+        <div style="font-weight:600;color:var(--sap-dark);">
+          客户下单 → 销售公司 A 接单 → 生产公司 B 生产并直接发货给客户
+        </div>
+        <div style="font-size:10px;color:var(--sap-gray);margin-top:2px;">
+          例：上海贸易公司接单，西安工厂生产供货
+        </div>
+
+        <div class="row-label">单据链</div>
+        <div class="flow-mini">
+          <div class="flow-mini-step">客户销售订单</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">公司间采购订单</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">B 交货</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">公司间发票</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">客户发票</div>
+        </div>
+
+        <div class="row-label">谁创建</div>
+        <div>销售公司创建订单 <span class="code-tag">VA01</span></div>
+        <div style="font-size:10px;color:var(--sap-gray);">系统自动产生公司间采购订单，或手工创建</div>
+
+        <div class="row-label">移动类型</div>
+        <div>
+          <span class="code-tag mvt">601</span> 销售出库
+          &nbsp;<span class="code-tag mvt">643</span> 公司间销售发货
+        </div>
+
+        <div class="row-label">财务凭证</div>
+        <div style="font-size:10px;">
+          公司 B → 公司 A：<strong>内部销售收入</strong><br>
+          公司 A → 客户：<strong>客户收入</strong><br>
+          → 形成 公司 B 利润 + 公司 A 利润
+        </div>
+
+        <div class="pitfall-box">
+          <div class="pf-title">⚠ 三个坑</div>
+          <div>① B 工厂必须属于销售组织，否则无法交货</div>
+          <div>② B 需建立 A 为客户主数据（B 视 A 为客户）</div>
+          <div>③ 需维护内部价格条件（如 <span class="code-tag">PI01</span>）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Mode 3: STO ===== -->
+    <div class="section mode-card m-sto">
+      <div class="mode-head">
+        <div class="mode-icon">调</div>
+        <div>
+          <div class="mode-name">模式三：公司间库存调拨（STO）</div>
+          <div class="mode-sub">Intercompany Stock Transfer · 制造企业最常见</div>
+        </div>
+      </div>
+      <div class="mode-body">
+        <div class="row-label">业务场景</div>
+        <div style="font-weight:600;color:var(--sap-dark);">
+          集团内多工厂之间转移库存，不是销售关系，是库存物流移动
+        </div>
+        <div style="font-size:10px;color:var(--sap-gray);margin-top:2px;">
+          例：西安工厂 → 上海工厂（物料调拨）
+        </div>
+
+        <div class="row-label">STO 采购订单</div>
+        <div>类型 <span class="code-tag">UB</span>，需求工厂采购员 <span class="code-tag">ME21N</span> 创建</div>
+
+        <div class="row-label">本质澄清</div>
+        <div style="background:var(--sap-ecc-bg);padding:6px 8px;border-radius:3px;font-size:10px;margin-top:4px;">
+          STO 不是采购！更接近<strong style="color:var(--sap-amber);">库存物流移动</strong>，只是借用采购订单作为承载单据
+        </div>
+
+        <div class="row-label">三种子模式</div>
+        <div style="font-size:10px;line-height:1.6;margin-top:3px;">
+          <div>▪ <strong>一步法</strong>：直接增减库存，无在途 | 发货 <span class="code-tag mvt">301</span></div>
+          <div>▪ <strong>两步法</strong>：有在途库存 | 发货 <span class="code-tag mvt">351</span> + 收货 <span class="code-tag mvt">101</span></div>
+          <div>▪ <strong>带交货</strong>：支持批次/序列号/运输 | 发货 <span class="code-tag mvt">641</span> + 收货 <span class="code-tag mvt">101</span></div>
+        </div>
+        <div style="font-size:9px;color:var(--sap-gray);margin-top:4px;">
+          ▼ 下方展开详细对比
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STO Three Sub-modes Detail ===== -->
+    <div class="section-sto-detail">
+      <!-- 一步法 -->
+      <div class="sto-sub-card">
+        <h4>一步法 STO <span class="sto-badge one">简单</span></h4>
+        <div style="font-size:11px;color:var(--sap-gray);margin-bottom:8px;">简单调拨，直接增减库存，无运输过程</div>
+        <div class="flow-mini">
+          <div class="flow-mini-step">工厂 A 库存减少</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">工厂 B 库存增加</div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;">
+          单据：STO PO 类型 <span class="code-tag">UB</span><br>
+          创建：需求工厂采购员 <span class="code-tag">ME21N</span><br>
+          发货：<span class="code-tag mvt">301</span> 一步调拨
+        </div>
+        <div style="margin-top:8px;padding:6px 8px;background:#F0FDF4;border-radius:3px;font-size:10px;">
+          <strong style="color:var(--sap-green);">优点：</strong>简单<br>
+          <strong style="color:var(--sap-rose);">缺点：</strong>没有运输过程
+        </div>
+      </div>
+
+      <!-- 两步法 -->
+      <div class="sto-sub-card">
+        <h4>两步法 STO <span class="sto-badge two">物流</span></h4>
+        <div style="font-size:11px;color:var(--sap-gray);margin-bottom:8px;">真实物流：发出 → 在途 → 收货</div>
+        <div class="flow-mini">
+          <div class="flow-mini-step">发货 <span class="code-tag mvt">351</span></div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">在途库存</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">收货 <span class="code-tag mvt">101</span></div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;">
+          单据：STO PO 类型 <span class="code-tag">UB</span><br>
+          第一步：<span class="code-tag">MIGO</span> <span class="code-tag mvt">351</span> 发货 → 产生在途库存<br>
+          第二步：<span class="code-tag">MIGO</span> <span class="code-tag mvt">101</span> 收货
+        </div>
+        <div style="margin-top:8px;padding:6px 8px;background:#F0FDF4;border-radius:3px;font-size:10px;">
+          <strong style="color:var(--sap-green);">优点：</strong>有在途库存，符合真实物流<br>
+          <strong style="color:var(--sap-rose);">缺点：</strong>需两步操作
+        </div>
+      </div>
+
+      <!-- 带交货 -->
+      <div class="sto-sub-card">
+        <h4>带交货 STO <span class="sto-badge dlv">推荐</span></h4>
+        <div style="font-size:11px;color:var(--sap-gray);margin-bottom:8px;">大型制造企业最常用，支持完整物流管理</div>
+        <div class="flow-mini">
+          <div class="flow-mini-step">STO 订单</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">外向交货 <span class="code-tag">VL10B</span></div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">拣配</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">PGI 发货</div>
+          <span class="flow-mini-arrow">→</span>
+          <div class="flow-mini-step">收货 <span class="code-tag mvt">101</span></div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;">
+          发货：<span class="code-tag mvt">641</span>&nbsp;收货：<span class="code-tag mvt">101</span>
+        </div>
+        <div style="margin-top:8px;padding:6px 8px;background:#F0FDF4;border-radius:3px;font-size:10px;">
+          <strong style="color:var(--sap-green);">支持：</strong>批次 · 序列号 · 运输路线 · 发货管理
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Comparison Table ===== -->
+    <div class="section-compare">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:12%">模式</th>
+            <th style="width:18%">本质</th>
+            <th style="width:24%">主要单据</th>
+            <th style="width:14%">创建人</th>
+            <th style="width:16%">发货移动类型</th>
+            <th style="width:16%">收货移动类型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="highlight" style="color:var(--sap-blue)">公司间采购</td>
+            <td>向内部供应商采购</td>
+            <td>PO（<span class="code-tag">ME21N</span>）</td>
+            <td>采购部门</td>
+            <td>—</td>
+            <td><span class="code-tag mvt">101</span></td>
+          </tr>
+          <tr>
+            <td class="highlight" style="color:var(--sap-green)">公司间销售</td>
+            <td>卖给客户但内部供货</td>
+            <td>SO（<span class="code-tag">VA01</span>）+ 交货</td>
+            <td>销售部门</td>
+            <td><span class="code-tag mvt">601 / 643</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td class="highlight" style="color:var(--sap-teal)">STO 一步法</td>
+            <td>库存直接调拨</td>
+            <td>STO PO（<span class="code-tag">UB</span>）</td>
+            <td>需求工厂</td>
+            <td><span class="code-tag mvt">301</span></td>
+            <td><span class="code-tag mvt">301</span>（同一动作）</td>
+          </tr>
+          <tr>
+            <td class="highlight" style="color:var(--sap-teal)">STO 两步法</td>
+            <td>库存运输调拨</td>
+            <td>STO PO（<span class="code-tag">UB</span>）</td>
+            <td>需求工厂</td>
+            <td><span class="code-tag mvt">351</span></td>
+            <td><span class="code-tag mvt">101</span></td>
+          </tr>
+          <tr>
+            <td class="highlight" style="color:var(--sap-teal)">STO 带交货</td>
+            <td>物流完整调拨</td>
+            <td>STO PO + 交货单（<span class="code-tag">VL10B</span>）</td>
+            <td>需求工厂</td>
+            <td><span class="code-tag mvt">641</span></td>
+            <td><span class="code-tag mvt">101</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== 5 Pitfalls ===== -->
+    <section class="section-pitfalls">
+      <div class="pf-card">
+        <div class="pf-num">避坑 ①</div>
+        <div class="pf-head">公司间 ≠ 跨工厂</div>
+        <div class="pf-body">
+          错误认知：两个工厂就是公司间。<br>
+          <strong>正确判断：是否跨公司代码。</strong><br>
+          同公司代码不同工厂只是内部移库，不需体现内部交易。
+        </div>
+      </div>
+      <div class="pf-card">
+        <div class="pf-num">避坑 ②</div>
+        <div class="pf-head">STO 不是采购</div>
+        <div class="pf-body">
+          很多企业误认为 STO = 采购。<br>
+          <strong>本质：库存物流移动</strong>，只是借用采购订单作为承载单据。
+        </div>
+      </div>
+      <div class="pf-card">
+        <div class="pf-num">避坑 ③</div>
+        <div class="pf-head">内部交易价格</div>
+        <div class="pf-body">
+          必须提前明确：成本价？标准价？市场价？<br>
+          否则财务利润分析会混乱，集团合并报表异常。
+        </div>
+      </div>
+      <div class="pf-card">
+        <div class="pf-num">避坑 ④</div>
+        <div class="pf-head">批次管理（制药重点关注）</div>
+        <div class="pf-body">
+          STO 涉及批次、有效期、质量状态。<br>
+          发货需明确哪个批次出去；收货是否需重新检验？
+        </div>
+      </div>
+      <div class="pf-card">
+        <div class="pf-num">避坑 ⑤</div>
+        <div class="pf-head">QM 质量检验联动</div>
+        <div class="pf-body">
+          启用 QM 时，STO 收货 <strong>101 可能触发检验批</strong>，物料进入质量检验库存，需 QM 放行后才能使用。
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pharma Industry Recommendation ===== -->
+    <section class="section-pharma">
+      <div class="pharma-left">
+        <h4>▎制药企业推荐排序</h4>
+        <div style="font-size:11px;color:#94A3B8;margin-bottom:10px;">
+          多工厂 · 批次管理 · MES · ECC · 制造业
+        </div>
+        <div class="rank-list">
+          <div class="rank-item">
+            <span class="rank-num">①</span>
+            <div>
+              <div class="rank-label">STO 交货模式</div>
+              <div class="rank-detail">641 + 101 · 支持批次/序列号/运输</div>
+            </div>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">②</span>
+            <div>
+              <div class="rank-label">公司间采购</div>
+              <div class="rank-detail">PO + 101 · 内部供应商采购</div>
+            </div>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">③</span>
+            <div>
+              <div class="rank-label">公司间销售</div>
+              <div class="rank-detail">SO + 601 · 销售公司+生产工厂</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pharma-right">
+        <h4>▎标准设计流程（原料 & 成品）</h4>
+        <div class="flow-rec">
+          <div class="rec-step"><span class="rec-arrow">→</span> 工厂间调拨需求确认</div>
+          <div class="rec-step"><span class="rec-arrow">→</span> 创建 STO 采购订单（类型 UB）</div>
+          <div class="rec-step"><span class="rec-arrow">→</span> 外向交货（VL10B）· 批次指定</div>
+          <div class="rec-step"><span class="rec-arrow">→</span> PGI 发货过账（641）· MES 同步</div>
+          <div class="rec-step"><span class="rec-arrow">→</span> 收货（101）· QM 检验 · 批次跟踪</div>
+          <div class="rec-step"><span class="rec-arrow">→</span> 财务自动生成公司间凭证</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="poster-footer" style="grid-column:1/-1;">
+      <span class="left">SAP 公司间交易架构全景图 · A3 学习海报</span>
+      <span class="right" style="display:flex; gap:16px;">
+        <span>© 知识库 · SAP Playbook</span>
+        <span>v1.0</span>
+      </span>
+    </footer>
+
+  </div><!-- /poster-body -->
+
+</div><!-- /poster -->
+
+</body>
+</html>
