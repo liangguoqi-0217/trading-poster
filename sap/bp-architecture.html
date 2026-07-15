@@ -416,7 +416,7 @@ body {
   <header class="poster-header">
     <div class="header-left">
       <h1>SAP S/4HANA Business Partner（BP）架构全景图</h1>
-      <div class="subtitle">唯一业务伙伴主数据对象（Master Data Object）· 供应商 & 客户统一模型</div>
+      <div class="subtitle">唯一业务伙伴主数据对象 · 供应商与客户统一模型</div>
     </div>
     <div class="header-right">
       <div class="tag">S/4HANA 2024</div><br>
@@ -428,7 +428,7 @@ body {
   <!-- ===== Legend Bar ===== -->
   <div class="legend-bar">
     <div class="legend-item"><div class="legend-dot" style="background:var(--sap-navy)"></div>BP 核心表 (BUT*)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--sap-blue)"></div>BP Role / 角色</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sap-blue)"></div>BP 角色</div>
     <div class="legend-item"><div class="legend-dot" style="background:#FED7AA"></div>ECC 兼容视图 (LFB1/LFM1/LFBK)</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--sap-teal)"></div>组织层级</div>
     <div class="legend-item"><div class="legend-dot" style="background:#7C3AED"></div>P2P 采购到付款</div>
@@ -440,7 +440,7 @@ body {
 
     <!-- ===== Section 1: BUT000 General Data (Full Width) ===== -->
     <section class="section section-but000">
-      <div class="section-title"><span class="dot"></span>1. 通用主数据层（General Data）— 所有 BP 共享，与 Role 无关</div>
+      <div class="section-title"><span class="dot"></span>1. 通用主数据层 — 所有 BP 共享，与角色无关</div>
       <div class="but000-badge">核心表 · BUT000</div>
       <div class="but000-grid">
         <div class="but000-item">
@@ -455,12 +455,12 @@ body {
         </div>
         <div class="but000-item">
           <div class="label">类型</div>
-          <div class="value">Person / Organization / Group</div>
+          <div class="value">个人 / 组织 / 集团</div>
           <span class="code">TYPE</span>
         </div>
         <div class="but000-item">
           <div class="label">搜索词</div>
-          <div class="value">Search Term 1 / 2</div>
+          <div class="value">搜索词 1 / 2</div>
           <span class="code">BU_SORT1 / BU_SORT2</span>
         </div>
         <div class="but000-item">
@@ -534,11 +534,11 @@ body {
             <div class="icon-diamond">FI</div>
             <div>
               <div class="role-name">财务供应商</div>
-              <div class="role-code">FLVN00 · Supplier (FI)</div>
+              <div class="role-code">FLVN00 · 供应商（财务）</div>
             </div>
           </div>
           <div class="role-body">
-            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Company Code 层</strong>
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：公司代码层</strong>
             <ul style="margin-top:4px;">
               <li>对账科目（AKONT）</li>
               <li>付款条件（ZTERM）</li>
@@ -547,8 +547,8 @@ body {
               <li>预扣税（QSREC）</li>
             </ul>
             <div class="compat">
-              <span class="compat-label">← 兼容 ECC →</span><br>
-              <span class="compat-table">LFB1（供应商公司代码）</span>
+              <span class="compat-label">← 兼容 ECC 视图 →</span><br>
+              <span class="compat-table">LFB1（供应商公司代码数据）</span>
             </div>
           </div>
         </div>
@@ -559,20 +559,20 @@ body {
             <div class="icon-diamond">PU</div>
             <div>
               <div class="role-name">采购供应商</div>
-              <div class="role-code">FLVN01 · Supplier Purchasing</div>
+              <div class="role-code">FLVN01 · 供应商（采购）</div>
             </div>
           </div>
           <div class="role-body">
-            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Purchasing Org 层</strong>
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：采购组织层</strong>
             <ul style="margin-top:4px;">
               <li>采购币种（WAERS）</li>
               <li>国际贸易条款（INCO1）</li>
-              <li>自动 PO（BSART）</li>
+              <li>自动创建采购订单（BSART）</li>
               <li>最小订单金额（MINBW）</li>
               <li>计划交货时间（PLIFZ）</li>
             </ul>
             <div class="compat">
-              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-label">← 兼容 ECC 视图 →</span><br>
               <span class="compat-table">LFM1（供应商采购组织数据）</span>
             </div>
           </div>
@@ -584,11 +584,11 @@ body {
             <div class="icon-diamond">CF</div>
             <div>
               <div class="role-name">财务客户</div>
-              <div class="role-code">FLCU00 · Customer (FI)</div>
+              <div class="role-code">FLCU00 · 客户（财务）</div>
             </div>
           </div>
           <div class="role-body">
-            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Company Code 层</strong>
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：公司代码层</strong>
             <ul style="margin-top:4px;">
               <li>对账科目（AKONT）</li>
               <li>付款条件（ZTERM）</li>
@@ -597,7 +597,7 @@ body {
               <li>预扣税（WT_WITHCD）</li>
             </ul>
             <div class="compat">
-              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-label">← 兼容 ECC 视图 →</span><br>
               <span class="compat-table">KNB1（客户公司代码数据）</span>
             </div>
           </div>
@@ -609,11 +609,11 @@ body {
             <div class="icon-diamond">SD</div>
             <div>
               <div class="role-name">销售客户</div>
-              <div class="role-code">FLCU01 · Customer Sales</div>
+              <div class="role-code">FLCU01 · 客户（销售）</div>
             </div>
           </div>
           <div class="role-body">
-            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：Sales Org 层</strong>
+            <strong style="color:var(--sap-dark);font-size:11px;">数据归属：销售组织层</strong>
             <ul style="margin-top:4px;">
               <li>销售区域（VKORG/VTWEG）</li>
               <li>定价程序（KALKS）</li>
@@ -622,7 +622,7 @@ body {
               <li>客户统计组（VERSG）</li>
             </ul>
             <div class="compat">
-              <span class="compat-label">← 兼容 ECC →</span><br>
+              <span class="compat-label">← 兼容 ECC 视图 →</span><br>
               <span class="compat-table">KNVV（客户销售区域数据）</span>
             </div>
           </div>
@@ -633,19 +633,19 @@ body {
 
     <!-- ===== Section 4: Bank Info (1 col) + Section 5: Organization (2 cols) ===== -->
     <section class="section section-bank">
-      <div class="section-title"><span class="dot"></span>3. 银行信息 — 兼容 Vendor Bank</div>
+      <div class="section-title"><span class="dot"></span>3. 银行信息 — 兼容供应商银行主数据</div>
       <div style="font-size:11px;color:var(--sap-gray);margin-bottom:10px;">
         BP 银行详情 → 兼容 ECC 供应商银行主数据
       </div>
       <div class="bank-fields">
         <span class="bank-field">LFBK</span>
-        <span class="bank-field">Bank Key (BANKK)</span>
-        <span class="bank-field">Account No. (BANKN)</span>
+        <span class="bank-field">银行代码 (BANKK)</span>
+        <span class="bank-field">账号 (BANKN)</span>
         <span class="bank-field">IBAN</span>
         <span class="bank-field">SWIFT/BIC</span>
-        <span class="bank-field">Partner Bank Type</span>
-        <span class="bank-field">Bank Control Key</span>
-        <span class="bank-field">Reference Details</span>
+        <span class="bank-field">伙伴银行类型</span>
+        <span class="bank-field">银行控制码</span>
+        <span class="bank-field">参考明细</span>
       </div>
       <div class="bank-note">
         <strong style="color:var(--sap-dark);">关联路径：</strong><br>
@@ -655,34 +655,34 @@ body {
     </section>
 
     <section class="section section-org">
-      <div class="section-title"><span class="dot"></span>4. 组织层级 — Role 数据归属的维度</div>
+      <div class="section-title"><span class="dot"></span>4. 组织层级 — 角色数据归属的维度</div>
       <div class="org-tree">
         <div class="org-node">
           公司代码
-          <span class="org-code">Company Code (BUKRS)</span>
+          <span class="org-code">公司代码 (BUKRS)</span>
         </div>
         <span class="org-arrow">→</span>
         <div class="org-node">
           采购组织
-          <span class="org-code">Purchasing Org (EKORG)</span>
+          <span class="org-code">采购组织 (EKORG)</span>
         </div>
         <span class="org-arrow">→</span>
         <div class="org-node">
           销售组织
-          <span class="org-code">Sales Org (VKORG)</span>
+          <span class="org-code">销售组织 (VKORG)</span>
         </div>
         <span class="org-arrow">→</span>
         <div class="org-node">
           信贷管理
-          <span class="org-code">Credit Segment (KKBER)</span>
+          <span class="org-code">信贷控制范围 (KKBER)</span>
         </div>
       </div>
       <div class="org-ref">
-        <div class="org-ref-item">FLVN00 数据 → Company Code 层</div>
-        <div class="org-ref-item">FLVN01 数据 → Purchasing Org 层</div>
-        <div class="org-ref-item">FLCU00 数据 → Company Code 层</div>
-        <div class="org-ref-item">FLCU01 数据 → Sales Org 层</div>
-        <div class="org-ref-item">信贷数据 → Credit Segment 层</div>
+        <div class="org-ref-item">FLVN00 数据 → 公司代码层</div>
+        <div class="org-ref-item">FLVN01 数据 → 采购组织层</div>
+        <div class="org-ref-item">FLCU00 数据 → 公司代码层</div>
+        <div class="org-ref-item">FLCU01 数据 → 销售组织层</div>
+        <div class="org-ref-item">信贷数据 → 信贷控制范围层</div>
         <div class="org-ref-item">通用数据 → 全局（与组织无关）</div>
       </div>
     </section>
@@ -693,86 +693,86 @@ body {
 
       <!-- P2P -->
       <div class="process-p2p">
-        <h4><span class="badge">P2P</span> Procure-to-Pay 采购到付款</h4>
+        <h4><span class="badge">P2P</span> 采购到付款</h4>
         <div class="flow-row">
           <div class="flow-step">
             <div class="step-icon">🏭</div>
-            <div class="step-name">Supplier</div>
+            <div class="step-name">供应商</div>
             <div class="step-tcode">BP (FLVN00/01)</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">📋</div>
             <div class="step-name">采购申请</div>
-            <div class="step-tcode">ME51N · PR</div>
+            <div class="step-tcode">ME51N</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">📦</div>
             <div class="step-name">采购订单</div>
-            <div class="step-tcode">ME21N · PO</div>
+            <div class="step-tcode">ME21N</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">📥</div>
             <div class="step-name">收货</div>
-            <div class="step-tcode">MIGO · GR</div>
+            <div class="step-tcode">MIGO</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">🧾</div>
             <div class="step-name">发票校验</div>
-            <div class="step-tcode">MIRO · Invoice</div>
+            <div class="step-tcode">MIRO</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">💳</div>
             <div class="step-name">付款</div>
-            <div class="step-tcode">F110 · Payment</div>
+            <div class="step-tcode">F110</div>
           </div>
         </div>
         <div style="margin-top:12px;font-size:10px;color:var(--sap-gray);padding:8px;background:var(--sap-table-bg);border-radius:4px;">
-          <strong>涉及 BP Role：</strong>FLVN00（FI 付款/对账）+ FLVN01（采购条件）<br>
+          <strong>涉及 BP 角色：</strong>FLVN00（财务付款/对账）+ FLVN01（采购条件）<br>
           <strong>ECC 兼容表：</strong>LFB1（公司代码）、LFM1（采购组织）、LFBK（银行）
         </div>
       </div>
 
       <!-- O2C -->
       <div class="process-o2c">
-        <h4><span class="badge">O2C</span> Order-to-Cash 订单到收款</h4>
+        <h4><span class="badge">O2C</span> 订单到收款</h4>
         <div class="flow-row">
           <div class="flow-step">
             <div class="step-icon">👤</div>
-            <div class="step-name">Customer</div>
+            <div class="step-name">客户</div>
             <div class="step-tcode">BP (FLCU00/01)</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">📝</div>
             <div class="step-name">销售订单</div>
-            <div class="step-tcode">VA01 · SO</div>
+            <div class="step-tcode">VA01</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">🚚</div>
             <div class="step-name">交货</div>
-            <div class="step-tcode">VL01N · Delivery</div>
+            <div class="step-tcode">VL01N</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">📄</div>
             <div class="step-name">开票</div>
-            <div class="step-tcode">VF01 · Billing</div>
+            <div class="step-tcode">VF01</div>
           </div>
           <span class="flow-arrow">→</span>
           <div class="flow-step">
             <div class="step-icon">💰</div>
             <div class="step-name">收款</div>
-            <div class="step-tcode">F-28 · Payment</div>
+            <div class="step-tcode">F-28</div>
           </div>
         </div>
         <div style="margin-top:12px;font-size:10px;color:var(--sap-gray);padding:8px;background:var(--sap-table-bg);border-radius:4px;">
-          <strong>涉及 BP Role：</strong>FLCU00（FI 对账/催款）+ FLCU01（定价/装运条件）<br>
+          <strong>涉及 BP 角色：</strong>FLCU00（财务对账/催款）+ FLCU01（定价/装运条件）<br>
           <strong>ECC 兼容表：</strong>KNB1（公司代码）、KNVV（销售区域）、KNC1（客户主数据）
         </div>
       </div>
@@ -786,33 +786,33 @@ body {
         </div>
         <div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
           <div class="sum-step">
-            <div class="sum-label">Step 1</div>
-            <div class="sum-value">Business Partner</div>
+            <div class="sum-label">第一步</div>
+            <div class="sum-value">业务伙伴</div>
             <div style="font-size:9px;color:var(--sap-gray);">创建 BP 主数据</div>
           </div>
           <span class="sum-arrow">↓</span>
           <div class="sum-step">
-            <div class="sum-label">Step 2</div>
-            <div class="sum-value">General Data</div>
+            <div class="sum-label">第二步</div>
+            <div class="sum-value">通用数据</div>
             <div style="font-size:9px;color:var(--sap-gray);">BUT000 / BUT020 / BUT021</div>
           </div>
           <span class="sum-arrow">↓</span>
           <div class="sum-step">
-            <div class="sum-label">Step 3</div>
-            <div class="sum-value">BP Role</div>
+            <div class="sum-label">第三步</div>
+            <div class="sum-value">BP 角色</div>
             <div style="font-size:9px;color:var(--sap-gray);">FLVN00 / FLVN01 / FLCU00 / FLCU01</div>
           </div>
           <span class="sum-arrow">↓</span>
           <div class="sum-step">
-            <div class="sum-label">Step 4</div>
-            <div class="sum-value">Organization</div>
-            <div style="font-size:9px;color:var(--sap-gray);">CoCode / PurOrg / SalesOrg / Credit</div>
+            <div class="sum-label">第四步</div>
+            <div class="sum-value">组织层级</div>
+            <div style="font-size:9px;color:var(--sap-gray);">公司代码 / 采购组织 / 销售组织 / 信贷</div>
           </div>
           <span class="sum-arrow">↓</span>
           <div class="sum-step">
-            <div class="sum-label">Step 5</div>
-            <div class="sum-value">Business Process</div>
-            <div style="font-size:9px;color:var(--sap-gray);">P2P（采购到付款）· O2C（订单到收款）</div>
+            <div class="sum-label">第五步</div>
+            <div class="sum-value">业务流程</div>
+            <div style="font-size:9px;color:var(--sap-gray);">采购到付款 · 订单到收款</div>
           </div>
         </div>
       </div>
@@ -822,7 +822,7 @@ body {
 
   <!-- ===== Footer ===== -->
   <footer class="poster-footer">
-    <span class="left">SAP S/4HANA Business Partner Architecture · A3 Learning Poster</span>
+    <span class="left">SAP S/4HANA 业务伙伴架构全景图 · A3 学习海报</span>
     <span class="right">
       <span>© 知识库 · SAP Playbook</span>
       <span>v1.0 · 2024</span>
