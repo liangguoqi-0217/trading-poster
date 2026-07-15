@@ -255,6 +255,21 @@ body {
   padding:7px 10px;
   font-size:9.5px; color:var(--gray); line-height:1.5;
 }
+.pain-card .pain-sol {
+  padding:6px 10px 8px;
+  background:var(--green-bg);
+  border-top:1px solid #CFFAFE;
+}
+.pain-card .pain-sol .ps-label {
+  font-size:8.5px; font-weight:700; color:var(--green); margin-bottom:3px;
+}
+.pain-card .pain-sol .ps-item {
+  font-size:8.5px; color:var(--dark); line-height:1.55;
+  padding-left:9px; position:relative;
+}
+.pain-card .pain-sol .ps-item::before {
+  content:'→'; position:absolute; left:0; color:var(--green); font-weight:700; font-size:7px;
+}
 
 /* ========== S6: Cross-Dept Conflicts ========== */
 .conflict-grid {
@@ -568,22 +583,52 @@ body {
     <div class="pain-card">
       <div class="pain-head">长期处于救火状态</div>
       <div class="pain-desc">大量时间用于故障处理，缺少预防优化</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立预防性维护体系：PM计划+定期点检保养+周期润滑</div>
+        <div class="ps-item">推行设备分级管理：A类关键设备重点监控，C类按需维修</div>
+        <div class="ps-item">将MTBF（平均无故障时间）作为核心考核指标取代单纯响应速度</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">不了解设备真实健康状态</div>
       <div class="pain-desc">无法判断哪些设备风险最高</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">引入状态监测技术：振动/温度/油液在线监测关键设备</div>
+        <div class="ps-item">建立设备关键性评估矩阵（A/B/C分级），明确优先级</div>
+        <div class="ps-item">从计划性维护升级为预测性维护，基于数据做决策</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">维修成本无法解释</div>
       <div class="pain-desc">无法回答维修费用增加原因</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立维修工单成本归集：按设备/产线/故障类型核算</div>
+        <div class="ps-item">引入生命周期成本LCC分析，维修费 vs 更换费对比决策</div>
+        <div class="ps-item">月度维修费用预算与实际对比报告，用数据回应财务质疑</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">设备经验依赖个人</div>
       <div class="pain-desc">老员工经验无法沉淀</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立故障维修知识库：故障现象→根因→标准维修方案</div>
+        <div class="ps-item">推行维修作业指导书SOP化，让隐性知识显性化</div>
+        <div class="ps-item">关键技能交叉培训+师徒带教制度，确保每种设备至少2人掌握</div>
+      </div>
     </div>
     <div class="pain-card">
       <div class="pain-head">生产压力巨大</div>
       <div class="pain-desc">生产要求快速恢复，设备需要充分分析</div>
+      <div class="pain-sol">
+        <div class="ps-label">最佳解决方案</div>
+        <div class="ps-item">建立设备维修响应SLA与紧急度分级（紧急/重要/一般）</div>
+        <div class="ps-item">联合生产制定年度维护窗口计划，提前锁定停机时间</div>
+        <div class="ps-item">用MTBF/MTTR数据与生产部门透明沟通，用数据争取分析时间</div>
+      </div>
     </div>
   </div>
 </div>
