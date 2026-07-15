@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP PS项目管理体系业务痛点与系统解决方案分析</title>
+<style>
+/* ============================================================
+   SAP PS 痛点与解决方案分析 — McKinsey + SAP Training Style
+   16:9 4K · A3 打印 · 制造/制药/工程建设行业视角
+   ============================================================ */
+
+:root {
+  --navy:      #1E3A5F;
+  --blue:      #2563EB;
+  --accent:    #1D4ED8;
+  --light:     #F0F4FA;
+  --bg:        #F8FAFC;
+  --white:     #FFFFFF;
+  --border:    #D0D7E2;
+  --gray:      #64748B;
+  --dark:      #1E293B;
+  --green:     #0F766E;
+  --green-bg:  #ECFDF5;
+  --orange:    #D97706;
+  --orange-bg: #FFF7ED;
+  --red:       #DC2626;
+  --red-bg:    #FEF2F2;
+  --purple:    #7C3AED;
+  --purple-bg: #F5F3FF;
+  --teal:      #0891B2;
+  --teal-bg:   #ECFEFF;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { background:#E8ECF2; }
+body {
+  background:var(--bg);
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",sans-serif;
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+  padding:24px 0;
+}
+
+.poster {
+  width:1680px;
+  min-height:945px;
+  background:var(--white);
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ========== Header ========== */
+.poster-header {
+  background:var(--navy);
+  color:#fff;
+  padding:22px 48px 18px;
+  display:flex; align-items:center;
+  justify-content:space-between;
+  position:relative;
+}
+.poster-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), #38BDF8, var(--blue));
+}
+.header-left h1 {
+  font-size:24px; font-weight:700; letter-spacing:1px; line-height:1.3;
+}
+.header-left .subtitle {
+  font-size:13px; color:#94A3B8; margin-top:3px; letter-spacing:.5px;
+}
+.header-right {
+  text-align:right;
+  font-size:11px; color:#94A3B8; line-height:1.6;
+}
+.header-right .tag {
+  display:inline-block; background:rgba(255,255,255,.12);
+  padding:3px 10px; border-radius:3px; font-size:10px; letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+/* ========== Industry Context Banner ========== */
+.context-banner {
+  background: linear-gradient(90deg, #F0F4FA, #E8EEF6, #F0F4FA);
+  padding:8px 36px;
+  display:flex; align-items:center; gap:16px;
+  border-bottom:1px solid var(--border);
+  font-size:11px; color:var(--gray);
+}
+.context-banner .label {
+  font-weight:700; color:var(--navy); white-space:nowrap;
+}
+.context-tag {
+  display:inline-block; padding:2px 8px; border-radius:3px;
+  background:var(--white); border:1px solid var(--border);
+  font-size:10px; color:var(--dark);
+}
+
+/* ========== Core Logic Strip ========== */
+.logic-strip {
+  background:#F0F4FA;
+  padding:12px 36px;
+  display:flex; align-items:center; gap:0;
+  border-bottom:1px solid var(--border);
+}
+.logic-step {
+  display:flex; align-items:center; gap:6px;
+  font-size:11.5px; color:var(--dark); font-weight:600;
+  white-space:nowrap;
+}
+.logic-step .num {
+  width:22px; height:22px; border-radius:50%;
+  background:var(--navy); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; flex-shrink:0;
+}
+.logic-arrow {
+  color:var(--gray); font-size:15px; margin:0 6px; flex-shrink:0;
+}
+.logic-step.highlight .num { background:var(--blue); }
+.logic-step.highlight { color:var(--blue); }
+
+/* ========== Body Grid ========== */
+.poster-body {
+  padding:14px 24px 16px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:12px;
+}
+.domain-card {
+  border:1px solid var(--border);
+  border-radius:5px;
+  overflow:hidden;
+  background:var(--white);
+}
+.domain-header {
+  background:var(--navy);
+  color:#fff;
+  padding:8px 12px;
+  font-size:12.5px; font-weight:700;
+  display:flex; align-items:center; justify-content:space-between;
+  letter-spacing:.5px;
+}
+.domain-header .objects {
+  font-size:9px; font-weight:400; color:#94A3B8; text-align:right; line-height:1.4;
+}
+.domain-body {
+  padding:8px 10px;
+}
+
+/* Pain row */
+.pain-row {
+  border:1px solid #E5E7EB;
+  border-radius:4px;
+  margin-bottom:7px;
+  overflow:hidden;
+}
+.pain-row:last-child { margin-bottom:0; }
+.pain-title {
+  background:#F8FAFC;
+  padding:5px 8px;
+  font-size:11px; font-weight:700;
+  display:flex; align-items:center; gap:5px;
+  border-bottom:1px solid #E5E7EB;
+}
+.pain-title .icon { font-size:12px; }
+.pain-impact {
+  font-size:9.5px; color:var(--gray); padding:3px 8px 2px;
+  line-height:1.6;
+}
+.pain-impact strong { color:var(--red); font-weight:600; }
+.pain-impact span { display:inline-block; background:var(--red-bg); color:var(--red); padding:1px 4px; border-radius:2px; margin:1px 2px; font-size:9px; }
+
+.sol-bar {
+  padding:5px 8px;
+  border-top:1px solid #E5E7EB;
+  display:flex; flex-wrap:wrap; gap:3px; align-items:center;
+}
+.sol-badge {
+  font-size:9px; padding:1.5px 6px; border-radius:3px; font-weight:600;
+}
+.sol-badge.can  { background:var(--green-bg); color:var(--green); }
+.sol-badge.part { background:var(--orange-bg); color:var(--orange); }
+.sol-badge.lim  { background:var(--red-bg); color:var(--red); }
+.sol-func {
+  font-size:9px; color:var(--dark); background:#F0F4FA; padding:1.5px 5px; border-radius:2px;
+}
+.sol-ext {
+  font-size:8.5px; color:var(--purple); background:var(--purple-bg); padding:1.5px 5px; border-radius:2px; border:1px dashed #C4B5FD;
+}
+.sol-cust {
+  font-size:8.5px; color:var(--orange); background:#FFF7ED; padding:1.5px 5px; border-radius:2px; font-style:italic;
+}
+
+/* ========== Boundary Box ========== */
+.boundary-section {
+  margin:0 28px 12px;
+  display:grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  gap:0;
+  border:1px solid var(--border);
+  border-radius:5px;
+  overflow:hidden;
+  font-size:10px;
+}
+.boundary-col {
+  padding:10px 12px;
+}
+.boundary-divider {
+  background:#E5E7EB;
+}
+.boundary-col h4 {
+  font-size:11px; font-weight:700; margin-bottom:6px;
+}
+.boundary-col.good h4 { color:var(--green); }
+.boundary-col.bad h4 { color:var(--red); }
+.boundary-col.ext h4 { color:var(--purple); }
+.boundary-item {
+  padding:2px 0; color:var(--dark); line-height:1.5;
+}
+.boundary-item::before {
+  content:'· '; color:var(--gray); font-weight:700;
+}
+
+/* ========== Summary Section ========== */
+.summary-section {
+  margin:0 28px 16px;
+  border:1px solid var(--border);
+  border-radius:5px;
+  overflow:hidden;
+}
+.summary-header {
+  background:var(--navy);
+  color:#fff;
+  padding:9px 16px;
+  font-size:13px; font-weight:700; letter-spacing:.5px;
+}
+.summary-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:0;
+}
+.summary-col {
+  padding:10px 14px;
+  border-right:1px solid #E5E7EB;
+}
+.summary-col:last-child { border-right:0; }
+.summary-col h4 {
+  font-size:11.5px; font-weight:700; margin-bottom:7px;
+  display:flex; align-items:center; gap:6px;
+}
+.summary-col h4 .dot {
+  width:10px; height:10px; border-radius:50%; flex-shrink:0;
+}
+.summary-col h4 .dot.green { background:var(--green); }
+.summary-col h4 .dot.orange { background:var(--orange); }
+.summary-col h4 .dot.red { background:var(--red); }
+.summary-item {
+  font-size:10px; color:var(--dark); padding:3px 0;
+  border-bottom:1px solid #F1F5F9; line-height:1.5;
+}
+.summary-item:last-child { border-bottom:0; }
+.summary-item .tag {
+  display:inline-block; background:#F0F4FA; color:var(--gray); font-size:8.5px;
+  padding:1px 5px; border-radius:2px; margin-right:3px;
+}
+
+/* ========== Footer ========== */
+.poster-footer {
+  padding:8px 28px 14px;
+  font-size:10px; color:#94A3B8;
+  display:flex; justify-content:space-between;
+  border-top:1px solid #E5E7EB;
+  margin:0 28px;
+}
+
+/* ========== Print ========== */
+@media print {
+  html { background:#fff; }
+  body { padding:0; }
+  .poster { box-shadow:none; width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+<!-- ====== Header ====== -->
+<div class="poster-header">
+  <div class="header-left">
+    <h1>SAP PS 项目管理体系业务痛点与系统解决方案分析</h1>
+    <div class="subtitle">制造 · 制药 · 工程建设行业视角 — PS 顾问 · 架构师 · IT 产品经理决策参考</div>
+  </div>
+  <div class="header-right">
+    <div class="tag">SAP PS · 项目管理</div>
+    <div>咨询分析 · A3 打印</div>
+    <div>2026-07</div>
+  </div>
+</div>
+
+<!-- ====== Industry Context ====== -->
+<div class="context-banner">
+  <span class="label">典型项目：</span>
+  <span class="context-tag">新工厂建设</span>
+  <span class="context-tag">生产线建设</span>
+  <span class="context-tag">设备技改</span>
+  <span class="context-tag">MES 实施</span>
+  <span class="context-tag">SAP 实施</span>
+  <span class="context-tag">研发项目</span>
+</div>
+
+<!-- ====== Core Logic ====== -->
+<div class="logic-strip">
+  <div class="logic-step"><span class="num">1</span> 项目场景</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step"><span class="num">2</span> 管理痛点</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step"><span class="num">3</span> 原因/影响</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step highlight"><span class="num">4</span> SAP PS 能力</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step"><span class="num">5</span> SAP 功能</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step"><span class="num">6</span> 外围系统</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step"><span class="num">7</span> 自开发</div>
+  <span class="logic-arrow">→</span>
+  <div class="logic-step"><span class="num">8</span> 实施建议</div>
+</div>
+
+<!-- ====== 9 Domain Cards (3×3) ====== -->
+<div class="poster-body">
+
+<!-- 1. 项目立项管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>一、项目立项管理</span>
+    <span class="objects">项目定义 · 项目目标 · 负责人 · 项目周期</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目依赖Excel管理，入口不统一</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>不知有哪些项目</span><span>责任不清</span><span>无法统一统计</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">Project Definition CJ20N</span>
+        <span class="sol-func">项目主数据</span>
+        <span class="sol-ext">OA审批</span>
+        <span class="sol-ext">项目管理平台</span>
+        <span class="sol-cust">审批流程</span>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 立项缺少投资收益分析</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>无法判断项目价值</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge part">部分解决</span>
+        <span class="sol-func">预算管理</span>
+        <span class="sol-func">成本计划</span>
+        <span class="sol-ext">投资管理系统</span>
+        <span class="sol-ext">商业分析系统</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 2. 项目结构管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>二、项目结构管理</span>
+    <span class="objects">WBS · 网络 · 活动</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目无法拆解，成本无法归集</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>不知钱花在哪里</span><span>无法分析阶段成本</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">WBS 工作分解结构</span>
+        <span class="sol-func">网络 Network</span>
+        <span class="sol-func">活动 Activity</span>
+        <span class="sol-cust">WBS模板设计</span>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 不同项目经理采用不同结构</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>无法横向比较项目</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge part">部分解决</span>
+        <span class="sol-func">项目模板</span>
+        <span class="sol-cust">标准化模板开发</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. 项目计划管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>三、项目计划管理</span>
+    <span class="objects">时间计划 · 里程碑 · 资源计划</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目延期无法及时发现</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>影响投产</span><span>影响投资收益</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge part">部分解决</span>
+        <span class="sol-func">网络计划</span>
+        <span class="sol-func">里程碑管理</span>
+        <span class="sol-ext">MS Project</span>
+        <span class="sol-ext">Primavera P6</span>
+        <span class="sol-cust">计划同步接口</span>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目资源计划不准确</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>人员和设备投入无法预测</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge part">部分解决</span>
+        <span class="sol-func">资源计划</span>
+        <span class="sol-ext">专业资源管理系统</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4. 项目预算管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>四、项目预算管理</span>
+    <span class="objects">项目预算 · 预算控制 · 实际成本</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目超预算发现太晚</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>投资失控</span><span>追加预算频繁</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">预算管理 CJ30</span>
+        <span class="sol-func">可用性控制 CJBV</span>
+        <span class="sol-cust">预算审批流程</span>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 预算与实际成本无法比较</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>无法评价项目执行情况</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">计划成本</span>
+        <span class="sol-func">实际成本</span>
+        <span class="sol-func">差异分析</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 5. 项目执行管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>五、项目执行管理</span>
+    <span class="objects">采购 · 费用 · 人工 · 服务</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目采购无法关联具体项目</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>无法统计项目真实成本</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">WBS作为成本对象</span>
+        <span class="sol-func">项目采购</span>
+        <span class="sol-func">科目分配</span>
+        <span class="sol-ext">与 MM 集成</span>
+        <span class="sol-ext">与 FI 集成</span>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目费用散落在不同部门</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>项目成本失真</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">费用归集到WBS</span>
+        <span class="sol-func">成本中心转移</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 6. 项目成本控制 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>六、项目成本控制</span>
+    <span class="objects">计划成本 · 实际成本 · 承诺成本 · 成本分析</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目经理不知项目花费情况</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>无法及时纠偏</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">项目成本报表 S_ALR_87013532</span>
+        <span class="sol-func">成本分析</span>
+        <span class="sol-ext">BI分析平台</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 7. 项目结算管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>七、项目结算管理</span>
+    <span class="objects">结算规则 · 固定资产 · 费用化</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目完成后成本不知如何处理</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>资产价值不准确</span><span>财务核算困难</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge can">SAP可解决</span>
+        <span class="sol-func">项目结算 CJ88</span>
+        <span class="sol-func">结算到固定资产</span>
+        <span class="sol-func">结算到成本中心</span>
+        <span class="sol-ext">与 FI/CO/AA 集成</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 8. 项目资料与知识管理 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>八、项目资料与知识管理</span>
+    <span class="objects">合同 · 图纸 · 验收文件 · 项目文档</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 项目资料分散管理</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>交付后资料丢失</span><span>审计困难</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge lim">SAP能力有限</span>
+        <span class="sol-func">DMS文档管理接口</span>
+        <span class="sol-ext">PLM</span>
+        <span class="sol-ext">DMS</span>
+        <span class="sol-ext">文件管理平台</span>
+        <span class="sol-cust">文档关联开发</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 9. 项目分析与经营决策 -->
+<div class="domain-card">
+  <div class="domain-header">
+    <span>九、项目分析与经营决策</span>
+    <span class="objects">项目利润 · 投资回报 · 项目绩效</span>
+  </div>
+  <div class="domain-body">
+
+    <div class="pain-row">
+      <div class="pain-title"><span class="icon">🔴</span> 管理层无法看到项目整体经营情况</div>
+      <div class="pain-impact">
+        <strong>影响：</strong><span>无法优化投资决策</span>
+      </div>
+      <div class="sol-bar">
+        <span class="sol-badge part">部分解决</span>
+        <span class="sol-func">项目报表</span>
+        <span class="sol-func">成本分析</span>
+        <span class="sol-ext">BI平台</span>
+        <span class="sol-ext">数据仓库</span>
+        <span class="sol-cust">经营分析模型</span>
+      </div>
+    </div>
+
+    <!-- spacer -->
+    <div style="height:8px"></div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- ====== PS 能力边界图 ====== -->
+<div class="boundary-section">
+  <div class="boundary-col good">
+    <h4>SAP PS 擅长</h4>
+    <div class="boundary-item">项目结构管理（WBS/网络/活动）</div>
+    <div class="boundary-item">项目成本归集与核算</div>
+    <div class="boundary-item">预算控制与可用性检查</div>
+    <div class="boundary-item">项目采购关联（MM集成）</div>
+    <div class="boundary-item">项目财务结算（FI/CO/AA）</div>
+    <div class="boundary-item">承诺成本与实际成本对比</div>
+  </div>
+  <div class="boundary-divider"></div>
+  <div class="boundary-col bad">
+    <h4>SAP PS 不擅长</h4>
+    <div class="boundary-item">复杂施工进度管理</div>
+    <div class="boundary-item">详细任务协同与甘特图</div>
+    <div class="boundary-item">工程现场管理</div>
+    <div class="boundary-item">文档生命周期管理</div>
+    <div class="boundary-item">多项目资源统筹优化</div>
+    <div class="boundary-item">投资收益模型分析</div>
+  </div>
+  <div class="boundary-divider"></div>
+  <div class="boundary-col ext">
+    <h4>常见外围系统</h4>
+    <div class="boundary-item">Microsoft Project</div>
+    <div class="boundary-item">Primavera P6</div>
+    <div class="boundary-item">OA 审批系统</div>
+    <div class="boundary-item">DMS 文档管理</div>
+    <div class="boundary-item">BI 分析平台</div>
+    <div class="boundary-item">PLM 产品生命周期</div>
+  </div>
+</div>
+
+<!-- ====== Summary ====== -->
+<div class="summary-section">
+  <div class="summary-header">决策总结：SAP PS 能力边界与项目管理集成架构推荐</div>
+  <div class="summary-grid">
+    <div class="summary-col">
+      <h4><span class="dot green"></span> SAP PS 标准能力可解决</h4>
+      <div class="summary-item"><span class="tag">PS</span> 项目定义 — 统一项目主数据入口 + 负责人指派</div>
+      <div class="summary-item"><span class="tag">PS</span> WBS 结构 — 多层成本归集 + 阶段管理</div>
+      <div class="summary-item"><span class="tag">PS</span> 预算控制 — 可用性检查 + 超预算预警</div>
+      <div class="summary-item"><span class="tag">PS</span> 项目采购 — WBS 科目分配 + MM 集成</div>
+      <div class="summary-item"><span class="tag">PS</span> 成本分析 — 计划/实际/承诺三层对比</div>
+      <div class="summary-item"><span class="tag">PS</span> 项目结算 — 自动结算到固定资产/成本中心</div>
+    </div>
+    <div class="summary-col">
+      <h4><span class="dot orange"></span> SAP + 外围系统解决</h4>
+      <div class="summary-item"><span class="tag">PS</span> + <span class="tag">OA</span> 项目立项审批流程线上化</div>
+      <div class="summary-item"><span class="tag">PS</span> + <span class="tag">Project</span> 详细进度计划 ↔ SAP 同步</div>
+      <div class="summary-item"><span class="tag">PS</span> + <span class="tag">P6</span> 大型工程计划与资源统筹</div>
+      <div class="summary-item"><span class="tag">PS</span> + <span class="tag">DMS</span> 项目文档/图纸/合同归档管理</div>
+      <div class="summary-item"><span class="tag">PS</span> + <span class="tag">BI</span> 项目组合仪表盘与经营分析</div>
+      <div class="summary-item"><span class="tag">PS</span> + <span class="tag">PLM</span> 研发项目与产品数据联动</div>
+    </div>
+    <div class="summary-col">
+      <h4><span class="dot red"></span> 需要自开发 / 接口</h4>
+      <div class="summary-item"><span class="tag">开发</span> 项目立项审批工作流增强</div>
+      <div class="summary-item"><span class="tag">接口</span> SAP PS ↔ MS Project / P6 计划同步</div>
+      <div class="summary-item"><span class="tag">接口</span> SAP PS ↔ OA 审批状态双向回传</div>
+      <div class="summary-item"><span class="tag">开发</span> 标准化 WBS 模板与项目复制工具</div>
+      <div class="summary-item"><span class="tag">开发</span> 项目经营分析与投资回报看板</div>
+      <div class="summary-item"><span class="tag">接口</span> SAP PS ↔ PLM / DMS 文档关联</div>
+    </div>
+  </div>
+</div>
+
+<div class="poster-footer">
+  <span>SAP PS 项目管理体系痛点与解决方案分析图 · 制造 / 制药 / 工程建设行业视角</span>
+  <span>适用对象：SAP PS 顾问 · 企业数字化架构师 · IT 产品经理 · 项目管理信息化负责人</span>
+</div>
+
+</div>
+</body>
+</html>
