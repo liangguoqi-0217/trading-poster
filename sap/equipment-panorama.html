@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>设备动力部业务全景、组织职责及跨部门协同分析</title>
+<style>
+/* ============================================================
+   设备动力部业务全景、组织职责及跨部门协同分析
+   麦肯锡咨询风格 · 16:9 · A3 打印
+   ============================================================ */
+
+:root {
+  --navy:      #1E3A5F;
+  --blue:      #2563EB;
+  --bg:        #F8FAFC;
+  --white:     #FFFFFF;
+  --border:    #D0D7E2;
+  --gray:      #64748B;
+  --dark:      #1E293B;
+  --green:     #0F766E;
+  --green-bg:  #ECFDF5;
+  --orange:    #D97706;
+  --orange-bg: #FFF7ED;
+  --red:       #DC2626;
+  --red-bg:    #FEF2F2;
+  --purple:    #7C3AED;
+  --purple-bg: #F5F3FF;
+  --teal:      #0D9488;
+  --teal-bg:   #F0FDFA;
+  --amber:     #B45309;
+  --amber-bg:  #FFFBEB;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { background:#E8ECF2; }
+body {
+  background:var(--bg);
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",sans-serif;
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+  padding:24px 0;
+}
+
+.poster {
+  width:1680px;
+  background:var(--white);
+  box-shadow:0 2px 16px rgba(0,0,0,.08);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ========== Header ========== */
+.poster-header {
+  background:var(--navy);
+  color:#fff;
+  padding:20px 48px 16px;
+  display:flex; align-items:center;
+  justify-content:space-between;
+  position:relative;
+}
+.poster-header::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), #38BDF8, var(--blue));
+}
+.header-left h1 {
+  font-size:22px; font-weight:700; letter-spacing:1px; line-height:1.3;
+}
+.header-left .subtitle {
+  font-size:12px; color:#94A3B8; margin-top:3px; letter-spacing:.5px;
+}
+.header-right {
+  text-align:right;
+  font-size:11px; color:#94A3B8; line-height:1.6;
+}
+.header-right .tag {
+  display:inline-block; background:rgba(255,255,255,.12);
+  padding:3px 10px; border-radius:3px; font-size:10px; letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+/* ========== Mission Banner ========== */
+.mission-banner {
+  background: linear-gradient(90deg, #EEF2FF, #E8EDF5, #EEF2FF);
+  padding:14px 48px;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:12px;
+}
+.mission-banner .icon { font-size:22px; }
+.mission-banner .core-msg {
+  font-size:14px; font-weight:700; color:var(--navy); line-height:1.5;
+}
+.mission-banner .core-desc {
+  font-size:11.5px; color:var(--gray); line-height:1.5;
+}
+
+/* ========== Section Headers ========== */
+.section-wrap {
+  padding:0 36px;
+}
+.section-title {
+  padding:18px 0 8px;
+  border-bottom:2px solid var(--navy);
+  margin-bottom:14px;
+  display:flex; align-items:baseline; gap:10px;
+}
+.section-title .num {
+  font-size:28px; font-weight:800; color:var(--navy); line-height:1;
+}
+.section-title .text {
+  font-size:17px; font-weight:700; color:var(--navy);
+}
+
+/* ========== S1: Org Chart ========== */
+.org-chart {
+  display:flex; flex-direction:column; align-items:center;
+  padding:12px 0 8px;
+}
+.org-top {
+  background:var(--navy); color:#fff;
+  padding:10px 36px; border-radius:4px;
+  font-size:14px; font-weight:700; letter-spacing:1px;
+}
+.org-connector {
+  width:2px; height:18px; background:var(--border);
+}
+.org-line {
+  width:680px; height:2px; background:var(--border);
+  position:relative;
+}
+.org-branch {
+  display:flex; gap:16px; margin-top:2px;
+}
+.org-dept {
+  width:158px;
+  border:1px solid var(--border); border-radius:4px;
+  background:var(--white);
+  text-align:center;
+  overflow:hidden;
+}
+.org-dept .dept-head {
+  background:var(--navy); color:#fff;
+  font-size:11px; font-weight:700; padding:6px 4px; letter-spacing:.5px;
+}
+.org-dept .dept-respons {
+  padding:6px 6px;
+  font-size:9px; color:var(--dark); line-height:1.7;
+  text-align:left;
+}
+.org-dept .dept-respons span {
+  display:block; padding-left:8px; position:relative;
+}
+.org-dept .dept-respons span::before {
+  content:'·'; position:absolute; left:0; color:var(--blue); font-weight:700;
+}
+
+/* ========== S2: Work Domains ========== */
+.work-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;
+  padding:4px 0 8px;
+}
+.work-card {
+  border:1px solid var(--border); border-radius:5px;
+  padding:12px 14px;
+  background:var(--white);
+  display:flex; gap:10px; align-items:flex-start;
+}
+.work-card .w-icon {
+  width:36px; height:36px; border-radius:4px;
+  background:var(--navy);
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; font-weight:800; flex-shrink:0;
+}
+.work-card .w-name {
+  font-size:12.5px; font-weight:700; color:var(--dark); margin-bottom:3px;
+}
+.work-card .w-items {
+  font-size:9.5px; color:var(--gray); line-height:1.7;
+}
+.work-card .w-items span {
+  display:inline-block;
+  background:#F1F5F9; padding:1.5px 6px; border-radius:2px;
+  margin:1px 2px;
+}
+
+/* ========== S3: Business Value ========== */
+.value-row {
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
+  padding:4px 0 8px;
+}
+.value-card {
+  border:1px solid var(--border); border-radius:5px; padding:14px;
+  background:var(--white);
+  text-align:center;
+}
+.value-card .v-icon {
+  width:42px; height:42px; border-radius:6px;
+  margin:0 auto 8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:800;
+}
+.value-card .v-icon.vi1 { background:#EEF2FF; color:var(--navy); }
+.value-card .v-icon.vi2 { background:var(--green-bg); color:var(--green); }
+.value-card .v-icon.vi3 { background:#F5F3FF; color:var(--purple); }
+.value-card .v-icon.vi4 { background:#FFF7ED; color:var(--orange); }
+.value-card .v-name {
+  font-size:12.5px; font-weight:700; color:var(--dark); margin-bottom:4px;
+}
+.value-card .v-desc {
+  font-size:9.5px; color:var(--gray); line-height:1.5;
+}
+
+/* ========== S4: Boss Expectations ========== */
+.expect-list {
+  display:flex; gap:10px; padding:4px 0 8px;
+}
+.expect-item {
+  flex:1;
+  border:1px solid var(--border); border-radius:5px;
+  padding:12px 10px;
+  background:var(--white);
+  position:relative;
+  text-align:center;
+}
+.expect-item .e-num {
+  width:24px; height:24px; border-radius:50%;
+  background:var(--navy); color:#fff;
+  font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 6px;
+}
+.expect-item .e-text {
+  font-size:11px; color:var(--dark); font-weight:600; line-height:1.5;
+}
+
+/* ========== S5: Manager Pain Points ========== */
+.pain-grid {
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:10px;
+  padding:4px 0 8px;
+}
+.pain-card {
+  border:1px solid #FECACA; border-radius:5px;
+  overflow:hidden;
+  background:var(--white);
+}
+.pain-card .pain-head {
+  background:var(--red-bg);
+  padding:8px 10px;
+  font-size:11px; font-weight:700; color:var(--red);
+  line-height:1.4;
+}
+.pain-card .pain-desc {
+  padding:7px 10px;
+  font-size:9.5px; color:var(--gray); line-height:1.5;
+}
+
+/* ========== S6: Cross-Dept Conflicts ========== */
+.conflict-grid {
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:10px;
+  padding:4px 0 0;
+}
+.conf-card {
+  border:1px solid var(--border); border-radius:5px;
+  overflow:hidden;
+  background:var(--white);
+}
+.conf-card .conf-top {
+  display:grid; grid-template-columns:1fr 24px 1fr;
+  background:#F8FAFC;
+  border-bottom:1px solid var(--border);
+}
+.conf-card .conf-top .ct-equip {
+  padding:6px 6px; text-align:center; background:#EEF2FF;
+}
+.conf-card .conf-top .ct-equip .ct-name {
+  font-size:10px; font-weight:700; color:var(--navy);
+}
+.conf-card .conf-top .ct-other {
+  padding:6px 6px; text-align:center;
+}
+.conf-card .conf-top .ct-other .ct-name {
+  font-size:10px; font-weight:700; color:var(--gray);
+}
+.conf-card .conf-top .ct-vs {
+  display:flex; align-items:center; justify-content:center;
+  background:#F1F5F9;
+  font-size:9px; font-weight:800; color:var(--red);
+}
+.conf-card .conf-theme {
+  padding:7px 8px; font-size:10.5px; font-weight:700; color:var(--dark);
+  border-bottom:1px solid #E5E7EB; line-height:1.4;
+  background:#FAFBFC; min-height:40px;
+}
+.conf-card .conf-root {
+  padding:5px 8px; font-size:9px; color:var(--dark);
+  background:var(--red-bg);
+  border-bottom:1px solid #FEE2E2;
+  line-height:1.6;
+}
+.conf-card .conf-root strong { color:var(--red); font-size:9px; }
+.conf-card .conf-sol {
+  padding:5px 8px;
+}
+.conf-card .conf-sol .cs-label {
+  font-size:8.5px; font-weight:700; color:var(--green); margin-bottom:2px;
+}
+.conf-card .conf-sol .cs-item {
+  font-size:8.5px; color:var(--dark); line-height:1.55;
+  padding-left:8px; position:relative;
+}
+.conf-card .conf-sol .cs-item::before {
+  content:'✓'; position:absolute; left:0; color:var(--green); font-weight:700; font-size:7px;
+}
+
+/* ========== Final Message ========== */
+.final-msg {
+  margin:0 36px;
+  padding:14px 28px;
+  background: linear-gradient(90deg, #EEF2FF, #E8EDF5);
+  border-top:1px solid var(--border);
+  font-size:13px; font-weight:700; color:var(--navy);
+  text-align:center;
+  letter-spacing:1px;
+  line-height:1.6;
+}
+
+/* ========== Footer ========== */
+.poster-footer {
+  padding:10px 36px 12px;
+  font-size:10px; color:#94A3B8;
+  display:flex; justify-content:space-between;
+  border-top:1px solid #E5E7EB;
+  margin:0 36px;
+}
+
+/* Spacer between sections */
+.sec-spacer { height:8px; }
+
+@media print {
+  html { background:#fff; }
+  body { padding:0; }
+  .poster { box-shadow:none; width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+<!-- ====== Header ====== -->
+<div class="poster-header">
+  <div class="header-left">
+    <h1>设备动力部业务全景、组织职责及跨部门协同分析</h1>
+    <div class="subtitle">制造业（重点适用制药企业）· 设备动力部定位：不是简单维修部门，而是企业资产经营部门</div>
+  </div>
+  <div class="header-right">
+    <div class="tag">组织设计 · 业务全景</div>
+    <div>咨询分析 · A3 打印</div>
+    <div>2026-07</div>
+  </div>
+</div>
+
+<!-- ====== Mission Banner ====== -->
+<div class="mission-banner">
+  <div class="icon">🏭</div>
+  <div>
+    <div class="core-msg">核心使命：保障企业生产资产持续、稳定、安全、高效运行，使设备投资产生最大价值。</div>
+    <div class="core-desc">设备动力部不是简单维修部门，而是企业资产经营部门。从被动维修转型为主动资产管理，是设备管理现代化的关键路径。</div>
+  </div>
+</div>
+
+<!-- ====== Section 1: 组织架构 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">一</span>
+    <span class="text">设备动力部典型组织架构</span>
+  </div>
+
+  <div class="org-chart">
+    <div class="org-top">设备运行部部长 / 总监</div>
+    <div class="org-connector"></div>
+    <div class="org-line"></div>
+    <div class="org-branch">
+      <div class="org-dept">
+        <div class="dept-head">设备管理科</div>
+        <div class="dept-respons">
+          <span>设备台账管理</span>
+          <span>设备生命周期管理</span>
+          <span>设备档案管理</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">维修保障科</div>
+        <div class="dept-respons">
+          <span>故障维修</span>
+          <span>机械维修</span>
+          <span>电气维修</span>
+          <span>仪表维修</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">动力运行科</div>
+        <div class="dept-respons">
+          <span>水系统</span>
+          <span>空压系统</span>
+          <span>蒸汽系统</span>
+          <span>冷冻水系统</span>
+          <span>电力保障</span>
+        </div>
+      </div>
+      <div class="org-dept">
+        <div class="dept-head">项目工程组</div>
+        <div class="dept-respons">
+          <span>设备投资项目</span>
+          <span>设备选型</span>
+          <span>安装调试</span>
+          <span>技术改造</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 2: 核心工作全景 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">二</span>
+    <span class="text">设备动力部核心工作全景</span>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="w-icon">01</div>
+      <div>
+        <div class="w-name">设备资产管理</div>
+        <div class="w-items">
+          <span>设备建档</span><span>设备分类</span><span>设备生命周期管理</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">02</div>
+      <div>
+        <div class="w-name">设备运行保障</div>
+        <div class="w-items">
+          <span>保证生产连续</span><span>提升设备可利用率</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">03</div>
+      <div>
+        <div class="w-name">故障维修管理</div>
+        <div class="w-items">
+          <span>故障响应</span><span>原因分析</span><span>维修恢复</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">04</div>
+      <div>
+        <div class="w-name">预防性维护</div>
+        <div class="w-items">
+          <span>点检</span><span>保养</span><span>润滑</span><span>周期维护</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">05</div>
+      <div>
+        <div class="w-name">技术改造</div>
+        <div class="w-items">
+          <span>设备优化</span><span>提升产能</span><span>提升效率</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="w-icon">06</div>
+      <div>
+        <div class="w-name">设备投资管理</div>
+        <div class="w-items">
+          <span>设备选型</span><span>投资价值分析</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 3: 企业价值 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">三</span>
+    <span class="text">设备动力部创造的企业价值</span>
+  </div>
+
+  <div class="value-row">
+    <div class="value-card">
+      <div class="v-icon vi1">¥</div>
+      <div class="v-name">保障收入</div>
+      <div class="v-desc">减少设备停机，保障生产连续性，确保订单按期交付</div>
+    </div>
+    <div class="value-card">
+      <div class="v-icon vi2">↓</div>
+      <div class="v-name">降低成本</div>
+      <div class="v-desc">减少故障、优化备件、延长设备寿命，降低全生命周期成本</div>
+    </div>
+    <div class="value-card">
+      <div class="v-icon vi3">✓</div>
+      <div class="v-name">保障合规</div>
+      <div class="v-desc">尤其制药行业保障 GMP 与质量要求，满足审计与监管</div>
+    </div>
+    <div class="value-card">
+      <div class="v-icon vi4">↑</div>
+      <div class="v-name">提升资产利用率</div>
+      <div class="v-desc">让企业投资设备持续产生价值，提高资产回报率</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 4: 老板期待 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">四</span>
+    <span class="text">企业老板对设备动力部的期待</span>
+  </div>
+
+  <div class="expect-list">
+    <div class="expect-item">
+      <div class="e-num">1</div>
+      <div class="e-text">设备稳定运行<br>不影响生产</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">2</div>
+      <div class="e-text">维修成本可控</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">3</div>
+      <div class="e-text">设备投资有效</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">4</div>
+      <div class="e-text">风险提前发现</div>
+    </div>
+    <div class="expect-item">
+      <div class="e-num">5</div>
+      <div class="e-text">从维修部门<br>转型为资产经营部门</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 5: 部长痛点 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">五</span>
+    <span class="text">设备动力部长核心痛点</span>
+  </div>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-head">长期处于救火状态</div>
+      <div class="pain-desc">大量时间用于故障处理，缺少预防优化</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">不了解设备真实健康状态</div>
+      <div class="pain-desc">无法判断哪些设备风险最高</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">维修成本无法解释</div>
+      <div class="pain-desc">无法回答维修费用增加原因</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">设备经验依赖个人</div>
+      <div class="pain-desc">老员工经验无法沉淀</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-head">生产压力巨大</div>
+      <div class="pain-desc">生产要求快速恢复，设备需要充分分析</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Section 6: 跨部门矛盾 ====== -->
+<div class="section-wrap">
+  <div class="section-title">
+    <span class="num">六</span>
+    <span class="text">设备动力部与兄弟部门典型矛盾及解决方案</span>
+  </div>
+
+  <div class="conflict-grid">
+    <!-- 1. 生产部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-equip"><div class="ct-name">设备动力部</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">生产部门</div></div>
+      </div>
+      <div class="conf-theme">生产希望不停机，设备需要计划维护</div>
+      <div class="conf-root">
+        <strong>根因：</strong>生产关注产量和交付，设备关注可靠性和寿命
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">建立联合KPI</div>
+        <div class="cs-item">制定年度维护窗口</div>
+        <div class="cs-item">设备重要性分级管理</div>
+        <div class="cs-item">关注OEE、MTBF、MTTR</div>
+      </div>
+    </div>
+
+    <!-- 2. 质量部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-equip"><div class="ct-name">设备动力部</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">质量部门</div></div>
+      </div>
+      <div class="conf-theme">设备恢复生产与质量验证要求冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>设备关注恢复运行，质量关注风险控制
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">建立变更管理</div>
+        <div class="cs-item">维修变更影响评估</div>
+        <div class="cs-item">维修与验证关联</div>
+      </div>
+    </div>
+
+    <!-- 3. 财务部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-equip"><div class="ct-name">设备动力部</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">财务部门</div></div>
+      </div>
+      <div class="conf-theme">维修费用控制与设备可靠性投入冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>财务关注费用，设备关注生命周期价值
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">生命周期成本LCC分析</div>
+        <div class="cs-item">设备维修成本分析</div>
+        <div class="cs-item">投资收益分析</div>
+      </div>
+    </div>
+
+    <!-- 4. 采购部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-equip"><div class="ct-name">设备动力部</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">采购部门</div></div>
+      </div>
+      <div class="conf-theme">低价采购与设备可靠性冲突</div>
+      <div class="conf-root">
+        <strong>根因：</strong>采购关注价格，设备关注可靠性
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">关键备件分类</div>
+        <div class="cs-item">供应商生命周期管理</div>
+      </div>
+    </div>
+
+    <!-- 5. IT部门 -->
+    <div class="conf-card">
+      <div class="conf-top">
+        <div class="ct-equip"><div class="ct-name">设备动力部</div></div>
+        <div class="ct-vs">VS</div>
+        <div class="ct-other"><div class="ct-name">IT部门</div></div>
+      </div>
+      <div class="conf-theme">设备业务需求与系统建设理解存在差异</div>
+      <div class="conf-root">
+        <strong>根因：</strong>设备关注业务问题，IT关注系统实现
+      </div>
+      <div class="conf-sol">
+        <div class="cs-label">解决方案</div>
+        <div class="cs-item">业务IT协同</div>
+        <div class="cs-item">业务流程梳理</div>
+        <div class="cs-item">持续优化</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-spacer"></div>
+
+<!-- ====== Final Message ====== -->
+<div class="final-msg">
+  设备动力部的本质：不是维修机器，而是保障企业资产持续创造价值。
+</div>
+
+<!-- ====== Footer ====== -->
+<div class="poster-footer">
+  <span>设备动力部业务全景、组织职责及跨部门协同分析 · 制造业（制药企业）</span>
+  <span>适用对象：设备管理者 · SAP PM顾问 · 企业数字化架构师 · IT产品经理</span>
+</div>
+
+</div>
+</body>
+</html>
