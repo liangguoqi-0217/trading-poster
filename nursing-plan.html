@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>护理学本科四年规划 · 考研深造方向</title>
+<style>
+/* ============================================================
+   护理学本科四年规划 · 信息图结构化风
+   多彩克制 · 金字塔+时间轴+卡片网格混合
+   ============================================================ */
+
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --gold:       #F59E0B;
+  --gold-bg:    #FEF9E7;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.5;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1460px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+/* ===== Section Header ===== */
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::after {
+  content:''; flex:1; height:1px; background: var(--border);
+}
+.sec-h1 { font-size: 30px; font-weight: 800; color: var(--dark); letter-spacing: 1px; }
+.sec-sub { font-size: 14px; color: var(--gray); margin-top: 6px; }
+
+/* ===== 铁三角 Cards ===== */
+.tri-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 20px; margin-bottom: 32px;
+}
+.tri-card {
+  border-radius: 8px; padding: 20px 18px; position: relative; overflow: hidden;
+}
+.tri-card.tc1 { background: var(--blue-bg); border: 1.5px solid var(--blue); }
+.tri-card.tc2 { background: var(--rose-bg); border: 1.5px solid var(--rose); }
+.tri-card.tc3 { background: var(--teal-bg); border: 1.5px solid var(--teal); }
+.tri-card .tc-icon {
+  width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 16px; margin-bottom: 10px;
+}
+.tc1 .tc-icon { background: var(--blue); color: #fff; }
+.tc2 .tc-icon { background: var(--rose); color: #fff; }
+.tc3 .tc-icon { background: var(--teal); color: #fff; }
+.tri-card .tc-head { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.tc1 .tc-head { color: var(--blue); }
+.tc2 .tc-head { color: var(--rose); }
+.tc3 .tc-head { color: var(--teal); }
+.tri-card .tc-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.tri-card .tc-stat { font-size: 13px; font-weight: 700; color: var(--dark); margin-top: 8px; }
+
+/* ===== 考研科目占比条 ===== */
+.exam-bar-row {
+  display: flex; gap: 20px; align-items: stretch; margin-bottom: 32px;
+}
+.exam-pie {
+  width: 200px; flex:none; display: flex; flex-direction: column; gap: 4px; justify-content: center;
+}
+.exam-pie .slice { height: 28px; border-radius: 4px; display: flex; align-items: center; padding-left: 12px;
+  font-size: 12px; font-weight: 700; color: #fff; }
+.exam-pie .slice.s1 { width:100%; background: var(--navy); }
+.exam-pie .slice.s2 { width:80%; background: #3B82F6; }
+.exam-pie .slice.s3 { width:60%; background: var(--teal); }
+.exam-detail {
+  flex:1; background: #F8FAFC; border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px;
+}
+.exam-detail h4 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+.exam-detail .subj-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.exam-detail .subj-tag {
+  padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 600;
+}
+.exam-detail .subj-tag.st1 { background: #DBEAFE; color: var(--blue); }
+.exam-detail .subj-tag.st2 { background: #CCFBF1; color: var(--teal); }
+.exam-detail .subj-tag.st3 { background: #FEF3C7; color: var(--amber); }
+.exam-detail .subj-tag.st4 { background: #EDE9FE; color: var(--purple); }
+
+/* ===== 四年战略节奏 ===== */
+.rhythm-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px;
+}
+.rhythm-card {
+  border-radius: 8px; padding: 18px 14px; text-align: center; border: 1.5px solid;
+  position: relative;
+}
+.rhythm-card.y1 { border-color: #93C5FD; background: #EFF6FF; }
+.rhythm-card.y2 { border-color: #86EFAC; background: #F0FDF4; }
+.rhythm-card.y3 { border-color: #FDBA74; background: #FFF7ED; }
+.rhythm-card.y4 { border-color: #C4B5FD; background: #F5F3FF; }
+.rhythm-card .ry-num {
+  font-size: 36px; font-weight: 800; line-height: 1;
+}
+.y1 .ry-num { color: var(--blue); }
+.y2 .ry-num { color: #16A34A; }
+.y3 .ry-num { color: var(--orange); }
+.y4 .ry-num { color: var(--purple); }
+.rhythm-card .ry-label { font-size: 15px; font-weight: 700; margin: 6px 0 4px; }
+.rhythm-card .ry-tag { font-size: 11px; color: var(--gray); }
+/* year connector arrow */
+.rhythm-card::after {
+  content: '→'; position: absolute; right: -18px; top: 50%; transform: translateY(-50%);
+  font-size: 18px; color: var(--gray-light); font-weight: 700; z-index: 1;
+}
+.rhythm-card:last-child::after { display: none; }
+
+/* ===== 知识框架四层金字塔 ===== */
+.know-pyramid {
+  margin-bottom: 36px;
+}
+.know-pyramid .kp-title {
+  font-size: 14px; font-weight: 700; color: var(--gray); margin-bottom: 14px;
+  text-align: center; letter-spacing: 1px;
+}
+.kp-layer {
+  margin: 0 auto; margin-bottom: 10px;
+  border-radius: 8px; padding: 18px 24px;
+  display: flex; align-items: center; gap: 20px;
+}
+.kp-layer.l4 { width: 100%; background: #FFF7ED; border: 1.5px solid var(--amber); }
+.kp-layer.l3 { width: 88%; background: var(--purple-bg); border: 1.5px solid var(--purple); }
+.kp-layer.l2 { width: 76%; background: var(--teal-bg); border: 1.5px solid var(--teal); }
+.kp-layer.l1 { width: 64%; background: var(--blue-bg); border: 1.5px solid var(--blue); }
+
+.kp-layer .kp-badge {
+  flex: none; width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; color: #fff;
+}
+.l4 .kp-badge { background: var(--amber); }
+.l3 .kp-badge { background: var(--purple); }
+.l2 .kp-badge { background: var(--teal); }
+.l1 .kp-badge { background: var(--blue); }
+
+.kp-layer .kp-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.l4 .kp-info h4 { color: var(--amber); }
+.l3 .kp-info h4 { color: var(--purple); }
+.l2 .kp-info h4 { color: var(--teal); }
+.l1 .kp-info h4 { color: var(--blue); }
+.kp-layer .kp-info p { font-size: 11px; color: var(--gray); line-height: 1.5; }
+.kp-layer .kp-courses { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; flex: none; }
+.kp-layer .kp-courses span {
+  padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; white-space: nowrap;
+}
+.l4 .kp-courses span { background: #FEF3C7; color: #92400E; }
+.l3 .kp-courses span { background: #EDE9FE; color: #6D28D9; }
+.l2 .kp-courses span { background: #CCFBF1; color: #115E59; }
+.l1 .kp-courses span { background: #DBEAFE; color: #1E40AF; }
+
+/* ===== 逐年详细规划 ===== */
+.plan-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px;
+}
+.plan-col {
+  border-radius: 8px; border: 1.5px solid; padding: 0; overflow: hidden;
+}
+.plan-col.y1 { border-color: #93C5FD; }
+.plan-col.y2 { border-color: #86EFAC; }
+.plan-col.y3 { border-color: #FDBA74; }
+.plan-col.y4 { border-color: #C4B5FD; }
+
+.plan-col .pc-head {
+  padding: 12px 14px; font-weight: 700; font-size: 14px; text-align: center;
+}
+.y1 .pc-head { background: #EFF6FF; color: var(--blue); }
+.y2 .pc-head { background: #F0FDF4; color: #16A34A; }
+.y3 .pc-head { background: #FFF7ED; color: var(--orange); }
+.y4 .pc-head { background: #F5F3FF; color: var(--purple); }
+
+.plan-col .pc-body { padding: 12px 14px; }
+.plan-col .pc-body .pc-section { margin-bottom: 10px; }
+.plan-col .pc-body .pc-section .pc-label {
+  font-size: 11px; font-weight: 700; color: var(--gray); margin-bottom: 3px;
+}
+.plan-col .pc-body .pc-section .pc-item {
+  font-size: 11px; color: var(--dark); line-height: 1.65;
+  padding-left: 10px; position: relative;
+}
+.plan-col .pc-body .pc-section .pc-item::before {
+  content:'·'; position:absolute; left:0; font-weight:700;
+}
+
+.plan-col .pc-check {
+  margin-top: 8px; padding: 8px 10px; border-radius: 6px; font-size: 10px; color: var(--gray); line-height: 1.6;
+}
+.y1 .pc-check { background: #EFF6FF; }
+.y2 .pc-check { background: #F0FDF4; }
+.y3 .pc-check { background: #FFF7ED; }
+.y4 .pc-check { background: #F5F3FF; }
+
+/* ===== 底部：关键时间节点 + 择校 ===== */
+.bottom-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px;
+}
+.bottom-card {
+  border: 1.5px solid var(--border); border-radius: 8px; padding: 18px 20px;
+}
+.bottom-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.bottom-card .tl-item {
+  display: flex; gap: 10px; margin-bottom: 7px; align-items: baseline;
+}
+.bottom-card .tl-time {
+  font-size: 11px; font-weight: 700; color: var(--orange); flex: none; width: 56px; text-align: right;
+}
+.bottom-card .tl-text { font-size: 12px; color: var(--dark); line-height: 1.5; }
+
+/* 院校梯队表格 */
+.school-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+.school-table th {
+  padding: 7px 10px; text-align: left; font-weight: 700; color: var(--gray);
+  background: var(--bg); border-bottom: 2px solid var(--border); font-size: 10px; letter-spacing: .5px;
+}
+.school-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--dark); }
+.school-table tr:last-child td { border-bottom: none; }
+
+/* 英语路线图 */
+.eng-line { display: flex; gap: 0; align-items: center; margin-bottom: 12px; }
+.eng-line .eng-node {
+  flex: 1; text-align: center; padding: 8px 4px; font-size: 11px; font-weight: 600;
+  border: 1.5px solid var(--border); border-right: none;
+}
+.eng-line .eng-node:first-child { border-radius: 6px 0 0 6px; }
+.eng-line .eng-node:last-child { border-radius: 0 6px 6px 0; border-right: 1.5px solid var(--border); }
+.eng-line .eng-node.e1 { background: #EFF6FF; border-color: #93C5FD; color: var(--blue); }
+.eng-line .eng-node.e2 { background: #F0FDF4; border-color: #86EFAC; color: #16A34A; }
+.eng-line .eng-node.e3 { background: #FFF7ED; border-color: #FDBA74; color: var(--orange); }
+.eng-line .eng-node.e4 { background: #F5F3FF; border-color: #C4B5FD; color: var(--purple); }
+
+/* 复试准备 */
+.exam-prep { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+.exam-prep .ep-item {
+  text-align: center; padding: 10px 6px; border-radius: 6px; font-size: 11px; font-weight: 600;
+  background: var(--bg); border: 1px solid var(--border);
+}
+.exam-prep .ep-item .ep-icon { font-size: 18px; margin-bottom: 4px; }
+.exam-prep .ep-item .ep-name { color: var(--dark); }
+
+/* 返回链接 */
+.back-link { font-size: 12px; color: var(--gray-light); text-align: center; margin-top: 16px; }
+.back-link a { color: var(--navy); font-weight: 600; text-decoration: none; }
+.back-link a:hover { text-decoration: underline; }
+
+/* 分割线 */
+.divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+/* 考研冲刺时间线小表 */
+.sprint-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.sprint-table th { padding: 6px 10px; background: var(--navy); color: #fff; font-weight: 600; font-size: 10px; letter-spacing: .5px; }
+.sprint-table th:first-child { border-radius: 6px 0 0 0; }
+.sprint-table th:last-child { border-radius: 0 6px 0 0; }
+.sprint-table td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: center; color: var(--dark); }
+.sprint-table tr:last-child td { font-weight: 700; color: var(--rose); }
+.sprint-table tr:last-child td:first-child { border-radius: 0 0 0 6px; }
+.sprint-table tr:last-child td:last-child { border-radius: 0 0 6px 0; }
+
+/* 学硕vs专硕对比 */
+.vs-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+.vs-table th { padding: 7px 10px; background: #F1F5F9; font-weight: 700; color: var(--navy); }
+.vs-table td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.vs-table tr:last-child td { border-bottom: none; }
+
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- ===== HEADER ===== -->
+  <div class="sec-title">NURSING UNDERGRADUATE STRATEGY</div>
+  <div class="sec-h1">护理学本科四年规划 · 考研深造方向</div>
+  <div class="sec-sub">适用对象：护理学本科新生，以考研为核心目标 | 基于308护理综合考试大纲及2024版培养方案</div>
+
+  <div class="divider"></div>
+
+  <!-- ===== 考研铁三角 ===== -->
+  <div class="sec-title">考研铁三角 · 核心策略</div>
+  <div class="tri-grid">
+    <div class="tri-card tc1">
+      <div class="tc-icon">G</div>
+      <div class="tc-head">绩点 GPA</div>
+      <div class="tc-desc">决定能否争取保研资格（推免），也是复试时导师衡量学习态度的重要指标。</div>
+      <div class="tc-stat">目标：年级前 20%</div>
+    </div>
+    <div class="tri-card tc2">
+      <div class="tc-icon">E</div>
+      <div class="tc-head">英语</div>
+      <div class="tc-desc">唯一贯穿四年的科目。英语一单科线是"卡人"利器（名校常要求 55-70 分），读研后看文献、发 SCI 都靠它。</div>
+      <div class="tc-stat">目标：四级 500+ → 六级 450+ → 英语一 55-70</div>
+    </div>
+    <div class="tri-card tc3">
+      <div class="tc-icon">308</div>
+      <div class="tc-head">308 护理综合（300分）</div>
+      <div class="tc-desc">分值占比最大（60%），是拉开总分差距的主战场。核心内容在大三学完，但大一的根基直接影响理解深度。</div>
+      <div class="tc-stat">内科 40% + 外科 30% + 基础 20% + 导论 10%</div>
+    </div>
+  </div>
+
+  <!-- ===== 考研科目占比 ===== -->
+  <div class="exam-bar-row">
+    <div class="exam-pie">
+      <div class="slice s1">308护理综合 300分</div>
+      <div class="slice s2">英语（一）100分</div>
+      <div class="slice s3">政治 100分</div>
+    </div>
+    <div class="exam-detail">
+      <h4>308护理综合 内部占比</h4>
+      <div class="subj-row">
+        <span class="subj-tag st1">内科护理学 40%（120分）</span>
+        <span class="subj-tag st1">外科护理学 30%（90分）</span>
+        <span class="subj-tag st2">基础护理学 20%（60分）</span>
+        <span class="subj-tag st3">护理学导论 10%（30分）</span>
+        <span class="subj-tag st4" style="margin-top:4px;">题型：单选60% + 多选20% + 问答/病例分析20%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== 四年战略节奏 ===== -->
+  <div class="sec-title">四年战略节奏</div>
+  <div class="rhythm-row">
+    <div class="rhythm-card y1">
+      <div class="ry-num">大一</div>
+      <div class="ry-label">筑基探索</div>
+      <div class="ry-tag">打地基 · 适应大学 · 英语四级</div>
+    </div>
+    <div class="rhythm-card y2">
+      <div class="ry-num">大二</div>
+      <div class="ry-label">深化蓄力</div>
+      <div class="ry-tag">建框架 · 科研启动 · 六级+大创</div>
+    </div>
+    <div class="rhythm-card y3">
+      <div class="ry-num">大三</div>
+      <div class="ry-label">临床核心</div>
+      <div class="ry-tag">课堂即复习 · 考研启动 · 黄金期</div>
+    </div>
+    <div class="rhythm-card y4">
+      <div class="ry-num">大四</div>
+      <div class="ry-label">实习冲刺</div>
+      <div class="ry-tag">双线作战 · 初试+复试 · 护资考试</div>
+    </div>
+  </div>
+
+  <!-- ===== 护理学知识框架四层金字塔 ===== -->
+  <div class="know-pyramid">
+    <div class="kp-title">护理学知识框架 · 四层递进</div>
+
+    <div class="kp-layer l4">
+      <div class="kp-badge">4</div>
+      <div class="kp-info">
+        <h4>第四层 · 工具方法层</h4>
+        <p>科研数据处理与信息获取能力</p>
+      </div>
+      <div class="kp-courses">
+        <span>医学统计学</span><span>文献检索</span><span>循证护理</span><span>计算机基础</span>
+      </div>
+    </div>
+
+    <div class="kp-layer l3">
+      <div class="kp-badge">3</div>
+      <div class="kp-info">
+        <h4>第三层 · 拓展与人文层（贯穿四年）</h4>
+        <p>成为"有温度"的护士，复试和科研的加分项</p>
+      </div>
+      <div class="kp-courses">
+        <span>护理心理学</span><span>护理管理学</span><span>护理教育学</span>
+        <span>护理研究</span><span>老年护理学</span><span>社区护理学</span>
+      </div>
+    </div>
+
+    <div class="kp-layer l2">
+      <div class="kp-badge">2</div>
+      <div class="kp-info">
+        <h4>第二层 · 护理专业核心层（大二大三）⭐308考研直接考查</h4>
+        <p>护理学专业主干，建立"病因→病理→表现→治疗→护理"知识链</p>
+      </div>
+      <div class="kp-courses">
+        <span>内科护理学 40%</span><span>外科护理学 30%</span><span>基础护理学 20%</span>
+        <span>护理学导论 10%</span><span>健康评估</span><span>急危重症</span>
+      </div>
+    </div>
+
+    <div class="kp-layer l1">
+      <div class="kp-badge">1</div>
+      <div class="kp-info">
+        <h4>第一层 · 基础医学层（大一大二）</h4>
+        <p>理解一切护理操作的底层逻辑，不是考研直接考查但决定理解深度</p>
+      </div>
+      <div class="kp-courses">
+        <span>解剖学</span><span>生理学</span><span>药理学</span><span>病理生理学</span>
+        <span>生物化学</span><span>免疫学</span><span>病原生物学</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== 四年逐年详细规划 ===== -->
+  <div class="sec-title">四年逐年行动规划</div>
+  <div class="plan-grid">
+    <!-- 大一 -->
+    <div class="plan-col y1">
+      <div class="pc-head">大一 · 筑基探索</div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-label">– 学业 –</div>
+          <div class="pc-item">解剖学、生理学、护理学导论</div>
+          <div class="pc-item">解剖靠图谱+标本，生理靠理解机制</div>
+          <div class="pc-item">GPA 目标年级前 30%</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-label">– 英语 –</div>
+          <div class="pc-item">上学期过四级（500+）</div>
+          <div class="pc-item">下学期冲刺六级</div>
+          <div class="pc-item">每天 30 分钟听力/阅读</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-label">– 科研启蒙 –</div>
+          <div class="pc-item">暑假医院见习 2 周</div>
+          <div class="pc-item">建立护理工作感性认知</div>
+        </div>
+      </div>
+      <div class="pc-check">✓ GPA前30% &nbsp; ✓ 四级500+ &nbsp; ✓ 暑期见习 &nbsp; ✓ 加入社团</div>
+    </div>
+
+    <!-- 大二 -->
+    <div class="plan-col y2">
+      <div class="pc-head">大二 · 深化蓄力</div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-label">– 学业 –</div>
+          <div class="pc-item">药理+病理生理=读懂疾病</div>
+          <div class="pc-item">基础护理学（第一门动手课）</div>
+          <div class="pc-item">健康评估培养临床思维</div>
+          <div class="pc-item">GPA 冲年级前 20%</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-label">– 科研启动 –</div>
+          <div class="pc-item">申报大创项目（校级/省级）</div>
+          <div class="pc-item">学文献检索（PubMed+知网）</div>
+          <div class="pc-item">联系导师进课题组</div>
+          <div class="pc-item">医学统计学 SPSS 入门</div>
+        </div>
+      </div>
+      <div class="pc-check">✓ GPA前20% &nbsp; ✓ 六级450+ &nbsp; ✓ 大创立项 &nbsp; ✓ 基础操作考核优秀 &nbsp; ✓ 确定2-3所目标院校</div>
+    </div>
+
+    <!-- 大三 -->
+    <div class="plan-col y3">
+      <div class="pc-head">大三 · 临床核心 & 考研启动</div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-label">– 学业（= 考研复习） –</div>
+          <div class="pc-item">内科按系统学：呼吸→循环→消化…</div>
+          <div class="pc-item">外科重点：围手术期+并发症+创伤</div>
+          <div class="pc-item">内外科期末 85+</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-label">– 考研启动（3月起） –</div>
+          <div class="pc-item">3-6月：精读内科+外科一轮</div>
+          <div class="pc-item">7-9月：二轮+真题+高频考点</div>
+          <div class="pc-item">英语真题阅读刷一轮</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-label">– 科研 –</div>
+          <div class="pc-item">推进大创项目，争取产出</div>
+          <div class="pc-item">论文/会议摘要/专利</div>
+        </div>
+      </div>
+      <div class="pc-check">✓ 内外科期末85+ &nbsp; ✓ 一轮复习完成 &nbsp; ✓ 确定1-2所目标院校 &nbsp; ✓ 科研有阶段性产出</div>
+    </div>
+
+    <!-- 大四 -->
+    <div class="plan-col y4">
+      <div class="pc-head">大四 · 实习冲刺</div>
+      <div class="pc-body">
+        <div class="pc-section">
+          <div class="pc-label">– 临床实习（8月-次年5月） –</div>
+          <div class="pc-item">内科/外科/急诊/ICU/妇产/儿科</div>
+          <div class="pc-item">选科策略：优先内科（和考研重叠）</div>
+          <div class="pc-item">和带教老师沟通考研安排</div>
+        </div>
+        <div class="pc-section">
+          <div class="pc-label">– 考研冲刺 –</div>
+          <div class="pc-item">8-9月：二轮强化+英语三刷</div>
+          <div class="pc-item">10月：政治启动+作文模板</div>
+          <div class="pc-item">11-12月：全真模拟冲刺</div>
+          <div class="pc-item"><b>12月底 初试</b></div>
+          <div class="pc-item">次年3-4月：复试</div>
+        </div>
+      </div>
+      <div class="pc-check">✓ 完成临床实习 &nbsp; ✓ 参加初试 &nbsp; ✓ 过院校线 &nbsp; ✓ 通过复试 &nbsp; ✓ 5月护资考试</div>
+    </div>
+  </div>
+
+  <!-- ===== 考研冲刺时间表 ===== -->
+  <div class="sec-title">考研冲刺时间线 · 大四 8月-12月</div>
+  <table class="sprint-table">
+    <tr><th></th><th>政治</th><th>英语</th><th>护理综合</th></tr>
+    <tr><td style="text-align:left;font-weight:600;">8-9月</td><td>开始听课</td><td>真题三刷</td><td>二轮强化，刷院校真题</td></tr>
+    <tr><td style="text-align:left;font-weight:600;">10月</td><td>刷 1000 题</td><td>作文模板整理</td><td>查漏补缺，错题本</td></tr>
+    <tr><td style="text-align:left;font-weight:600;">11月</td><td>背诵冲刺</td><td>全真模拟</td><td>全真模拟（限时3小时）</td></tr>
+    <tr><td style="text-align:left;font-weight:600;">12月</td><td>背押题</td><td>保持手感</td><td>回归笔记+高频考点</td></tr>
+    <tr><td style="text-align:left;font-weight:600;">12月底</td><td>初试</td><td>初试</td><td>初试</td></tr>
+  </table>
+
+  <div class="divider"></div>
+
+  <!-- ===== 底部双栏：英语路线 + 关键时间节点 ===== -->
+  <div class="bottom-grid">
+    <div class="bottom-card">
+      <h4>英语能力路线图</h4>
+      <div class="eng-line">
+        <div class="eng-node e1">大一<br>四级 500+<br>→ 六级</div>
+        <div class="eng-node e2">大二<br>六级 450+<br>医学英语词汇</div>
+        <div class="eng-node e3">大三<br>阅读英文护理文献<br>考研英语一真题</div>
+        <div class="eng-node e4">大四<br>英语一 55-70 分<br>复试英语口语</div>
+      </div>
+      <div style="font-size:11px;color:var(--gray);margin-top:8px;">
+        得阅读者得英语：阅读 40分 + 写作 25分 + 翻译 15分 + 新题型/完形 20分
+      </div>
+    </div>
+    <div class="bottom-card">
+      <h4>复试准备五大考察项</h4>
+      <div class="exam-prep">
+        <div class="ep-item"><div class="ep-icon">📝</div><div class="ep-name">专业课笔试/面试</div></div>
+        <div class="ep-item"><div class="ep-icon">🗣</div><div class="ep-name">英语口语</div></div>
+        <div class="ep-item"><div class="ep-icon">🩺</div><div class="ep-name">操作考核</div></div>
+        <div class="ep-item"><div class="ep-icon">🔬</div><div class="ep-name">科研经历展示</div></div>
+        <div class="ep-item"><div class="ep-icon">💡</div><div class="ep-name">综合素质</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--gray);margin-top:10px;">
+        <b>关键提醒：</b>护理研究课是复试中导师最看重的科研潜力指标 &nbsp;|&nbsp; 大创项目经历 = 复试最强加分项
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 科研进阶 + 学硕vs专硕 ===== -->
+  <div class="bottom-grid">
+    <div class="bottom-card">
+      <h4>科研能力进阶路径</h4>
+      <div style="font-size:11px;color:var(--dark);line-height:2;">
+        <b>大一：</b>了解科研 → 听讲座、读科普 →
+        <b>大二：</b>文献检索 → PubMed/知网 + Zotero + SPSS → 申报大创 →
+        <b>大三：</b>推进课题 → 论文写作 → 争取发表 →
+        <b>大四：</b>科研经历整理 → 复试展示
+      </div>
+    </div>
+    <div class="bottom-card">
+      <h4>学硕 vs 专硕</h4>
+      <table class="vs-table">
+        <tr><th></th><th>学硕（学术型）</th><th>专硕（专业型）</th></tr>
+        <tr><td>培养目标</td><td>科研型人才，偏理论研究</td><td>应用型人才，偏临床实践</td></tr>
+        <tr><td>学制</td><td>通常 3 年</td><td>通常 2-3 年</td></tr>
+        <tr><td>读博</td><td>可直博/硕博连读</td><td>一般需考博</td></tr>
+        <tr><td>就业</td><td>高校教学、科研院所</td><td>临床高级护理、护理管理</td></tr>
+        <tr><td>建议</td><td colspan="2" style="color:var(--navy);font-weight:600;">考研深造方向下，学硕更适合未来发展空间，但竞争更激烈</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== 院校梯队 ===== -->
+  <div class="bottom-card" style="grid-column:1/-1;">
+    <h4>考研择校参考 · 院校梯队</h4>
+    <table class="school-table">
+      <tr>
+        <th style="width:12%;">梯队</th><th style="width:38%;">院校举例</th><th>特点</th>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--blue);">顶尖</td>
+        <td>北京协和医学院 · 北京大学 · 复旦大学 · 中南大学（湘雅）· 中山大学</td>
+        <td>科研资源顶尖，竞争激烈，英语要求高</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--teal);">第一梯队</td>
+        <td>四川大学（华西）· 上海交通大学 · 华中科技大学 · 山东大学 · 西安交通大学</td>
+        <td>985 名校，综合实力强</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--orange);">第二梯队</td>
+        <td>首都医科大学 · 南京医科大学 · 中国医科大学 · 哈尔滨医科大学 · 重庆医科大学</td>
+        <td>专业实力强，性价比高</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;color:var(--purple);">区域重点</td>
+        <td>各省属医科大学 / 中医药大学护理学院</td>
+        <td>竞争相对温和，地域优势明显</td>
+      </tr>
+    </table>
+    <div style="font-size:11px;color:var(--gray);margin-top:10px;">
+      <b>择校策略：</b>地域优先（护理就业地域性强）→ 方向匹配（老年/重症/慢病/社区）→ 查报录比 → 冲刺1所+稳妥1所+保底1所
+    </div>
+  </div>
+
+  <!-- ===== 保研机会 ===== -->
+  <div class="bottom-card" style="grid-column:1/-1;margin-top:20px;">
+    <h4>保研（推免）机会 · GPA 年级前10-15%可争取</h4>
+    <div style="display:flex;gap:16px;font-size:12px;color:var(--dark);">
+      <div style="flex:1;padding:12px;background:#EFF6FF;border-radius:6px;text-align:center;">
+        <b style="color:var(--blue);">夏令营</b><br><span style="font-size:11px;color:var(--gray);">大三暑假 · 顶尖院校举办 · 表现优秀可获预录取</span>
+      </div>
+      <div style="flex:1;padding:12px;background:#F0FDF4;border-radius:6px;text-align:center;">
+        <b style="color:#16A34A;">预推免</b><br><span style="font-size:11px;color:var(--gray);">大四9月 · 正式推免前的补充选拔</span>
+      </div>
+      <div style="flex:1;padding:12px;background:#FFF7ED;border-radius:6px;text-align:center;">
+        <b style="color:var(--orange);">正式推免</b><br><span style="font-size:11px;color:var(--gray);">大四9-10月 · 教育部推免系统</span>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--navy);font-weight:700;margin-top:8px;text-align:center;">
+      保研优势：免去初试压力，直接进入复试选拔。成绩好，这条路比考研更稳妥。
+    </div>
+  </div>
+
+  <!-- 底部返回 -->
+  <div class="back-link">
+    <a href="index.html">← 返回个人知识库首页</a>
+  </div>
+
+</div>
+
+</body>
+</html>
