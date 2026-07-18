@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>涉外护理职业发展规划 · 10年路径全景图</title>
+<style>
+/* ============================================================
+   涉外护理职业发展规划 · 信息图结构化风
+   多彩克制 · 雷达图+时间线+对比矩阵混合
+   ============================================================ */
+
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --gold:       #B45309;
+  --gold-bg:    #FEF9E7;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.5;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero Header ===== */
+.hero { margin-bottom: 40px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--teal);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 28px; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+/* ===== Radar Chart Section ===== */
+.radar-row { display: flex; gap: 32px; margin-bottom: 40px; align-items: flex-start; }
+.radar-box {
+  flex: 0 0 420px; background: var(--bg); border-radius: 10px; padding: 20px 24px 16px;
+}
+.radar-box .title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
+.radar-box .subtitle { font-size: 12px; color: var(--gray); margin-bottom: 14px; }
+.radar-right { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.radar-cap { padding: 12px 16px; border-radius: 8px; font-size: 13px; border-left: 4px solid; }
+.radar-cap:nth-child(1) { background: var(--blue-bg); border-color: var(--blue); }
+.radar-cap:nth-child(2) { background: var(--rose-bg); border-color: var(--rose); }
+.radar-cap:nth-child(3) { background: var(--purple-bg); border-color: var(--purple); }
+.radar-cap:nth-child(4) { background: var(--teal-bg); border-color: var(--teal); }
+.radar-cap:nth-child(5) { background: var(--amber-bg); border-color: var(--amber); }
+.radar-cap:nth-child(6) { background: var(--orange-bg); border-color: var(--orange); }
+.radar-cap .cap-hd { font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+.radar-cap .cap-bar { height: 4px; border-radius: 2px; margin-top: 4px; background: #E2E8F0; position: relative; }
+.radar-cap .cap-fill { height: 100%; border-radius: 2px; }
+.radar-cap .cap-desc { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+/* ===== Radar SVG ===== */
+.radar-svg { width: 100%; }
+
+/* ===== Section ===== */
+.section { margin-bottom: 36px; }
+
+/* ===== Timeline 5 Stages ===== */
+.timeline-5 { display: flex; gap: 0; position: relative; }
+.timeline-5::after {
+  content: '';
+  position: absolute; top: 44px; left: 60px; right: 60px;
+  height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--teal), var(--purple), var(--amber), var(--rose));
+}
+.timeline-5 .t5-node {
+  flex: 1; text-align: center; position: relative; z-index: 1; padding-top: 62px;
+}
+.timeline-5 .t5-dot {
+  width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 8px;
+  border: 3px solid var(--white); box-shadow: 0 0 0 3px;
+  position: absolute; top: 32px; left: 50%; transform: translateX(-50%);
+}
+.t5-node:nth-child(1) .t5-dot { background: var(--blue); box-shadow: 0 0 0 3px var(--blue-bg); }
+.t5-node:nth-child(2) .t5-dot { background: var(--teal); box-shadow: 0 0 0 3px var(--teal-bg); }
+.t5-node:nth-child(3) .t5-dot { background: var(--purple); box-shadow: 0 0 0 3px var(--purple-bg); }
+.t5-node:nth-child(4) .t5-dot { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-bg); }
+.t5-node:nth-child(5) .t5-dot { background: var(--rose); box-shadow: 0 0 0 3px var(--rose-bg); }
+.t5-node .t5-yr { font-size: 12px; color: var(--gray); margin-bottom: 4px; }
+.t5-node .t5-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.t5-node .t5-desc { font-size: 12px; color: var(--gray-light); padding: 0 6px; line-height: 1.6; }
+
+/* ===== Stage Detail Cards ===== */
+.stage-cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 20px; }
+.stage-card { border-radius: 8px; padding: 16px 14px; border-top: 3px solid; }
+.stage-card:nth-child(1) { background: var(--blue-bg); border-color: var(--blue); }
+.stage-card:nth-child(2) { background: var(--teal-bg); border-color: var(--teal); }
+.stage-card:nth-child(3) { background: var(--purple-bg); border-color: var(--purple); }
+.stage-card:nth-child(4) { background: var(--amber-bg); border-color: var(--amber); }
+.stage-card:nth-child(5) { background: var(--rose-bg); border-color: var(--rose); }
+.stage-card .sc-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+.stage-card .sc-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+.stage-card ul { list-style: none; font-size: 12px; color: var(--dark); }
+.stage-card ul li { padding: 2px 0; }
+.stage-card ul li::before { content: '·'; font-weight: 900; margin-right: 5px; }
+
+/* ===== Cert System Three Columns ===== */
+.cert-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cert-col { border-radius: 10px; overflow: hidden; }
+.cert-col:nth-child(1) .cert-head { background: var(--rose); }
+.cert-col:nth-child(2) .cert-head { background: var(--purple); }
+.cert-col:nth-child(3) .cert-head { background: var(--amber); }
+.cert-head { padding: 12px 16px; color: var(--white); }
+.cert-head .ch-title { font-size: 15px; font-weight: 700; }
+.cert-head .ch-sub  { font-size: 12px; opacity: .85; }
+.cert-body { background: var(--bg); padding: 12px 16px 16px; }
+.cert-body table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.cert-body th { text-align: left; padding: 6px 4px; color: var(--gray); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 11px; }
+.cert-body td { padding: 6px 4px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.cert-body tr:last-child td { border-bottom: none; }
+
+/* ===== Country Comparison ===== */
+.country-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.country-card { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); transition: transform .15s; }
+.country-card:hover { transform: translateY(-2px); }
+.country-card .cc-flag { padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+.cc-flag .cc-emoji { font-size: 28px; }
+.cc-flag .cc-name { font-size: 15px; font-weight: 700; }
+.country-card .cc-salary { padding: 8px 12px; font-size: 13px; font-weight: 700; }
+.country-card .cc-body { padding: 8px 12px 12px; font-size: 12px; color: var(--gray); line-height: 1.7; }
+.country-card .cc-body span { display: block; }
+.cc-label { font-weight: 600; color: var(--dark); }
+.country-card:nth-child(1) .cc-flag, .country-card:nth-child(1) .cc-salary { background: var(--blue-bg); }
+.country-card:nth-child(2) .cc-flag, .country-card:nth-child(2) .cc-salary { background: var(--teal-bg); }
+.country-card:nth-child(3) .cc-flag, .country-card:nth-child(3) .cc-salary { background: var(--purple-bg); }
+.country-card:nth-child(4) .cc-flag, .country-card:nth-child(4) .cc-salary { background: var(--amber-bg); }
+.country-card:nth-child(5) .cc-flag, .country-card:nth-child(5) .cc-salary { background: var(--orange-bg); }
+
+/* ===== Dual Path ===== */
+.dual-path { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.path-col { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.path-col:nth-child(1) .ph { background: var(--teal); }
+.path-col:nth-child(2) .ph { background: var(--blue); }
+.ph { padding: 10px 16px; color: var(--white); font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.ph .badge { font-size: 11px; background: rgba(255,255,255,.2); padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+.path-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.path-step { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+.path-step .ps-num { flex: 0 0 24px; height: 24px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--gray); }
+.path-step .ps-text { flex: 1; }
+.path-step .ps-text strong { display: block; margin-bottom: 1px; }
+
+/* ===== Year Checklist Grid ===== */
+.year-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.year-card { border-radius: 8px; padding: 16px; border-left: 4px solid; background: var(--bg); }
+.year-card:nth-child(1) { border-color: var(--blue); }
+.year-card:nth-child(2) { border-color: var(--teal); }
+.year-card:nth-child(3) { border-color: var(--purple); }
+.year-card:nth-child(4) { border-color: var(--amber); }
+.year-card .yc-hd { font-size: 14px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.year-card .yc-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; color: var(--white); }
+.year-card:nth-child(1) .yc-tag { background: var(--blue); }
+.year-card:nth-child(2) .yc-tag { background: var(--teal); }
+.year-card:nth-child(3) .yc-tag { background: var(--purple); }
+.year-card:nth-child(4) .yc-tag { background: var(--amber); }
+.year-card ul { list-style: none; font-size: 12px; }
+.year-card ul li { padding: 2px 0; color: var(--dark); display: flex; gap: 4px; }
+.year-card ul li::before { content: '☐'; color: var(--gray-light); }
+
+/* ===== Post-grad Timeline ===== */
+.post-timeline { display: flex; gap: 10px; }
+.pt-block { flex: 1; border-radius: 8px; padding: 14px; }
+.pt-block:nth-child(1) { background: var(--purple-bg); }
+.pt-block:nth-child(2) { background: var(--blue-bg); }
+.pt-block .pt-h { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.pt-block .pt-desc { font-size: 12px; color: var(--gray); margin-bottom: 8px; line-height: 1.6; }
+.pt-block ul { list-style: none; font-size: 12px; }
+.pt-block ul li { padding: 3px 0; }
+.pt-block ul li::before { content: '→ '; color: var(--gray-light); }
+
+/* ===== Domestic Employment ===== */
+.domestic-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.dom-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.dom-card .dm-type { font-size: 12px; color: var(--gray-light); margin-bottom: 4px; }
+.dom-card .dm-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.dom-card .dm-salary { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+.dom-card .dm-salary small { font-size: 13px; font-weight: 400; color: var(--gray); }
+.dom-card .dm-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+/* ===== Risk & Backup ===== */
+.risk-row { display: flex; gap: 16px; }
+.risk-main { flex: 1; }
+.risk-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.risk-table th { background: var(--rose-bg); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 700; color: var(--rose); }
+.risk-table td { padding: 8px 12px; border-top: 1px solid var(--border); }
+.risk-table tr:nth-child(even) td { background: #FAFAFA; }
+.backup-col { flex: 0 0 280px; display: flex; flex-direction: column; gap: 8px; }
+.backup-item { padding: 12px 14px; border-radius: 8px; font-size: 12px; }
+.backup-item:nth-child(1) { background: var(--teal-bg); }
+.backup-item:nth-child(2) { background: var(--purple-bg); }
+.backup-item:nth-child(3) { background: var(--amber-bg); }
+.backup-item .bi-label { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-chain { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+.sf-chain .arrow { color: var(--gold); font-weight: 700; }
+.sf-chain .node { padding: 4px 12px; background: rgba(255,255,255,.1); border-radius: 4px; font-weight: 600; }
+
+/* ===== OET tip box ===== */
+.tip-box {
+  background: linear-gradient(135deg, #FEF2F2, #FFF1F2); border: 1px solid #FECACA;
+  border-radius: 8px; padding: 14px 18px; margin-top: 12px;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 13px;
+}
+.tip-box .tip-icon { font-size: 22px; flex-shrink: 0; }
+.tip-box strong { color: var(--rose); }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">International Nursing Career · 涉外护理</div>
+    <h1>涉外护理职业发展规划 · 10年路径全景图</h1>
+    <div class="sub">适用对象：护理学本科在读学生 ｜ 规划周期：大学4年 + 毕业后6年 ｜ 数据截至2025年7月</div>
+    <div class="stats">
+      <div class="stat"><span class="num">6</span><span class="lbl">核心能力维度</span></div>
+      <div class="stat"><span class="num">5</span><span class="lbl">目标国可选</span></div>
+      <div class="stat"><span class="num">3</span><span class="lbl">类国际证书</span></div>
+      <div class="stat"><span class="num">10</span><span class="lbl">年完整规划</span></div>
+    </div>
+  </div>
+
+  <!-- ====== Section 1: 核心能力六维 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · 涉外护理核心能力六维模型</div>
+    <div class="radar-row">
+      <div class="radar-box">
+        <div class="title">能力雷达图</div>
+        <div class="subtitle">入职门槛 vs 资深涉外护士水平（满分10分）</div>
+        <svg class="radar-svg" viewBox="0 0 360 340">
+          <!-- concentric hexagons -->
+          <polygon points="180,30 308,105 308,255 180,330 52,255 52,105" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,62 295,122 295,238 180,298 65,238 65,122" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,94 282,139 282,221 180,266 78,221 78,139" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,126 269,156 269,204 180,234 91,204 91,156" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,158 256,173 256,187 180,202 104,187 104,173" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <!-- axes -->
+          <line x1="180" y1="30" x2="180" y2="330" stroke="#E2E8F0" stroke-width=".5"/>
+          <line x1="52" y1="105" x2="308" y2="255" stroke="#E2E8F0" stroke-width=".5"/>
+          <line x1="308" y1="105" x2="52" y2="255" stroke="#E2E8F0" stroke-width=".5"/>
+          <!-- data: entry level (opacity .3) -->
+          <!-- 专业护理7 -> 180,30 + (330-30)*(1-7/10) = 180,90 -->
+          <!-- 医学英语6 -> 308- (308-52)*6/10 = 154.4 , 105+ (255-105)*(1-6/10) = 165 -->
+          <!-- let me calculate points -->
+          <!-- Entry: 专业7(180,90) 医学英语6(179,150) 跨文化5(180,180) 国际标准5(206,202.5) 循证3(231,255) 应急6(232,180) -->
+          <!-- Expert: 专业9(180,60) 医学英语9(179,120) 跨文化8(180,150) 国际标准9(180,187.5) 循证7(180,225) 应急8(205,210) -->
+          <polygon points="180,90 179,150 180,180 206,202 231,255 232,180" fill="var(--blue)" fill-opacity=".15" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="180,60 179,120 180,150 180,188 180,225 205,210" fill="var(--rose)" fill-opacity=".12" stroke="var(--rose)" stroke-width="1.5"/>
+          <!-- labels -->
+          <text x="165" y="22" text-anchor="middle" font-size="11" fill="#1E293B" font-weight="600">专业护理技能</text>
+          <text x="315" y="108" text-anchor="start" font-size="11" fill="#1E293B" font-weight="600">医学英语</text>
+          <text x="315" y="262" text-anchor="start" font-size="11" fill="#1E293B" font-weight="600">跨文化沟通</text>
+          <text x="40" y="262" text-anchor="end" font-size="11" fill="#1E293B" font-weight="600">国际标准</text>
+          <text x="40" y="108" text-anchor="end" font-size="11" fill="#1E293B" font-weight="600">循证科研</text>
+          <text x="165" y="345" text-anchor="middle" font-size="11" fill="#1E293B" font-weight="600">应急重症</text>
+          <!-- legend -->
+          <rect x="100" y="310" width="10" height="10" fill="var(--blue)" fill-opacity=".3" rx="2"/>
+          <text x="114" y="319" font-size="10" fill="#64748B">入职门槛</text>
+          <rect x="180" y="310" width="10" height="10" fill="var(--rose)" fill-opacity=".3" rx="2"/>
+          <text x="194" y="319" font-size="10" fill="#64748B">资深水平</text>
+        </svg>
+      </div>
+      <div class="radar-right">
+        <div class="radar-cap">
+          <div class="cap-hd"><span>专业护理技能</span><span style="font-size:12px;color:var(--gray)">门槛 7 → 资深 9</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:78%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
+          <div class="cap-desc">BLS/ACLS/PALS/NRP持证 · 至少1个专科领域深耕 · 独立护理评估与计划</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>医学英语能力</span><span style="font-size:12px;color:var(--gray)">门槛 6 → 资深 9</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:67%;background:linear-gradient(90deg,var(--rose),#FB7185)"></div></div>
+          <div class="cap-desc">3000+医学术语 · SBAR模式交班 · 英文护理文书 · OET四项B级 / 雅思7.0</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>跨文化沟通</span><span style="font-size:12px;color:var(--gray)">门槛 5 → 资深 8</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:56%;background:linear-gradient(90deg,var(--purple),#A78BFA)"></div></div>
+          <div class="cap-desc">宗教禁忌尊重 · 患者知情权 · 非语言沟通差异 · 多元文化团队协作</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>国际护理标准</span><span style="font-size:12px;color:var(--gray)">门槛 5 → 资深 9</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:56%;background:linear-gradient(90deg,var(--teal),#5EEAD4)"></div></div>
+          <div class="cap-desc">JCI患者安全 · ANA/NMC标准 · 循证护理(EBN) · 护理过程五步法</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>循证护理与科研</span><span style="font-size:12px;color:var(--gray)">门槛 3 → 资深 7</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:33%;background:linear-gradient(90deg,var(--amber),#FBBF24)"></div></div>
+          <div class="cap-desc">PubMed/CINAHL文献检索 · 定量/质性研究 · 护理质量改进(QI/CPD)</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>应急与重症护理</span><span style="font-size:12px;color:var(--gray)">门槛 6 → 资深 8</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:67%;background:linear-gradient(90deg,var(--orange),#FB923C)"></div></div>
+          <div class="cap-desc">TNCC/ENPC认证 · 创伤护理核心课程 · 急诊儿科方向</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 2: 职业发展五阶段 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--teal);">02 · 职业发展五阶段路径</div>
+    <div class="timeline-5">
+      <div class="t5-node"><div class="t5-dot"></div><div class="t5-yr">大一至大四</div><div class="t5-name">大学筑基期</div><div class="t5-desc">护理本科 + 英语四六级<br>ISPN备考 + BLS认证</div></div>
+      <div class="t5-node"><div class="t5-dot"></div><div class="t5-yr">毕业后1-2年</div><div class="t5-name">短期目标</div><div class="t5-desc">三甲/外资医院临床积累<br>OET/雅思达标 + 护师职称</div></div>
+      <div class="t5-node"><div class="t5-dot"></div><div class="t5-yr">毕业后3-5年</div><div class="t5-name" style="position:relative;">中期分水岭<span style="position:absolute;top:-18px;right:-10px;font-size:10px;background:var(--purple);color:#fff;padding:1px 6px;border-radius:8px;white-space:nowrap;">★ 关键</span></div><div class="t5-desc">NCLEX-RN通过 + 目标国注册<br>海外就业 / 国内晋升主管</div></div>
+      <div class="t5-node"><div class="t5-dot"></div><div class="t5-yr">毕业后5-8年</div><div class="t5-name">成长期</div><div class="t5-desc">专科认证(CCRN/CEN/OCN)<br>charge nurse + MSN硕士</div></div>
+      <div class="t5-node"><div class="t5-dot"></div><div class="t5-yr">毕业后8年+</div><div class="t5-name">长期成熟期</div><div class="t5-desc">APN/NP独立执业<br>CNO / 护理教育 / 回国发展</div></div>
+    </div>
+    <div class="stage-cards">
+      <div class="stage-card">
+        <div class="sc-tag" style="color:var(--blue);">STAGE 1</div>
+        <div class="sc-title">大学筑基期</div>
+        <ul>
+          <li>大一：通过CET-4，接触医学英语词汇</li>
+          <li>大二：通过CET-6，开始ISPN备考</li>
+          <li>大三：参加ISPN考试，暑期外资医院见习</li>
+          <li>大四：护士执业资格考试 + BLS认证</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <div class="sc-tag" style="color:var(--teal);">STAGE 2</div>
+        <div class="sc-title">短期目标</div>
+        <ul>
+          <li>进入三甲/外资医院，完成内外科轮转</li>
+          <li>通过OET(四项B级)或雅思7.0</li>
+          <li>启动CGFNS学历认证</li>
+          <li>取得护师资格（初级职称）</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <div class="sc-tag" style="color:var(--purple);">STAGE 3 ★</div>
+        <div class="sc-title">中期分水岭</div>
+        <ul>
+          <li>赴美：CGFNS→NCLEX-RN→EB-3签证</li>
+          <li>赴英：NMC→CBT→NHS offer→OSCE</li>
+          <li>赴澳：ANMAC→AHPRA→雇主担保</li>
+          <li>国内：外资资深护士→护理组长</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <div class="sc-tag" style="color:var(--amber);">STAGE 4</div>
+        <div class="sc-title">成长期</div>
+        <ul>
+          <li>获国际专科认证(CCRN重症/CEN急诊)</li>
+          <li>晋升charge nurse或CNS</li>
+          <li>攻读护理硕士(MSN)</li>
+          <li>加入ANA/ICN等国际护理组织</li>
+        </ul>
+      </div>
+      <div class="stage-card">
+        <div class="sc-tag" style="color:var(--rose);">STAGE 5</div>
+        <div class="sc-title">长期目标</div>
+        <ul>
+          <li>APN/NP独立执业(处方权)</li>
+          <li>年薪$100K-$170K+</li>
+          <li>CNO / 护理学院教职</li>
+          <li>回国：外资医院护理总监</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 3: 国际证书体系 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--purple);">03 · 国际护理资格证书及语言证书体系</div>
+    <div class="cert-row">
+      <!-- 语言 -->
+      <div class="cert-col">
+        <div class="cert-head"><div class="ch-title">第一优先级 · 语言能力</div><div class="ch-sub">入场券 · OET优于雅思</div></div>
+        <div class="cert-body">
+          <table>
+            <tr><th>考试</th><th>美国</th><th>英国</th><th>澳洲</th><th>费用</th></tr>
+            <tr><td><strong>OET</strong>（推荐）</td><td>L/R/S: B, W: C+</td><td>同左</td><td>同左<span style="color:var(--green);font-weight:600;">★新政利好</span></td><td>AUD$587</td></tr>
+            <tr><td><strong>IELTS</strong></td><td>6.5, 口语7.0</td><td>7.0, 单项7.0</td><td>7.0, W6.5<span style="color:var(--green);font-weight:600;">(新政)</span></td><td>¥2220</td></tr>
+            <tr><td><strong>TOEFL</strong></td><td>83, 口语26</td><td>94, 各部24+</td><td>94, 写作27</td><td>$265</td></tr>
+          </table>
+          <div class="tip-box" style="margin-top:10px;">
+            <div class="tip-icon">💡</div>
+            <div><strong>2025澳洲新政</strong>：雅思写作降至6.5，OET写作降至C+，支持12个月两次拼分，成绩有效期延至3年。赴澳门槛大幅降低！</div>
+          </div>
+        </div>
+      </div>
+      <!-- 国际认证 -->
+      <div class="cert-col">
+        <div class="cert-head"><div class="ch-title">第二优先级 · 国际认证</div><div class="ch-sub">核心敲门砖 · 提前1-2年规划</div></div>
+        <div class="cert-body">
+          <table>
+            <tr><th>证书</th><th>用途</th><th>费用</th></tr>
+            <tr><td><strong>ISPN</strong></td><td>专业英语证明 · 为NCLEX打基础</td><td>$350</td></tr>
+            <tr><td><strong>CGFNS</strong></td><td>赴美学历认证 · CVS/VisaScreen</td><td>$350~$540</td></tr>
+            <tr><td><strong>NCLEX-RN</strong></td><td>美国/加拿大RN执照 · 全球认可度最高</td><td>$200+</td></tr>
+            <tr><td><strong>NMC注册</strong></td><td>赴英执业 · CBT+OSCE</td><td>£140+£794</td></tr>
+            <tr><td><strong>AHPRA</strong></td><td>赴澳注册 · ANMAC评估</td><td>AUD$950</td></tr>
+          </table>
+          <div style="margin-top:10px;font-size:12px;color:var(--gray);">⏱ CGFNS认证约3-6个月 · NCLEX-RN从ATT到考试约2-3个月</div>
+        </div>
+      </div>
+      <!-- 急救专科 -->
+      <div class="cert-col">
+        <div class="cert-head"><div class="ch-title">第三优先级 · 急救+专科</div><div class="ch-sub">持续获取 · 决定职业天花板</div></div>
+        <div class="cert-body">
+          <table>
+            <tr><th>认证</th><th>方向</th><th>有效期</th></tr>
+            <tr><td><strong>BLS</strong></td><td>基础生命支持（大学可考）</td><td>2年</td></tr>
+            <tr><td><strong>ACLS</strong></td><td>高级心血管生命支持</td><td>2年</td></tr>
+            <tr><td><strong>PALS</strong></td><td>儿科高级生命支持</td><td>2年</td></tr>
+            <tr><td><strong>NRP</strong></td><td>新生儿复苏</td><td>2年</td></tr>
+            <tr><td><strong>CCRN</strong></td><td>重症监护（ICU 2年后）</td><td>3年</td></tr>
+            <tr><td><strong>CEN</strong></td><td>急诊（急诊2年后）</td><td>3年</td></tr>
+            <tr><td><strong>OCN</strong></td><td>肿瘤（肿瘤科1年后）</td><td>4年</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 4: 海外市场五国对比 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--amber);">04 · 海外就业市场五国对比（全球护士缺口 590万）</div>
+    <div class="country-grid">
+      <div class="country-card">
+        <div class="cc-flag"><span class="cc-emoji">🇺🇸</span><span class="cc-name">美国</span></div>
+        <div class="cc-salary">$60K-$100K+<br><small style="color:var(--gray);font-weight:400;">约42-70万RMB/年</small></div>
+        <div class="cc-body">
+          <span><span class="cc-label">缺口：</span>20万+空缺</span>
+          <span><span class="cc-label">签证：</span>EB-3雇主担保绿卡</span>
+          <span><span class="cc-label">路径：</span>CGFNS→NCLEX-RN→EB-3</span>
+          <span><span class="cc-label">亮点：</span>最高薪资 · 直接绿卡</span>
+          <span><span class="cc-label">挑战：</span>EB-3排期1-3年</span>
+        </div>
+      </div>
+      <div class="country-card">
+        <div class="cc-flag"><span class="cc-emoji">🇬🇧</span><span class="cc-name">英国</span></div>
+        <div class="cc-salary">£28K-£45K<br><small style="color:var(--gray);font-weight:400;">约25-40万RMB/年</small></div>
+        <div class="cc-body">
+          <span><span class="cc-label">缺口：</span>4万+空缺</span>
+          <span><span class="cc-label">签证：</span>Health and Care Worker</span>
+          <span><span class="cc-label">路径：</span>NMC→CBT→NHS→OSCE</span>
+          <span><span class="cc-label">亮点：</span>门槛较低 · NHS主动招募</span>
+          <span><span class="cc-label">定居：</span>5年后ILR永久居留</span>
+        </div>
+      </div>
+      <div class="country-card">
+        <div class="cc-flag"><span class="cc-emoji">🇦🇺</span><span class="cc-name">澳大利亚</span></div>
+        <div class="cc-salary">AUD$70K-$110K<br><small style="color:var(--gray);font-weight:400;">约33-52万RMB/年</small></div>
+        <div class="cc-body">
+          <span><span class="cc-label">缺口：</span>8.5-10万空缺</span>
+          <span><span class="cc-label">签证：</span>482/189/190多路径</span>
+          <span><span class="cc-label">路径：</span>ANMAC→AHPRA→担保</span>
+          <span><span class="cc-label">亮点：</span>综合最优 · 2025新政利好</span>
+          <span><span class="cc-label">福利：</span>养老金雇主另缴11.5%</span>
+        </div>
+      </div>
+      <div class="country-card">
+        <div class="cc-flag"><span class="cc-emoji">🇨🇦</span><span class="cc-name">加拿大</span></div>
+        <div class="cc-salary">CAD$70K-$95K<br><small style="color:var(--gray);font-weight:400;">约37-50万RMB/年</small></div>
+        <div class="cc-body">
+          <span><span class="cc-label">缺口：</span>6万+空缺(2026)</span>
+          <span><span class="cc-label">签证：</span>Express Entry/PNP</span>
+          <span><span class="cc-label">路径：</span>NNAS→省注册→NCLEX-RN</span>
+          <span><span class="cc-label">亮点：</span>移民最友好 · PR路径清晰</span>
+          <span><span class="cc-label">福利：</span>全民医保+产假+养老金</span>
+        </div>
+      </div>
+      <div class="country-card">
+        <div class="cc-flag"><span class="cc-emoji">🇩🇪</span><span class="cc-name">德国/中东</span></div>
+        <div class="cc-salary">€33K-€45K / $30K-$60K<br><small style="color:var(--gray);font-weight:400;">约21-42万RMB/年</small></div>
+        <div class="cc-body">
+          <span><span class="cc-label">缺口：</span>持续需求</span>
+          <span><span class="cc-label">德国：</span>Triple Win项目引进15万护士</span>
+          <span><span class="cc-label">中东：</span>免税薪资 · 无PR路径</span>
+          <span><span class="cc-label">门槛：</span>德国需德语B2 · 中东较低</span>
+          <span><span class="cc-label">定位：</span>攒钱跳板 · 快速积累经验</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 5: 大学四年准备明细 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">05 · 大学四年准备计划</div>
+    <div class="year-grid">
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大一</span> 打地基 · 18-19岁</div>
+        <ul>
+          <li>学好基础医学课程（解剖、生理、生化）</li>
+          <li>通过CET-4，目标550+</li>
+          <li>每天背50个医学英语词汇</li>
+          <li>加入红十字分会/志愿服务社团</li>
+          <li>关注涉外护理公众号/论坛</li>
+          <li>阅读Mosby‘s Medical Dictionary</li>
+        </ul>
+      </div>
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大二</span> 建框架 · 19-20岁</div>
+        <ul>
+          <li>重点学药理学/健康评估/基护学（ISPN核心）</li>
+          <li>通过CET-6，目标500+</li>
+          <li>系统备考OET，每周1套模拟题</li>
+          <li>报名ISPN考试（11月场）</li>
+          <li>暑期申请外资医院见习(嘉会/莱佛士)</li>
+          <li>参加双语护理课程/医学英语选修课</li>
+        </ul>
+      </div>
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大三</span> 课堂即备考 · 20-21岁</div>
+        <ul>
+          <li>内护+外护用英文教材对照学习</li>
+          <li>参加并通过ISPN考试</li>
+          <li>参加OET考试，目标四项B级</li>
+          <li>考取BLS认证(美国心脏协会AHA)</li>
+          <li>实习期间主动英文交班，练习SBAR</li>
+          <li>初步确定1-2个目标国</li>
+        </ul>
+      </div>
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大四</span> 冲刺+启动 · 21-22岁</div>
+        <ul>
+          <li>通过护士执业资格考试（必须）</li>
+          <li>OET/雅思未达标继续刷分</li>
+          <li>启动CGFNS学历认证（如赴美）</li>
+          <li>毕业实习选三甲/外资医院</li>
+          <li>确定去向：外资/三甲/直接海外</li>
+          <li>整理中英文简历准备求职</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 6: 毕业后双轨路径 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--teal);">06 · 毕业后双轨发展路径</div>
+    <div class="dual-path">
+      <div class="path-col">
+        <div class="ph">路径 A<span class="badge">推荐</span> 国内外资医院 → 海外</div>
+        <div class="path-body">
+          <div class="path-step"><div class="ps-num">1</div><div class="ps-text"><strong>毕业即就业</strong>进入外资/国际医院或三甲国际部，积累1-2年涉外经验</div></div>
+          <div class="path-step"><div class="ps-num">2</div><div class="ps-text"><strong>第6-12个月</strong>参加NCLEX-RN系统培训课程(UWorld+Kaplan)</div></div>
+          <div class="path-step"><div class="ps-num">3</div><div class="ps-text"><strong>第12-18个月</strong>启动CGFNS学历认证 + 语言考试刷分达标</div></div>
+          <div class="path-step"><div class="ps-num">4</div><div class="ps-text"><strong>第18-24个月</strong>申请NCLEX-RN ATT → 参加考试 → 通过</div></div>
+          <div class="path-step"><div class="ps-num">5</div><div class="ps-text"><strong>第24-36个月</strong>申请州护士执照 + 寻找海外雇主 → 获得工作签证</div></div>
+        </div>
+      </div>
+      <div class="path-col">
+        <div class="ph">路径 B 三甲医院 → 直接出国</div>
+        <div class="path-body">
+          <div class="path-step"><div class="ps-num">1</div><div class="ps-text"><strong>毕业即就业</strong>进入三甲医院，完成规培/轮转，积累2-3年临床</div></div>
+          <div class="path-step"><div class="ps-num">2</div><div class="ps-text"><strong>第6-12个月</strong>业余时间OET/雅思培训 → 语言达标</div></div>
+          <div class="path-step"><div class="ps-num">3</div><div class="ps-text"><strong>第12-24个月</strong>启动目标国认证(CGFNS/NNAS/ANMAC) → 完成学历认证</div></div>
+          <div class="path-step"><div class="ps-num">4</div><div class="ps-text"><strong>第24-36个月</strong>NCLEX-RN备考 + 联系海外雇主/招募机构 → 获得offer</div></div>
+          <div style="padding:8px 12px;font-size:12px;color:var(--gray);background:var(--bg);border-radius:6px;">⚖ 路径A英语环境好但临床深度有限 · 路径B临床扎实但需额外花时间练英语</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 7: 国内涉外就业 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--orange);">07 · 国内涉外医疗机构就业指南</div>
+    <div class="domestic-grid">
+      <div class="dom-card">
+        <div class="dm-type">外资/合资医院</div>
+        <div class="dm-name">嘉会国际 · 莱佛士 · 百汇</div>
+        <div class="dm-salary">10K-20K<small>/月</small></div>
+        <div class="dm-desc">JCI认证 · 国际化管理 · 英语工作语言 · 患者为外籍/高端客户</div>
+      </div>
+      <div class="dom-card">
+        <div class="dm-type">三甲国际部/特需部</div>
+        <div class="dm-name">协和 · 华山国际医疗部</div>
+        <div class="dm-salary">8K-15K<small>/月</small></div>
+        <div class="dm-desc">公立体制+国际化服务 · 稳定性好 · 英语交流无障碍</div>
+      </div>
+      <div class="dom-card">
+        <div class="dm-type">外资诊所</div>
+        <div class="dm-name">和睦家 · 新起点</div>
+        <div class="dm-salary">10K-18K<small>/月</small></div>
+        <div class="dm-desc">工作环境好 · 患者付费能力强 · 规模较小但体验国际化</div>
+      </div>
+      <div class="dom-card">
+        <div class="dm-type">跨国医疗保险公司</div>
+        <div class="dm-name">Bupa · Allianz · MSH</div>
+        <div class="dm-salary">12K-20K<small>/月</small></div>
+        <div class="dm-desc">非临床岗位 · 个案管理/理赔审核 · 工作强度低 · 英语书写+口语</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 8: 风险与备选 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--rose);">08 · 风险提示与备选方案</div>
+    <div class="risk-row">
+      <div class="risk-main">
+        <table class="risk-table">
+          <tr><th style="width:28%;">风险</th><th style="width:25%;">影响</th><th style="width:47%;">应对策略</th></tr>
+          <tr><td>语言考试多次未达标</td><td>延迟出国1-2年</td><td>优先OET(医护场景更易拿分)；利用澳洲新政拼分政策</td></tr>
+          <tr><td>NCLEX-RN未通过</td><td>需等45天重考</td><td>UWorld模拟成绩稳定60%+再报考；充分准备</td></tr>
+          <tr><td>CGFNS学历认证延误</td><td>拖延6个月以上</td><td>提前与学校教务处沟通，准备好所有材料模板</td></tr>
+          <tr><td>签证政策变化</td><td>影响审批</td><td>多国并行准备(美/英/澳/加)，不把鸡蛋放一个篮子</td></tr>
+          <tr><td>海外就业后不适应</td><td>文化冲击/思乡</td><td>出国前外资医院实习适应 · 加入当地华人护士社群</td></tr>
+          <tr><td>国内政策变化</td><td>认证要求调整</td><td>持续关注CGFNS/目标国护士委员会官网最新通知</td></tr>
+        </table>
+      </div>
+      <div class="backup-col">
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--teal);">Plan B</div>
+          <div class="bi-label">国内涉外医疗管理</div>
+          <div>外资医院资深护士→护理组长→护理部主管，年薪20-40万</div>
+        </div>
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--purple);">Plan C</div>
+          <div class="bi-label">护理教育与国际合作</div>
+          <div>攻读硕士后任教，参与中外合作办学、ISPN培训</div>
+        </div>
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--amber);">Plan D</div>
+          <div class="bi-label">跨国医疗保险公司</div>
+          <div>Bupa/MSH个案管理、理赔审核，工作强度低，薪资稳定</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 9: 关键培训资源 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">09 · 关键培训资源推荐</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;">
+      <div style="background:var(--rose-bg);border-radius:8px;padding:12px;">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">OET 备考</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.8;">Official Master Guide · oetonline.com.au · E2 OET(YouTube)</div>
+      </div>
+      <div style="background:var(--purple-bg);border-radius:8px;padding:12px;">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">NCLEX-RN 备考</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.8;">UWorld题库($299/3月) · Kaplan · Saunders教材+题库</div>
+      </div>
+      <div style="background:var(--amber-bg);border-radius:8px;padding:12px;">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">医学英语</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.8;">Mosby's Medical Dictionary · Medical English Clear and Simple</div>
+      </div>
+      <div style="background:var(--teal-bg);border-radius:8px;padding:12px;">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">跨文化护理</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.8;">Transcultural Nursing(Andrews&Boyle) · Cultural Diversity in Health</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Summary Foot ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">CORE LOGIC · 一句话规划逻辑</div>
+    <div class="sf-chain">
+      <span class="node">英语贯穿全程</span><span class="arrow">→</span>
+      <span class="node">临床经验不能断</span><span class="arrow">→</span>
+      <span class="node">认证流程提前启动</span><span class="arrow">→</span>
+      <span class="node" style="background:rgba(245,158,11,.3);">NCLEX-RN 是分水岭</span><span class="arrow">→</span>
+      <span class="node">专科认证决定天花板</span>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;opacity:.7;">
+      <span>🔑 OET 优于雅思（医护场景更易达标）</span>
+      <span>⭐ 澳洲2025新政利好（写作门槛降低+拼分）</span>
+      <span>🎯 涉外护理是"长跑型"路径，稳扎稳打最重要</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
