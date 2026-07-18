@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>护理学国内就业 · 职业发展规划全景图</title>
+<style>
+/* ============================================================
+   护理学国内就业方向职业规划 · 信息图结构化风
+   三轨道+职称晋升时间线+市场分析矩阵
+   ============================================================ */
+
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --gold:       #B45309;
+  --gold-bg:    #FEF9E7;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.5;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero ===== */
+.hero { margin-bottom: 40px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 28px; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+/* ===== Section ===== */
+.section { margin-bottom: 36px; }
+
+/* ===== Three Track Overview ===== */
+.track-overview {
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  border-radius: 12px; padding: 24px 28px;
+}
+.track-overview .tko-title { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+.track-flow { display: flex; align-items: center; gap: 0; font-size: 14px; font-weight: 600; justify-content: center; margin-bottom: 20px; }
+.track-flow .tf-node { padding: 8px 16px; border-radius: 6px; white-space: nowrap; }
+.track-flow .tf-arrow { color: var(--gray-light); margin: 0 6px; }
+.track-flow .tf-node:nth-child(1) { background: var(--blue-bg); color: var(--blue); }
+.track-flow .tf-node:nth-child(2) { background: var(--teal-bg); color: var(--teal); }
+.track-flow .tf-node:nth-child(3) { background: var(--purple-bg); color: var(--purple); }
+.track-branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.track-branch { border-radius: 10px; overflow: hidden; }
+.track-branch:nth-child(1) .tb-head { background: var(--blue); }
+.track-branch:nth-child(2) .tb-head { background: var(--teal); }
+.track-branch:nth-child(3) .tb-head { background: var(--purple); }
+.tb-head { padding: 12px 16px; color: var(--white); font-size: 14px; font-weight: 700; }
+.tb-head small { font-size: 12px; opacity: .8; font-weight: 400; }
+.tb-body { background: var(--white); padding: 12px 16px 16px; border: 1px solid var(--border); border-top: none; }
+.tb-body table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.tb-body th { text-align: left; padding: 4px 2px; color: var(--gray); font-weight: 600; font-size: 11px; border-bottom: 1px solid var(--border); }
+.tb-body td { padding: 4px 2px; border-bottom: 1px solid var(--border); }
+
+/* ===== Radar Section ===== */
+.radar-row { display: flex; gap: 32px; margin-bottom: 0; align-items: flex-start; }
+.radar-box {
+  flex: 0 0 420px; background: var(--bg); border-radius: 10px; padding: 20px 24px 16px;
+}
+.radar-box .title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
+.radar-box .subtitle { font-size: 12px; color: var(--gray); margin-bottom: 14px; }
+.radar-right { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.radar-cap { padding: 10px 14px; border-radius: 8px; font-size: 13px; border-left: 4px solid; }
+.radar-cap:nth-child(1) { background: var(--blue-bg); border-color: var(--blue); }
+.radar-cap:nth-child(2) { background: var(--rose-bg); border-color: var(--rose); }
+.radar-cap:nth-child(3) { background: var(--orange-bg); border-color: var(--orange); }
+.radar-cap:nth-child(4) { background: var(--purple-bg); border-color: var(--purple); }
+.radar-cap:nth-child(5) { background: var(--teal-bg); border-color: var(--teal); }
+.radar-cap:nth-child(6) { background: var(--amber-bg); border-color: var(--amber); }
+.radar-cap .cap-hd { font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+.radar-cap .cap-bar { height: 4px; border-radius: 2px; margin-top: 4px; background: #E2E8F0; position: relative; }
+.radar-cap .cap-fill { height: 100%; border-radius: 2px; }
+.radar-cap .cap-desc { font-size: 12px; color: var(--gray); margin-top: 4px; }
+.radar-svg { width: 100%; }
+
+/* ===== Title Timeline ===== */
+.title-timeline { position: relative; padding: 10px 0; }
+.title-timeline::before {
+  content: ''; position: absolute; top: 32px; left: 15px; right: 15px;
+  height: 2px; background: var(--border); z-index: 0;
+}
+.tt-row { display: flex; justify-content: space-between; position: relative; z-index: 1; }
+.tt-node { text-align: center; flex: 1; }
+.tt-dot { width: 16px; height: 16px; border-radius: 50%; margin: 0 auto 8px; border: 3px solid var(--white); position: relative; z-index: 1; }
+.tt-node:nth-child(1) .tt-dot { background: var(--blue); }
+.tt-node:nth-child(2) .tt-dot { background: var(--teal); }
+.tt-node:nth-child(3) .tt-dot { background: var(--purple); }
+.tt-node:nth-child(4) .tt-dot { background: var(--amber); }
+.tt-node:nth-child(5) .tt-dot { background: var(--rose); }
+.tt-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.tt-age  { font-size: 11px; color: var(--gray); margin-bottom: 2px; }
+.tt-desc { font-size: 11px; color: var(--gray-light); }
+/* title detail table */
+.title-detail { margin-top: 20px; }
+.title-detail table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.title-detail th { background: var(--bg); padding: 9px 10px; text-align: left; font-size: 12px; font-weight: 700; color: var(--gray); white-space: nowrap; }
+.title-detail td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.title-detail tr:nth-child(even) td { background: #FAFAFA; }
+
+/* ===== Degree speed comparison ===== */
+.degree-speed { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 12px; }
+.ds-card { text-align: center; border-radius: 8px; padding: 12px 8px; border: 1px solid var(--border); }
+.ds-card:nth-child(1) { border-top: 3px solid var(--gray-light); }
+.ds-card:nth-child(2) { border-top: 3px solid var(--teal); }
+.ds-card:nth-child(3) { border-top: 3px solid var(--blue); }
+.ds-card:nth-child(4) { border-top: 3px solid var(--purple); }
+.ds-card:nth-child(5) { border-top: 3px solid var(--rose); }
+.ds-card .ds-label { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.ds-card .ds-note { font-size: 11px; color: var(--gray); line-height: 1.6; }
+
+/* ===== Market Grid ===== */
+.market-row { display: flex; gap: 16px; }
+.market-left { flex: 1; }
+.market-right { flex: 0 0 340px; }
+.market-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.market-table th { background: var(--blue-bg); padding: 9px 10px; text-align: left; font-size: 12px; font-weight: 700; color: var(--blue); }
+.market-table td { padding: 7px 10px; border-top: 1px solid var(--border); }
+.market-table tr:nth-child(even) td { background: #FAFAFA; }
+
+/* ===== Salary Chart ===== */
+.salary-chart { display: flex; gap: 4px; align-items: flex-end; height: 140px; padding: 0 4px; }
+.salary-bar { flex: 1; border-radius: 4px 4px 0 0; position: relative; min-height: 20px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 4px; }
+.salary-bar:nth-child(1) { background: linear-gradient(to top, var(--blue), #93C5FD); height: 55%; }
+.salary-bar:nth-child(2) { background: linear-gradient(to top, var(--teal), #5EEAD4); height: 65%; }
+.salary-bar:nth-child(3) { background: linear-gradient(to top, var(--purple), #C4B5FD); height: 82%; }
+.salary-bar:nth-child(4) { background: linear-gradient(to top, var(--amber), #FCD34D); height: 90%; }
+.salary-bar:nth-child(5) { background: linear-gradient(to top, var(--rose), #FDA4AF); height: 100%; }
+.salary-bar .sb-val { font-size: 11px; font-weight: 700; color: var(--white); text-shadow: 0 1px 2px rgba(0,0,0,.2); }
+
+/* ===== Year Grid ===== */
+.year-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.year-card { border-radius: 8px; padding: 16px; border-left: 4px solid; background: var(--bg); }
+.year-card:nth-child(1) { border-color: var(--blue); }
+.year-card:nth-child(2) { border-color: var(--teal); }
+.year-card:nth-child(3) { border-color: var(--purple); }
+.year-card:nth-child(4) { border-color: var(--amber); }
+.year-card .yc-hd { font-size: 14px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.year-card .yc-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; color: var(--white); }
+.year-card:nth-child(1) .yc-tag { background: var(--blue); }
+.year-card:nth-child(2) .yc-tag { background: var(--teal); }
+.year-card:nth-child(3) .yc-tag { background: var(--purple); }
+.year-card:nth-child(4) .yc-tag { background: var(--amber); }
+.year-card ul { list-style: none; font-size: 12px; }
+.year-card ul li { padding: 2px 0; color: var(--dark); display: flex; gap: 4px; }
+.year-card ul li::before { content: '☐'; color: var(--gray-light); }
+
+/* ===== Post-grad timeline ===== */
+.post-phases { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.post-phase { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.pp-head { padding: 12px 14px; color: var(--white); font-size: 14px; font-weight: 700; }
+.post-phase:nth-child(1) .pp-head { background: var(--blue); }
+.post-phase:nth-child(2) .pp-head { background: var(--purple); }
+.post-phase:nth-child(3) .pp-head { background: var(--rose); }
+.pp-body { padding: 14px; }
+.pp-body .pp-year { font-size: 13px; font-weight: 700; margin: 8px 0 4px; padding-top: 8px; border-top: 1px solid var(--border); }
+.pp-body .pp-year:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+.pp-body ul { list-style: none; font-size: 12px; }
+.pp-body ul li { padding: 2px 0; }
+.pp-body ul li::before { content: '→ '; color: var(--gray-light); }
+
+/* ===== Dept Stars ===== */
+.dept-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.dept-card { border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+.dept-card .dc-name { font-weight: 700; font-size: 13px; white-space: nowrap; }
+.dept-card .dc-stars { color: var(--amber); font-size: 12px; letter-spacing: -1px; }
+.dept-card .dc-tag { font-size: 10px; padding: 1px 6px; border-radius: 6px; font-weight: 600; }
+.dept-card .dc-tag.high   { background: var(--rose-bg); color: var(--rose); }
+.dept-card .dc-tag.mid    { background: var(--amber-bg); color: var(--amber); }
+.dept-card .dc-tag.calm   { background: var(--green-bg); color: var(--green); }
+
+/* ===== Compare ===== */
+.compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-card { border-radius: 10px; border: 1px solid var(--border); padding: 20px 24px; }
+.compare-card:nth-child(1) { background: linear-gradient(135deg, #F0F9FF, #DBEAFE); }
+.compare-card:nth-child(2) { background: linear-gradient(135deg, #F5F3FF, #EDE9FE); }
+.compare-card .cc-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+.compare-card .cc-sub  { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
+.compare-card ul { list-style: none; font-size: 13px; }
+.compare-card ul li { padding: 3px 0; }
+.compare-card ul li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+
+/* ===== Bianzhi ===== */
+.bz-row { display: flex; gap: 16px; }
+.bz-card { flex: 1; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.bz-card:nth-child(1) .bz-head { background: var(--green); }
+.bz-card:nth-child(2) .bz-head { background: var(--orange); }
+.bz-head { padding: 10px 14px; color: var(--white); font-size: 14px; font-weight: 700; }
+.bz-body { padding: 12px 14px 16px; }
+.bz-body table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bz-body th { text-align: left; padding: 5px 4px; color: var(--gray); font-weight: 600; font-size: 11px; border-bottom: 1px solid var(--border); }
+.bz-body td { padding: 5px 4px; border-bottom: 1px solid var(--border); }
+
+/* ===== Risk ===== */
+.risk-row { display: flex; gap: 16px; }
+.risk-main { flex: 1; }
+.risk-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.risk-table th { background: var(--rose-bg); padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 700; color: var(--rose); }
+.risk-table td { padding: 8px 12px; border-top: 1px solid var(--border); }
+.risk-table tr:nth-child(even) td { background: #FAFAFA; }
+.backup-col { flex: 0 0 280px; display: flex; flex-direction: column; gap: 8px; }
+.backup-item { padding: 10px 14px; border-radius: 8px; font-size: 12px; }
+.backup-item:nth-child(1) { background: var(--teal-bg); }
+.backup-item:nth-child(2) { background: var(--purple-bg); }
+.backup-item:nth-child(3) { background: var(--amber-bg); }
+.backup-item:nth-child(4) { background: var(--orange-bg); }
+.backup-item .bi-label { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+
+/* ===== Exam table ===== */
+.exam-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+.exam-card { border-radius: 8px; padding: 12px 14px; }
+.exam-card:nth-child(1) { background: var(--blue-bg); }
+.exam-card:nth-child(2) { background: var(--teal-bg); }
+.exam-card:nth-child(3) { background: var(--purple-bg); }
+.exam-card:nth-child(4) { background: var(--amber-bg); }
+.exam-card .ec-subj { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.exam-card .ec-pct { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.exam-card .ec-desc { font-size: 12px; color: var(--gray); }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-chain { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+.sf-chain .arrow { color: var(--gold); font-weight: 700; }
+.sf-chain .node { padding: 4px 12px; background: rgba(255,255,255,.1); border-radius: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">Domestic Nursing Career · 国内护理</div>
+    <h1>护理学本科毕业 · 国内就业方向职业发展规划</h1>
+    <div class="sub">规划周期：大学4年 + 毕业后10年（共14年） ｜ 数据截至2025年7月 ｜ 来源：国家卫健委、人社部、各省市卫健委</div>
+    <div class="stats">
+      <div class="stat"><span class="num">5</span><span class="lbl">级职称阶梯</span></div>
+      <div class="stat"><span class="num">3</span><span class="lbl">条发展轨道</span></div>
+      <div class="stat"><span class="num">9</span><span class="lbl">个热门专科</span></div>
+      <div class="stat"><span class="num">14</span><span class="lbl">年完整规划</span></div>
+    </div>
+  </div>
+
+  <!-- ====== Section 1: 三轨道全景 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · 国内护士职业发展全景 —— 三条轨道并行</div>
+    <div class="track-overview">
+      <div class="track-flow">
+        <span class="tf-node">护士</span><span class="tf-arrow">→</span>
+        <span class="tf-node">护师</span><span class="tf-arrow">→</span>
+        <span class="tf-node">主管护师</span>
+      </div>
+      <div style="text-align:center;font-size:12px;color:var(--gray);margin-bottom:12px;">
+        职称是三条轨道的共同基石 —— 决定下限（基本工资+待遇），轨道决定上限（职业天花板），科室决定当下收入（绩效奖金）
+      </div>
+      <div class="track-branches">
+        <div class="track-branch">
+          <div class="tb-head">临床专科轨道 <small>热爱技术 · 不想做管理</small></div>
+          <div class="tb-body">
+            <table>
+              <tr><th>阶段</th><th>时间</th><th>目标</th></tr>
+              <tr><td>轮转期</td><td>毕业1-2年</td><td>各科室轮转</td></tr>
+              <tr><td>定科期</td><td>毕业2-3年</td><td>精通本科室技能</td></tr>
+              <tr><td>专科期</td><td>毕业3-5年</td><td>专科护士认证</td></tr>
+              <tr><td>资深期</td><td>毕业5-10年</td><td>高级专科护士</td></tr>
+              <tr><td>专家期</td><td>毕业10年+</td><td>临床护理专家 CNS</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="track-branch">
+          <div class="tb-head">管理轨道 <small>有领导力 · 善于沟通协调</small></div>
+          <div class="tb-body">
+            <table>
+              <tr><th>岗位</th><th>时间</th><th>年薪</th></tr>
+              <tr><td>护理组长</td><td>毕业3-5年</td><td>12-18万</td></tr>
+              <tr><td>副护士长</td><td>毕业5-8年</td><td>15-22万</td></tr>
+              <tr><td>护士长</td><td>8-12年</td><td>18-30万</td></tr>
+              <tr><td>科护士长</td><td>12-15年</td><td>25-40万</td></tr>
+              <tr><td>护理部主任</td><td>20年+</td><td>35-60万+</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="track-branch">
+          <div class="tb-head">教育科研轨道 <small>善学习总结 · 愿意深造</small></div>
+          <div class="tb-body">
+            <table>
+              <tr><th>角色</th><th>时间</th><th>核心工作</th></tr>
+              <tr><td>临床带教</td><td>毕业3-5年</td><td>指导实习生/新护士</td></tr>
+              <tr><td>教学骨干</td><td>毕业5-8年</td><td>组织教学查房</td></tr>
+              <tr><td>兼职教师</td><td>8-12年</td><td>护理学院兼课</td></tr>
+              <tr><td>专职教师</td><td>硕士毕业后</td><td>全职教学+科研</td></tr>
+              <tr><td>护理学者</td><td>博士毕业后</td><td>副教授/教授</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 2: 核心能力 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">02 · 核心能力六维模型</div>
+    <div class="radar-row">
+      <div class="radar-box">
+        <div class="title">能力雷达图</div>
+        <div class="subtitle">新入职护士 vs 资深主管护师（工作8年）· 满分10分</div>
+        <svg class="radar-svg" viewBox="0 0 360 340">
+          <polygon points="180,30 308,105 308,255 180,330 52,255 52,105" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,62 295,122 295,238 180,298 65,238 65,122" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,94 282,139 282,221 180,266 78,221 78,139" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,126 269,156 269,204 180,234 91,204 91,156" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <polygon points="180,158 256,173 256,187 180,202 104,187 104,173" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+          <!-- entry: 临床6 沟通4 应急4 教学2 管理2 信息5 -->
+          <polygon points="180,96 179,190 180,220 231,255 231,255 206,195" fill="var(--blue)" fill-opacity=".15" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <!-- expert: 临床9 沟通8 应急8 教学7 管理7 信息8 -->
+          <polygon points="180,60 179,150 180,180 206,195 206,195 205,180" fill="var(--rose)" fill-opacity=".12" stroke="var(--rose)" stroke-width="1.5"/>
+          <text x="165" y="22" text-anchor="middle" font-size="11" fill="#1E293B" font-weight="600">临床护理操作</text>
+          <text x="315" y="108" text-anchor="start" font-size="11" fill="#1E293B" font-weight="600">沟通与人文关怀</text>
+          <text x="315" y="262" text-anchor="start" font-size="11" fill="#1E293B" font-weight="600">应急与急救</text>
+          <text x="40" y="262" text-anchor="end" font-size="11" fill="#1E293B" font-weight="600">教学与科研</text>
+          <text x="40" y="108" text-anchor="end" font-size="11" fill="#1E293B" font-weight="600">管理与协调</text>
+          <text x="165" y="345" text-anchor="middle" font-size="11" fill="#1E293B" font-weight="600">信息化与循证</text>
+          <rect x="100" y="310" width="10" height="10" fill="var(--blue)" fill-opacity=".3" rx="2"/>
+          <text x="114" y="319" font-size="10" fill="#64748B">新入职</text>
+          <rect x="180" y="310" width="10" height="10" fill="var(--rose)" fill-opacity=".3" rx="2"/>
+          <text x="194" y="319" font-size="10" fill="#64748B">资深8年</text>
+        </svg>
+      </div>
+      <div class="radar-right">
+        <div class="radar-cap">
+          <div class="cap-hd"><span>临床护理操作</span><span style="font-size:12px;color:var(--gray)">新入职 6 → 资深 9</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:67%;background:linear-gradient(90deg,var(--blue),#60A5FA)"></div></div>
+          <div class="cap-desc">静脉输液/肌注/导尿/鼻饲 · 三查七对 · 给药管理 · 无菌技术 · HIS系统</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>沟通与人文关怀</span><span style="font-size:12px;color:var(--gray)">新入职 4 → 资深 8</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:44%;background:linear-gradient(90deg,var(--rose),#FB7185)"></div></div>
+          <div class="cap-desc">SBAR交班 · 医患沟通 · 健康宣教 · 冲突处理 · 人文关怀 · 个性化护理</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>应急与急救</span><span style="font-size:12px;color:var(--gray)">新入职 4 → 资深 8</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:44%;background:linear-gradient(90deg,var(--orange),#FB923C)"></div></div>
+          <div class="cap-desc">CPR · 除颤仪 · 呼吸机操作 · Code Blue团队 · 灾害护理</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>教学与科研</span><span style="font-size:12px;color:var(--gray)">新入职 2 → 资深 7</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:22%;background:linear-gradient(90deg,var(--purple),#A78BFA)"></div></div>
+          <div class="cap-desc">临床带教 · 护理查房 · 论文撰写 · 循证护理 · PDCA/QCC质量改进</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>管理与协调</span><span style="font-size:12px;color:var(--gray)">新入职 2 → 资深 7</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:22%;background:linear-gradient(90deg,var(--teal),#5EEAD4)"></div></div>
+          <div class="cap-desc">排班 · 人员调配 · 跨科室协作 · 质量指标监测 · 成本控制 · 绩效分配</div>
+        </div>
+        <div class="radar-cap">
+          <div class="cap-hd"><span>信息化与循证护理</span><span style="font-size:12px;color:var(--gray)">新入职 5 → 资深 8</span></div>
+          <div class="cap-bar"><div class="cap-fill" style="width:56%;background:linear-gradient(90deg,var(--amber),#FBBF24)"></div></div>
+          <div class="cap-desc">电子病历 · PDA扫码给药 · PubMed/知网检索 · 研究证据转化应用</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 3: 职称晋升 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--purple);">03 · 职称晋升阶梯 —— 本科学历路径（核心主线）</div>
+    <div class="title-timeline">
+      <div class="tt-row">
+        <div class="tt-node"><div class="tt-dot"></div><div class="tt-name">护士</div><div class="tt-age">22岁 · 毕业当年</div><div class="tt-desc">全国统考<br>人机对话</div></div>
+        <div class="tt-node"><div class="tt-dot"></div><div class="tt-name">护师</div><div class="tt-age">23岁 · 毕业第2年</div><div class="tt-desc">满1年可考<br>全国统考</div></div>
+        <div class="tt-node"><div class="tt-dot"></div><div class="tt-name">主管护师</div><div class="tt-age">27岁 · 毕业第6年</div><div class="tt-desc">护师满4年<br>全国统考</div></div>
+        <div class="tt-node"><div class="tt-dot"></div><div class="tt-name">副主任护师</div><div class="tt-age">32岁 · 毕业第11年</div><div class="tt-desc">主管满5年<br>省级评审制</div></div>
+        <div class="tt-node"><div class="tt-dot"></div><div class="tt-name">主任护师</div><div class="tt-age">37岁 · 毕业第16年</div><div class="tt-desc">副高满5年<br>省级评审制</div></div>
+      </div>
+    </div>
+    <div class="title-detail" style="margin-top:20px;">
+      <table>
+        <tr><th>职称</th><th>级别</th><th>报考条件</th><th>预计时间</th><th>考试形式</th><th>月薪(一线三甲)</th></tr>
+        <tr><td><strong>护士</strong></td><td>初级（士）</td><td>护理学历 + 执业资格考试</td><td>毕业当年</td><td>全国统考（人机对话）</td><td>6,000-10,000</td></tr>
+        <tr><td><strong>护师</strong></td><td>初级（师）</td><td>本科，执业活动满1年</td><td>毕业后第2年</td><td>全国统考</td><td>7,000-12,000</td></tr>
+        <tr><td><strong>主管护师</strong></td><td>中级</td><td>护师满4年</td><td>毕业后第6年</td><td>全国统考（人机对话）</td><td>9,000-15,000</td></tr>
+        <tr><td><strong>副主任护师</strong></td><td>副高级</td><td>主管满5年 + 论文+课题+评审</td><td>毕业后第11年</td><td>评审制（省级）</td><td>13,000-18,000</td></tr>
+        <tr><td><strong>主任护师</strong></td><td>正高级</td><td>副高满5年 + 论文+课题+评审</td><td>毕业后第16年</td><td>评审制（省级）</td><td>15,000-22,000</td></tr>
+      </table>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">不同学历晋升速度对比 —— 学历越高，晋升越快</div>
+      <div class="degree-speed">
+        <div class="ds-card"><div class="ds-label">中专</div><div class="ds-note">护师：满5年<br>主管：护师后满7年<br><span style="color:var(--rose);">全路径最慢</span></div></div>
+        <div class="ds-card"><div class="ds-label">大专</div><div class="ds-note">护师：满3年<br>主管：护师后满6年<br><span style="color:var(--teal);">比中专快2年</span></div></div>
+        <div class="ds-card"><div class="ds-label" style="background:#DBEAFE;border-radius:4px;padding:2px 6px;">本科</div><div class="ds-note"><strong>护师：满1年</strong><br><strong>主管：护师后满4年</strong><br><span style="color:var(--blue);">比大专快2年，比中专快4年</span></div></div>
+        <div class="ds-card"><div class="ds-label">硕士</div><div class="ds-note">护师：直接认定<br>主管：从业满2年<br><span style="color:var(--purple);">比本科再快2年</span></div></div>
+        <div class="ds-card"><div class="ds-label">博士</div><div class="ds-note">护师：直接认定<br>主管：直接报考<br><span style="color:var(--rose);">最快路径</span></div></div>
+      </div>
+    </div>
+
+    <!-- 副高评审条件 -->
+    <div style="margin-top:14px;background:var(--bg);border-radius:8px;padding:14px 18px;">
+      <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:8px;">⚠ 高级职称评审硬性条件（不是"考"出来的，是"评"出来的）</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;">
+        <div><strong style="color:var(--purple);">副主任护师：</strong>本科+主管满5年 · 省级期刊2-3篇 · 市/厅级课题1项 · 完成专科培训 · 继续教育学分 · 部分省份要求下乡半年</div>
+        <div><strong style="color:var(--rose);">主任护师：</strong>本科+副高满5年 · 核心/SCI 2篇+ · 省/部级课题1项(主持) · 专科培训+带教 · 继续教育学分 · 部分省份要求下乡1年</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 4: 就业市场 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--teal);">04 · 就业市场分析 —— 医院等级 × 城市 × 科室</div>
+    <div class="market-row">
+      <div class="market-left">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">医院等级体系与薪资水平</div>
+        <table class="market-table">
+          <tr><th>等级</th><th>全国数量</th><th>薪资水平</th><th>发展空间</th><th>招聘门槛</th></tr>
+          <tr><td>三甲医院</td><td>~1,700家</td><td style="color:var(--green);font-weight:700;">高</td><td>最大</td><td>本科起步，竞争激烈</td></tr>
+          <tr><td>三乙医院</td><td>~2,000家</td><td>中高</td><td>较大</td><td>本科/大专</td></tr>
+          <tr><td>二甲医院</td><td>~7,000家</td><td>中</td><td>中等</td><td>大专起步</td></tr>
+          <tr><td>二乙及以下</td><td>~10,000家</td><td>中低</td><td>有限</td><td>中专/大专</td></tr>
+          <tr><td>社区卫生中心</td><td>~35,000家</td><td>中低</td><td>基层方向</td><td>大专/本科</td></tr>
+        </table>
+        <div style="font-size:13px;font-weight:700;margin:14px 0 8px;">不同类型医院年薪对比</div>
+        <table class="market-table">
+          <tr><th>医院类型</th><th>初级护士</th><th>主管护师</th><th>高级护师</th><th>特点</th></tr>
+          <tr><td>公立三甲</td><td>10-15万</td><td>15-22万</td><td>20-35万</td><td>稳定，福利好，晋升体系完善</td></tr>
+          <tr><td>公立二甲</td><td>6-10万</td><td>10-15万</td><td>14-20万</td><td>压力小，生活平衡好</td></tr>
+          <tr><td>外资/合资</td><td>12-24万</td><td>18-30万</td><td>25-40万</td><td>薪资高，英语环境</td></tr>
+          <tr><td>高端民营</td><td>8-15万</td><td>12-20万</td><td>18-28万</td><td>起薪可能高，稳定性弱</td></tr>
+          <tr><td>社区卫生</td><td>5-8万</td><td>8-12万</td><td>12-16万</td><td>稳定，压力小，天花板低</td></tr>
+        </table>
+      </div>
+      <div class="market-right">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">城市薪资阶梯（月薪）</div>
+        <table class="market-table" style="margin-bottom:14px;">
+          <tr><th>城市</th><th>初级</th><th>主管</th><th>年薪</th></tr>
+          <tr><td>一线（北上广深）</td><td>6K-10K</td><td>9K-15K</td><td>10-25万</td></tr>
+          <tr><td>新一线（杭州/成都等）</td><td>5K-8K</td><td>8K-12K</td><td>8-20万</td></tr>
+          <tr><td>二线（省会）</td><td>4K-7K</td><td>7K-10K</td><td>6-15万</td></tr>
+          <tr><td>三四线（地级市）</td><td>3K-5K</td><td>5K-8K</td><td>4-10万</td></tr>
+        </table>
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;">职称薪资增长（一线三甲·月薪）</div>
+        <div class="salary-chart" style="margin-bottom:8px;">
+          <div class="salary-bar"><span class="sb-val">6-10K</span></div>
+          <div class="salary-bar"><span class="sb-val">7-12K</span></div>
+          <div class="salary-bar"><span class="sb-val">9-15K</span></div>
+          <div class="salary-bar"><span class="sb-val">13-18K</span></div>
+          <div class="salary-bar"><span class="sb-val">15-22K</span></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray);text-align:center;">
+          <span>护士</span><span>护师</span><span>主管</span><span>副高</span><span>正高</span>
+        </div>
+        <div style="background:var(--amber-bg);border-radius:6px;padding:10px 12px;margin-top:12px;font-size:12px;">
+          <strong>💰 薪资结构：</strong>基本工资 + 岗位津贴 + 绩效奖金(30%-50%) + 夜班补贴(100-300元/次) + 餐补/住房/工龄/学历补贴
+        </div>
+      </div>
+    </div>
+
+    <!-- 科室星级 -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px;">科室选择 —— 影响收入的决定性因素</div>
+      <div class="dept-grid">
+        <div class="dept-card"><span class="dc-name">ICU重症</span><span class="dc-stars">★★★★★</span><span class="dc-tag high">绩效最高</span></div>
+        <div class="dept-card"><span class="dc-name">手术室</span><span class="dc-stars">★★★★☆</span><span class="dc-tag high">收入高·作息规律</span></div>
+        <div class="dept-card"><span class="dc-name">急诊科</span><span class="dc-stars">★★★★☆</span><span class="dc-tag high">收入高·突发事件多</span></div>
+        <div class="dept-card"><span class="dc-name">心血管内科</span><span class="dc-stars">★★★★☆</span><span class="dc-tag mid">患者流量大</span></div>
+        <div class="dept-card"><span class="dc-name">骨科</span><span class="dc-stars">★★★★☆</span><span class="dc-tag mid">体力要求大</span></div>
+        <div class="dept-card"><span class="dc-name">眼科/口腔</span><span class="dc-stars">★★★★☆</span><span class="dc-tag calm">作息规律·竞争大</span></div>
+        <div class="dept-card"><span class="dc-name">肿瘤科</span><span class="dc-stars">★★★☆☆</span><span class="dc-tag mid">心理压力大</span></div>
+        <div class="dept-card"><span class="dc-name">妇产科</span><span class="dc-stars">★★★☆☆</span><span class="dc-tag mid">夜班急诊多</span></div>
+        <div class="dept-card"><span class="dc-name">儿科</span><span class="dc-stars">★★★☆☆</span><span class="dc-tag mid">沟通难度大</span></div>
+        <div class="dept-card"><span class="dc-name">普通内科</span><span class="dc-stars">★★★☆☆</span><span class="dc-tag calm">工作稳定</span></div>
+        <div class="dept-card"><span class="dc-name">皮肤/中医</span><span class="dc-stars">★★☆☆☆</span><span class="dc-tag calm">生活质量好</span></div>
+        <div class="dept-card" style="background:var(--bg);"><span class="dc-name" style="font-size:12px;color:var(--gray);">ICU绩效比普通内科<br>高30%-50%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 5: 编内 vs 编外 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--orange);">05 · 编制问题 —— 必须了解的现实</div>
+    <div class="bz-row">
+      <div class="bz-card">
+        <div class="bz-head">编制内（事业编）</div>
+        <div class="bz-body">
+          <table>
+            <tr><th>维度</th><th>详情</th></tr>
+            <tr><td>基本工资</td><td>按事业单位标准</td></tr>
+            <tr><td>绩效奖金</td><td>与编内相同</td></tr>
+            <tr><td>五险一金</td><td><strong style="color:var(--green);">按实际工资缴纳</strong></td></tr>
+            <tr><td>公积金</td><td><strong style="color:var(--green);">较高</strong></td></tr>
+            <tr><td>退休待遇</td><td>退休金为基本工资80%+</td></tr>
+            <tr><td>稳定性</td><td><strong style="color:var(--green);">极高</strong></td></tr>
+            <tr><td>晋升机会</td><td>优先</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="bz-card">
+        <div class="bz-head">合同制（编外）</div>
+        <div class="bz-body">
+          <table>
+            <tr><th>维度</th><th>详情</th></tr>
+            <tr><td>基本工资</td><td>低10%-15%</td></tr>
+            <tr><td>绩效奖金</td><td>基本相同（部分医院有差）</td></tr>
+            <tr><td>五险一金</td><td><strong style="color:var(--orange);">多按最低基数缴纳</strong></td></tr>
+            <tr><td>公积金</td><td><strong style="color:var(--orange);">可能低一半</strong></td></tr>
+            <tr><td>退休待遇</td><td>职工基本养老保险</td></tr>
+            <tr><td>稳定性</td><td>中等（合同到期可能不续）</td></tr>
+            <tr><td>晋升机会</td><td>相对受限</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:var(--bg);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--gray);">
+      💡 <strong style="color:var(--dark);">趋势：</strong>各地推行"去编制化"改革，新入职护士获编难度增大。浙江、广东推行"员额制"——保障待遇的同时增加用人灵活性。建议关注目标医院政策，但<strong style="color:var(--dark);">不要将编制作为唯一择业标准</strong>。
+    </div>
+  </div>
+
+  <!-- ====== Section 6: 热门专科 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--amber);">06 · 九大热门专科方向 —— 决定薪资溢价的关键</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="background:var(--blue-bg);border-radius:8px;padding:12px;border-left:3px solid var(--blue);">
+        <div style="font-weight:700;font-size:14px;">ICU重症护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训6-12个月 · <strong style="color:var(--green);">薪资溢价+30%~50%</strong> · 三甲刚需 · 抗压+学习能力强</div>
+      </div>
+      <div style="background:var(--rose-bg);border-radius:8px;padding:12px;border-left:3px solid var(--rose);">
+        <div style="font-weight:700;font-size:14px;">手术室护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3-6个月 · <strong style="color:var(--green);">薪资溢价+20%~40%</strong> · 器械护士稀缺 · 细致耐心</div>
+      </div>
+      <div style="background:var(--orange-bg);border-radius:8px;padding:12px;border-left:3px solid var(--orange);">
+        <div style="font-weight:700;font-size:14px;">急诊护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3-6个月 · <strong style="color:var(--green);">薪资溢价+20%~40%</strong> · 急救体系扩建中 · 反应快</div>
+      </div>
+      <div style="background:var(--purple-bg);border-radius:8px;padding:12px;border-left:3px solid var(--purple);">
+        <div style="font-weight:700;font-size:14px;">肿瘤护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3-6个月 · 薪资溢价+10%~20% · 肿瘤患者增长快 · 有同理心</div>
+      </div>
+      <div style="background:var(--teal-bg);border-radius:8px;padding:12px;border-left:3px solid var(--teal);">
+        <div style="font-weight:700;font-size:14px;">老年护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3个月 · 薪资溢价+5%~15% · <strong style="color:var(--blue);">老龄化刚需，前景极好</strong> · 有耐心</div>
+      </div>
+      <div style="background:var(--amber-bg);border-radius:8px;padding:12px;border-left:3px solid var(--amber);">
+        <div style="font-weight:700;font-size:14px;">伤口造口护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3-6个月 · 津贴+500~2000元/月 · <strong style="color:var(--purple);">稀缺人才</strong> · 专科门诊方向</div>
+      </div>
+      <div style="background:var(--green-bg);border-radius:8px;padding:12px;border-left:3px solid var(--green);">
+        <div style="font-weight:700;font-size:14px;">静脉治疗(PICC)</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3个月 · 津贴+500~1500元/月 · 技术含金量高 · 精细操作</div>
+      </div>
+      <div style="background:var(--rose-bg);border-radius:8px;padding:12px;border-left:3px solid var(--pink,#EC4899);">
+        <div style="font-weight:700;font-size:14px;">儿科护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训6个月 · 薪资溢价+10%~20% · 二胎后需求增 · 喜欢儿童</div>
+      </div>
+      <div style="background:var(--green-bg);border-radius:8px;padding:12px;border-left:3px solid var(--teal);">
+        <div style="font-weight:700;font-size:14px;">产科护理</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px;line-height:1.7;">培训3-6个月 · 薪资溢价+10%~20% · 高端产科市场增长 · 有亲和力</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 7: 大学四年准备 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">07 · 大学四年准备计划 + 执业资格考试</div>
+    <div class="year-grid" style="margin-bottom:20px;">
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大一</span> 打地基</div>
+        <ul>
+          <li>学好基础医学（解剖/生理/生化）</li>
+          <li>GPA保持3.0以上</li>
+          <li>通过CET-4</li>
+          <li>加入红会/青协，积累志愿服务</li>
+          <li>学习医学信息检索(PubMed/知网)</li>
+          <li>参加护理技能大赛以赛促学</li>
+        </ul>
+      </div>
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大二</span> 建框架</div>
+        <ul>
+          <li>重点学药理学/健康评估/基护学</li>
+          <li>通过CET-6（三甲加分项）</li>
+          <li>考取计算机二级证书</li>
+          <li>暑期医院见习1-2周</li>
+          <li>旁听ICU/急诊/手术室专题讲座</li>
+          <li>如有考研意向：了解目标院校</li>
+        </ul>
+      </div>
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大三</span> 课堂即实战</div>
+        <ul>
+          <li>内护+外护是执业考试核心(70%)</li>
+          <li>开始系统备考执业资格考试</li>
+          <li>临床实习找到适合的专科方向</li>
+          <li>跟带教老师建立良好关系</li>
+          <li>参加招聘会，了解各医院要求</li>
+          <li>考研：开始政治+英语系统复习</li>
+        </ul>
+      </div>
+      <div class="year-card">
+        <div class="yc-hd"><span class="yc-tag">大四</span> 冲刺+就业</div>
+        <ul>
+          <li><strong>通过护士执业资格考试（5月）</strong></li>
+          <li>在目标科室深度实习</li>
+          <li>准备中英文简历+推荐信</li>
+          <li>关注三甲医院招聘公告(9-12月)</li>
+          <li>参加医院笔试+操作考核+面试</li>
+          <li>确定offer，签订就业协议</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 执业资格考试 -->
+    <div style="background:var(--bg);border-radius:10px;padding:18px 20px;">
+      <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px;">📝 护士执业资格考试科目比重</div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="ec-subj" style="color:var(--blue);">内科护理</div>
+          <div class="ec-pct" style="color:var(--blue);">~35%</div>
+          <div class="ec-desc">循环/呼吸/消化/神经系统疾病——占比最大，重点复习</div>
+        </div>
+        <div class="exam-card">
+          <div class="ec-subj" style="color:var(--teal);">外科护理</div>
+          <div class="ec-pct" style="color:var(--teal);">~25%</div>
+          <div class="ec-desc">围手术期护理、感染/损伤/肿瘤——第二大重点</div>
+        </div>
+        <div class="exam-card">
+          <div class="ec-subj" style="color:var(--purple);">基础护理</div>
+          <div class="ec-pct" style="color:var(--purple);">~20%</div>
+          <div class="ec-desc">护理基本操作、医院感染控制——操作规范要牢记</div>
+        </div>
+        <div class="exam-card">
+          <div class="ec-subj" style="color:var(--amber);">妇儿+其他</div>
+          <div class="ec-pct" style="color:var(--amber);">~20%</div>
+          <div class="ec-desc">产科/儿科常见疾病护理+精神科/社区/中医——分值低但不能放弃</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:var(--gray);display:flex;gap:24px;">
+        <span>📅 考试时间：每年5月</span><span>💻 形式：人机对话，每科100分钟</span><span>📊 合格标准：300分/科（满分380）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 8: 毕业后行动计划 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--teal);">08 · 毕业后年度行动 —— 从入职到副高</div>
+    <div class="post-phases">
+      <!-- Phase 1 -->
+      <div class="post-phase">
+        <div class="pp-head">阶段一：入职 + 护师</div>
+        <div class="pp-body">
+          <div class="pp-year"><span style="color:var(--blue);">第1年 · 22-23岁</span> 入职适应期</div>
+          <ul>
+            <li>完成护士注册，参加岗前培训</li>
+            <li>各科室轮转6-12个月</li>
+            <li>考取CPR/急救证书</li>
+            <li>适应倒班节奏</li>
+          </ul>
+          <div class="pp-year"><span style="color:var(--teal);">第2年 · 23-24岁</span> 定科+护师</div>
+          <ul>
+            <li>确定固定科室，专科深耕</li>
+            <li><strong>参加护师资格考试</strong></li>
+            <li>申请专科护士培训</li>
+            <li>开始临床带教工作</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Phase 2 -->
+      <div class="post-phase">
+        <div class="pp-head">阶段二：专科深化 + 主管</div>
+        <div class="pp-body">
+          <div class="pp-year"><span style="color:var(--purple);">第3-4年 · 24-26岁</span> 专科深耕</div>
+          <ul>
+            <li>通过护师考试，获护师职称</li>
+            <li>完成专科护士培训取证</li>
+            <li>参与QCC/PDCA质量改进</li>
+            <li>撰写第一篇护理论文</li>
+            <li>在职硕士备考或已入学</li>
+          </ul>
+          <div class="pp-year"><span style="color:var(--amber);">第5-6年 · 26-28岁</span> 主管护师</div>
+          <ul>
+            <li><strong>参加主管护师资格考试</strong></li>
+            <li>成为科室护理骨干</li>
+            <li>晋升护理组长（管理方向）</li>
+            <li>发表1-2篇省级期刊论文</li>
+            <li>主持院级护理课题</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Phase 3 -->
+      <div class="post-phase">
+        <div class="pp-head">阶段三：方向选择 + 冲刺副高</div>
+        <div class="pp-body">
+          <div class="pp-year"><span style="color:var(--rose);">第7-10年 · 28-32岁</span> 中级深化</div>
+          <ul>
+            <li>取得主管护师职称</li>
+            <li><strong>明确轨道：专科/管理/教育</strong></li>
+            <li>管理：争取副护士长/护士长</li>
+            <li>专科：高级专科认证</li>
+            <li>教育：攻读硕博，转向院校</li>
+          </ul>
+          <div class="pp-year"><span style="color:var(--navy);">第11年+ · 32岁+</span> 冲刺副高</div>
+          <ul>
+            <li>准备副主任护师评审材料</li>
+            <li>完成下乡/基层服务（如需）</li>
+            <li>建立专业影响力</li>
+            <li>科护士长/CNS/副教授</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Section 9: 考研 vs 就业 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--purple);">09 · 考研 vs 直接就业 —— 关键抉择</div>
+    <div class="compare-row">
+      <div class="compare-card">
+        <div class="cc-title" style="color:var(--blue);">直接就业（本科毕业即工作）</div>
+        <div class="cc-sub">22岁入职 · 临床经验优先</div>
+        <ul>
+          <li>入职时限：22岁，3年临床经验领先</li>
+          <li>护师：毕业第2年（23岁）</li>
+          <li>主管护师：毕业第6年（28岁）</li>
+          <li>经济成本：3年工资收入（约25-40万）</li>
+          <li>管理岗晋升：正常速度</li>
+          <li>副高评审：本科路径，论文要求较高</li>
+        </ul>
+        <div style="margin-top:10px;font-size:12px;color:var(--gray);padding:8px;background:var(--white);border-radius:6px;">
+          <strong style="color:var(--blue);">适合：</strong>想尽快经济独立 · 热爱临床一线 · 目标城市三甲对本科学历接受度高
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-title" style="color:var(--purple);">考研深造（本科→硕士→工作）</div>
+        <div class="cc-sub">25岁入职 · 学术/管理优先</div>
+        <ul>
+          <li>入职时限：25岁，学术基础更扎实</li>
+          <li>护师：硕士毕业直接认定</li>
+          <li>主管护师：硕士毕业第2年（27岁，<strong style="color:var(--purple);">比本科快1年</strong>）</li>
+          <li>经济成本：3年学费+生活费（约6-10万）</li>
+          <li>管理岗晋升：<strong style="color:var(--purple);">更快</strong>（硕士是管理岗加分项）</li>
+          <li>副高评审：科研基础更好，论文优势明显</li>
+        </ul>
+        <div style="margin-top:10px;font-size:12px;color:var(--gray);padding:8px;background:var(--white);border-radius:6px;">
+          <strong style="color:var(--purple);">适合：</strong>目标高校教职/护理科研 · 目标三甲管理岗 · 本科学校一般想提升背景
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:var(--amber-bg);border-radius:8px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px;">💡</span>
+      <div><strong style="color:var(--amber);">折中方案（最主流）：</strong>先就业3-5年积累临床经验 → 考非全日制护理硕士边工作边读 → 临床经验+学历提升+经济压力小+职称加速，一举四得</div>
+    </div>
+  </div>
+
+  <!-- ====== Section 10: 风险与备选 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--rose);">10 · 风险提示与备选方案</div>
+    <div class="risk-row">
+      <div class="risk-main">
+        <table class="risk-table">
+          <tr><th style="width:28%;">风险</th><th style="width:25%;">影响</th><th style="width:47%;">应对策略</th></tr>
+          <tr><td>执业资格考试未通过</td><td>无法注册护士执业证</td><td>大三起系统备考，人卫版教材+题库，考前1个月集中冲刺</td></tr>
+          <tr><td>三甲医院未录取</td><td>需降级选择二甲或基层</td><td>多投多面不局限一家；先入二甲积累2-3年再跳槽三甲</td></tr>
+          <tr><td>编制改革无法获编</td><td>稳定性+福利受影响</td><td>关注"员额制"新政策；提升职称+学历增强竞争力</td></tr>
+          <tr><td>职业倦怠/身心压力</td><td>影响工作持续性</td><td>建立健康生活习惯+社交支持；适时转岗或调科；关注心理健康</td></tr>
+          <tr><td>倒班影响健康</td><td>睡眠障碍/内分泌紊乱</td><td>工作5-8年后争取转白班（管理/教学/门诊）；健康管理</td></tr>
+          <tr><td>职称考试未通过</td><td>延迟晋升1年</td><td>提前3-6个月备考；参加考前辅导班；多刷历年真题</td></tr>
+          <tr><td>副高评审不通过</td><td>延迟高级职称2-3年</td><td>提前2年准备论文+课题；关注评审标准变化；积累多项加分项</td></tr>
+        </table>
+      </div>
+      <div class="backup-col">
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--teal);">Plan B</div>
+          <div><strong>转涉外护理</strong></div>
+          <div>国内3-5年后转涉外方向，利用临床经验+英语+国际认证赴海外</div>
+        </div>
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--purple);">Plan C</div>
+          <div><strong>转护理教育</strong></div>
+          <div>攻读硕士后入护理院校任教或医院培训部门，强度低+假期多</div>
+        </div>
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--amber);">Plan D</div>
+          <div><strong>转健康管理/互联网医疗</strong></div>
+          <div>健康管理公司或互联网医疗平台做健康管理、医学编辑、个案管理</div>
+        </div>
+        <div class="backup-item">
+          <div class="bi-label" style="color:var(--orange);">Plan E</div>
+          <div><strong>转医疗美容/产后康复</strong></div>
+          <div>对有护理背景者需求大，薪资可能高于临床，需额外培训和资质</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Summary ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">CORE LOGIC · 一句话规划逻辑</div>
+    <div class="sf-chain">
+      <span class="node">大一打地基</span><span class="arrow">→</span>
+      <span class="node">大二建框架</span><span class="arrow">→</span>
+      <span class="node">大三课堂即备考</span><span class="arrow">→</span>
+      <span class="node">大四通过执业资格+就业</span><span class="arrow">→</span>
+      <span class="node">毕业第2年护师</span><span class="arrow">→</span>
+      <span class="node">毕业第6年主管</span><span class="arrow">→</span>
+      <span class="node" style="background:rgba(245,158,11,.3);">毕业第11年副高</span><span class="arrow">→</span>
+      <span class="node">职称+专科+学历三轮驱动</span>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:20px;flex-wrap:wrap;font-size:12px;opacity:.7;">
+      <span>📌 职称是核心引擎：每次晋升带来20%-60%薪资增长</span>
+      <span>📌 专科是加速器：尽早确定方向并取证，收入+竞争力关键</span>
+      <span>📌 学历是长期杠杆：本科够入行不够走远，在职硕士是最主流选择</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
