@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP MARDH 库存地点历史表 · 知识图</title>
+<style>
+/* ============================================================
+   SAP MARDH · 库存地点历史表知识图
+   极简商务风 · 深蓝主色 · 结构化知识海报
+   ============================================================ */
+
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+  --code-bg:    #F1F5F9;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero ===== */
+.hero { margin-bottom: 36px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 16px; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+.section { margin-bottom: 36px; }
+
+/* ===== One-liner ===== */
+.oneliner {
+  background: var(--navy); color: var(--white); border-radius: 10px;
+  padding: 20px 28px; font-size: 15px; line-height: 1.8;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.oneliner .ol-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.oneliner strong { color: #93C5FD; }
+.oneliner code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+
+/* ===== Dual Table Compare ===== */
+.dual-table { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-card { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.compare-card:nth-child(1) .cc-head { background: var(--blue); }
+.compare-card:nth-child(2) .cc-head { background: var(--teal); }
+.cc-head { padding: 10px 16px; color: var(--white); font-size: 14px; font-weight: 700; }
+.cc-body { padding: 12px 16px; }
+.cc-body table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cc-body th { text-align: left; padding: 6px 4px; color: var(--gray); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 11px; }
+.cc-body td { padding: 6px 4px; border-bottom: 1px solid var(--border); }
+.cc-body tr:last-child td { border-bottom: none; }
+.cc-body .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.cc-body .tag-now { background: var(--blue-bg); color: var(--blue); }
+.cc-body .tag-hist { background: var(--teal-bg); color: var(--teal); }
+
+/* ===== Data Example ===== */
+.data-example { display: flex; gap: 16px; }
+.de-card { flex: 1; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.de-card:nth-child(1) .de-head { background: var(--blue-bg); color: var(--blue); }
+.de-card:nth-child(2) .de-head { background: var(--teal-bg); color: var(--teal); }
+.de-head { padding: 8px 14px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.de-head .de-badge { font-size: 11px; padding: 2px 8px; border-radius: 3px; color: var(--white); }
+.de-card:nth-child(1) .de-badge { background: var(--blue); }
+.de-card:nth-child(2) .de-badge { background: var(--teal); }
+.de-body { padding: 10px 14px; font-family: "JetBrains Mono","DIN","Consolas",monospace; font-size: 12px; }
+.de-body table { width: 100%; border-collapse: collapse; }
+.de-body th { padding: 5px 8px; font-size: 11px; font-weight: 600; border-bottom: 2px solid var(--border); text-align: left; color: var(--gray); }
+.de-body td { padding: 5px 8px; border-bottom: 1px solid var(--border); }
+.de-body tr:last-child td { border-bottom: none; }
+.de-body .val { font-weight: 700; color: var(--navy); }
+
+/* ===== Step Flow ===== */
+.flow-row { display: flex; gap: 12px; align-items: flex-start; position: relative; }
+.flow-step { flex: 1; padding: 16px 14px; border-radius: 8px; background: var(--bg); border-left: 4px solid; position: relative; }
+.flow-step:nth-child(1) { border-color: var(--amber); }
+.flow-step:nth-child(2) { border-color: var(--blue); }
+.flow-step:nth-child(3) { border-color: var(--teal); }
+.flow-step .fs-num { font-size: 11px; font-weight: 700; color: var(--gray-light); margin-bottom: 6px; letter-spacing: 1px; }
+.flow-step .fs-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.flow-step .fs-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.flow-step code { background: #E2E8F0; padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+
+/* ===== Trigger List ===== */
+.trigger-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.tr-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.tr-card .tr-num { font-size: 20px; font-weight: 800; color: var(--blue); margin-bottom: 6px; }
+.tr-card .tr-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.tr-card .tr-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.tr-card code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+.tr-note { margin-top: 12px; padding: 10px 16px; background: var(--amber-bg); border-radius: 6px; font-size: 13px; color: var(--amber); }
+.tr-note strong { color: var(--dark); }
+
+/* ===== Reason Cards ===== */
+.reason-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.rs-card { border-radius: 8px; padding: 16px; border-left: 4px solid; background: var(--bg); }
+.rs-card:nth-child(1) { border-color: var(--blue); }
+.rs-card:nth-child(2) { border-color: var(--teal); }
+.rs-card:nth-child(3) { border-color: var(--amber); }
+.rs-card .rs-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+.rs-card:nth-child(1) .rs-tag { color: var(--blue); }
+.rs-card:nth-child(2) .rs-tag { color: var(--teal); }
+.rs-card:nth-child(3) .rs-tag { color: var(--amber); }
+.rs-card .rs-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+.rs-card .rs-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.rs-card .rs-example { font-size: 11px; color: var(--gray-light); margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border); }
+
+/* ===== Field Table ===== */
+.field-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.field-table th { background: var(--navy); color: var(--white); padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; }
+.field-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); }
+.field-table td:first-child { font-weight: 700; font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; color: var(--navy); }
+.field-table tr:nth-child(even) td { background: #FAFAFA; }
+.field-table tr:last-child td { border-bottom: none; }
+.field-table .key { color: var(--rose); font-size: 10px; margin-left: 4px; }
+
+/* ===== Mistake Box ===== */
+.mistake-box {
+  background: linear-gradient(135deg, #FEF2F2, #FFF1F2); border: 1px solid #FECACA;
+  border-radius: 8px; padding: 14px 18px;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 13px;
+}
+.mistake-box .mb-icon { font-size: 22px; flex-shrink: 0; }
+.mistake-box strong { color: var(--rose); }
+.mistake-box code { background: #FECACA; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+
+/* ===== Pharma Box ===== */
+.pharma-box { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.pharma-box .ph-head { background: var(--green); padding: 10px 16px; color: var(--white); font-size: 14px; font-weight: 700; }
+.pharma-box .ph-body { padding: 14px 16px; }
+.pharma-box .ph-row { display: flex; gap: 12px; margin-top: 10px; }
+.pharma-box .ph-card { flex: 1; background: var(--bg); border-radius: 6px; padding: 12px; }
+.pharma-box .ph-card .phc-label { font-size: 11px; color: var(--gray-light); margin-bottom: 4px; }
+.pharma-box .ph-card .phc-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.pharma-box .ph-card .phc-desc { font-size: 12px; color: var(--gray); }
+.pharma-box .ph-card .phc-do { color: var(--green); font-weight: 600; }
+.pharma-box .ph-card .phc-dont { color: var(--rose); font-weight: 600; }
+
+/* ===== Warning Box ===== */
+.warn-box {
+  background: var(--amber-bg); border: 1px solid #FDE68A;
+  border-radius: 8px; padding: 12px 16px; font-size: 13px;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.warn-box .wb-icon { font-size: 20px; flex-shrink: 0; }
+.warn-box strong { color: var(--amber); }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-text { font-size: 14px; line-height: 1.8; }
+.summary-foot .sf-text code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; }
+
+/* ===== Tip inline ===== */
+.tip-inline { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--teal); font-weight: 600; }
+
+/* ===== Code tag ===== */
+.c { font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; background: var(--code-bg); padding: 1px 6px; border-radius: 3px; color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">SAP MM · Master Data · Inventory</div>
+    <h1>MARDH · 物料主数据库存地点层历史表</h1>
+    <div class="sub">Material Master Storage Location Segment: History ｜ 历史期间库存快照，非实时库存（实时看 MARD）</div>
+    <div class="stats">
+      <div class="stat"><span class="num">MARD</span><span class="lbl">当前库存</span></div>
+      <div class="stat"><span class="num">MARDH</span><span class="lbl">历史库存</span></div>
+      <div class="stat"><span class="num">跨月</span><span class="lbl">触发时机</span></div>
+      <div class="stat"><span class="num">快照</span><span class="lbl">非交易流水</span></div>
+    </div>
+  </div>
+
+  <!-- ====== 01. MARD vs MARDH ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · MARD 与 MARDH 的关系</div>
+    <div class="dual-table">
+      <div class="compare-card">
+        <div class="cc-head">MARD · 库存地点库存（当前）</div>
+        <div class="cc-body">
+          <table>
+            <tr><th style="width:70px;">属性</th><th>说明</th></tr>
+            <tr><td>数据时间</td><td><span class="tag tag-now">当前期间</span></td></tr>
+            <tr><td>更新频率</td><td>每次收发货实时更新</td></tr>
+            <tr><td>数据特点</td><td>只保留最新一条库存状态</td></tr>
+            <tr><td>典型用途</td><td>查当前库存、MRP运算</td></tr>
+            <tr><td>关键事务</td><td>MB52 / MMBE / MMB1</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-head">MARDH · 库存地点库存历史（月末快照）</div>
+        <div class="cc-body">
+          <table>
+            <tr><th style="width:70px;">属性</th><th>说明</th></tr>
+            <tr><td>数据时间</td><td><span class="tag tag-hist">历史期间</span></td></tr>
+            <tr><td>更新频率</td><td>跨期间库存变化时写入一次</td></tr>
+            <tr><td>数据特点</td><td>保存期间切换时的库存快照</td></tr>
+            <tr><td>典型用途</td><td>月末库存分析、库存趋势</td></tr>
+            <tr><td>关键事务</td><td>MB5B / 自定义报表</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--gray-light);">一句话：<span class="c">MARD</span> = 当前库存状态（现在），<span class="c">MARDH</span> = 历史月末库存状态（过去某个时间点）</div>
+  </div>
+
+  <!-- ====== 02. 数据示例 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">02 · 数据示例：同一物料 2026年7月</div>
+    <div class="data-example">
+      <div class="de-card">
+        <div class="de-head"><span>MARD · 当前库存</span><span class="de-badge">现在 = 500</span></div>
+        <div class="de-body">
+          <table>
+            <tr><th>MATNR</th><th>WERKS</th><th>LGORT</th><th>LABST</th></tr>
+            <tr><td>100001</td><td>1000</td><td>0001</td><td class="val">500</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="de-card">
+        <div class="de-head"><span>MARDH · 历史库存</span><span class="de-badge">6月底 = 800</span></div>
+        <div class="de-body">
+          <table>
+            <tr><th>MATNR</th><th>WERKS</th><th>LGORT</th><th>LFGJA</th><th>LFMON</th><th>LABST</th></tr>
+            <tr><td>100001</td><td>1000</td><td>0001</td><td>2026</td><td>06</td><td class="val">800</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--gray);margin-top:8px;">物料 100001 · 工厂 1000 · 库存地点 0001 → 7月当前库存 500，6月底历史库存 800</div>
+  </div>
+
+  <!-- ====== 03. 触发更新流程 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--amber);">03 · MARDH 什么时候更新？（关键理解）</div>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:12px;">
+      MARDH <strong style="color:var(--dark);">不是每次收货、发货都写一条</strong>。它的更新逻辑是：
+      <span style="background:var(--amber-bg);color:var(--amber);padding:2px 8px;border-radius:4px;font-weight:700;">当 SAP 发生跨期间库存变化时，系统保存上一期间库存到 MARDH</span>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">
+        <div class="fs-num">STEP 1 — 6月30日</div>
+        <div class="fs-title">月初状态</div>
+        <div class="fs-desc"><span class="c">MARD</span> 物料A 库存 = <strong>1000</strong><br><span class="c">MARDH</span> 没有6月份记录</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">STEP 2 — 7月5日</div>
+        <div class="fs-title">跨月首笔操作</div>
+        <div class="fs-desc"><span class="c">MB1A / MIGO</span> 发料减少 100<br>库存变 = <strong>900</strong></div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">STEP 3 — 系统检测</div>
+        <div class="fs-title">自动写入历史</div>
+        <div class="fs-desc">系统发现 6→7 跨期间<br>自动把6月底库存写入 <span class="c">MARDH</span><br>年份=2026 期间=06 库存=<strong>1000</strong></div>
+      </div>
+    </div>
+    <div class="tr-note">
+      <strong>关键结论：</strong>MARDH 记录的是"期间切换时的历史快照"，不是交易流水。7月份即使每天发生100次收发货，MARDH 也不会生成100条记录。
+    </div>
+  </div>
+
+  <!-- ====== 04. 触发业务操作 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">04 · 哪些业务操作会触发 MARDH？</div>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:10px;">不是某一个事务码直接更新 MARDH，而是<strong style="color:var(--dark);">库存更新程序</strong>在跨月时自动触发。</div>
+    <div class="trigger-grid">
+      <div class="tr-card">
+        <div class="tr-num">①</div>
+        <div class="tr-title">MIGO 收货</div>
+        <div class="tr-desc">采购订单收货<span class="c">101</span>移动类型<br>跨月时可能触发 MARDH</div>
+      </div>
+      <div class="tr-card">
+        <div class="tr-num">②</div>
+        <div class="tr-title">发货</div>
+        <div class="tr-desc"><span class="c">261</span> 生产领料<br><span class="c">201</span> 成本中心领料<br><span class="c">601</span> 销售发货<br>跨月时可能触发</div>
+      </div>
+      <div class="tr-card">
+        <div class="tr-num">③</div>
+        <div class="tr-title">库存转移</div>
+        <div class="tr-desc"><span class="c">311</span> 库存地点转移<br><span class="c">301</span> 工厂间转移<br>跨月时可能触发</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 05. 为什么 MARDH 为空？ ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--rose);">05 · 为什么有些系统 MARDH 为空？（常见问题）</div>
+    <div class="reason-grid">
+      <div class="rs-card">
+        <div class="rs-tag">原因 01</div>
+        <div class="rs-title">没有跨期间库存变动</div>
+        <div class="rs-desc">物料创建后库存从未变动，SAP 没有必要保存历史</div>
+        <div class="rs-example">例：1月库存100，之后没人动 → MARDH 为空</div>
+      </div>
+      <div class="rs-card">
+        <div class="rs-tag">原因 02</div>
+        <div class="rs-title">系统刚上线</div>
+        <div class="rs-desc">SAP 上线时历史库存没有做数据迁移</div>
+        <div class="rs-example">例：2026年1月上线 → 以前年度 MARDH 均为空</div>
+      </div>
+      <div class="rs-card">
+        <div class="rs-tag">原因 03</div>
+        <div class="rs-title">MM 期间管理异常</div>
+        <div class="rs-desc"><span class="c">MMPV</span> 没有正常推进物料期间，导致历史数据不符合预期</div>
+        <div class="rs-example">例：MMPV 没按期推进 → 期间判断出错</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 06. 关键字段 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">06 · MARDH 关键字段</div>
+    <table class="field-table">
+      <tr><th>字段</th><th>含义</th><th>说明</th></tr>
+      <tr><td>MATNR</td><td>物料编号</td><td>物料主数据唯一标识</td></tr>
+      <tr><td>WERKS</td><td>工厂</td><td>与 MARD 一致</td></tr>
+      <tr><td>LGORT</td><td>库存地点</td><td>与 MARD 一致</td></tr>
+      <tr><td>LFGJA <span class="key">▲</span></td><td>历史年度</td><td>MARDH 独有字段，标识快照年份</td></tr>
+      <tr><td>LFMON <span class="key">▲</span></td><td>历史期间</td><td>MARDH 独有字段，标识快照月份</td></tr>
+      <tr><td>LABST</td><td>非限制库存</td><td>可自由使用的库存数量</td></tr>
+      <tr><td>INSME</td><td>质检库存</td><td>在检状态库存数量</td></tr>
+      <tr><td>SPEME</td><td>冻结库存</td><td>被冻结不可用库存</td></tr>
+      <tr><td>UMLME</td><td>转储库存</td><td>在途/转储中库存</td></tr>
+    </table>
+  </div>
+
+  <!-- ====== 07. 常见错误 & 正确做法 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--rose);">07 · 与库存报表的关系（常见误区）</div>
+    <div class="mistake-box" style="margin-bottom:12px;">
+      <span class="mb-icon">✘</span>
+      <span><strong>错误做法：</strong>想查询某个月月底库存 → 直接查 <span class="c">MARD</span>。<br>MARD 只能看到<strong>现在</strong>库存，不能查历史。</span>
+    </div>
+    <div style="display:flex;gap:12px;">
+      <div style="flex:1;background:var(--green-bg);border:1px solid #BBF7D0;border-radius:8px;padding:14px 16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px;">✓ 正确做法</div>
+        <div style="font-size:13px;">查月末库存历史：<span class="c">MARDH</span> 或 <span class="c">MB5B</span>（库存历史查询）</div>
+      </div>
+      <div style="flex:1;background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:8px;padding:14px 16px;">
+        <div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:6px;">场景示例</div>
+        <div style="font-size:13px;">现在8月份，想知道<strong>6月底库存</strong>是多少 → 查 <span class="c">MARDH</span>、不查 <span class="c">MARD</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 08. 药企场景 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--green);">08 · 结合药企场景（SAP ECC · 无WM · 批次管理）</div>
+    <div class="pharma-box">
+      <div class="ph-head">物 料：阿胶颗粒 ｜ 库存地点：原料库 ｜ 批次管理：启用</div>
+      <div class="ph-body">
+        <div class="ph-row">
+          <div class="ph-card">
+            <div class="phc-label">当前库存</div>
+            <div class="phc-title phc-do">查 MARD + MCHB</div>
+            <div class="phc-desc"><span class="c">MARD</span> = 原料库总库存数量<br><span class="c">MCHB</span> = 各批次库存明细</div>
+          </div>
+          <div class="ph-card">
+            <div class="phc-label">月末库存</div>
+            <div class="phc-title phc-do">查 MARDH 或 MB5B</div>
+            <div class="phc-desc"><span class="c">MARDH</span> = 历史月末库存数量<br><span class="c">MB5B</span> = SAP 标准历史查询</div>
+          </div>
+          <div class="ph-card">
+            <div class="phc-label">批次月末库存</div>
+            <div class="phc-title phc-dont">MARDH 做不到！</div>
+            <div class="phc-desc">MARDH 没有批次维度<br>需要 <span class="c">MCHBH</span> 或基于物料凭证 <span class="c">MKPF/MSEG</span> 重算</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="warn-box" style="margin-top:12px;">
+      <span class="wb-icon">⚠</span>
+      <span><strong>药企 BI 建议：</strong>如果后续做 BI 库存趋势、库存周转、月末库存分析，建议<strong>不要直接依赖 MARDH</strong>，而是设计「库存快照表」，因为 MARDH 没有批次维度，也不适合复杂分析。批次历史需查 <span class="c">MCHBH</span> 或基于物料凭证反算。</span>
+    </div>
+  </div>
+
+  <!-- ====== 09. 总结 ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">ONE SENTENCE SUMMARY</div>
+    <div class="sf-text">
+      <span class="c" style="background:rgba(255,255,255,.2);color:white;">MARD</span> 保存"现在库存"，
+      <span class="c" style="background:rgba(255,255,255,.2);color:white;">MARDH</span> 保存"期间切换时上一期间库存快照"。<br>
+      它不是被每笔物料移动更新，而是在<strong style="color:#93C5FD;">跨期间库存变化</strong>时由 SAP 自动生成历史记录。<br>
+      <span style="color:#94A3B8;font-size:13px;">制药行业 BI 分析建议自建库存快照表，因为 MARDH 无批次维度。</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
