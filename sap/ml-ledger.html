@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP 物料分类账 ML · 实际成本核算知识图</title>
+<style>
+/* ============================================================
+   SAP 物料分类账 ML · 实际成本核算知识图
+   极简商务风 · 深蓝主色 · 结构化知识海报
+   ============================================================ */
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+  --code-bg:    #F1F5F9;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero ===== */
+.hero { margin-bottom: 36px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 16px; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 22px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+.section { margin-bottom: 36px; }
+
+/* ===== One-liner ===== */
+.oneliner {
+  background: var(--navy); color: var(--white); border-radius: 10px;
+  padding: 20px 28px; font-size: 15px; line-height: 1.8;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.oneliner .ol-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.oneliner strong { color: #93C5FD; }
+.oneliner code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+
+/* ===== Dual Table Compare ===== */
+.dual-table { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-card { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.compare-card:nth-child(1) .cc-head { background: var(--rose); }
+.compare-card:nth-child(2) .cc-head { background: var(--green); }
+.cc-head { padding: 10px 16px; color: var(--white); font-size: 14px; font-weight: 700; }
+.cc-body { padding: 12px 16px; }
+.cc-body table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cc-body th { text-align: left; padding: 6px 4px; color: var(--gray); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 11px; }
+.cc-body td { padding: 6px 4px; border-bottom: 1px solid var(--border); }
+.cc-body tr:last-child td { border-bottom: none; }
+.cc-body .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.cc-body .tag-std { background: var(--rose-bg); color: var(--rose); }
+.cc-body .tag-act { background: var(--green-bg); color: var(--green); }
+
+/* ===== Cost Table ===== */
+.cost-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.cost-table th { background: var(--navy); color: var(--white); padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; }
+.cost-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); }
+.cost-table tr:nth-child(even) td { background: #FAFAFA; }
+.cost-table tr:last-child td { border-bottom: none; }
+.cost-table .val { font-weight: 700; color: var(--navy); font-family:"JetBrains Mono","Consolas",monospace; }
+.cost-table .up { color: var(--rose); font-weight: 700; }
+.cost-table .down { color: var(--green); font-weight: 700; }
+
+/* ===== Trigger / three variances ===== */
+.trigger-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tr-card { border: 1px solid var(--border); border-radius: 8px; padding: 18px; border-top: 4px solid; }
+.tr-card:nth-child(1) { border-top-color: var(--blue); }
+.tr-card:nth-child(2) { border-top-color: var(--teal); }
+.tr-card:nth-child(3) { border-top-color: var(--amber); }
+.tr-card .tr-num { font-size: 12px; font-weight: 800; letter-spacing:1px; margin-bottom: 8px; }
+.tr-card:nth-child(1) .tr-num { color: var(--blue); }
+.tr-card:nth-child(2) .tr-num { color: var(--teal); }
+.tr-card:nth-child(3) .tr-num { color: var(--amber); }
+.tr-card .tr-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+.tr-card .tr-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+.tr-card code, .tr-card .c { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+.tr-card .tr-eg { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--gray-light); }
+
+/* ===== Compare card (single vs multi) ===== */
+.compare2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cmp-box { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.cmp-box:nth-child(1) .cmp-head { background: var(--blue); }
+.cmp-box:nth-child(2) .cmp-head { background: var(--purple); }
+.cmp-head { padding: 10px 16px; color: white; font-size: 14px; font-weight: 700; }
+.cmp-body { padding: 14px 16px; font-size: 13px; color: var(--gray); line-height: 1.7; }
+.cmp-body strong { color: var(--dark); }
+.cmp-body .c { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--navy); }
+
+/* ===== Cascade / rollup ===== */
+.cascade { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cascade .node { flex: 1; min-width: 140px; background: var(--bg); border-radius: 8px; padding: 14px; border-left: 4px solid var(--teal); }
+.cascade .node .cn-lvl { font-size: 11px; font-weight: 700; color: var(--teal); margin-bottom: 4px; letter-spacing:1px; }
+.cascade .node .cn-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.cascade .node .cn-desc { font-size: 12px; color: var(--gray); }
+.cascade .arrow { font-size: 22px; color: var(--gray-light); flex-shrink: 0; }
+
+/* ===== Case box ===== */
+.case-box { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.case-box .case-head { background: var(--green); padding: 10px 16px; color: white; font-size: 14px; font-weight: 700; }
+.case-box .case-body { padding: 16px; }
+
+/* ===== QA grid ===== */
+.qa-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.qa-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; display: flex; gap: 14px; }
+.qa-card .qa-q { flex-shrink: 0; width: 260px; }
+.qa-card .qa-q .qa-badge { display:inline-block; font-size: 11px; font-weight: 700; color: var(--rose); background: var(--rose-bg); padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; }
+.qa-card .qa-q .qa-text { font-size: 14px; font-weight: 700; color: var(--dark); line-height: 1.5; }
+.qa-card .qa-a { flex: 1; font-size: 13px; color: var(--gray); line-height: 1.7; border-left: 1px solid var(--border); padding-left: 14px; }
+.qa-card .qa-a strong { color: var(--green); }
+.qa-card .c { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--navy); }
+
+/* ===== Config grid ===== */
+.cfg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.cfg-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.cfg-card .cfg-code { font-family:"JetBrains Mono","Consolas",monospace; font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+.cfg-card .cfg-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.cfg-card .cfg-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+/* ===== Report grid ===== */
+.report-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.rp-card { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.rp-card .rp-time { background: var(--navy); color: white; padding: 6px 12px; font-size: 12px; font-weight: 700; }
+.rp-card .rp-body { padding: 12px; }
+.rp-card .rp-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.rp-card .rp-desc { font-size: 11px; color: var(--gray); line-height: 1.5; }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-text { font-size: 14px; line-height: 1.8; }
+.summary-foot .sf-text code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; }
+.summary-foot .sf-text strong { color: #93C5FD; }
+
+/* ===== Code tag ===== */
+.c { font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; background: var(--code-bg); padding: 1px 6px; border-radius: 3px; color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">SAP CO · Material Ledger · Actual Costing</div>
+    <h1>物料分类账 ML · 实际成本核算知识图</h1>
+    <div class="sub">Material Ledger｜把"标准成本"还原为"实际成本"，让月末存货与销货成本反映真实采购/生产/汇率波动</div>
+    <div class="stats">
+      <div class="stat"><span class="num">标准价→实际价</span><span class="lbl">核心目标</span></div>
+      <div class="stat"><span class="num">3 类差异</span><span class="lbl">采购/生产/汇率</span></div>
+      <div class="stat"><span class="num">单级 / 多级</span><span class="lbl">差异分摊</span></div>
+      <div class="stat"><span class="num">CKMLCP</span><span class="lbl">月末结算</span></div>
+    </div>
+  </div>
+
+  <!-- ====== 01 一句话定义 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · 一句话定义</div>
+    <div class="oneliner">
+      <span class="ol-icon">📒</span>
+      <span>物料分类账（<strong>Material Ledger, ML</strong>）是 SAP 用来做<strong>实际成本核算（Actual Costing）</strong>的工具。它平时用<code>标准价</code>记账，月末把全月产生的各类<code>差异</code>逐层分摊回物料，最终算出每个物料的<strong>实际单位成本（V价）</strong>，让存货和销货成本反映真实成本。</span>
+    </div>
+  </div>
+
+  <!-- ====== 02 为什么需要 ML ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--rose);">02 · 为什么需要 ML？标准成本的痛点</div>
+    <div class="dual-table">
+      <div class="compare-card">
+        <div class="cc-head">只用标准成本（S 价）的问题</div>
+        <div class="cc-body">
+          <table>
+            <tr><th style="width:90px;">维度</th><th>说明</th></tr>
+            <tr><td>记账方式</td><td><span class="tag tag-std">全期间固定标准价</span></td></tr>
+            <tr><td>差异去向</td><td>采购/生产差异一次性进当期损益</td></tr>
+            <tr><td>存货价值</td><td>永远是标准价，不含真实波动</td></tr>
+            <tr><td>痛点</td><td>原料涨价、汇率波动 → 存货被低估/高估</td></tr>
+            <tr><td>管理视角</td><td>看不清"这批货真实花了多少钱"</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="cc-head">启用 ML 实际成本核算后</div>
+        <div class="cc-body">
+          <table>
+            <tr><th style="width:90px;">维度</th><th>说明</th></tr>
+            <tr><td>记账方式</td><td><span class="tag tag-act">平时标准价 + 月末还原实际价</span></td></tr>
+            <tr><td>差异去向</td><td>差异逐层分摊回存货和已销产品</td></tr>
+            <tr><td>存货价值</td><td>反映真实采购/生产/汇率成本</td></tr>
+            <tr><td>价值</td><td>成本更真实、跨月可追溯、利润更准</td></tr>
+            <tr><td>管理视角</td><td>清楚每个物料的实际单位成本</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:8px;font-size:12px;color:var(--gray-light);">核心矛盾：<span class="c">标准成本</span>便于计划与考核，但不等于真实花费；<span class="c">ML</span> 在保留标准价便利的同时，月末把差异还原成实际成本。</div>
+  </div>
+
+  <!-- ====== 03 核心思想 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">03 · 核心思想：标准价打底 + 月末差异还原</div>
+    <table class="cost-table">
+      <tr><th style="width:130px;">阶段</th><th>动作</th><th>成本状态</th></tr>
+      <tr><td>期初 / 平时</td><td>所有收发货按 <span class="c">标准价（S）</span> 记账，简单稳定</td><td class="val">= 标准价</td></tr>
+      <tr><td>期间累积</td><td>采购价差、生产差异、汇率差异被 ML 逐笔捕获到差异池</td><td class="up">差异累积中</td></tr>
+      <tr><td>月末结算</td><td><span class="c">CKMLCP</span> 把差异按数量比例分摊回"还在库"和"已发出/已耗用"的物料</td><td class="val">分摊差异</td></tr>
+      <tr><td>期末结果</td><td>算出加权平均<strong>实际单位成本（周期单价 PUP）</strong>，回写存货与销货成本</td><td class="down">= 实际价</td></tr>
+    </table>
+    <div style="margin-top:8px;font-size:13px;color:var(--gray);">一句话：<strong style="color:var(--dark);">实际成本 = 标准成本 + 分摊后的差异</strong>。差异不是"扔进损益"，而是"分摊回物料"。</div>
+  </div>
+
+  <!-- ====== 04 三类差异 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">04 · 三类差异（ML 要还原的核心内容）</div>
+    <div class="trigger-grid">
+      <div class="tr-card">
+        <div class="tr-num">差异一 · PROCUREMENT</div>
+        <div class="tr-title">采购价格差异</div>
+        <div class="tr-desc">采购收货/发票价格与<span class="c">标准价</span>不一致产生的差异。原材料涨价、供应商调价最常见。</div>
+        <div class="tr-eg">例：标准价 10 元/kg，实际采购 12 元/kg → 每 kg 差异 +2 元</div>
+      </div>
+      <div class="tr-card">
+        <div class="tr-num">差异二 · PRODUCTION</div>
+        <div class="tr-title">生产差异</div>
+        <div class="tr-desc">生产订单实际投入（料/工/费）与标准成本估算不一致。用量差、工时差、费率差、产量差等。</div>
+        <div class="tr-eg">例：标准每批耗料 100kg，实际耗 108kg → 用量差异进入产成品</div>
+      </div>
+      <div class="tr-card">
+        <div class="tr-num">差异三 · EXCHANGE RATE</div>
+        <div class="tr-title">汇率差异</div>
+        <div class="tr-desc">进口料/外币采购，因记账汇率与结算汇率不同产生的差异。制药进口辅料、包材常见。</div>
+        <div class="tr-eg">例：进口辅料按记账汇率入账，付款汇率变动 → 产生汇率差异</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:13px;color:var(--gray);">ML 的工作，就是把这三类差异<strong style="color:var(--dark);">准确捕获、逐层分摊、最终还原</strong>到每个物料的实际成本上。</div>
+  </div>
+
+  <!-- ====== 05 PP 关联 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--teal);">05 · 与 PP（生产）的关系</div>
+    <div class="case-box">
+      <div class="case-head" style="background:var(--teal);">PP 是差异的"源头"，ML 是差异的"归集与还原"</div>
+      <div class="case-body">
+        <div class="cascade">
+          <div class="node" style="border-left-color:var(--blue);">
+            <div class="cn-lvl" style="color:var(--blue);">PP 生产执行</div>
+            <div class="cn-title">生产订单投入</div>
+            <div class="cn-desc">领料(261)、工时报工、机器费用，实际投入产生生产差异</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="node" style="border-left-color:var(--amber);">
+            <div class="cn-lvl" style="color:var(--amber);">CO 差异计算</div>
+            <div class="cn-title">订单结算差异</div>
+            <div class="cn-desc">生产订单差异（用量/工时/费率）在结算时被识别</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="node" style="border-left-color:var(--teal);">
+            <div class="cn-lvl" style="color:var(--teal);">ML 归集还原</div>
+            <div class="cn-title">差异分摊回物料</div>
+            <div class="cn-desc">半成品、产成品的差异逐级向上滚算，算出实际成本</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:var(--gray);">
+          对 PP 顾问的意义：<strong style="color:var(--dark);">BOM、工艺路线、标准成本估算越准，生产差异就越小</strong>，ML 还原出来的实际成本也越可信。ML 会把产成品差异沿着 BOM 结构向下追溯到半成品、原料。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 06 单级 vs 多级 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--purple);">06 · 单级分摊 vs 多级分摊</div>
+    <div class="compare2">
+      <div class="cmp-box">
+        <div class="cmp-head">单级差异分摊（Single-Level）</div>
+        <div class="cmp-body">
+          只处理<strong>本层物料自身</strong>的差异，把该物料当期的差异按数量分摊给"期末在库"和"本期发出"。<br><br>
+          <strong>特点：</strong>不往下追溯，各物料层独立算。<br>
+          <strong>例：</strong>某原料本月采购差异，只分摊到这个原料的在库与耗用。
+        </div>
+      </div>
+      <div class="cmp-box">
+        <div class="cmp-head">多级差异分摊（Multi-Level）</div>
+        <div class="cmp-body">
+          沿 BOM 结构<strong>逐层向上滚算（Roll-up）</strong>。原料差异 → 半成品 → 产成品，把下层差异带到上层产品的实际成本里。<br><br>
+          <strong>特点：</strong>跨层追溯，还原完整成本链。<br>
+          <strong>例：</strong>阿胶（原料）涨价 → 阿胶浸膏（半成品）→ 阿胶口服液（成品）实际成本随之上升。
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <div style="font-size:12px;color:var(--gray-light);margin-bottom:6px;">多级滚算示意（Roll-up 方向：原料 → 半成品 → 成品）</div>
+      <div class="cascade">
+        <div class="node"><div class="cn-lvl">Level 1 原料</div><div class="cn-title">阿胶原料</div><div class="cn-desc">采购价差 +差异</div></div>
+        <div class="arrow">↑</div>
+        <div class="node"><div class="cn-lvl">Level 2 半成品</div><div class="cn-title">阿胶浸膏</div><div class="cn-desc">承接原料差异 + 自身生产差异</div></div>
+        <div class="arrow">↑</div>
+        <div class="node"><div class="cn-lvl">Level 3 成品</div><div class="cn-title">阿胶口服液</div><div class="cn-desc">承接上游全部差异 = 实际成本</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 07 案例 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--green);">07 · 案例：阿胶口服液（制药 · 多级还原）</div>
+    <div class="case-box">
+      <div class="case-head">场景：阿胶原料本月涨价，看 ML 如何把差异还原到成品</div>
+      <div class="case-body">
+        <table class="cost-table">
+          <tr><th style="width:150px;">物料层级</th><th>标准成本</th><th>本期差异来源</th><th>ML 还原后实际成本</th></tr>
+          <tr><td>阿胶（原料）</td><td class="val">100 元/kg</td><td>采购涨价 +15 元/kg</td><td class="up">115 元/kg</td></tr>
+          <tr><td>阿胶浸膏（半成品）</td><td class="val">300 元/kg</td><td>承接原料差异 + 生产用量差</td><td class="up">330 元/kg</td></tr>
+          <tr><td>阿胶口服液（成品）</td><td class="val">50 元/盒</td><td>承接上游全部差异</td><td class="up">55 元/盒</td></tr>
+        </table>
+        <div style="margin-top:12px;font-size:13px;color:var(--gray);line-height:1.8;">
+          <strong style="color:var(--dark);">解读：</strong>如果只用标准成本，成品永远是 50 元/盒，原料涨价被"藏"进当期损益，存货被低估。启用 ML 后，月末通过多级滚算，把原料 15 元的涨价一路带到浸膏、成品，最终成品实际成本变为 <strong style="color:var(--rose);">55 元/盒</strong>——月末存货和已销成本都反映了真实涨价。<br>
+          差异会按"<strong>还在库</strong>"和"<strong>已销售</strong>"的数量比例分摊：还在库的部分调整存货价值，已销售的部分进销货成本。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 08 配置点 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">08 · 关键配置点（顾问速记）</div>
+    <div class="cfg-grid">
+      <div class="cfg-card">
+        <div class="cfg-code">OMX1</div>
+        <div class="cfg-title">激活物料分类账</div>
+        <div class="cfg-desc">在评估范围（工厂/评估范围）上激活 ML，决定哪些工厂启用实际成本核算。</div>
+      </div>
+      <div class="cfg-card">
+        <div class="cfg-code">OMX2</div>
+        <div class="cfg-title">物料分类账类型 / 货币与评估</div>
+        <div class="cfg-desc">分配 ML Type，定义币种与评估视图（如公司代码币、集团币），决定 ML 用哪些货币核算。</div>
+      </div>
+      <div class="cfg-card">
+        <div class="cfg-code">CKMLCP</div>
+        <div class="cfg-title">月末实际成本核算(结算)</div>
+        <div class="cfg-desc">月末运行的核心事务：选择→单级分摊→多级分摊→周期单价确定→后过账，生成实际成本并回写。</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:var(--gray-light);">配套常用：<span class="c">CKM3</span> 查物料价格分析、<span class="c">CKMLCPAVR</span> 期间平均价、<span class="c">OMX3/OMX7</span> 差异科目与流程配置。</div>
+  </div>
+
+  <!-- ====== 09 领导三问 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--rose);">09 · 领导可能问的三个问题（提前准备）</div>
+    <div class="qa-grid">
+      <div class="qa-card">
+        <div class="qa-q"><span class="qa-badge">Q1</span><div class="qa-text">上了 ML 到底有什么好处？</div></div>
+        <div class="qa-a"><strong>让成本变真实。</strong>存货和利润不再只是标准价，而是反映采购涨价、生产波动、汇率变化的真实成本，管理决策与对外报表都更可信，也满足审计对"实际成本"的要求。</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q"><span class="qa-badge">Q2</span><div class="qa-text">会不会很复杂、影响月结？</div></div>
+        <div class="qa-a"><strong>平时不变，只多一步月末结算。</strong>日常仍按标准价记账，业务操作不受影响；月末多跑一次 <span class="c">CKMLCP</span>。前提是标准成本、BOM、工艺路线维护准确，差异才小、结算才顺。</div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-q"><span class="qa-badge">Q3</span><div class="qa-text">对我们 PP/生产管理有什么要求？</div></div>
+        <div class="qa-a"><strong>倒逼主数据变准。</strong>BOM、工艺路线、标准成本估算越准，生产差异越小，ML 还原的成本越可信。ML 也让每个半成品/成品的真实成本可追溯，帮助定价和成本改善。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 10 汇报结构 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--blue);">10 · 10 分钟汇报结构（给领导讲）</div>
+    <div class="report-grid">
+      <div class="rp-card">
+        <div class="rp-time">0–2 min</div>
+        <div class="rp-body"><div class="rp-title">是什么</div><div class="rp-desc">一句话定义 ML：把标准成本月末还原成实际成本的工具。</div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-time">2–4 min</div>
+        <div class="rp-body"><div class="rp-title">为什么要</div><div class="rp-desc">标准成本痛点：存货/利润失真，原料涨价、汇率波动看不清。</div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-time">4–7 min</div>
+        <div class="rp-body"><div class="rp-title">怎么做的</div><div class="rp-desc">三类差异 + 单级/多级分摊，用阿胶口服液案例讲还原过程。</div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-time">7–9 min</div>
+        <div class="rp-body"><div class="rp-title">对我们影响</div><div class="rp-desc">平时不变、月末多一步；倒逼 BOM/工艺/标准成本变准。</div></div>
+      </div>
+      <div class="rp-card">
+        <div class="rp-time">9–10 min</div>
+        <div class="rp-body"><div class="rp-title">结论建议</div><div class="rp-desc">成本更真实、利润更准、可追溯；建议维护好主数据配合月结。</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 总结 ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">ONE SENTENCE SUMMARY</div>
+    <div class="sf-text">
+      物料分类账（<code>ML</code>）= <strong>标准价打底 + 月末差异还原</strong>：平时用标准价记账，月末通过 <code>CKMLCP</code> 把<strong>采购、生产、汇率</strong>三类差异经<strong>单级/多级</strong>分摊逐层还原回物料，算出<strong>实际单位成本</strong>。<br>
+      对 PP 顾问：BOM/工艺/标准成本越准，差异越小、还原越可信——ML 让每个半成品、成品的真实成本可追溯、可解释。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
