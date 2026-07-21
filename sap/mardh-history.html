@@ -341,27 +341,146 @@ body {
     </div>
   </div>
 
-  <!-- ====== 05. 为什么 MARDH 为空？ ====== -->
+  <!-- ====== 05. 为什么 MARDH 为空？（5大原因 & 排查） ====== -->
   <div class="section">
-    <div class="sec-title" style="color:var(--rose);">05 · 为什么有些系统 MARDH 为空？（常见问题）</div>
-    <div class="reason-grid">
-      <div class="rs-card">
-        <div class="rs-tag">原因 01</div>
-        <div class="rs-title">没有跨期间库存变动</div>
-        <div class="rs-desc">物料创建后库存从未变动，SAP 没有必要保存历史</div>
-        <div class="rs-example">例：1月库存100，之后没人动 → MARDH 为空</div>
+    <div class="sec-title" style="color:var(--rose);">05 · 为什么 MARDH 为空？5大原因全排查（按概率排序）</div>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:10px;">
+      很多人以为"6月底 SAP 会自动把所有物料库存写入 MARDH"——<strong style="color:var(--dark);">这是错误的</strong>。
+      SAP 的真实逻辑：只有发生库存期间切换 + 后续库存业务，才可能触发 MARDH 更新。
+    </div>
+
+    <!-- 原因1 -->
+    <div style="display:flex;gap:12px;margin-bottom:10px;">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--rose);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;">1</div>
+      <div style="flex:1;background:var(--rose-bg);border-radius:8px;padding:14px 16px;border-left:4px solid var(--rose);">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">MM 期间还没打开/切换（最常见）</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6;">
+          现实已是7月中旬，但 SAP 当前期间仍停留在 <strong>2026/06</strong>。SAP 认为还在6月期间 → 不会生成 MARDH。
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:var(--dark);">
+          <strong>检查：</strong><span class="c">MMSC</span> 或 <span class="c">MMRV</span> 查当前物料期间 →
+          <strong>解决：</strong><span class="c">MMPV</span> 执行期间关闭（2026/06 → 2026/07），再发生库存业务即可能生成 MARDH
+        </div>
       </div>
-      <div class="rs-card">
-        <div class="rs-tag">原因 02</div>
-        <div class="rs-title">系统刚上线</div>
-        <div class="rs-desc">SAP 上线时历史库存没有做数据迁移</div>
-        <div class="rs-example">例：2026年1月上线 → 以前年度 MARDH 均为空</div>
+    </div>
+
+    <!-- 原因2 -->
+    <div style="display:flex;gap:12px;margin-bottom:10px;">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--amber);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;">2</div>
+      <div style="flex:1;background:var(--amber-bg);border-radius:8px;padding:14px 16px;border-left:4px solid var(--amber);">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">物料在6月底以后没发生任何库存移动（也很常见）</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6;">
+          6月30日库存 1000，7月份没有 101/601/261/311 等任何移动 → MARD 还是 1000，但 MARDH 为空（SAP 没触发历史保存）。
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:var(--dark);">
+          <strong>验证：</strong><span class="c">MB51</span> 查物料A在 2026.07.01-07.31 是否有物料凭证 → 无凭证则 MARDH 为空属正常
+        </div>
       </div>
-      <div class="rs-card">
-        <div class="rs-tag">原因 03</div>
-        <div class="rs-title">MM 期间管理异常</div>
-        <div class="rs-desc"><span class="c">MMPV</span> 没有正常推进物料期间，导致历史数据不符合预期</div>
-        <div class="rs-example">例：MMPV 没按期推进 → 期间判断出错</div>
+    </div>
+
+    <!-- 原因3 -->
+    <div style="display:flex;gap:12px;margin-bottom:10px;">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;">3</div>
+      <div style="flex:1;background:var(--blue-bg);border-radius:8px;padding:14px 16px;border-left:4px solid var(--blue);">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">查错了库存层级（药企高频错误）</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6;">
+          MARDH 是 <strong>物料 + 工厂 + 库存地点</strong> 粒度。只按 MATNR=A 查可能查不到 → 必须同时带 MATNR + WERKS + LGORT + LFGJA + LFMON。
+        </div>
+      </div>
+    </div>
+
+    <!-- 原因4 -->
+    <div style="display:flex;gap:12px;margin-bottom:10px;">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--teal);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;">4</div>
+      <div style="flex:1;background:var(--teal-bg);border-radius:8px;padding:14px 16px;border-left:4px solid var(--teal);">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">该物料6月底库存为 0</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6;">
+          6月采购 1000 → 生产领用 1000 → 月底库存 0。MARDH 通常不保存零库存记录（SAP 认为无需存历史）。
+        </div>
+      </div>
+    </div>
+
+    <!-- 原因5 -->
+    <div style="display:flex;gap:12px;margin-bottom:10px;">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;">5</div>
+      <div style="flex:1;background:var(--purple-bg);border-radius:8px;padding:14px 16px;border-left:4px solid var(--purple);">
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">系统配置未维护历史库存 / 系统刚上线</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6;">
+          <strong>检查：</strong><span class="c">OMSY</span>（物料管理开始期间）、<span class="c">OMWN</span>（库存管理设置）、表 <span class="c">T001B</span>（库存期间控制）。某些企业为性能会关闭历史更新；新上线系统历史数据未迁移。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 05B. 查不到 MARDH？四步排查法 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">05B · 查不到 MARDH？建议按这个顺序四步排查</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px;">
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--blue);color:white;padding:6px 12px;font-size:12px;font-weight:700;">Step 1</div>
+        <div style="padding:12px;">
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">确认6月底真实库存</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5;"><span class="c">MB5B</span><br>公司代码/工厂/物料<br>截止日期: 2026.06.30</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--green);">MB5B 有库存 → 库存确实存在 ✓</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--teal);color:white;padding:6px 12px;font-size:12px;font-weight:700;">Step 2</div>
+        <div style="padding:12px;">
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">查 MARD 当前库存</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5;"><span class="c">SE16N → MARD</span><br>MATNR=A<br>WERKS=xxx, LGORT=xxx</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--green);">看 LABST 当前数量</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--amber);color:white;padding:6px 12px;font-size:12px;font-weight:700;">Step 3</div>
+        <div style="padding:12px;">
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">查期间是否切换</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5;"><span class="c">MMRV</span><br>查看当前物料期间</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--amber);">若仍停在 2026/06<br>→ 执行 <span class="c">MMPV</span></div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--purple);color:white;padding:6px 12px;font-size:12px;font-weight:700;">Step 4</div>
+        <div style="padding:12px;">
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">查7月是否有移动</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5;"><span class="c">MB51</span><br>物料A<br>日期: 07.01-07.31</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--purple);">无凭证 → MARDH 为空正常</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 药企场景速查 -->
+    <div style="background:var(--bg);border-radius:8px;padding:14px 16px;font-size:13px;">
+      <div style="font-weight:700;color:var(--navy);margin-bottom:6px;">药企快速判断：你的系统最可能是哪种？</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="background:var(--rose-bg);color:var(--rose);padding:4px 10px;border-radius:4px;font-size:12px;"><strong>第一优先怀疑：</strong>MMPV 没正常推进 → <span class="c">MMRV</span> 确认</span>
+        <span style="background:var(--amber-bg);color:var(--amber);padding:4px 10px;border-radius:4px;font-size:12px;"><strong>其次怀疑：</strong>7月物料无移动 → <span class="c">MB51</span> 确认</span>
+      </div>
+      <div style="margin-top:8px;font-size:12px;color:var(--gray);">告诉你三个信息我基本能判断：① <span class="c">MMRV</span> 显示的期间是多少？ ② 6月底是否有库存？ ③ 7月1日后有无 101/261/601/311 等移动？</div>
+    </div>
+  </div>
+
+  <!-- ====== 05C. 业务强制要查历史库存的解决方案 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--green);">05C · 业务强制要查历史库存？两种方案</div>
+    <div style="display:flex;gap:12px;">
+      <div style="flex:1;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--blue);color:white;padding:10px 14px;font-size:13px;font-weight:700;">方案一：MB5B（临时查询）</div>
+        <div style="padding:12px 14px;font-size:12px;color:var(--gray);line-height:1.6;">
+          <strong>适合：</strong>临时查某月月底库存<br>
+          <strong>限制：</strong>无批次维度；速度慢于查表<br>
+          <strong>用法：</strong>输入公司代码/工厂/物料/截止日期
+        </div>
+      </div>
+      <div style="flex:1;border:2px solid var(--green);border-radius:8px;overflow:hidden;position:relative;">
+        <div style="background:var(--green);color:white;padding:10px 14px;font-size:13px;font-weight:700;">✓ 方案二：建立库存快照表（推荐）</div>
+        <div style="padding:12px 14px;font-size:12px;color:var(--gray);line-height:1.6;">
+          <strong>每晚抽取：</strong><span class="c">MARD</span> + <span class="c">MCHB</span>（批次）+ <span class="c">MSLB</span>（特殊库存）+ <span class="c">MKPF/MSEG</span><br>
+          <strong>保存格式：</strong>日期 + 物料 + 批次 + 数量<br>
+          <strong>适合 BI 分析：</strong>月末库存 / 库龄 / 批次趋势 / 周转率<br>
+          <strong style="color:var(--green);">为什么推荐：</strong>MARDH 天然不足——无批次维度、不自带月末快照、不适合复杂分析
+        </div>
       </div>
     </div>
   </div>
