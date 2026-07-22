@@ -198,12 +198,12 @@ a { color: inherit; text-decoration: none; }
 }
 .card-atlas:hover { border-color: var(--c-trading); }
 .card-atlas .thumb {
-  height: 184px; background: var(--bg-2); position: relative;
+  height: 110px; background: var(--bg-2); position: relative;
   border-bottom: 1px solid var(--line);
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
 .card-atlas .thumb .glyph {
-  font-family: var(--font-num); font-size: 56px; font-weight: 700; color: var(--text-dim);
+  font-family: var(--font-num); font-size: 40px; font-weight: 700; color: var(--text-dim);
 }
 .card-atlas .thumb .cat-tag {
   position: absolute; top: var(--s-2); left: var(--s-2);
