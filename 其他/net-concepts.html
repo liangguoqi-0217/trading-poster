@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600">
+<title>计算机网络 10 大核心概念 · 企业 IT 基础设施地图 · 个人知识库</title>
+<style>
+:root {
+  --bg: #f8fafc; --panel: #ffffff; --panel2: #f1f5f9;
+  --line: #e2e8f0; --line2: #cbd5e1;
+  --t: #1f2937; --t2: #4b5563; --t3: #9ca3af;
+  --accent: #1E3A5F; --accent2: #334155;
+  --g1: #059669; --r1: #dc2626; --y1: #d97706;
+  --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 28px; --s7: 36px; --s8: 48px;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow: 0 1px 4px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.03);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--t); line-height: 1.65; font-size: 15px; }
+
+.hero { background: var(--accent); color: #fff; padding: var(--s7) var(--s8) var(--s6); text-align: center; }
+.hero .tag { display:inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); padding: 3px 16px; border-radius: 20px; font-size: 13px; letter-spacing: 1px; margin-bottom: var(--s3); }
+.hero h1 { font-size: 28px; font-weight: 700; margin-bottom: var(--s2); letter-spacing: .5px; }
+.hero .sub { font-size: 15px; opacity: .85; max-width: 820px; margin: 0 auto; }
+.hero .arrow { margin-top: var(--s4); font-size: 24px; opacity: .6; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: var(--s6) var(--s5); }
+
+.sec { margin-bottom: var(--s7); }
+.sec-title { display:flex; align-items:center; gap: var(--s3); margin-bottom: var(--s5); }
+.sec-title .num { width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 700; flex:none; }
+.sec-title .label { font-size: 18px; font-weight: 700; color: var(--t); }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s5); }
+.panel.warn  { border-left: 4px solid var(--r1); }
+.panel.info  { border-left: 4px solid var(--accent); }
+.panel.good  { border-left: 4px solid var(--g1); }
+
+.cols2 { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+
+.hi { color: var(--accent); font-weight: 700; }
+.dim { color: var(--t3); }
+
+.tag-sm { display:inline-block; font-size: 11px; padding: 1px 8px; border-radius: 4px; font-weight: 600; }
+.tag-green { background: #ecfdf5; color: var(--g1); }
+.tag-blue  { background: #eff6ff; color: var(--accent); }
+.tag-red   { background: #fef2f2; color: var(--r1); }
+.tag-amber { background: #fffbeb; color: var(--y1); }
+
+/* table */
+.tbl { width:100%; border-collapse:collapse; font-size: 14px; }
+.tbl th { background: var(--panel2); padding: 11px 14px; text-align:left; font-weight: 700; border-bottom: 2px solid var(--line2); color: var(--t2); font-size: 13px; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl tr:nth-child(even) td { background: var(--panel2); }
+.tbl td.k { color: var(--accent); font-weight: 700; white-space: nowrap; width: 130px; }
+.tbl td.a { color: var(--t3); }
+
+/* three categories */
+.cat3 { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--s4); }
+.ccard1 { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); border-top: 3px solid var(--accent); }
+.ccard1 .ch { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: var(--s3); padding-bottom: var(--s2); border-bottom: 2px solid var(--line); }
+.ccard1.sec2 { border-top-color: var(--y1); }
+.ccard1.sec2 .ch { color: var(--y1); }
+.ccard1.sec3 { border-top-color: var(--g1); }
+.ccard1.sec3 .ch { color: var(--g1); }
+.citem { padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.citem:last-child { border-bottom: none; }
+.citem .ci-n { font-size: 14px; font-weight: 700; color: var(--t); }
+.citem .ci-d { font-size: 12.5px; color: var(--t2); margin-top: 2px; }
+
+/* relationship groups */
+.rel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); margin-bottom: var(--s4); }
+.rel .rh { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: var(--s3); display:flex; align-items:center; gap:8px; }
+.rel .rb { font-size: 13px; color: var(--t2); line-height: 1.8; }
+.rel .rb b { color: var(--t); }
+.rel .chips { margin-top: var(--s3); display:flex; flex-wrap:wrap; gap:6px; }
+.rel .chips span { font-size: 12px; padding: 3px 10px; background: var(--panel2); border-radius: 20px; color: var(--t2); border:1px solid var(--line); }
+
+/* scene flow */
+.scene-flow { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); max-width: 760px; margin: 0 auto; }
+.scene-flow .sf-node { display:flex; align-items:center; gap: var(--s3); background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 14px; }
+.scene-flow .sf-node .sf-num { width: 26px; height: 26px; background: var(--accent); color:#fff; border-radius:50%; font-size: 12px; font-weight: 700; display:flex; align-items:center; justify-content:center; flex:none; }
+.scene-flow .sf-node .sf-t { font-size: 13.5px; font-weight: 700; color: var(--accent); }
+.scene-flow .sf-node .sf-d { font-size: 12.5px; color: var(--t2); }
+.scene-flow .sf-arrow { text-align:center; color: var(--line2); font-size: 16px; font-weight: 700; line-height: 1.1; padding: 1px 0; }
+
+/* 8 step cards */
+.scard { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); border-left: 3px solid var(--accent); }
+.scard .sh { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: var(--s2); display:flex; align-items:center; gap: 8px; }
+.scard .sh .sn { width: 22px; height: 22px; background: var(--accent); color:#fff; border-radius:50%; font-size: 12px; display:flex; align-items:center; justify-content:center; flex:none; }
+.scard .sb { font-size: 12.5px; color: var(--t2); line-height: 1.6; }
+.scard .sb b { color: var(--t); }
+
+/* summary */
+.summary { display:grid; grid-template-columns: repeat(5,1fr); gap: var(--s3); }
+.sum-item { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); text-align:center; }
+.sum-item .st { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.sum-item .sd { font-size: 12.5px; color: var(--t2); line-height: 1.5; }
+
+.back { margin-bottom: var(--s5); }
+.back a { font-size: 13px; color: var(--t3); text-decoration:none; }
+.back a:hover { color: var(--accent); }
+
+.foot { margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--line); text-align:center; font-size: 12px; color: var(--t3); display:flex; justify-content:center; gap: var(--s6); }
+
+@media print {
+  body { background: #fff; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .panel, .ccard1, .rel, .scard, .sum-item, .scene-flow { break-inside: avoid; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">企业网络基础 · 概念地图</div>
+  <h1>计算机网络 10 大核心概念 · 企业 IT 基础设施地图</h1>
+  <div class="sub">分「规则与标识 / 硬件设备 / 网络隔离与安全」三大类，并用「出差员工访问公司财务系统」这一真实场景，把 10 个概念串成一条数据流动链。</div>
+  <div class="arrow">↓</div>
+</div>
+
+<div class="container">
+
+  <div class="back"><a href="../index.html">← 个人知识库</a> · <a href="it-career-roadmap.html">IT 能力升级路线 ↗</a> · <a href="net-basics-01.html">第1课：整体架构 ↗</a> · <a href="net-basics-02.html">第2课：IP/掩码/网关 ↗</a></div>
+
+  <!-- ======== 1. 10概念速览 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">1</span><span class="label">10 个核心概念速览</span></div>
+    <div class="panel">
+      <table class="tbl">
+        <tr><th>概念</th><th>一句话解释</th><th>生活类比</th></tr>
+        <tr><td class="k">TCP/IP</td><td>网络通信的统一语言和规则</td><td class="a">通用的语言语法与邮政投递规则</td></tr>
+        <tr><td class="k">IP 地址</td><td>设备的网络逻辑位置</td><td class="a">房屋的邮政收货地址（如「XX大厦5层」）</td></tr>
+        <tr><td class="k">MAC 地址</td><td>网卡的物理唯一标识</td><td class="a">设备的「身份证号」（出厂即固定）</td></tr>
+        <tr><td class="k">端口 Port</td><td>区分设备上不同应用程序的通道</td><td class="a">大厦里具体房间的门牌号（如「502室」）</td></tr>
+        <tr><td class="k">DNS</td><td>将网址转换成 IP 地址的系统</td><td class="a">手机通讯录（把「姓名」转成「电话号码」）</td></tr>
+        <tr><td class="k">交换机</td><td>同一局域网内部设备互联的枢纽</td><td class="a">大楼内部的走廊和电梯</td></tr>
+        <tr><td class="k">路由器</td><td>连接不同网络并选择最佳路径的设备</td><td class="a">跨城市/跨区域的交通枢纽与导航仪</td></tr>
+        <tr><td class="k">VLAN</td><td>在同一交换机上划分出独立的逻辑局域网</td><td class="a">大楼内的部门隔断（防止无关人员互相打扰）</td></tr>
+        <tr><td class="k">防火墙</td><td>监控和过滤网络流量的安全屏障</td><td class="a">大楼门口和重要部门前的安保门禁</td></tr>
+        <tr><td class="k">VPN</td><td>在公网上建立加密安全通道的技术</td><td class="a">专用的押运安保车（走公路但安全保密）</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ======== 2. 三大分类 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">2</span><span class="label">三大分类：规则与标识 / 硬件设备 / 网络隔离与安全</span></div>
+    <div class="cat3">
+      <div class="ccard1">
+        <div class="ch">① 规则与标识</div>
+        <div class="citem"><div class="ci-n">TCP/IP</div><div class="ci-d">通信的统一语言和规则（顶层）</div></div>
+        <div class="citem"><div class="ci-n">IP 地址</div><div class="ci-d">设备的网络逻辑位置</div></div>
+        <div class="citem"><div class="ci-n">MAC 地址</div><div class="ci-d">网卡物理唯一标识（出厂固定）</div></div>
+        <div class="citem"><div class="ci-n">端口 Port</div><div class="ci-d">区分设备上不同应用</div></div>
+        <div class="citem"><div class="ci-n">DNS</div><div class="ci-d">网址 → IP 的转换目录</div></div>
+      </div>
+      <div class="ccard1 sec2">
+        <div class="ch">② 硬件设备</div>
+        <div class="citem"><div class="ci-n">交换机</div><div class="ci-d">局域网内部设备互联枢纽</div></div>
+        <div class="citem"><div class="ci-n" style="color:var(--y1);">路由器</div><div class="ci-d">连接不同网络、选择最佳路径</div></div>
+        <div style="margin-top:var(--s3);font-size:12px;color:var(--t3);">只有这两类是「实物设备」，其余是规则或逻辑/安全技术。</div>
+      </div>
+      <div class="ccard1 sec3">
+        <div class="ch">③ 网络隔离与安全</div>
+        <div class="citem"><div class="ci-n">VLAN</div><div class="ci-d">交换机上的逻辑隔离网段</div></div>
+        <div class="citem"><div class="ci-n">防火墙</div><div class="ci-d">流量监控与过滤屏障</div></div>
+        <div class="citem"><div class="ci-n">VPN</div><div class="ci-d">公网上的加密安全隧道</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 3. 关联关系 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">3</span><span class="label">它们之间的关联关系（分工明确、环环相扣）</span></div>
+    <div class="rel">
+      <div class="rh">① 基础规则与寻址 <span class="tag-sm tag-blue">TCP/IP · IP · MAC · 端口 · DNS</span></div>
+      <div class="rb">
+        <b>TCP/IP</b> 是顶层规则。访问服务时，输入域名（如 <span class="hi">oa.company.com</span>），<b>DNS</b> 先将其解析为 <b>IP 地址</b>；数据包到达目标 IP（设备）后，通过 <b>端口</b> 找到具体软件；在底层局域网物理传输时，<b>IP 地址</b> 必须经 <b>ARP</b> 协议映射到具体 <b>MAC 地址</b>，才能准确送达网卡。
+      </div>
+    </div>
+    <div class="rel">
+      <div class="rh">② 网络硬件与连接 <span class="tag-sm tag-amber">交换机 · 路由器</span></div>
+      <div class="rb">
+        同一个房间/部门内的电脑，通过 <b>交换机</b> 互相通信（基于 <b>MAC 地址</b> 转发）；如果要跨部门、跨网段或访问外网，数据包必须经过 <b>路由器</b>（基于 <b>IP 地址</b> 路由选择）。
+      </div>
+    </div>
+    <div class="rel" style="margin-bottom:0;">
+      <div class="rh">③ 安全与隔离 <span class="tag-sm tag-green">VLAN · 防火墙 · VPN</span></div>
+      <div class="rb">
+        为安全与性能，在交换机上配置 <b>VLAN</b> 把财务部与普通员工网段隔开；数据包在不同 VLAN 之间或进入外网时，通过 <b>防火墙</b> 过滤（基于 IP、端口、规则放行或拦截）；出差员工访问内网时，建立 <b>VPN</b> 加密隧道，穿过互联网安全接入。
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 4. 企业场景 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">4</span><span class="label">企业实战场景：出差员工访问公司财务系统</span> <span class="tag-sm tag-amber">数据如何在这 10 个概念间流动</span></div>
+    <div class="scene-flow">
+      <div class="sf-node"><div class="sf-num">1</div><div><div class="sf-t">发起请求</div><div class="sf-d">张三笔记本访问 oa.company.com</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">2</div><div><div class="sf-t">建立加密隧道</div><div class="sf-d">VPN（公网加密通道）</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">3</div><div><div class="sf-t">跨越互联网</div><div class="sf-d">路由器 / TCP/IP 逐跳寻址</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">4</div><div><div class="sf-t">到达公司总部门口</div><div class="sf-d">防火墙 安全检查</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">5</div><div><div class="sf-t">寻址与解析</div><div class="sf-d">DNS 解析 → IP 地址</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">6</div><div><div class="sf-t">进局域网隔离区</div><div class="sf-d">VLAN 隔离 + 交换机转发</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">7</div><div><div class="sf-t">送达服务器</div><div class="sf-d">MAC 地址精确投递网卡</div></div></div>
+      <div class="sf-arrow">↓</div>
+      <div class="sf-node"><div class="sf-num">8</div><div><div class="sf-t">应用响应</div><div class="sf-d">端口 递交给财务报销系统</div></div></div>
+    </div>
+  </div>
+
+  <!-- ======== 5. 八步详解 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">5</span><span class="label">具体运作全过程（8 步）</span></div>
+    <div class="cols2">
+      <div class="scard"><div class="sh"><span class="sn">1</span>TCP/IP 建立通信基础</div><div class="sb">张三打开浏览器，所有请求封装与传输都严格遵循 <b>TCP/IP</b> 协议规则。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">2</span>DNS 域名解析</div><div class="sb">输入 <b>oa.company.com</b>，电脑问 DNS：「这个网址对应哪个 IP？」DNS 返回（如 <b>203.0.113.50</b>）。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">3</span>VPN 安全加密通道</div><div class="sb">财务系统仅内网可访问，开启公司 <b>VPN</b>，在电脑与出口网关间建立虚拟加密隧道，防公网窃听。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">4</span>路由器跨网路由</div><div class="sb">数据包在互联网穿行，经沿途无数 <b>路由器</b> 路径选择，最终寻址到公司总部公网地址。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">5</span>防火墙安全检查</div><div class="sb">到达公司入口 <b>防火墙</b>：「合法 VPN 用户、目标内部财务系统」→ <b>放行</b>。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">6</span>VLAN 逻辑隔离</div><div class="sb">内部按 <b>VLAN</b> 划分办公区/研发区/财务专网，防火墙将数据转给专用「财务 VLAN」，其他部门无法偷窥。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">7</span>交换机转发 + MAC 识别</div><div class="sb">数据进入局域网 <b>交换机</b>，交换机按目标服务器网卡 <b>MAC 地址</b> 精确送达其网线接口。</div></div>
+      <div class="scard"><div class="sh"><span class="sn">8</span>IP + 端口定位应用</div><div class="sb">包到达服务器（<b>IP</b> 标识），按请求中的 <b>端口</b>（如 80/443）精准递交给「财务报销系统」软件。处理完沿原路返回界面。</div></div>
+    </div>
+  </div>
+
+  <!-- ======== 6. 总结 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">★</span><span class="label">一句话总结</span></div>
+    <div class="summary">
+      <div class="sum-item"><div class="st">TCP/IP</div><div class="sd">是规矩（统一语言与投递规则）</div></div>
+      <div class="sum-item"><div class="st">DNS · IP · 端口</div><div class="sd">DNS 是导航目录；IP 和端口是终点门牌</div></div>
+      <div class="sum-item"><div class="st">MAC</div><div class="sd">是设备身份证（出厂固定）</div></div>
+      <div class="sum-item"><div class="st">交换机 · 路由器</div><div class="sd">是修路和发车（互联与跨网）</div></div>
+      <div class="sum-item"><div class="st">VLAN · 防火墙 · VPN</div><div class="sd">是上锁、保安和安保押运</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>个人知识库 · 计算机网络 10 大核心概念地图</span>
+    <span>PC / 4K 优先 · 固定布局 · 打印优先</span>
+  </div>
+
+</div>
+
+</body>
+</html>
