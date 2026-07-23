@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600">
+<title>企业网络基础 · 第2课：IP地址、子网掩码、网关 · 个人知识库</title>
+<style>
+:root {
+  --bg: #f8fafc; --panel: #ffffff; --panel2: #f1f5f9;
+  --line: #e2e8f0; --line2: #cbd5e1;
+  --t: #1f2937; --t2: #4b5563; --t3: #9ca3af;
+  --accent: #1E3A5F; --accent2: #334155;
+  --g1: #059669; --r1: #dc2626; --y1: #d97706;
+  --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 28px; --s7: 36px; --s8: 48px;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow: 0 1px 4px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.03);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--t); line-height: 1.65; font-size: 15px; }
+
+.hero { background: var(--accent); color: #fff; padding: var(--s7) var(--s8) var(--s6); text-align: center; }
+.hero .tag { display:inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); padding: 3px 16px; border-radius: 20px; font-size: 13px; letter-spacing: 1px; margin-bottom: var(--s3); }
+.hero h1 { font-size: 28px; font-weight: 700; margin-bottom: var(--s2); letter-spacing: .5px; }
+.hero .sub { font-size: 15px; opacity: .85; max-width: 780px; margin: 0 auto; }
+.hero .arrow { margin-top: var(--s4); font-size: 24px; opacity: .6; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: var(--s6) var(--s5); }
+
+.sec { margin-bottom: var(--s7); }
+.sec-title { display:flex; align-items:center; gap: var(--s3); margin-bottom: var(--s5); }
+.sec-title .num { width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 700; flex:none; }
+.sec-title .label { font-size: 18px; font-weight: 700; color: var(--t); }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s5); }
+.panel.warn  { border-left: 4px solid var(--r1); }
+.panel.info  { border-left: 4px solid var(--accent); }
+.panel.good  { border-left: 4px solid var(--g1); }
+
+.cols2 { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.cols3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s4); }
+
+.hi { color: var(--accent); font-weight: 700; }
+.dim { color: var(--t3); }
+
+.flow { display:flex; flex-direction:column; gap: 1px; font-family: "Courier New",monospace; font-size: 13px; background: var(--panel2); padding: var(--s4); border-radius: var(--radius-sm); color: var(--t2); line-height: 1.8; }
+.flow .hl { color: var(--accent); font-weight: 700; }
+
+.tag-sm { display:inline-block; font-size: 11px; padding: 1px 8px; border-radius: 4px; font-weight: 600; }
+.tag-green { background: #ecfdf5; color: var(--g1); }
+.tag-blue  { background: #eff6ff; color: var(--accent); }
+.tag-red   { background: #fef2f2; color: var(--r1); }
+.tag-amber { background: #fffbeb; color: var(--y1); }
+
+/* IP anatomy */
+.ipbox { display:flex; align-items:stretch; border:1.5px solid var(--accent); border-radius: var(--radius-sm); overflow:hidden; font-family:"Courier New",monospace; }
+.ipbox .seg { padding: 12px 18px; text-align:center; border-right:1px solid var(--line); flex:1; }
+.ipbox .seg:last-child { border-right:none; }
+.ipbox .seg .sv { font-size:20px; font-weight:700; color:var(--accent); }
+.ipbox .seg .sl { font-size:11px; color:var(--t3); margin-top:2px; }
+.ipbox .seg.net { background: rgba(30,58,95,.06); }
+
+/* org analogy */
+.xx-group { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); }
+.xx-group .gg { font-size: 14px; font-weight: 700; color: var(--accent); text-align:center; margin-bottom: var(--s3); }
+.xx-regions { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--s3); }
+.xx-region { background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--s3); text-align:center; }
+.xx-region .xr-t { font-size: 13px; font-weight: 700; color: var(--t); }
+.xx-region .xr-ip { font-size: 12px; color: var(--accent); font-family:"Courier New",monospace; margin-top: 4px; }
+.xx-region .xr-d { font-size: 11px; color: var(--t3); margin-top: 2px; }
+
+/* mask split */
+.masksplit { display:flex; align-items:stretch; border:1.5px solid var(--accent); border-radius: var(--radius-sm); overflow:hidden; font-family:"Courier New",monospace; }
+.masksplit .m-net { flex:3; background: rgba(30,58,95,.08); padding: 12px 16px; text-align:center; }
+.masksplit .m-dev { flex:1; padding: 12px 16px; text-align:center; }
+.masksplit .ml { font-size: 11px; color: var(--t3); margin-top: 4px; }
+.masksplit .mv { font-size: 18px; font-weight: 700; color: var(--accent); }
+
+/* route chain */
+.route { display:flex; align-items:center; gap: var(--s3); flex-wrap:wrap; justify-content:center; }
+.route .rnode { background:#fff; border:1.5px solid var(--accent); border-radius: var(--radius-sm); padding: 8px 14px; text-align:center; min-width: 150px; }
+.route .rnode .rn { font-size: 13px; font-weight: 700; color: var(--accent); }
+.route .rnode .rip { font-size: 12px; color: var(--t2); font-family:"Courier New",monospace; margin-top: 2px; }
+.route .rarrow { color: var(--line2); font-size: 18px; font-weight: 700; }
+.route .rnode.rtr { background: var(--accent); border-color: var(--accent); }
+.route .rnode.rtr .rn, .route .rnode.rtr .rip { color:#fff; }
+
+/* compare same vs diff */
+.cmp { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.cmp .cmpbox { background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); }
+.cmp .cmpbox .ct { font-size: 14px; font-weight: 700; margin-bottom: var(--s3); display:flex; align-items:center; gap:6px; }
+.cmp .cmpbox.ok .ct { color: var(--g1); }
+.cmp .cmpbox.no .ct { color: var(--r1); }
+
+/* scene cards */
+.scene { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); }
+.scene .sc-t { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: var(--s3); }
+.scene .layer { border-left: 3px solid var(--line2); padding: 6px 0 6px 14px; margin-bottom: var(--s2); }
+.scene .layer .lh { font-size: 13px; font-weight: 700; color: var(--t); }
+.scene .layer .lb { font-size: 12.5px; color: var(--t2); margin-top: 2px; }
+.scene .layer.bad { border-left-color: var(--r1); }
+.scene .layer.ok  { border-left-color: var(--g1); }
+
+/* mnemonic */
+.mn { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--s4); }
+.mn .mnc { background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); text-align:center; border-top: 3px solid var(--accent); }
+.mn .mnc .mk { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: var(--s2); }
+.mn .mnc .mv { font-size: 14px; font-weight: 700; color: var(--t); margin-bottom: 4px; }
+.mn .mnc .md { font-size: 12.5px; color: var(--t2); }
+
+/* exercise */
+.q-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); margin-bottom: var(--s4); }
+.q-card .qh { font-size: 14px; font-weight: 700; color: var(--t); margin-bottom: var(--s2); }
+.q-card .qb { font-size: 13px; color: var(--t2); line-height: 1.7; }
+.q-card .qn { display:inline-block; width: 24px; height: 24px; background: var(--accent); color:#fff; border-radius: 50%; text-align:center; line-height: 24px; font-size: 13px; font-weight: 700; margin-right: 8px; }
+.ans { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius); padding: var(--s4) var(--s5); }
+.ans .ah { font-size: 13px; font-weight: 700; color: var(--g1); margin-bottom: var(--s3); }
+.ans .ai { font-size: 13px; color: var(--t2); line-height: 1.7; margin-bottom: var(--s2); }
+.ans .ai b { color: var(--accent); }
+
+/* course roadmap */
+.cr { display:flex; gap: var(--s3); }
+.cr-item { flex:1; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); }
+.cr-item.done { border-top: 3px solid var(--g1); }
+.cr-item.cur  { border-top: 3px solid var(--accent); }
+.cr-item.future { border-top: 3px solid var(--line2); }
+.cr-item .cn { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.cr-item .ct { font-size: 14px; font-weight: 700; color: var(--t); margin-bottom: var(--s2); line-height:1.4; }
+.cr-item .cd { font-size: 12px; color: var(--t2); }
+.cr-item .cbadge { margin-top: var(--s2); font-size: 11px; }
+.cr-item.done .cbadge { color: var(--g1); font-weight: 700; }
+.cr-item.cur .cbadge { color: var(--accent); font-weight: 700; }
+
+.back { margin-bottom: var(--s5); }
+.back a { font-size: 13px; color: var(--t3); text-decoration:none; }
+.back a:hover { color: var(--accent); }
+
+.foot { margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--line); text-align:center; font-size: 12px; color: var(--t3); display:flex; justify-content:center; gap: var(--s6); }
+
+@media print {
+  body { background: #fff; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .panel, .scene, .mnc, .q-card, .cr-item, .cmpbox { break-inside: avoid; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">企业网络基础 · 第 2 课</div>
+  <h1>IP 地址、子网掩码、网关 —— 为什么两个系统有时能通信，有时不能？</h1>
+  <div class="sub">IT 经理不必会配置，但必须能回答：MES 与 SAP 为何不通？车间能访问 MES 却上不了网？两个 IP 看着很近为何不互通？</div>
+  <div class="arrow">↓</div>
+</div>
+
+<div class="container">
+
+  <div class="back"><a href="../index.html">← 个人知识库</a> · <a href="it-career-roadmap.html">IT 能力升级路线 ↗</a> · <a href="net-basics-01.html">第1课：整体架构 ↗</a></div>
+
+  <!-- ======== 0. 关键问题 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">0</span><span class="label">这节课你要能回答的三个问题</span></div>
+    <div class="cols3">
+      <div class="panel info"><div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:var(--s2);">问题 1</div><div style="font-size:13px;color:var(--t2);line-height:1.6;">为什么 MES 服务器和 SAP 服务器无法通信？</div></div>
+      <div class="panel info"><div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:var(--s2);">问题 2</div><div style="font-size:13px;color:var(--t2);line-height:1.6;">为什么生产车间电脑能访问 MES，却不能访问互联网？</div></div>
+      <div class="panel info"><div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:var(--s2);">问题 3</div><div style="font-size:13px;color:var(--t2);line-height:1.6;">为什么两个 IP 看起来很接近，却不能互通？</div></div>
+    </div>
+  </div>
+
+  <!-- ======== 1. IP地址本质 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">1</span><span class="label">IP 地址 = 设备在网络中的「位置」</span></div>
+    <div class="cols2">
+      <div class="panel">
+        <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">以 MES / SAP 服务器为例</div>
+        <div class="ipbox">
+          <div class="seg net"><div class="sv">192.168.10</div><div class="sl">网络区域</div></div>
+          <div class="seg"><div class="sv">50</div><div class="sl">设备编号</div></div>
+        </div>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--t2);line-height:1.7;">
+          <span class="hi">192.168.10.50</span> 实际包含两层信息：<b>「你在哪个网络」</b> + <b>「这个网络里的第几台设备」</b>。
+        </div>
+      </div>
+      <div class="panel">
+        <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">类比：邮寄地址</div>
+        <div class="flow">
+          <div>中国 → 陕西 → 西安 → 某小区某户</div>
+          <div style="margin-left:8px;">↓</div>
+          <div style="margin-left:8px;">网络 → 子网 → 网段 → 某台设备</div>
+          <div style="margin-left:16px;">↓</div>
+          <div style="margin-left:16px;" class="hl">IP = 网络中的位置</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 2. IP为什么长这样 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">2</span><span class="label">IP 地址为什么通常长这样？</span></div>
+    <div class="panel">
+      <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">IPv4 由 4 段组成，每段 0 ~ 255</div>
+      <div class="ipbox" style="max-width:640px;">
+        <div class="seg"><div class="sv">192</div><div class="sl">第一段</div></div>
+        <div class="seg"><div class="sv">168</div><div class="sl">第二段</div></div>
+        <div class="seg"><div class="sv">10</div><div class="sl">第三段</div></div>
+        <div class="seg"><div class="sv">50</div><div class="sl">第四段</div></div>
+      </div>
+      <div style="margin-top:var(--s3);font-size:13px;color:var(--t2);">理论范围：<span class="hi">0.0.0.0</span> ～ <span class="hi">255.255.255.255</span>。企业内网常用 <span style="font-family:'Courier New',monospace;">192.168.X.X</span> 这类「私有地址」。</div>
+    </div>
+  </div>
+
+  <!-- ======== 3. 子网掩码 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">3</span><span class="label">关键：子网掩码是什么？</span> <span class="tag-sm tag-amber">业务人员最难懂</span></div>
+    <div class="cols2">
+      <div class="xx-group">
+        <div class="gg">XX 医药集团（一个公司，多个部门）</div>
+        <div class="xx-regions">
+          <div class="xx-region"><div class="xr-t">办公区</div><div class="xr-ip">192.168.10.X</div><div class="xr-d">财务 / 行政</div></div>
+          <div class="xx-region"><div class="xr-t">生产区</div><div class="xr-ip">192.168.20.X</div><div class="xr-d">MES / 车间</div></div>
+          <div class="xx-region"><div class="xr-t">服务器区</div><div class="xr-ip">192.168.30.X</div><div class="xr-d">SAP / LIMS</div></div>
+        </div>
+        <div style="margin-top:var(--s3);font-size:12.5px;color:var(--t3);text-align:center;">划分目的：安全隔离 —— 一个公司，不同「部门网络」。</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">子网掩码 = 告诉设备「哪是网络，哪是设备」</div>
+        <div class="flow" style="font-family:inherit;">
+          <div style="font-family:'Courier New',monospace;">IP　　：192.168.10.50</div>
+          <div style="font-family:'Courier New',monospace;">掩码　：255.255.255.0</div>
+        </div>
+        <div class="masksplit" style="margin-top:var(--s3);">
+          <div class="m-net"><div class="mv">192.168.10</div><div class="ml">网络（前三段）</div></div>
+          <div class="m-dev"><div class="mv">.50</div><div class="ml">设备（末段）</div></div>
+        </div>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--t2);">掩码 <span style="font-family:'Courier New',monospace;">255.255.255.0</span> 表示：前 3 段是网络、最后 1 段是设备。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 4 & 5. 能通 vs 不能通 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">4-5</span><span class="label">为什么有时能通信，有时不能？—— 看「是否同一网段」</span></div>
+    <div class="cmp">
+      <div class="cmpbox ok">
+        <div class="ct">✅ 同网段：直接通信</div>
+        <div class="route" style="margin-bottom:var(--s3);">
+          <div class="rnode"><div class="rn">MES 电脑</div><div class="rip">192.168.10.60</div></div>
+          <div class="rarrow">↔</div>
+          <div class="rnode rtr"><div class="rn">交换机</div><div class="rip">二层转发</div></div>
+          <div class="rarrow">↔</div>
+          <div class="rnode"><div class="rn">MES 服务器</div><div class="rip">192.168.10.50</div></div>
+        </div>
+        <div class="q-card" style="margin:0;box-shadow:none;"><div class="qb">掩码都是 <span style="font-family:'Courier New',monospace;">255.255.255.0</span> → 网络 <span class="hi">192.168.10</span> = <span class="hi">192.168.10</span> → 「我们是邻居」→ 经交换机直连，<b>不需要网关</b>。</div></div>
+      </div>
+      <div class="cmpbox no">
+        <div class="ct">❌ 不同网段：需要网关</div>
+        <div class="route" style="margin-bottom:var(--s3);">
+          <div class="rnode"><div class="rn">MES 服务器</div><div class="rip">192.168.10.50</div></div>
+          <div class="rarrow">✕</div>
+          <div class="rnode"><div class="rn">SAP 服务器</div><div class="rip">192.168.20.100</div></div>
+        </div>
+        <div class="q-card" style="margin:0;box-shadow:none;"><div class="qb">MES 网络 <span class="hi">192.168.10</span> ≠ SAP 网络 <span class="hi">192.168.20</span> → 「我不认识它，不知道怎么去」→ 必须走 <b>网关 / 路由</b> 才能到达。</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 6. 网关 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">6</span><span class="label">网关是什么？—— 去其他网络的「出口」</span></div>
+    <div class="cols2" style="align-items:start;">
+      <div class="panel">
+        <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">类比：小区门口 → 高速公路</div>
+        <div class="flow">
+          <div>你家（陕西西安某小区）</div>
+          <div style="margin-left:8px;">↓ 小区大门</div>
+          <div style="margin-left:16px;">↓ 高速公路</div>
+          <div style="margin-left:24px;">↓ 上海</div>
+        </div>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--t2);">网络同理：你的电脑 → 网关 → 其他网络。</div>
+      </div>
+      <div class="panel">
+        <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">MES → SAP 跨网段通信路径</div>
+        <div class="route">
+          <div class="rnode"><div class="rn">MES 服务器</div><div class="rip">192.168.10.50</div></div>
+          <div class="rarrow">→</div>
+          <div class="rnode"><div class="rn">网关</div><div class="rip">192.168.10.1</div></div>
+          <div class="rarrow">→</div>
+          <div class="rnode rtr"><div class="rn">路由设备</div><div class="rip">三层转发</div></div>
+          <div class="rarrow">→</div>
+          <div class="rnode"><div class="rn">网关</div><div class="rip">192.168.20.1</div></div>
+          <div class="rarrow">→</div>
+          <div class="rnode"><div class="rn">SAP 服务器</div><div class="rip">192.168.20.100</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 7. MES场景规划 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">7</span><span class="label">结合你的药厂场景理解「为什么要分网」</span></div>
+    <div class="xx-group">
+      <div class="gg">生产网络规划（隔离带来安全）</div>
+      <div class="xx-regions">
+        <div class="xx-region"><div class="xr-t">生产网</div><div class="xr-ip">192.168.20.X</div><div class="xr-d">MES 服务器 192.168.20.10<br>车间终端 192.168.20.50</div></div>
+        <div class="xx-region"><div class="xr-t">SAP 服务器区</div><div class="xr-ip">192.168.30.X</div><div class="xr-d">SAP 192.168.30.10</div></div>
+        <div class="xx-region"><div class="xr-t">实验室系统</div><div class="xr-ip">192.168.40.X</div><div class="xr-d">LIMS 192.168.40.10</div></div>
+      </div>
+      <div class="panel warn" style="margin-top:var(--s4);border-left-width:4px;"><div style="font-size:13px;color:var(--t2);line-height:1.7;">为什么不全放一起？<b style="color:var(--r1);">如果车间电脑感染病毒，不能直接攻击 SAP。</b>分网段 + 网关/防火墙控制，是药企基础安全设计。</div></div>
+    </div>
+  </div>
+
+  <!-- ======== 8. 三个典型故障 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">8</span><span class="label">IT 经理必须知道的三个典型故障</span> <span class="tag-sm tag-red">排错实战</span></div>
+    <div class="cols3">
+      <div class="scene">
+        <div class="sc-t">场景 1：MES 打不开</div>
+        <div class="layer bad"><div class="lh">网络层</div><div class="lb">电脑 192.168.20.50 ping MES 192.168.20.10 → 失败 ⇒ 网络问题</div></div>
+        <div class="layer ok"><div class="lh">应用层</div><div class="lb">ping 成功（Reply from…）但浏览器打不开 ⇒ 服务器在线，MES 服务可能已停止</div></div>
+      </div>
+      <div class="scene">
+        <div class="sc-t">场景 2：MES 能用，传不了 SAP</div>
+        <div class="layer"><div class="lh">第一层</div><div class="lb">MES 能否访问 SAP 的 IP？</div></div>
+        <div class="layer"><div class="lh">第二层</div><div class="lb">SAP 接口端口是否开放？（telnet）</div></div>
+        <div class="layer"><div class="lh">第三层</div><div class="lb">SAP 接口程序是否正常运行？</div></div>
+      </div>
+      <div class="scene">
+        <div class="sc-t">场景 3：新车间电脑「插了线却上不了 MES」</div>
+        <div class="layer bad"><div class="lh">可能缺</div><div class="lb">IP 未配成 192.168.20.X</div></div>
+        <div class="layer bad"><div class="lh">可能缺</div><div class="lb">网关未配 192.168.20.1</div></div>
+        <div class="layer bad"><div class="lh">可能缺</div><div class="lb">DNS 未配置</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 9. 口诀 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">9</span><span class="label">IT 经理记忆口诀</span></div>
+    <div class="mn">
+      <div class="mnc"><div class="mk">IP 地址</div><div class="mv">找谁</div><div class="md">目标设备在哪里？</div></div>
+      <div class="mnc"><div class="mk">子网掩码</div><div class="mv">判断是不是邻居</div><div class="md">是不是同一个网络？</div></div>
+      <div class="mnc"><div class="mk">网关</div><div class="mv">去外面的路</div><div class="md">不是一个网络怎么办？</div></div>
+    </div>
+  </div>
+
+  <!-- ======== 10. 练习题 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">10</span><span class="label">今天的练习题（先自己回答，再对答案）</span></div>
+    <div class="panel info" style="margin-bottom:var(--s4);">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:var(--s2);">已知条件</div>
+      <div style="font-family:'Courier New',monospace;font-size:13px;color:var(--t2);line-height:1.8;">
+        MES 服务器：IP 192.168.10.50 ／ 掩码 255.255.255.0 ／ 网关 192.168.10.1<br>
+        电脑 A　　：IP 192.168.10.80<br>
+        电脑 B　　：IP 192.168.20.80
+      </div>
+    </div>
+    <div class="q-card">
+      <div class="qh"><span class="qn">1</span>电脑 A 能否直接访问 MES 服务器？为什么？</div>
+    </div>
+    <div class="q-card">
+      <div class="qh"><span class="qn">2</span>电脑 B 能否直接访问 MES 服务器？为什么？</div>
+    </div>
+    <div class="q-card">
+      <div class="qh"><span class="qn">3</span>如果电脑 B 也需要访问 MES，需要增加什么网络设备？</div>
+    </div>
+    <div class="ans">
+      <div class="ah">参考答案（核对用）</div>
+      <div class="ai"><b>1. 能。</b>电脑 A（192.168.10.80）与 MES（192.168.10.50）掩码同为 255.255.255.0，网络段都是 <b>192.168.10</b> → 同一网段，经交换机直接通信，无需网关。</div>
+      <div class="ai"><b>2. 不能。</b>电脑 B（192.168.20.80）网络段是 <b>192.168.20</b>，与 MES 的 192.168.10 不同 → 跨网段，无法直接通信，必须经网关 / 路由。</div>
+      <div class="ai"><b>3. 需要增加路由设备</b>（三层交换机或路由器），并为电脑 B 配置网关（如 192.168.20.1），同时确保路由规则允许 192.168.20.X 访问 192.168.10.X 网段（必要时开放防火墙策略）。</div>
+    </div>
+  </div>
+
+  <!-- ======== 课程路线图 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">★</span><span class="label">6 课路线 · 进度</span></div>
+    <div class="cr">
+      <div class="cr-item done"><div class="cn">第 1 课</div><div class="ct">企业网络整体架构</div><div class="cd">拓扑与四区域。</div><div class="cbadge">✅ 已完成</div></div>
+      <div class="cr-item cur"><div class="cn">第 2 课 · 本课</div><div class="ct">IP 地址 + 子网 + 网关</div><div class="cd">为什么有时能通信、有时不能。</div><div class="cbadge">● 当前</div></div>
+      <div class="cr-item future"><div class="cn">第 3 课</div><div class="ct">交换机 · 防火墙 · 路由器</div><div class="cd">三类设备各干什么。</div></div>
+      <div class="cr-item future"><div class="cn">第 4 课</div><div class="ct">生产网(OT) 与 办公网(IT)</div><div class="cd">结合 MES / PLC / SCADA。</div></div>
+      <div class="cr-item future"><div class="cn">第 5 课</div><div class="ct">接口通信网络</div><div class="cd">SAP-MES：RFC / HTTP / REST / MQ。</div></div>
+      <div class="cr-item future"><div class="cn">第 6 课</div><div class="ct">企业网络安全设计</div><div class="cd">结合药企 GMP。</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>个人知识库 · 企业网络基础第 2 课</span>
+    <span>PC / 4K 优先 · 固定布局 · 打印优先</span>
+  </div>
+
+</div>
+
+</body>
+</html>
