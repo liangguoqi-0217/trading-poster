@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600">
+<title>IT 能力升级路线 · 个人知识库</title>
+<style>
+:root {
+  --bg: #f8fafc; --panel: #ffffff; --panel2: #f1f5f9;
+  --line: #e2e8f0; --line2: #cbd5e1;
+  --t: #1f2937; --t2: #4b5563; --t3: #9ca3af;
+  --accent: #1E3A5F; --accent2: #334155;
+  --g1: #059669; --r1: #dc2626; --y1: #d97706;
+  --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 28px; --s7: 36px; --s8: 48px;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow: 0 1px 4px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.03);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--t); line-height: 1.65; font-size: 15px; }
+
+.hero { background: var(--accent); color: #fff; padding: var(--s7) var(--s8) var(--s6); text-align: center; }
+.hero .tag { display:inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); padding: 3px 16px; border-radius: 20px; font-size: 13px; letter-spacing: 1px; margin-bottom: var(--s3); }
+.hero h1 { font-size: 28px; font-weight: 700; margin-bottom: var(--s2); letter-spacing: .5px; }
+.hero .sub { font-size: 15px; opacity: .85; max-width: 720px; margin: 0 auto; }
+.hero .arrow { margin-top: var(--s4); font-size: 24px; opacity: .6; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: var(--s6) var(--s5); }
+
+.sec { margin-bottom: var(--s7); }
+.sec-title { display:flex; align-items:center; gap: var(--s3); margin-bottom: var(--s5); }
+.sec-title .num { width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 700; flex:none; }
+.sec-title .label { font-size: 18px; font-weight: 700; color: var(--t); }
+
+/* panel */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s5); }
+.panel.warn  { border-left: 4px solid var(--r1); }
+.panel.info  { border-left: 4px solid var(--accent); }
+.panel.good  { border-left: 4px solid var(--g1); }
+
+/* two-cols */
+.cols2 { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.cols3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s4); }
+.cols4 { display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--s4); }
+
+/* skill cards */
+.sk-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: var(--s4); }
+.sk-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); }
+.sk-card .sk-icon { font-size: 28px; margin-bottom: var(--s2); }
+.sk-card .sk-title { font-size: 16px; font-weight: 700; margin-bottom: var(--s2); color: var(--t); }
+.sk-card .sk-desc { font-size: 13px; color: var(--t2); line-height: 1.6; }
+.sk-card .sk-list { margin-top: var(--s3); font-size: 13px; color: var(--t2); }
+.sk-card .sk-list li { padding: 2px 0; list-style: inside disc; }
+
+/* timeline */
+.tl { display:flex; gap: var(--s3); }
+.tl-item { flex:1; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); position:relative; }
+.tl-item .tl-num { font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: var(--s2); }
+.tl-item .tl-dur { font-size: 12px; color: var(--t3); }
+.tl-item .tl-goal { margin-top: var(--s2); font-size: 13px; color: var(--t2); }
+
+/* highlight text */
+.hi { color: var(--accent); font-weight: 700; }
+.dim { color: var(--t3); }
+
+/* table */
+.tbl { width:100%; border-collapse:collapse; font-size: 14px; margin-top: var(--s3); }
+.tbl th { background: var(--panel2); padding: 10px 14px; text-align:left; font-weight: 700; border-bottom: 2px solid var(--line2); color: var(--t2); font-size: 13px; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.tbl tr:nth-child(even) td { background: var(--panel2); }
+
+/* tags */
+.tag-sm { display:inline-block; font-size: 11px; padding: 1px 8px; border-radius: 4px; font-weight: 600; }
+.tag-green { background: #ecfdf5; color: var(--g1); }
+.tag-blue  { background: #eff6ff; color: var(--accent); }
+.tag-red   { background: #fef2f2; color: var(--r1); }
+
+/* back */
+.back { margin-bottom: var(--s5); }
+.back a { font-size: 13px; color: var(--t3); text-decoration:none; }
+.back a:hover { color: var(--accent); }
+
+.foot { margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--line); text-align:center; font-size: 12px; color: var(--t3); display:flex; justify-content:center; gap: var(--s6); }
+
+@media print {
+  body { background: #fff; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .panel, .sk-card, .tl-item { break-inside: avoid; box-shadow: none; }
+}
+
+/* now vs future */
+.vs-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--t3); margin-bottom: var(--s2); font-weight: 600; }
+.vs-list { list-style: none; font-size: 14px; color: var(--t2); }
+.vs-list li { padding: 5px 0; padding-left: 16px; position:relative; }
+.vs-list li::before { content: ''; position:absolute; left:0; top: 12px; width:6px; height:6px; border-radius:50%; background: var(--accent); }
+.future .vs-list li::before { background: var(--g1); }
+
+/* checklist */
+.cl { display:flex; flex-wrap:wrap; gap: 6px; margin-top: var(--s2); }
+.cl span { font-size: 13px; padding: 4px 12px; background: var(--panel2); border-radius: 20px; color: var(--t2); }
+
+/* flow */
+.flow { display:flex; flex-direction:column; gap: 1px; font-family: "Courier New",monospace; font-size: 13px; background: var(--panel2); padding: var(--s4); border-radius: var(--radius-sm); color: var(--t2); line-height: 1.8; }
+
+/* diff-box */
+.diff-box { padding: var(--s4); border-radius: var(--radius-sm); margin-bottom: var(--s3); }
+.diff-box.bad { background: #fef2f2; color: var(--r1); }
+.diff-box.good { background: #ecfdf5; color: var(--g1); }
+.diff-box .label { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.diff-box .desc { font-size: 13px; opacity: .85; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">能力提升路线</div>
+  <h1>从 SAP 顾问/业务 IT → 企业 IT 负责人</h1>
+  <div class="sub">补课方向不是网络工程师或 DBA，而是补齐「企业 IT 底座语言」，把简历从「SAP 项目经理」升级为「企业 IT 管理者」</div>
+  <div class="arrow">↓</div>
+</div>
+
+<div class="container">
+
+  <div class="back"><a href="../index.html">← 个人知识库</a></div>
+
+  <!-- ======== 已有优势 vs 待补齐 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">0</span><span class="label">核心逻辑</span></div>
+    <div class="cols2">
+      <div class="panel good">
+        <div class="vs-label">✅ 你已经跨过最难的门槛</div>
+        <ul class="vs-list">
+          <li>懂业务流程（MM / PP / MES / 供应链）</li>
+          <li>懂 ERP 架构</li>
+          <li>做过系统建设</li>
+          <li>能和业务沟通</li>
+          <li>有项目管理经验</li>
+        </ul>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--g1);font-weight:600;">很多纯技术背景的人反而缺少这些</div>
+      </div>
+      <div class="panel info">
+        <div class="vs-label">🔷 面试官会考察</div>
+        <div style="font-size:15px;font-weight:700;color:var(--t);margin-bottom:var(--s3);">"你是否能管理整个IT环境，而不只是某个应用系统"</div>
+        <div class="vs-label">所需补课</div>
+        <div class="cl">
+          <span>网络基础</span><span>数据库/SQL</span><span>服务器</span><span>虚拟化/云</span><span>安全/等保</span><span>ITIL/COBIT</span><span>企业架构</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 一、企业基础架构（网络） ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">1</span><span class="label">企业基础架构 — 网络基础</span> <span class="tag-sm tag-green">必须懂</span></div>
+    <div class="cols2">
+      <div class="sk-card">
+        <div class="sk-title">企业网络拓扑（看懂即可）</div>
+        <div class="flow">
+          <div> 互联网</div>
+          <div style="margin-left:8px;">↓</div>
+          <div style="margin-left:8px;">防火墙</div>
+          <div style="margin-left:16px;">↓</div>
+          <div style="margin-left:16px;">核心交换机</div>
+          <div style="margin-left:24px;">↓</div>
+          <div style="margin-left:24px;">汇聚交换机</div>
+          <div style="margin-left:32px;">↓</div>
+          <div style="margin-left:32px;">接入交换机</div>
+          <div style="margin-left:40px;">↓</div>
+          <div style="margin-left:40px;">服务器 → 应用系统</div>
+        </div>
+      </div>
+      <div class="sk-card">
+        <div class="sk-title">必须知道的网络概念</div>
+        <div class="sk-list">
+          <ul>
+            <li>IP 地址 · 子网掩码 · 网关</li>
+            <li>DNS · DHCP · VLAN</li>
+            <li>NAT · VPN</li>
+          </ul>
+        </div>
+        <div style="margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px;">实战举例</div>
+          <div style="font-size:13px;color:var(--t2);"><span style="color:var(--t);font-weight:600;">业务说：</span>"MES服务器访问不了SAP接口" → 你应能快速判断：网络不通？防火墙端口？DNS解析？SAP服务？接口异常？而不是全丢给网络工程师</div>
+        </div>
+      </div>
+    </div>
+    <div class="cols2" style="margin-top:var(--s4);">
+      <div class="panel">
+        <div class="sk-title" style="margin-bottom:var(--s3);">TCP/IP 模型</div>
+        <div class="flow">
+          <div>应用层：HTTP / FTP / SAP RFC</div>
+          <div style="margin-left:8px;">↓</div>
+          <div style="margin-left:8px;">传输层：TCP / UDP（三次握手、端口）</div>
+          <div style="margin-left:16px;">↓</div>
+          <div style="margin-left:16px;">网络层：IP（延迟、丢包）</div>
+          <div style="margin-left:24px;">↓</div>
+          <div style="margin-left:24px;">链路层：交换机 / MAC</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="sk-title" style="margin-bottom:var(--s3);">常见企业网络设备（知道作用）</div>
+        <table class="tbl">
+          <tr><th>设备</th><th>作用</th></tr>
+          <tr><td>防火墙</td><td>安全控制</td></tr>
+          <tr><td>交换机</td><td>局域网连接</td></tr>
+          <tr><td>路由器</td><td>网络互通</td></tr>
+          <tr><td>VPN</td><td>远程访问</td></tr>
+          <tr><td>负载均衡</td><td>流量分配</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 二、数据库 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">2</span><span class="label">数据库知识</span> <span class="tag-sm tag-green">必须补</span></div>
+    <div class="cols3">
+      <div class="sk-card">
+        <div class="sk-title">基本原理</div>
+        <div class="flow">
+          <div>应用系统 → SQL → 数据库 → 表 → 索引 → 数据文件</div>
+        </div>
+        <div class="sk-list" style="margin-top:var(--s3);"><ul><li>表 · 字段 · 主键 · 外键</li><li>索引 · 事务 · 锁</li></ul></div>
+      </div>
+      <div class="sk-card">
+        <div class="sk-title">SQL 能力（核心）</div>
+        <div class="sk-list"><ul><li>SELECT / FROM / WHERE</li><li>JOIN / GROUP BY / ORDER BY</li></ul></div>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--t2);">能查数据、验证接口、排查问题，不完全依赖开发或DBA</div>
+      </div>
+      <div class="sk-card">
+        <div class="sk-title">数据库类型（你重点）</div>
+        <table class="tbl">
+          <tr><td>Oracle</td><td>SAP ECC 常见</td></tr>
+          <tr><td>HANA</td><td>SAP S/4</td></tr>
+          <tr><td>SQL Server</td><td>微软体系</td></tr>
+        </table>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--t3);">MySQL / PostgreSQL · 了解即可</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 三、服务器 + 四、虚拟化 + 五、安全 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">3</span><span class="label">服务器 & 虚拟化 & 安全</span> <span class="tag-sm tag-green">IT 经理必懂</span></div>
+    <div class="cols3">
+      <div class="sk-card">
+        <div class="sk-icon" style="color:var(--accent);">🖥️</div>
+        <div class="sk-title">Linux</div>
+        <div class="sk-list"><ul><li>ls / cd / vi / top / ps</li><li>df / netstat / systemctl</li><li>服务启动 · 日志查看</li><li>文件权限 · 磁盘空间</li></ul></div>
+        <div style="margin-top:var(--s3);font-size:12px;color:var(--t3);">SAP、MES、接口服务器大量运行 Linux</div>
+      </div>
+      <div class="sk-card">
+        <div class="sk-icon" style="color:var(--accent);">🪟</div>
+        <div class="sk-title">Windows Server</div>
+        <div class="sk-list"><ul><li>AD 域 · 用户权限</li><li>文件共享 · IIS</li><li>Windows 服务管理</li></ul></div>
+        <div style="margin-top:var(--s4);"><div class="sk-title" style="font-size:14px;">VMware 虚拟化</div><div style="font-size:13px;color:var(--t2);margin-top:4px;">物理服务器 → ESXi → 虚拟机 → 应用系统<br>CPU资源 · 内存 · 存储 · 快照 · 高可用</div></div>
+      </div>
+      <div class="sk-card">
+        <div class="sk-icon" style="color:var(--accent);">🔐</div>
+        <div class="sk-title">安全知识</div>
+        <div class="sk-list">
+          <ul>
+            <li><b>身份权限：</b>用户 → 角色 → 权限对象 → 事务 / SSO</li>
+            <li><b>数据安全：</b>备份 · 灾备 · 加密 · 脱敏</li>
+            <li><b>等保：</b>二级/三级 · 渗透测试 · 安全整改（药企尤其重要）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 六、IT管理 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">4</span><span class="label">IT 管理能力</span> <span class="tag-sm tag-blue">你已有基础，需体系化</span></div>
+    <div class="cols2">
+      <div class="sk-card">
+        <div class="sk-title">ITIL（服务管理）</div>
+        <div class="sk-list">
+          <ul>
+            <li><b>事件管理：</b>"系统打不开" → 快速恢复</li>
+            <li><b>问题管理：</b>"为什么经常打不开" → 根因分析</li>
+            <li><b>变更管理：</b>"上线 MES 新版本" → 流程审批</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sk-card">
+        <div class="sk-title">COBIT（IT 治理）</div>
+        <div class="sk-list">
+          <ul>
+            <li>为什么不能让开发直接改生产数据库？</li>
+            <li>→ 缺少权限控制、变更流程、审计</li>
+          </ul>
+        </div>
+        <div style="margin-top:var(--s4);font-size:13px;color:var(--t3);">这是区别于普通技术人员的关键</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 七、架构能力 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">5</span><span class="label">架构能力 — <span style="font-weight:400;color:var(--accent);">你最应该强化的方向</span></span></div>
+    <div class="panel">
+      <div class="cols2">
+        <div>
+          <div class="sk-title" style="font-size:16px;">企业架构四层模型</div>
+          <div class="flow">
+            <div>业务架构</div>
+            <div style="margin-left:8px;">↓</div>
+            <div style="margin-left:8px;">应用架构</div>
+            <div style="margin-left:16px;">↓</div>
+            <div style="margin-left:16px;">数据架构</div>
+            <div style="margin-left:24px;">↓</div>
+            <div style="margin-left:24px;">技术架构</div>
+          </div>
+        </div>
+        <div>
+          <div class="sk-title" style="font-size:16px;">药企实例</div>
+          <table class="tbl">
+            <tr><th>层</th><th>内容</th></tr>
+            <tr><td>业务</td><td>生产追溯</td></tr>
+            <tr><td>应用</td><td>SAP / MES / LIMS / QMS</td></tr>
+            <tr><td>数据</td><td>物料 · 批次 · 生产订单 · 检验结果</td></tr>
+            <tr><td>技术</td><td>服务器 · 数据库 · 接口</td></tr>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top:var(--s4);font-size:14px;color:var(--t2);font-weight:600;text-align:center;">
+        这个能力<span class="hi">比单纯懂网络更值钱</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 6个月学习路径 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">6</span><span class="label">6 个月学习路径</span></div>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-num">阶段 1</div>
+        <div class="tl-dur">第 1 个月 · 基础</div>
+        <div class="sk-list" style="margin-top:var(--s3);">
+          <ul>
+            <li>网络基础</li>
+            <li>Linux</li>
+            <li>Windows Server</li>
+            <li>虚拟化</li>
+          </ul>
+        </div>
+        <div class="tl-goal">🎯 能看懂企业IT架构图</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">阶段 2</div>
+        <div class="tl-dur">第 2-3 个月 · 数据</div>
+        <div class="sk-list" style="margin-top:var(--s3);">
+          <ul>
+            <li>SQL 能力</li>
+            <li>Oracle 基础</li>
+            <li>HANA 基础</li>
+            <li>数据库性能概念</li>
+          </ul>
+        </div>
+        <div class="tl-goal">🎯 能和 DBA 交流</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">阶段 3</div>
+        <div class="tl-dur">第 4-5 个月 · 架构</div>
+        <div class="sk-list" style="margin-top:var(--s3);">
+          <ul>
+            <li>API 接口</li>
+            <li>微服务 / 中间件</li>
+            <li>消息队列</li>
+            <li>数据仓库</li>
+          </ul>
+        </div>
+        <div class="tl-goal">🎯 成为系统架构负责人</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-num">阶段 4</div>
+        <div class="tl-dur">第 6 个月 · 管理</div>
+        <div class="sk-list" style="margin-top:var(--s3);">
+          <ul>
+            <li>ITIL</li>
+            <li>等保 & 灾备</li>
+            <li>项目治理</li>
+          </ul>
+        </div>
+        <div class="tl-goal">🎯 面试 IT 经理</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 最佳定位 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">★</span><span class="label">你的最佳定位</span></div>
+    <div class="cols3" style="grid-template-columns: 1fr 1fr 1.6fr;">
+      <div class="diff-box bad">
+        <div class="label">❌ 不要定位成</div>
+        <div class="desc" style="margin-top:6px;">网络型 IT 经理<br>基础设施经理<br>DBA 型经理</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent);">→</div>
+      <div class="diff-box good">
+        <div class="label">✅ 应该定位成</div>
+        <div class="desc" style="margin-top:6px;font-size:15px;color:var(--g1);line-height:1.7;">
+          <b>懂业务 + 懂 ERP/MES + 懂数字化架构 + 具备基础设施管理能力</b> 的信息化负责人
+        </div>
+        <div style="margin-top:var(--s3);font-size:13px;color:var(--t2);">
+          这类人在制造业（药企、汽车、化工）比较稀缺。补齐「企业 IT 底座语言」后，<br>简历从「SAP 项目经理」明显升级为「企业 IT 管理者」。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>个人知识库 · IT 能力升级路线</span>
+    <span>PC / 4K 优先 · 固定布局 · 打印优先</span>
+  </div>
+
+</div>
+
+</body>
+</html>
