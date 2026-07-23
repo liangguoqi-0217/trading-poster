@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP QM 与采购(MM)集成全景图 · 知识图</title>
+<style>
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+  --code-bg:    #F1F5F9;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero ===== */
+.hero { margin-bottom: 36px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+.section { margin-bottom: 36px; }
+
+/* ===== One-liner ===== */
+.oneliner {
+  background: var(--navy); color: var(--white); border-radius: 10px;
+  padding: 20px 28px; font-size: 15px; line-height: 1.8;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.oneliner .ol-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.oneliner strong { color: #93C5FD; }
+.oneliner code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+
+/* ===== Horizontal main chain ===== */
+.chain { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:4px; }
+.chain .cs { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:10px 6px; text-align:center; width:138px; flex:none; }
+.chain .cs .cs-t { font-size:12.5px; font-weight:700; color:var(--navy); }
+.chain .cs .cs-d { font-size:10px; color:var(--gray); margin-top:3px; }
+.chain .cs .cs-c { font-size:10px; font-family:"JetBrains Mono","Consolas",monospace; color:var(--blue); margin-top:4px; }
+.chain .cs.hl { background:var(--navy); border-color:var(--navy); }
+.chain .cs.hl .cs-t { color:#fff; }
+.chain .cs.hl .cs-d { color:#cbd5e1; }
+.chain .cs.ok { background:var(--green-bg); border-color:var(--green); }
+.chain .cs.ok .cs-t { color:var(--green); }
+.chain .cs.bad { background:var(--rose-bg); border-color:var(--rose); }
+.chain .cs.bad .cs-t { color:var(--rose); }
+.chain .ar { color:var(--gray-light); font-size:18px; flex:none; }
+
+/* ===== Pharma example box ===== */
+.pe { border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-top:16px; }
+.pe .pe-h { background:var(--teal); color:#fff; padding:8px 16px; font-size:13px; font-weight:700; }
+.pe .pe-b { padding:14px 16px; font-size:13px; color:var(--gray); line-height:1.8; }
+.pe .pe-b .c { font-family:"JetBrains Mono","Consolas",monospace; background:var(--code-bg); padding:1px 6px; border-radius:3px; color:var(--navy); font-size:12.5px; }
+
+/* ===== Integration point overview grid ===== */
+.ipov { display:grid; grid-template-columns: repeat(4,1fr); gap:12px; }
+.ip-card { border:1px solid var(--border); border-radius:8px; padding:12px; background:var(--white); }
+.ip-card .ip-h { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.ip-card .ip-no { width:22px; height:22px; border-radius:6px; background:var(--teal); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; }
+.ip-card .ip-t { font-size:12.5px; font-weight:700; color:var(--navy); }
+.ip-card .ip-d { font-size:11px; color:var(--gray); line-height:1.5; }
+.ip-card .ip-c { font-size:10px; font-family:"JetBrains Mono","Consolas",monospace; background:var(--blue-bg); color:var(--blue); padding:1px 6px; border-radius:4px; display:inline-block; margin-top:7px; }
+
+/* ===== Field Table ===== */
+.field-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.field-table th { background: var(--navy); color: var(--white); padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; }
+.field-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); }
+.field-table td:first-child { font-weight: 700; font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; color: var(--navy); }
+.field-table tr:nth-child(even) td { background: #FAFAFA; }
+.field-table tr:last-child td { border-bottom: none; }
+.field-table .tag { display:inline-block; font-size:11px; padding:1px 8px; border-radius:10px; font-weight:600; }
+.field-table .tag-blue { background:var(--blue-bg); color:var(--blue); }
+.field-table .tag-teal { background:var(--teal-bg); color:var(--teal); }
+.field-table .tag-rose { background:var(--rose-bg); color:var(--rose); }
+.field-table .tag-amber { background:var(--amber-bg); color:var(--amber); }
+.field-table .tag-gray { background:var(--bg); color:var(--gray); }
+
+/* ===== vertical mini flow ===== */
+.vflow { display:flex; flex-direction:column; align-items:center; }
+.vflow .vstep { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:12px; text-align:center; width:100%; }
+.vflow .vconn { width:2px; height:13px; background:var(--border); }
+.vflow .vstep.hl { background:var(--navy); color:#fff; font-weight:700; }
+
+/* ===== Compare two-col (QI vs 非限制) ===== */
+.cmp { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.cmp .cmp-col { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.cmp .cmp-h { padding:8px 14px; font-size:13px; font-weight:700; color:#fff; }
+.cmp .cmp-h.qi { background:var(--amber); }
+.cmp .cmp-h.ok { background:var(--green); }
+.cmp .cmp-b { padding:12px 14px; font-size:12.5px; color:var(--gray); line-height:1.7; }
+.cmp .cmp-b .c { font-family:"JetBrains Mono","Consolas",monospace; background:var(--code-bg); padding:1px 6px; border-radius:3px; color:var(--navy); font-size:12px; display:inline-block; margin:2px 0; }
+
+/* ===== UD horizontal flow ===== */
+.ud { display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; }
+.ud .u { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:8px 12px; text-align:center; font-size:12.5px; min-width:120px; }
+.ud .u .u-c { font-family:"JetBrains Mono","Consolas",monospace; font-size:11px; color:var(--blue); margin-top:2px; }
+.ud .u.hl { background:var(--navy); color:#fff; font-weight:700; }
+.ud .u.bad { background:var(--rose-bg); border-color:var(--rose); color:var(--rose); font-weight:700; }
+.ud .u.ok { background:var(--green-bg); border-color:var(--green); color:var(--green); font-weight:700; }
+.ud .ar { color:var(--gray-light); font-size:16px; }
+
+/* ===== Batch traceability chain ===== */
+.bchain { display:flex; flex-direction:column; align-items:center; }
+.bchain .bs { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:10px 22px; font-size:13px; text-align:center; font-weight:600; color:var(--navy); }
+.bchain .bs .bs-c { font-family:"JetBrains Mono","Consolas",monospace; font-size:11px; color:var(--blue); font-weight:400; margin-top:3px; }
+.bchain .bconn { width:2px; height:16px; background:var(--border); }
+
+/* ===== Code tag ===== */
+.c { font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; background: var(--code-bg); padding: 1px 6px; border-radius: 3px; color: var(--navy); }
+
+/* ===== Tip inline ===== */
+.tip-inline { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--teal); font-weight: 600; }
+
+/* ===== two-col layout for detail ===== */
+.det2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:start; }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-text { font-size: 14px; line-height: 1.8; }
+.summary-foot .sf-text code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">SAP QM × MM · Procurement Quality Integration</div>
+    <h1>QM 与采购（MM）集成全景图</h1>
+    <div class="sub">QM 在采购业务中的价值，本质不是「检验」二字，而是把采购供应链变成「质量控制闭环」——从 PO 到收货、检验、决策、库存、供应商考核全链路打通。</div>
+    <div class="stats">
+      <div class="stat"><span class="num">8</span><span class="lbl">个核心集成点</span></div>
+      <div class="stat"><span class="num">MIGO</span><span class="lbl">101 收货触发</span></div>
+      <div class="stat"><span class="num">QALS</span><span class="lbl">检验批主表</span></div>
+      <div class="stat"><span class="num">QA11</span><span class="lbl">使用决策 UD</span></div>
+    </div>
+  </div>
+
+  <!-- ====== 概览 ====== -->
+  <div class="section">
+    <div class="oneliner">
+      <span class="ol-icon">🔄</span>
+      <div>核心认知：QM 与采购（MM）集成在 <strong>采购申请/采购订单 → 收货 → 检验批 → 质量决策 → 库存处理 → 供应商质量管理</strong> 这条链路。它把「收到货就进库存」变成「先检验再放行」，并让每次不合格都能反推到供应商，形成可量化、可追溯的<strong>质量控制闭环</strong>。</div>
+    </div>
+  </div>
+
+  <!-- ====== 01. 整体集成流程 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · 整体集成流程（端到端链路）</div>
+    <div class="chain">
+      <div class="cs"><div class="cs-t">供应商</div><div class="cs-d">来料方</div></div>
+      <div class="ar">→</div>
+      <div class="cs"><div class="cs-t">采购订单 PO</div><div class="cs-c">ME21N</div></div>
+      <div class="ar">→</div>
+      <div class="cs"><div class="cs-t">101 收货</div><div class="cs-c">MIGO</div></div>
+      <div class="ar">→</div>
+      <div class="cs hl"><div class="cs-t">生成检验批</div><div class="cs-c">QALS</div></div>
+      <div class="ar">→</div>
+      <div class="cs"><div class="cs-t">QM 检验</div><div class="cs-c">QE51N</div></div>
+      <div class="ar">→</div>
+      <div class="cs"><div class="cs-t">使用决策 UD</div><div class="cs-c">QA11</div></div>
+      <div class="ar">→</div>
+      <div class="cs"><div class="cs-t">库存状态变化</div><div class="cs-d">放行/冻结/退货</div></div>
+      <div class="ar">→</div>
+      <div class="cs"><div class="cs-t">供应商质量评价</div><div class="cs-d">评分/8D</div></div>
+    </div>
+
+    <div class="pe">
+      <div class="pe-h">药企场景示例：辅料「乳糖」到货检验</div>
+      <div class="pe-b">
+        供应商提供辅料 <span class="c">乳糖</span>，批次 <span class="c">L20260701</span> → <span class="c">MIGO 101</span> 收货 → 系统自动生成检验批 <span class="c">500000001</span> → 质量抽样、检验、记录结果 →
+        合格：<b style="color:var(--green)">转非限制库存</b>；不合格：<b style="color:var(--rose)">退货 / 冻结 / 报废</b>。
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 02. 8个集成点总览 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">02 · 8 个核心集成点总览</div>
+    <div class="ipov">
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">1</div><div class="ip-t">采购订单 → QM 检验控制</div></div>
+        <div class="ip-d">决定是否检验：物料 QM 视图 Inspection Setup 勾选采购收货检验。</div>
+        <div class="ip-c">MM02 QM视图</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">2</div><div class="ip-t">收货 → 自动生成检验批</div></div>
+        <div class="ip-d">MIGO 101 收货时系统按检验设置自动创建检验批。</div>
+        <div class="ip-c">MIGO · QALS</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">3</div><div class="ip-t">收货库存状态</div></div>
+        <div class="ip-d">启用 QM 后收货进「质量检验库存（QI）」而非非限制。</div>
+        <div class="ip-c">QI Stock</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">4</div><div class="ip-t">检验计划</div></div>
+        <div class="ip-d">定义检验项目、方法、规格、抽样方案，收货自动带出。</div>
+        <div class="ip-c">QP01/02/03</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">5</div><div class="ip-t">检验结果记录</div></div>
+        <div class="ip-d">质量人员录入实际结果，落库到检验结果表。</div>
+        <div class="ip-c">QE51N · QAMR</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">6</div><div class="ip-t">使用决策 UD</div></div>
+        <div class="ip-d">QA11 决定放行/拒收，触发库存移动（321/350/122）。</div>
+        <div class="ip-c">QA11</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">7</div><div class="ip-t">供应商质量管理</div></div>
+        <div class="ip-d">不合格反推 QM 通知单 → 8D → 供应商评分。</div>
+        <div class="ip-c">QM01 Q2</div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-h"><div class="ip-no">8</div><div class="ip-t">批次管理</div></div>
+        <div class="ip-d">供应商批次 ↔ SAP 批次 ↔ 检验结果，支撑全链路追溯。</div>
+        <div class="ip-c">MCHA / MCH1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 03. 集成点1 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">03 · 集成点 1：采购订单 → QM 检验控制（开关在哪）</div>
+    <div class="det2">
+      <div>
+        <div class="field-table">
+          <tr><th style="width:120px;">事务码</th><th>路径 / 视图</th><th style="width:170px;">关键设置</th></tr>
+          <tr><td>MM02</td><td>物料主数据 → Quality Management 视图</td><td class="tag tag-blue">Inspection Setup</td></tr>
+          <tr><td>ME21N</td><td>创建采购订单（无需特殊操作）</td><td class="tag tag-gray">自动继承检验设置</td></tr>
+        </div>
+        <div class="tip-inline" style="margin-top:10px;">💡 示例：物料 A 原料药，QM 视图勾选 <span class="c">01 Goods receipt inspection</span></div>
+      </div>
+      <div class="vflow">
+        <div class="vstep">物料主数据 QM 视图</div>
+        <div class="vconn"></div>
+        <div class="vstep hl">Inspection Setup = 01 采购收货检验</div>
+        <div class="vconn"></div>
+        <div class="vstep">ME21N 下 PO → 收货即触发检验</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 04. 集成点2 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">04 · 集成点 2：采购收货 → 自动生成检验批（最核心）</div>
+    <div class="field-table">
+      <tr><th style="width:120px;">事务码</th><th>动作</th><th style="width:230px;">说明</th></tr>
+      <tr><td>MIGO</td><td>移动类型 101 收货</td><td class="tag tag-teal">系统判断物料是否启用采购检验</td></tr>
+      <tr><td>QALS</td><td>检验批主表</td><td class="tag tag-blue">PRUEFLOS / MATNR / WERK / CHARG / ART</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 判断逻辑：物料启用采购检验 = 是 → 收货时自动生成 Inspection Lot 检验批</div>
+  </div>
+
+  <!-- ====== 05. 集成点3 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">05 · 集成点 3：采购收货库存状态（最易被忽略）</div>
+    <div class="cmp">
+      <div class="cmp-col">
+        <div class="cmp-h qi">普通 MM：收货直接可用</div>
+        <div class="cmp-b">
+          101 收货 → 直接进入 <span class="c">非限制库存</span>，货物立即可用、可发料。
+        </div>
+      </div>
+      <div class="cmp-col">
+        <div class="cmp-h ok">启用 QM：先进质量检验库存</div>
+        <div class="cmp-b">
+          101 收货 → 进入 <span class="c">质量检验库存 QI Stock</span> → <span class="c">QA11</span> 使用决策 → 才释放到非限制。<br>
+          相关库存表：<span class="c">MARD</span>（库存地点）／<span class="c">MSKU</span>（特殊库存）／<span class="c">MCHB</span>（批次库存）。
+        </div>
+      </div>
+    </div>
+    <div class="vflow" style="margin-top:14px; max-width:520px; margin-left:auto; margin-right:auto;">
+      <div class="vstep">采购订单</div>
+      <div class="vconn"></div>
+      <div class="vstep">101 收货</div>
+      <div class="vconn"></div>
+      <div class="vstep hl">质量库存（QI Stock）</div>
+      <div class="vconn"></div>
+      <div class="vstep">QA11 使用决策</div>
+      <div class="vconn"></div>
+      <div class="vstep ok" style="background:var(--green-bg);color:var(--green);font-weight:700;border-color:var(--green);">库存释放到非限制</div>
+    </div>
+  </div>
+
+  <!-- ====== 06. 集成点4 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">06 · 集成点 4：检验计划（QM）与采购物料</div>
+    <div class="field-table">
+      <tr><th style="width:120px;">事务码</th><th>作用</th><th style="width:200px;">关键动作</th></tr>
+      <tr><td>QP01</td><td>创建检验计划</td><td class="tag tag-teal">定义检验项目 / 方法 / 规格 / 抽样</td></tr>
+      <tr><td>QP02</td><td>修改检验计划</td><td class="tag tag-gray">维护检验项</td></tr>
+      <tr><td>QP03</td><td>显示检验计划</td><td class="tag tag-gray">查看</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 示例：物料「葡萄糖」检验计划 0010 外观 / 0020 含量 / 0030 水分 / 0040 微生物 → 收货自动带出检验项目与规格</div>
+  </div>
+
+  <!-- ====== 07. 集成点5 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">07 · 集成点 5：采购检验结果记录</div>
+    <div class="field-table">
+      <tr><th style="width:120px;">事务码 / 表</th><th>作用</th><th style="width:230px;">说明</th></tr>
+      <tr><td>QE51N</td><td>结果记录</td><td class="tag tag-teal">质量人员录入含量 / 外观等实际结果</td></tr>
+      <tr><td>QAMR</td><td>检验结果主记录</td><td class="tag tag-blue">检验结果主数据</td></tr>
+      <tr><td>QASE</td><td>样品结果</td><td class="tag tag-blue">单样品结果明细</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 示例：含量 标准 98–102% ｜ 实际 99.5% ｜ 结果 合格</div>
+  </div>
+
+  <!-- ====== 08. 集成点6 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">08 · 集成点 6：使用决策（UD）影响库存</div>
+    <div class="ud">
+      <div class="u hl">QA11 使用决策</div>
+      <div class="ar">→</div>
+      <div class="u ok">合格 Accepted<span class="u-c">321 质量→非限制</span></div>
+      <div class="ar">/</div>
+      <div class="u bad">不合格 Rejected<span class="u-c">350 质量→冻结 → 122 退货</span></div>
+    </div>
+    <div class="field-table" style="margin-top:14px;">
+      <tr><th style="width:140px;">移动类型</th><th>用途</th></tr>
+      <tr><td>321</td><td>质量库存转非限制（合格放行）</td></tr>
+      <tr><td>350</td><td>质量库存转冻结（待处理）</td></tr>
+      <tr><td>122</td><td>退货供应商（拒收）</td></tr>
+    </div>
+  </div>
+
+  <!-- ====== 09. 集成点7 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">09 · 集成点 7：供应商质量管理（高级应用）</div>
+    <div class="vflow" style="max-width:560px; margin:0 auto 12px;">
+      <div class="vstep">采购收货</div>
+      <div class="vconn"></div>
+      <div class="vstep">检验失败</div>
+      <div class="vconn"></div>
+      <div class="vstep hl">供应商质量通知单（QM01 · Q2 供应商投诉）</div>
+      <div class="vconn"></div>
+      <div class="vstep">8D 整改</div>
+      <div class="vconn"></div>
+      <div class="vstep ok" style="background:var(--green-bg);color:var(--green);font-weight:700;border-color:var(--green);">供应商评分（不良率 / 通知单数 / 缺陷类型）</div>
+    </div>
+    <div class="tip-inline">💡 场景：供应商 A 在 2026 年连续 5 次不合格 → SAP 统计不良率与缺陷类型 → 驱动供应商考核</div>
+  </div>
+
+  <!-- ====== 10. 集成点8 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">10 · 集成点 8：批次管理（药企关键）</div>
+    <div class="det2">
+      <div>
+        <div class="field-table">
+          <tr><th style="width:140px;">对象</th><th>说明</th></tr>
+          <tr><td>供应商批次</td><td>如 SUP20260701（外部批次号）</td></tr>
+          <tr><td>SAP 内部批次</td><td>如 000123456（系统批次号）</td></tr>
+          <tr><td>MCHA</td><td>批次主数据（工厂级）</td></tr>
+          <tr><td>MCH1</td><td>跨工厂批次</td></tr>
+        </div>
+        <div class="tip-inline" style="margin-top:10px;">💡 质量记录同时关联：采购订单 + 供应商批次 + SAP 批次 + 检验结果</div>
+      </div>
+      <div class="bchain">
+        <div class="bs">成品批次<span class="bs-c">Finished Batch</span></div>
+        <div class="bconn"></div>
+        <div class="bs">生产订单<span class="bs-c">AUFNR</span></div>
+        <div class="bconn"></div>
+        <div class="bs">原料批次<span class="bs-c">Raw Material Batch</span></div>
+        <div class="bconn"></div>
+        <div class="bs">供应商<span class="bs-c">Vendor</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Summary ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">一句话总结</div>
+    <div class="sf-text">
+      QM × MM 集成的本质是<code>质量控制闭环</code>：以 <code>8 个集成点</code>为骨架——PO 检验开关（MM02）→ 收货生成检验批（MIGO/QALS）→ QI 库存隔离 → 检验计划（QP01）→ 结果记录（QE51N）→ 使用决策（QA11/321/350/122）→ 供应商考核（QM01 Q2）→ 批次追溯（MCHA/MCH1）。作为 IT 经理，你要能回答：货什么时候进质检、谁决定放行、不合格怎么反推供应商、批次怎么追到源头。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
