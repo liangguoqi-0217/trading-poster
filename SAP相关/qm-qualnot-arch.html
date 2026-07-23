@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP QM 质量通知单技术架构全景图 · 知识图</title>
+<style>
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+  --code-bg:    #F1F5F9;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero ===== */
+.hero { margin-bottom: 36px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+.section { margin-bottom: 36px; }
+
+/* ===== One-liner ===== */
+.oneliner {
+  background: var(--navy); color: var(--white); border-radius: 10px;
+  padding: 20px 28px; font-size: 15px; line-height: 1.8;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.oneliner .ol-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.oneliner strong { color: #93C5FD; }
+.oneliner code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+
+/* ===== Creation Entry Grid ===== */
+.entry-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:16px; }
+.entry-card { border:1px solid var(--border); border-radius:10px; padding:16px; background:var(--white); }
+.entry-card .ec-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.entry-card .ec-no { width:26px; height:26px; border-radius:6px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex:none; }
+.entry-card .ec-title { font-size:15px; font-weight:700; color:var(--navy); }
+.entry-card .ec-tcode { margin-left:auto; font-size:12px; font-family:"JetBrains Mono",monospace; background:var(--blue-bg); color:var(--blue); padding:2px 8px; border-radius:4px; white-space:nowrap; }
+.entry-card .ec-desc { font-size:13px; color:var(--gray); line-height:1.6; margin-bottom:12px; }
+
+/* vertical mini flow */
+.vflow { display:flex; flex-direction:column; align-items:center; }
+.vflow .vstep { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:12px; text-align:center; width:100%; }
+.vflow .vconn { width:2px; height:13px; background:var(--border); }
+.vflow .vstep.hl { background:var(--navy); color:#fff; font-weight:700; }
+
+/* ===== Field Table ===== */
+.field-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.field-table th { background: var(--navy); color: var(--white); padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; }
+.field-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); }
+.field-table td:first-child { font-weight: 700; font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; color: var(--navy); }
+.field-table tr:nth-child(even) td { background: #FAFAFA; }
+.field-table tr:last-child td { border-bottom: none; }
+.field-table .tag { display:inline-block; font-size:11px; padding:1px 8px; border-radius:10px; font-weight:600; }
+.field-table .tag-blue { background:var(--blue-bg); color:var(--blue); }
+.field-table .tag-teal { background:var(--teal-bg); color:var(--teal); }
+.field-table .tag-rose { background:var(--rose-bg); color:var(--rose); }
+.field-table .tag-amber { background:var(--amber-bg); color:var(--amber); }
+.field-table .tag-gray { background:var(--bg); color:var(--gray); }
+
+/* ===== sub cards (3) ===== */
+.sub3 { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; }
+.sub-card { border:1px solid var(--border); border-radius:8px; padding:14px; background:var(--white); }
+.sub-card .sc-title { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+.sub-card .sc-tcode { font-size:11px; font-family:"JetBrains Mono",monospace; background:var(--blue-bg); color:var(--blue); padding:1px 7px; border-radius:4px; margin-bottom:8px; display:inline-block; }
+.sub-card .sc-desc { font-size:12.5px; color:var(--gray); line-height:1.6; }
+
+/* ===== BAPI / JSON box ===== */
+.apibox { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+.code-card { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.code-card .cc-h { background:var(--navy); color:#fff; padding:8px 14px; font-size:13px; font-weight:700; }
+.code-card .cc-b { padding:14px; font-family:"JetBrains Mono","Consolas",monospace; font-size:12.5px; line-height:1.7; background:#0F172A; color:#E2E8F0; }
+.code-card .cc-b .k { color:#7DD3FC; }
+.code-card .cc-b .s { color:#FCA5A5; }
+.code-card .cc-b .c2 { color:#86EFAC; }
+
+/* ===== Data Model ===== */
+.model { display:flex; flex-direction:column; align-items:center; }
+.model .m-root { background:var(--navy); color:#fff; border-radius:8px; padding:14px 28px; text-align:center; font-weight:700; font-size:15px; }
+.model .m-root .msub { font-size:11px; opacity:.8; font-weight:400; margin-top:2px; }
+.model .m-conn { width:2px; height:22px; background:var(--border); }
+.model .m-children { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; width:100%; }
+.model .m-node { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+.model .m-node.qmfe { border-top:3px solid var(--blue); }
+.model .m-node.qmur { border-top:3px solid var(--teal); }
+.model .m-node.qmsm { border-top:3px solid var(--amber); }
+.model .m-node.qmma { border-top:3px solid var(--purple); }
+.model .m-node .mn-t { font-size:14px; font-weight:700; font-family:"JetBrains Mono",monospace; color:var(--navy); }
+.model .m-node .mn-d { font-size:11.5px; color:var(--gray); margin-top:3px; }
+.model .m-node .mn-x { font-size:10px; color:var(--gray-light); margin-top:4px; }
+.model .m-conn2 { width:2px; height:18px; background:var(--border); margin:0 auto; }
+.model .m-rel { display:grid; grid-template-columns: repeat(4,1fr); gap:12px; width:100%; margin-top:14px; }
+.model .m-rel .mr { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px; text-align:center; }
+.model .m-rel .mr .mr-t { font-size:13px; font-weight:700; font-family:"JetBrains Mono",monospace; color:var(--navy); }
+.model .m-rel .mr .mr-d { font-size:11px; color:var(--gray); margin-top:2px; }
+
+/* ===== Pharma / MES lesson box ===== */
+.mes-box { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.mes-box .mb-head { background:var(--teal); padding:10px 16px; color:#fff; font-size:14px; font-weight:700; }
+.mes-box .mb-body { padding:14px 16px; }
+.mes-box .mb-row { display:grid; grid-template-columns: repeat(5,1fr); gap:10px; margin-top:6px; }
+.mes-box .mb-cell { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px; text-align:center; }
+.mes-box .mb-cell .mc-t { font-size:12.5px; font-weight:700; font-family:"JetBrains Mono",monospace; color:var(--navy); }
+.mes-box .mb-cell .mc-d { font-size:10.5px; color:var(--gray); margin-top:2px; }
+.mes-box .mb-note { font-size:12.5px; color:var(--gray); margin-top:12px; padding-top:10px; border-top:1px dashed var(--border); }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-text { font-size: 14px; line-height: 1.8; }
+.summary-foot .sf-text code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; }
+
+/* ===== Tip inline ===== */
+.tip-inline { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--teal); font-weight: 600; }
+
+/* ===== Code tag ===== */
+.c { font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; background: var(--code-bg); padding: 1px 6px; border-radius: 3px; color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">SAP QM · Quality Management · Business Object</div>
+    <h1>质量通知单（Quality Notification）技术架构全景图</h1>
+    <div class="sub">QM 不是一张简单表单，而是一个完整业务对象（Business Object），拥有 4 类创建入口、6 张核心透明表、状态驱动的数据模型。</div>
+    <div class="stats">
+      <div class="stat"><span class="num">4</span><span class="lbl">类创建入口</span></div>
+      <div class="stat"><span class="num">QM01</span><span class="lbl">人工创建事务码</span></div>
+      <div class="stat"><span class="num">6</span><span class="lbl">张核心透明表</span></div>
+      <div class="stat"><span class="num">JEST</span><span class="lbl">状态表驱动</span></div>
+    </div>
+  </div>
+
+  <!-- ====== 概览 ====== -->
+  <div class="section">
+    <div class="oneliner">
+      <span class="ol-icon">🧭</span>
+      <div>核心认知：质量通知单在 SAP 里是<b>业务对象</b>而非表单——它由 <strong>问题 + 原因 + 措施 + 活动 + 状态 + 责任人</strong> 共同构成。理解它的 4 类创建入口、事务码与透明表，是从「会用 QM」走向「懂 QM 架构」的关键。</div>
+    </div>
+  </div>
+
+  <!-- ====== 01. 4类创建方式 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · 质量通知单的 4 类创建方式总览</div>
+    <div class="entry-grid">
+
+      <div class="entry-card">
+        <div class="ec-head">
+          <div class="ec-no">1</div>
+          <div class="ec-title">人工直接创建</div>
+          <div class="ec-tcode">QM01</div>
+        </div>
+        <div class="ec-desc">业务人员发现问题（生产异常 / 客诉 / 供应商问题）直接创建，最常用、最基础的一组。</div>
+        <div class="vflow">
+          <div class="vstep">用户发现质量问题</div>
+          <div class="vconn"></div>
+          <div class="vstep hl">QM01 创建质量通知单</div>
+          <div class="vconn"></div>
+          <div class="vstep">填写问题 → 分配责任 → 制定措施 → 关闭</div>
+        </div>
+      </div>
+
+      <div class="entry-card">
+        <div class="ec-head">
+          <div class="ec-no">2</div>
+          <div class="ec-title">检验批自动生成</div>
+          <div class="ec-tcode">QA11 / QE51N</div>
+        </div>
+        <div class="ec-desc">QM 与检验管理结合，检验结果不合格时由系统触发生成通知单。</div>
+        <div class="vflow">
+          <div class="vstep">采购订单 101 收货</div>
+          <div class="vconn"></div>
+          <div class="vstep">产生检验批 → QE51N 结果记录</div>
+          <div class="vconn"></div>
+          <div class="vstep hl">QA11 使用决策「拒收」→ 生成通知单</div>
+        </div>
+      </div>
+
+      <div class="entry-card">
+        <div class="ec-head">
+          <div class="ec-no">3</div>
+          <div class="ec-title">从业务单据创建</div>
+          <div class="ec-tcode">CO11N / QM02</div>
+        </div>
+        <div class="ec-desc">质量问题不是孤立的，可从生产 / 销售 / 采购 / 交货单钻出，体现 SAP「对象关联」设计思想。</div>
+        <div class="vflow">
+          <div class="vstep">生产订单 / 销售投诉 / 采购问题</div>
+          <div class="vconn"></div>
+          <div class="vstep">CO11N 报工 / QM02 投诉</div>
+          <div class="vconn"></div>
+          <div class="vstep hl">派生质量通知单 → 调查 → CAPA</div>
+        </div>
+      </div>
+
+      <div class="entry-card">
+        <div class="ec-head">
+          <div class="ec-no">4</div>
+          <div class="ec-title">接口 / API 创建</div>
+          <div class="ec-tcode">BAPI / IDoc</div>
+        </div>
+        <div class="ec-desc">现代企业常见：MES 现场异常经接口调用 SAP，自动生成 QM 通知单。</div>
+        <div class="vflow">
+          <div class="vstep">MES 操作员发现异常</div>
+          <div class="vconn"></div>
+          <div class="vstep">接口调用 SAP（RFC / OData）</div>
+          <div class="vconn"></div>
+          <div class="vstep hl">BAPI_QUALNOT_CREATE → QM 通知单</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== 02. 方式1 人工创建 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">02 · 方式 1：人工直接创建（QM01，最常用）</div>
+    <div class="field-table">
+      <tr><th style="width:120px;">事务码</th><th>作用</th><th style="width:160px;">类比</th></tr>
+      <tr><td>QM01</td><td>创建质量通知单</td><td class="tag tag-blue">ME21N 创建采购订单</td></tr>
+      <tr><td>QM02</td><td>修改质量通知单</td><td class="tag tag-gray">ME22N 修改采购订单</td></tr>
+      <tr><td>QM03</td><td>显示质量通知单</td><td class="tag tag-gray">ME23N 查看采购订单</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 创建示例：通知类型 Q1（质量问题）＋ 物料 100001 ＋ 批次 202607001 ＋ 描述「瓶盖破损」</div>
+  </div>
+
+  <!-- ====== 03. 方式2 检验批 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">03 · 方式 2：检验批自动生成</div>
+    <div class="field-table">
+      <tr><th style="width:120px;">事务码</th><th>作用</th><th style="width:200px;">关键动作</th></tr>
+      <tr><td>QA32</td><td>修改检验批</td><td class="tag tag-teal">质量部门处理检验批</td></tr>
+      <tr><td>QE51N</td><td>结果记录</td><td class="tag tag-teal">录入 PH / 外观等检验结果</td></tr>
+      <tr><td>QA11</td><td>使用决策 ⭐</td><td class="tag tag-rose">接受 / 拒收 / 返工 / 报废，拒收可触发通知单</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 场景：含量 98% 低于标准 99%~101% → 检验不合格 → 系统生成质量通知单</div>
+  </div>
+
+  <!-- ====== 04. 方式3 业务单据 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">04 · 方式 3：从业务单据创建</div>
+    <div class="sub3">
+      <div class="sub-card">
+        <div class="sc-tcode">CO11N</div>
+        <div class="sc-title">从生产订单</div>
+        <div class="sc-desc">生产报工时发现设备异常，可顺手创建质量问题，来源指向生产订单。</div>
+      </div>
+      <div class="sub-card">
+        <div class="sc-tcode">QM02</div>
+        <div class="sc-title">从销售投诉</div>
+        <div class="sc-desc">客户投诉流程：客诉 → QM 通知单 → 调查 → CAPA，形成闭环。</div>
+      </div>
+      <div class="sub-card">
+        <div class="sc-tcode">QM01 · Q2</div>
+        <div class="sc-title">从采购质量</div>
+        <div class="sc-desc">供应商问题用通知类型 Q2（供应商投诉），来源指向采购订单 / 供应商。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 05. 方式4 接口 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">05 · 方式 4：接口 / API 创建（MES 集成）</div>
+    <div class="apibox">
+      <div class="code-card">
+        <div class="cc-h">MES → SAP 调用（BAPI_QUALNOT_CREATE）</div>
+        <div class="cc-b">
+<span class="k">CALL FUNCTION</span> 'BAPI_QUALNOT_CREATE'<br>
+&nbsp;&nbsp;EXPORTING<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NOTIF_TYPE = <span class="s">'Q1'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;MATERIAL&nbsp;&nbsp; = <span class="s">'100001'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;BATCH&nbsp;&nbsp;&nbsp;&nbsp; = <span class="s">'202607001'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;DESCRIPTION = <span class="s">'设备污染'</span><br>
+&nbsp;&nbsp;IMPORTING<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NOTIF_NUMBER = <span class="c2">lv_qmnum.</span>
+        </div>
+      </div>
+      <div class="code-card">
+        <div class="cc-h">MES 传参（JSON 示例）</div>
+        <div class="cc-b">
+{<br>
+&nbsp;&nbsp;<span class="k">"material"</span>: <span class="s">"100001"</span>,<br>
+&nbsp;&nbsp;<span class="k">"batch"</span>&nbsp;&nbsp;&nbsp;: <span class="s">"202607001"</span>,<br>
+&nbsp;&nbsp;<span class="k">"description"</span>: <span class="s">"设备污染"</span><br>
+}<br>
+<br>
+<span class="c2">→ SAP 生成 QM 通知单</span>
+        </div>
+      </div>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 技术形态：BAPI / IDoc / RFC / OData 均可，最常用 <span class="c">BAPI_QUALNOT_CREATE</span></div>
+  </div>
+
+  <!-- ====== 06. 完整事务码清单 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">06 · 质量通知单常用事务码完整清单</div>
+    <div class="field-table">
+      <tr><th style="width:110px;">事务码</th><th>作用</th><th style="width:130px;">使用角色</th></tr>
+      <tr><td>QM01</td><td>创建质量通知单</td><td class="tag tag-blue">质量人员</td></tr>
+      <tr><td>QM02</td><td>修改质量通知单</td><td class="tag tag-blue">质量人员</td></tr>
+      <tr><td>QM03</td><td>显示质量通知单</td><td class="tag tag-gray">查询</td></tr>
+      <tr><td>QM10</td><td>质量通知单列表</td><td class="tag tag-teal">质量管理</td></tr>
+      <tr><td>QM11</td><td>显示通知单列表</td><td class="tag tag-gray">查询</td></tr>
+      <tr><td>QM12</td><td>修改通知单列表</td><td class="tag tag-teal">批量处理</td></tr>
+      <tr><td>QM13</td><td>删除通知单</td><td class="tag tag-rose">管理员</td></tr>
+      <tr><td>QM14</td><td>完成通知单</td><td class="tag tag-amber">关闭</td></tr>
+      <tr><td>QM15</td><td>归档通知单</td><td class="tag tag-rose">管理员</td></tr>
+    </div>
+  </div>
+
+  <!-- ====== 07. 核心透明表 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">07 · 质量通知单主要透明表（IT 经理视角）</div>
+    <div class="field-table">
+      <tr><th style="width:110px;">透明表</th><th>含义</th><th>核心字段</th></tr>
+      <tr><td>QMEL</td><td>质量通知单主表（核心）</td><td class="tag tag-blue">QMNUM / QMART / MATNR / CHARG / WERKS / QMTXT / ERNAM / ERDAT</td></tr>
+      <tr><td>QMFE</td><td>问题（Failure）</td><td class="tag tag-blue">QMNUM / FENUM / FEGRP / FECOD</td></tr>
+      <tr><td>QMUR</td><td>原因（Cause）</td><td class="tag tag-teal">原因代码，解释为何发生</td></tr>
+      <tr><td>QMSM</td><td>措施（Task）</td><td class="tag tag-amber">MANUM / MATXT 整改措施</td></tr>
+      <tr><td>QMMA</td><td>活动（Activity）</td><td class="tag tag-purple">通知供应商 / 召开质量会议等</td></tr>
+      <tr><td>JEST</td><td>对象状态表 ⭐</td><td class="tag tag-gray">OBJNR / STAT（创建 / 处理中 / 完成 / 关闭）</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 QMEL 示例：QMNUM 80000001 ｜ QMART Q1 ｜ MATNR A药品 ｜ CHARG 202607001</div>
+  </div>
+
+  <!-- ====== 08. 与批次关联 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">08 · 质量通知单与批次的关联</div>
+    <div class="oneliner" style="background:#0F172A;">
+      <span class="ol-icon">🔗</span>
+      <div>常见误区：以为 <strong>QMEL 直接关联批次</strong>。实际上 QMEL 虽有 <code>MATNR / CHARG</code>，但更完整的批次追溯依赖批次对象主数据：<strong>MCHA</strong>（批次主数据，工厂级）与 <strong>MCH1</strong>（跨工厂批次）。质量追溯要把 QMEL 与批次主数据结合看。</div>
+    </div>
+  </div>
+
+  <!-- ====== 09. 整体数据模型 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">09 · 质量通知单整体数据模型</div>
+    <div class="model">
+      <div class="m-root">QMEL ｜ 质量通知单主表<div class="msub">QMNUM · QMART · MATNR · CHARG · WERKS · 状态</div></div>
+      <div class="m-conn"></div>
+      <div class="m-children">
+        <div class="m-node qmfe"><div class="mn-t">QMFE</div><div class="mn-d">问题 Failure</div><div class="mn-x">FENUM / FECOD</div></div>
+        <div class="m-node qmur"><div class="mn-t">QMUR</div><div class="mn-d">原因 Cause</div><div class="mn-x">为什么发生</div></div>
+        <div class="m-node qmsm"><div class="mn-t">QMSM</div><div class="mn-d">措施 Task</div><div class="mn-x">MANUM / MATXT</div></div>
+      </div>
+      <div class="m-conn2"></div>
+      <div class="m-node qmma" style="width:280px;margin:0 auto;"><div class="mn-t">QMMA</div><div class="mn-d">活动 Activity（挂在原因 QMUR 下）</div></div>
+      <div class="m-conn2"></div>
+      <div class="m-rel">
+        <div class="mr"><div class="mr-t">MATNR</div><div class="mr-d">物料</div></div>
+        <div class="mr"><div class="mr-t">CHARG</div><div class="mr-d">批次</div></div>
+        <div class="mr"><div class="mr-t">AUFNR</div><div class="mr-d">订单</div></div>
+        <div class="mr"><div class="mr-t">EQUNR</div><div class="mr-d">设备</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 10. 对 MES 建设的启示 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">10 · 结合 MES 建设：SAP QM 最值得学习的三点</div>
+    <div class="mes-box">
+      <div class="mb-head">把 MES 质量异常模块从「记录系统」升级为「制造运营管理平台（MOM）」</div>
+      <div class="mb-body">
+        <div style="font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:6px;">
+          ① <b>一个异常不是一条记录，而是一个对象</b>；② <b>问题、原因、措施分离</b>（否则无法统计）；③ <b>状态驱动业务</b>（而非「完成=Y」字段）。<br>
+          建议直接参考 SAP 结构，设计如下 Z 表：
+        </div>
+        <div class="mb-row">
+          <div class="mb-cell"><div class="mc-t">ZQM_NOTIFICATION</div><div class="mc-d">通知单主表</div></div>
+          <div class="mb-cell"><div class="mc-t">ZQM_FAILURE</div><div class="mc-d">问题</div></div>
+          <div class="mb-cell"><div class="mc-t">ZQM_CAUSE</div><div class="mc-d">原因</div></div>
+          <div class="mb-cell"><div class="mc-t">ZQM_ACTION</div><div class="mc-d">措施</div></div>
+          <div class="mb-cell"><div class="mc-t">ZQM_STATUS</div><div class="mc-d">状态流</div></div>
+        </div>
+        <div class="mb-note">闭环：创建 → 处理中 → 完成 → 关闭，与 SAP JEST 状态流一致，未来对接 QM 时天然对齐。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Summary ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">一句话总结</div>
+    <div class="sf-text">
+      质量通知单 = <code>4 类入口</code>（人工 / 检验批 / 业务单据 / 接口）＋ <code>6 张透明表</code>（QMEL / QMFE / QMUR / QMSM / QMMA / JEST）＋ <code>状态驱动</code>的业务对象。作为未来 IT 经理，你不需要背配置，但必须能回答：通知单怎么来、存在哪、状态怎么流、如何与 MES / 批次 / 订单关联。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
