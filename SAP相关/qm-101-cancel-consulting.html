@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP QM物料冲销最佳实践解决方案 · 企业咨询报告</title>
+<style>
+:root{
+  --sap-blue:#0070B8;
+  --sap-blue-dark:#00538A;
+  --sap-blue-light:#E5F0F7;
+  --gray-100:#F5F6F8;
+  --gray-200:#E5E7EB;
+  --gray-300:#D1D5DB;
+  --gray-400:#9CA3AF;
+  --gray-600:#4B5563;
+  --gray-800:#1F2937;
+  --gray-900:#111827;
+  --green:#0F7B4E;
+  --green-bg:#EDF7F2;
+  --red:#C8102E;
+  --red-bg:#FDF2F4;
+  --amber:#D97706;
+  --amber-bg:#FFF8ED;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--gray-900);font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+/* 整体画布：16:9 */
+.slide{width:1280px;margin:0 auto;padding:0;background:#fff;position:relative;display:flex;flex-direction:column}
+
+/* ===== TOP BAR ===== */
+.top{display:flex;align-items:center;justify-content:space-between;padding:24px 36px 20px;border-bottom:1px solid var(--gray-200)}
+.top .logo{font-size:20px;font-weight:700;color:var(--sap-blue);letter-spacing:.5px}
+.top .meta{font-size:11px;color:var(--gray-400);text-align:right}
+.top .meta span{display:block}
+
+/* ===== TITLE ===== */
+.title-block{padding:28px 36px 20px;border-bottom:1px solid var(--gray-100)}
+.title-block h1{margin:0;font-size:24px;font-weight:700;color:var(--gray-900);letter-spacing:.5px}
+.title-block .sub{margin:8px 0 0;font-size:13px;color:var(--gray-600);line-height:1.5}
+
+/* ===== CONTENT GRID ===== */
+.content{padding:24px 36px 20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* ===== SECTION ===== */
+.sec{border:1px solid var(--gray-200);border-radius:0}
+.sec.full{grid-column:1/-1}
+.sec-header{background:var(--sap-blue);color:#fff;padding:8px 14px;font-size:13px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.sec-header .num{background:rgba(255,255,255,.2);width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.sec-body{padding:14px}
+.sec-body.p0{padding:0}
+
+/* ===== PART 1: VS CONFLICT ===== */
+.vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:start}
+.vs-panel{padding:14px 16px;border-radius:4px}
+.vs-panel.biz{background:var(--gray-100);border-left:4px solid var(--sap-blue)}
+.vs-panel.qa{background:var(--gray-100);border-left:4px solid var(--red)}
+.vs-panel h4{font-size:13px;font-weight:700;margin:0 0 8px;color:var(--gray-900)}
+.vs-panel ul{margin:0;padding-left:18px;font-size:12px;color:var(--gray-600)}
+.vs-panel ul li{margin:3px 0}
+.vs-divider{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.vs-divider .vs-badge{width:44px;height:44px;border-radius:50%;border:2px solid var(--gray-400);color:var(--gray-600);font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;background:#fff}
+.vs-divider .vs-label{font-size:10px;color:var(--gray-400);text-align:center;white-space:nowrap}
+.conflict-strip{margin-top:12px;padding:8px 14px;background:var(--red-bg);border-left:3px solid var(--red);font-size:12px;color:var(--red);font-weight:600}
+
+/* ===== PART 2: FLOW ===== */
+.h-flow{display:flex;align-items:stretch;gap:0;width:100%;background:var(--gray-100)}
+.h-flow .step{flex:1;text-align:center;padding:10px 6px;font-size:12px;font-weight:600;color:var(--gray-800);border-right:1px solid var(--gray-200);position:relative}
+.h-flow .step:last-child{border-right:none}
+.h-flow .step .sq{display:block;width:28px;height:28px;margin:0 auto 6px;background:var(--sap-blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border-radius:2px}
+.h-flow .step .line{font-size:11px;color:var(--gray-400);margin-top:2px}
+.flow-note{margin-top:12px;padding:8px 12px;background:var(--sap-blue-light);border-left:3px solid var(--sap-blue);font-size:12px;color:var(--sap-blue-dark);font-weight:600}
+
+/* ===== PART 3: TABLE ===== */
+table.scheme{width:100%;border-collapse:collapse;font-size:12px}
+table.scheme thead th{background:var(--sap-blue);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:600;border:none}
+table.scheme tbody td{padding:8px 12px;border-bottom:1px solid var(--gray-200);color:var(--gray-600);vertical-align:top;background:#fff}
+table.scheme tbody tr:nth-child(even) td{background:var(--gray-100)}
+table.scheme td.name{font-weight:700;color:var(--gray-900);white-space:nowrap}
+table.scheme td.name .rec{display:inline-block;margin-left:6px;padding:1px 6px;background:var(--green-bg);color:var(--green);border-radius:3px;font-size:10px;font-weight:600}
+
+/* ===== PART 4: DUAL FLOW ===== */
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dual-col{background:var(--gray-100);border-radius:4px;padding:12px}
+.dual-col h4{margin:0 0 10px;font-size:13px;font-weight:700;color:var(--gray-900);text-align:center;padding-bottom:8px;border-bottom:2px solid var(--sap-blue)}
+.dual-col.right h4{border-bottom-color:var(--red)}
+.dual-step{background:#fff;padding:7px 10px;margin:5px 0;text-align:center;font-size:12px;font-weight:600;color:var(--gray-800);border:1px solid var(--gray-200);border-radius:2px;position:relative}
+.dual-step.highlight{background:var(--sap-blue-light);border:2px dashed var(--sap-blue);color:var(--sap-blue-dark)}
+.dual-step.result{background:var(--green-bg);border:1px solid var(--green);color:var(--green);font-weight:700}
+.dual-note{margin-top:12px;padding:8px 14px;background:var(--green-bg);border-left:3px solid var(--green);font-size:12px;color:var(--green);font-weight:600;text-align:center}
+
+/* ===== PART 5: ABC ===== */
+.abc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.abc-card{border-radius:2px;overflow:hidden;border:1px solid var(--gray-200)}
+.abc-card .abc-head{padding:10px 14px;font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+.abc-card .abc-head .abc-tag{background:rgba(255,255,255,.25);width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.abc-card.a .abc-head{background:var(--green)}
+.abc-card.b .abc-head{background:var(--amber)}
+.abc-card.c .abc-head{background:var(--red)}
+.abc-card .abc-body{padding:10px 14px;font-size:12px;color:var(--gray-600)}
+.abc-card .abc-body p{margin:4px 0}
+.abc-card .abc-body .label{color:var(--gray-400);font-size:11px}
+.abc-card .abc-body .action{font-weight:700;margin-top:6px;font-size:13px}
+.abc-card.a .abc-body .action{color:var(--green)}
+.abc-card.b .abc-body .action{color:var(--amber)}
+.abc-card.c .abc-body .action{color:var(--red)}
+
+/* ===== PART 6: ARCH ===== */
+.arch-box{background:#fff;border:1px solid var(--gray-200);border-radius:2px}
+.arch-row{display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--gray-100)}
+.arch-row:last-child{border-bottom:none}
+.arch-block{background:var(--sap-blue);color:#fff;padding:8px 14px;border-radius:2px;font-size:12px;font-weight:700;text-align:center;min-width:100px}
+.arch-block.sub{background:var(--gray-100);color:var(--gray-800);border:1px solid var(--gray-300);font-weight:600}
+.arch-block.mes{background:#fff;color:var(--gray-800);border:1px solid var(--gray-400);font-weight:600}
+.arch-block.lims{background:#fff;color:var(--gray-800);border:1px solid var(--gray-400);font-weight:600}
+.arch-mid{font-size:20px;color:var(--gray-400);padding:4px 0;text-align:center}
+
+/* ===== BOTTOM SUMMARY ===== */
+.bottom{grid-column:1/-1;background:var(--sap-blue);color:#fff;padding:20px 36px;margin:0;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--gray-200)}
+.bottom .sum{display:flex;align-items:center;gap:14px}
+.bottom .sum .sum-badge{flex:0 0 auto;background:rgba(255,255,255,.15);padding:6px 12px;border-radius:4px;font-size:12px;font-weight:700}
+.bottom .sum .sum-text{font-size:13px;line-height:1.6}
+.bottom .page-num{font-size:11px;color:rgba(255,255,255,.6)}
+
+/* print */
+@media print{
+  body{background:#fff}
+  .slide{width:1280px}
+}
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="top">
+    <div class="logo"><span style="color:var(--sap-blue)">SAP QM</span> — 物料冲销最佳实践</div>
+    <div class="meta">
+      <span>CONFIDENTIAL</span>
+      <span>FOR INTERNAL USE ONLY</span>
+    </div>
+  </div>
+
+  <!-- ===== TITLE ===== -->
+  <div class="title-block">
+    <h1>SAP QM 物料冲销最佳实践解决方案</h1>
+    <div class="sub">质量对象不可逆，物流错误允许纠正，实现质量记录保护和业务灵活性的平衡</div>
+  </div>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="content">
+
+    <!-- 第一部分：问题背景 -->
+    <div class="sec">
+      <div class="sec-header"><span class="num">1</span> 问题背景：业务与 QA 的冲突</div>
+      <div class="sec-body">
+        <div class="vs-grid">
+          <div class="vs-panel biz">
+            <h4>业务诉求</h4>
+            <ul>
+              <li>收货错误</li>
+              <li>数量错误</li>
+              <li>PO 错误</li>
+              <li>需要 102 冲销 101</li>
+              <li>重新收货</li>
+            </ul>
+          </div>
+          <div class="vs-divider">
+            <div class="vs-badge">VS</div>
+            <div class="vs-label">物流纠错 vs<br>质量完整性</div>
+          </div>
+          <div class="vs-panel qa">
+            <h4>QA 诉求</h4>
+            <ul>
+              <li>检验批已经完成</li>
+              <li>UD 已经放行</li>
+              <li>重新生成检验批导致重复 QC</li>
+              <li>GMP 要求质量记录不可删除</li>
+            </ul>
+          </div>
+        </div>
+        <div class="conflict-strip">冲突核心：物流维护需求 vs 质量体系完整性</div>
+      </div>
+    </div>
+
+    <!-- 第二部分：SAP QM 标准流程 -->
+    <div class="sec">
+      <div class="sec-header"><span class="num">2</span> SAP QM 标准流程</div>
+      <div class="sec-body p0">
+        <div class="h-flow">
+          <div class="step"><span class="sq">PO</span>采购订单<div class="line">ME21N</div></div>
+          <div class="step"><span class="sq">101</span>101 收货<div class="line">MIGO</div></div>
+          <div class="step"><span class="sq">IL</span>生成检验批<div class="line">QALS</div></div>
+          <div class="step"><span class="sq">QC</span>QC 检验<div class="line">QE51N</div></div>
+          <div class="step"><span class="sq">UD</span>QA UD 放行<div class="line">QA11</div></div>
+          <div class="step"><span class="sq">OK</span>库存可用<div class="line">非限制</div></div>
+        </div>
+        <div class="flow-note">一个检验批代表一次质量判断 —— GMP 环境下不可随意删除或覆盖</div>
+      </div>
+    </div>
+
+    <!-- 第三部分：方案对比表 -->
+    <div class="sec full">
+      <div class="sec-header"><span class="num">3</span> 行业最佳实践方案对比</div>
+      <div class="sec-body p0">
+        <table class="scheme">
+          <thead>
+            <tr><th style="width:18%">方案</th><th style="width:20%">适用场景</th><th style="width:32%">优点</th><th style="width:30%">风险</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">方案 1：质量结果继承机制<span class="rec">推荐</span></td>
+              <td>数量/仓库/收货地点错误等物流类错误</td>
+              <td>质量记录完整保留；QC/QA 工作量不增加；业务灵活性高</td>
+              <td>需系统增强建立检验批关联和结果继承机制</td>
+            </tr>
+            <tr>
+              <td class="name">方案 2：财务问题走价格差异处理</td>
+              <td>价格/发票金额/税率错误</td>
+              <td>不破坏质量记录；符合财务审计要求；成本账务清晰</td>
+              <td>不适用于数量或物料错误</td>
+            </tr>
+            <tr>
+              <td class="name">方案 3：建立冲销分类规则</td>
+              <td>所有场景</td>
+              <td>规则清晰；风险可控；不同类别差异化处理</td>
+              <td>需建立审批和控制机制</td>
+            </tr>
+            <tr>
+              <td class="name">方案 4：加强前置控制减少错误</td>
+              <td>预防性控制</td>
+              <td>从源头减少错误；提高数据准确性</td>
+              <td>需配置检验规则和审批流程</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 第四部分：推荐方案流程 -->
+    <div class="sec">
+      <div class="sec-header"><span class="num">4</span> 推荐方案流程：质量结果继承</div>
+      <div class="sec-body">
+        <div class="dual">
+          <div class="dual-col">
+            <h4>第一次收货流程</h4>
+            <div class="dual-step">101 收货</div>
+            <div class="dual-step"><b>检验批 50000001</b></div>
+            <div class="dual-step">QC 检验</div>
+            <div class="dual-step result">QA 放行</div>
+          </div>
+          <div class="dual-col right">
+            <h4>物流纠错流程</h4>
+            <div class="dual-step">102 冲销</div>
+            <div class="dual-step">重新 101</div>
+            <div class="dual-step">生成新检验批 <b>50000002</b></div>
+            <div class="dual-step highlight">关联原检验批 50000001</div>
+            <div class="dual-step result">继承质量结果</div>
+          </div>
+        </div>
+        <div class="dual-note">不重新 QC，不破坏 GMP 质量历史</div>
+      </div>
+    </div>
+
+    <!-- 第五部分：冲销分类管理 -->
+    <div class="sec">
+      <div class="sec-header"><span class="num">5</span> 101 冲销分类管理</div>
+      <div class="sec-body">
+        <div class="abc-row">
+          <div class="abc-card a">
+            <div class="abc-head"><span class="abc-tag">A</span> 物流错误</div>
+            <div class="abc-body">
+              <p><span class="label">示例</span><br>数量错误 / 仓库错误</p>
+              <p class="action">允许 102</p>
+              <p><span class="label">处理</span><br>质量结果继承</p>
+            </div>
+          </div>
+          <div class="abc-card b">
+            <div class="abc-head"><span class="abc-tag">B</span> 质量相关错误</div>
+            <div class="abc-body">
+              <p><span class="label">示例</span><br>批次错误 / 物料错误</p>
+              <p class="action">QA 参与</p>
+              <p><span class="label">处理</span><br>重新质量评价</p>
+            </div>
+          </div>
+          <div class="abc-card c">
+            <div class="abc-head"><span class="abc-tag">C</span> 财务错误</div>
+            <div class="abc-body">
+              <p><span class="label">示例</span><br>价格错误 / 税率错误</p>
+              <p class="action">禁止 102</p>
+              <p><span class="label">处理</span><br>MIRO 差异 / 财务调整</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第六部分：系统架构 -->
+    <div class="sec full">
+      <div class="sec-header"><span class="num">6</span> SAP 系统实现建议</div>
+      <div class="sec-body">
+        <div class="arch-box">
+          <div class="arch-row">
+            <div class="arch-block">SAP ECC</div>
+          </div>
+          <div class="arch-row">
+            <div class="arch-block sub">MM 模块<br><small>物料管理</small></div>
+            <div class="arch-block sub">QM 模块<br><small>质量管理</small></div>
+            <div class="arch-block sub">FI 模块<br><small>财务控制</small></div>
+          </div>
+          <div class="arch-mid">↓</div>
+          <div class="arch-row">
+            <div class="arch-block mes">MES 系统<br><small>生产过程数据</small></div>
+          </div>
+          <div class="arch-mid">↓</div>
+          <div class="arch-row">
+            <div class="arch-block lims">LIMS 系统<br><small>实验室数据</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== BOTTOM SUMMARY ===== -->
+  <div class="bottom">
+    <div class="sum">
+      <div class="sum-badge">CONCLUSION</div>
+      <div class="sum-text">质量状态不可逆，物流错误可纠正。<br>通过流程设计和系统支持，实现 <strong>质量合规性</strong> 与 <strong>业务效率</strong> 的平衡。</div>
+    </div>
+    <div class="page-num">Page 1 / 1</div>
+  </div>
+
+</div>
+
+</body>
+</html>
