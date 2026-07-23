@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>SAP QM × 101冲销冲突与最佳实践 · 知识图</title>
+<style>
+:root {
+  --navy:       #1E3A5F;
+  --blue:       #2563EB;
+  --blue-bg:    #DBEAFE;
+  --teal:       #0D9488;
+  --teal-bg:    #CCFBF1;
+  --rose:       #E11D48;
+  --rose-bg:    #FFE4E6;
+  --amber:      #D97706;
+  --amber-bg:   #FEF3C7;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --green:      #16A34A;
+  --green-bg:   #DCFCE7;
+  --orange:     #EA580C;
+  --orange-bg:  #FFF7ED;
+  --dark:       #1E293B;
+  --gray:       #64748B;
+  --gray-light: #94A3B8;
+  --white:      #FFFFFF;
+  --bg:         #F1F5F9;
+  --border:     #E2E8F0;
+  --code-bg:    #F1F5F9;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  font-family: "PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,-apple-system,sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  display: flex; justify-content: center;
+  padding: 32px 0 80px;
+}
+
+.poster {
+  width: 1480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  padding: 48px 52px 44px;
+}
+
+.sec-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--gray-light);
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  width: 3px; height: 16px; border-radius: 2px; background: currentColor;
+}
+
+/* ===== Hero ===== */
+.hero { margin-bottom: 36px; }
+.hero .eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: var(--navy); letter-spacing: 1px; margin-bottom: 6px; }
+.hero .sub  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+.hero .stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero .stat {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; background: var(--bg); border-radius: 8px;
+}
+.hero .stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.hero .stat .lbl { font-size: 13px; color: var(--gray); }
+
+.section { margin-bottom: 36px; }
+
+/* ===== One-liner ===== */
+.oneliner {
+  background: var(--navy); color: var(--white); border-radius: 10px;
+  padding: 20px 28px; font-size: 15px; line-height: 1.8;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.oneliner .ol-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.oneliner strong { color: #93C5FD; }
+.oneliner code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+
+/* ===== vertical mini flow ===== */
+.vflow { display:flex; flex-direction:column; align-items:center; }
+.vflow .vstep { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:12px; text-align:center; width:100%; }
+.vflow .vconn { width:2px; height:13px; background:var(--border); }
+.vflow .vstep.hl { background:var(--navy); color:#fff; font-weight:700; }
+.vflow .vstep.ok { background:var(--green-bg); color:var(--green); font-weight:700; border-color:var(--green); }
+.vflow .vstep.bad { background:var(--rose-bg); color:var(--rose); font-weight:700; border-color:var(--rose); }
+
+/* ===== Field Table ===== */
+.field-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.field-table th { background: var(--navy); color: var(--white); padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: left; }
+.field-table td { padding: 8px 14px; border-bottom: 1px solid var(--border); }
+.field-table td:first-child { font-weight: 700; font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; color: var(--navy); }
+.field-table tr:nth-child(even) td { background: #FAFAFA; }
+.field-table tr:last-child td { border-bottom: none; }
+.field-table .tag { display:inline-block; font-size:11px; padding:1px 8px; border-radius:10px; font-weight:600; }
+.field-table .tag-blue { background:var(--blue-bg); color:var(--blue); }
+.field-table .tag-teal { background:var(--teal-bg); color:var(--teal); }
+.field-table .tag-rose { background:var(--rose-bg); color:var(--rose); }
+.field-table .tag-amber { background:var(--amber-bg); color:var(--amber); }
+.field-table .tag-gray { background:var(--bg); color:var(--gray); }
+.field-table .tag-green { background:var(--green-bg); color:var(--green); }
+
+/* ===== conflict two-col ===== */
+.conflict { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.conflict .cf { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.conflict .cf-h { padding:8px 14px; color:#fff; font-size:13px; font-weight:700; }
+.conflict .cf-h.biz { background:var(--blue); }
+.conflict .cf-h.qa { background:var(--rose); }
+.conflict .cf-b { padding:12px 14px; font-size:12.5px; color:var(--gray); line-height:1.7; }
+.conflict .cf-b .c { font-family:"JetBrains Mono","Consolas",monospace; background:var(--code-bg); padding:1px 6px; border-radius:3px; color:var(--navy); font-size:12px; }
+
+/* ===== lot inheritance link ===== */
+.lotlink { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+.lotlink .ll { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:12px 18px; text-align:center; min-width:170px; }
+.lotlink .ll .ll-t { font-size:13px; font-weight:700; font-family:"JetBrains Mono","Consolas",monospace; color:var(--navy); }
+.lotlink .ll .ll-d { font-size:11px; color:var(--gray); margin-top:3px; }
+.lotlink .ll.ref { background:var(--teal-bg); border-color:var(--teal); }
+.lotlink .ll.ref .ll-t { color:var(--teal); }
+.lotlink .ar { color:var(--teal); font-size:20px; }
+
+/* ===== branch diagram (IT owner) ===== */
+.branch { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:12px 0; }
+.branch .br-col { border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+.branch .br-col.q { border-top:3px solid var(--rose); }
+.branch .br-col.l { border-top:3px solid var(--blue); }
+.branch .br-h { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.branch .br-d { font-size:12px; color:var(--gray); line-height:1.6; }
+
+/* ===== ABC classification grid ===== */
+.abc { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; }
+.abc .abc-col { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.abc .abc-h { padding:10px 14px; color:#fff; font-size:13px; font-weight:700; }
+.abc .abc-h.a { background:var(--green); }
+.abc .abc-h.b { background:var(--amber); }
+.abc .abc-h.c { background:var(--rose); }
+.abc .abc-b { padding:12px 14px; font-size:12.5px; color:var(--gray); line-height:1.7; }
+.abc .abc-b .c { font-family:"JetBrains Mono","Consolas",monospace; background:var(--code-bg); padding:1px 6px; border-radius:3px; color:var(--navy); font-size:12px; display:inline-block; margin:2px 0; }
+
+/* ===== final 5 points box ===== */
+.final { background:var(--navy); color:#fff; border-radius:10px; padding:20px 28px; }
+.final .f-title { font-size:14px; font-weight:700; opacity:.7; margin-bottom:10px; letter-spacing:2px; }
+.final .f-item { display:flex; gap:12px; padding:9px 0; border-bottom:1px dashed rgba(255,255,255,.15); }
+.final .f-item:last-child { border-bottom:none; }
+.final .f-no { width:24px; height:24px; border-radius:6px; background:#93C5FD; color:var(--navy); font-weight:800; display:flex; align-items:center; justify-content:center; font-size:12px; flex:none; }
+.final .f-t { font-size:13.5px; line-height:1.6; }
+.final .f-t b { color:#93C5FD; }
+
+/* ===== Code tag ===== */
+.c { font-family: "JetBrains Mono","Consolas",monospace; font-size: 13px; background: var(--code-bg); padding: 1px 6px; border-radius: 3px; color: var(--navy); }
+
+/* ===== Tip inline ===== */
+.tip-inline { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--teal); font-weight: 600; }
+
+/* ===== Summary Foot ===== */
+.summary-foot {
+  margin-top: 40px; padding: 20px 24px; background: linear-gradient(135deg, var(--navy) 0%, #2D4F78 100%);
+  border-radius: 10px; color: var(--white);
+}
+.summary-foot .sf-title { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 8px; letter-spacing: 2px; }
+.summary-foot .sf-text { font-size: 14px; line-height: 1.8; }
+.summary-foot .sf-text code { background: rgba(255,255,255,.15); padding: 2px 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ====== Hero ====== -->
+  <div class="hero">
+    <div class="eyebrow">SAP QM × Logistics · 101 收货冲销冲突与最佳实践</div>
+    <h1>101 冲销冲突：物流纠错 vs 质量链</h1>
+    <div class="sub">业务希望冲销 101 纠正物流错误，质量体系认为质量记录已完成不应因物流原因被破坏。这不是 SAP 操作问题，而是质量体系设计问题。</div>
+    <div class="stats">
+      <div class="stat"><span class="num">102/101</span><span class="lbl">冲销收货动作</span></div>
+      <div class="stat"><span class="num">QA UD</span><span class="lbl">质量判断完成</span></div>
+      <div class="stat"><span class="num">继承</span><span class="lbl">质量结果继承</span></div>
+      <div class="stat"><span class="num">A/B/C</span><span class="lbl">冲销分类治理</span></div>
+    </div>
+  </div>
+
+  <!-- ====== 概览 ====== -->
+  <div class="section">
+    <div class="oneliner">
+      <span class="ol-icon">⚖️</span>
+      <div>核心认知：矛盾本质是 <strong>业务要纠正物流错误（冲销 101），质量体系要保护质量链（UD 已放行）</strong>。行业最佳实践不是「强制取消 UD」，而是让<strong>物流纠错与质量状态解耦</strong>——质量对象不可逆，物流错误用独立流程纠正，并通过「质量结果继承」避免重复 QC。</div>
+    </div>
+  </div>
+
+  <!-- ====== 01. 当前冲突 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">01 · 你们现在的冲突是什么</div>
+    <div class="det2" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:start;">
+      <div class="vflow" style="max-width:380px;">
+        <div class="vstep">采购订单 PO</div>
+        <div class="vconn"></div>
+        <div class="vstep">101 收货</div>
+        <div class="vconn"></div>
+        <div class="vstep hl">生成检验批</div>
+        <div class="vconn"></div>
+        <div class="vstep">QC 检验</div>
+        <div class="vconn"></div>
+        <div class="vstep ok">QA UD 放行 → 库存可用</div>
+      </div>
+      <div class="conflict">
+        <div class="cf">
+          <div class="cf-h biz">业务方诉求</div>
+          <div class="cf-b">
+            事后发现：收货数量错 / 采购价格错 / 供应商信息错 / PO 错 / 人员操作错。<br>→ 我要 <span class="c">102 冲销 101</span> 重新收货。
+          </div>
+        </div>
+        <div class="cf">
+          <div class="cf-h qa">QA 拒绝理由</div>
+          <div class="cf-b">
+            检验批已放行，重新收货会产生<strong>新检验批</strong>，需重新检验，质量历史被破坏。<br>→ 不同意随意冲销。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-inline" style="margin-top:12px;">💡 结论：双方都有道理。问题不在谁对谁错，而在流程设计。</div>
+  </div>
+
+  <!-- ====== 02. SAP标准逻辑 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">02 · SAP 标准逻辑为什么这么设计</div>
+    <div class="oneliner" style="background:#0F172A;">
+      <span class="ol-icon">🧠</span>
+      <div>SAP QM 的理念：<strong>一个检验批代表一次质量判断</strong>。检验批 <code>50000001</code>（A原料 / 供应商 ABC / 批次 S20260701 / 1000KG），QA 签字代表「我确认这 1000KG 在该条件下符合要求」。若允许 102 + 重新 101，质量记录逻辑变成「第一次判断 → 删除 → 第二次判断」，这在 GMP 环境下不合理。</div>
+    </div>
+    <div class="vflow" style="max-width:520px; margin:14px auto 0;">
+      <div class="vstep">第一次质量判断（检验批已放行）</div>
+      <div class="vconn"></div>
+      <div class="vstep bad">102 取消 + 重新 101</div>
+      <div class="vconn"></div>
+      <div class="vstep bad">产生新检验批 → 第二次质量判断</div>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 所以 QA 拒绝，其实符合 GMP 质量理念。</div>
+  </div>
+
+  <!-- ====== 03. 最佳实践方向 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">03 · 行业最佳实践：不是「强制取消 UD」</div>
+    <div class="oneliner">
+      <span class="ol-icon">🔀</span>
+      <div>多数成熟企业不会规定「任何 101 错误都要求 QA 取消 UD」。核心原则是 <strong>物流纠错与质量状态分离</strong>：不要让业务错误影响质量对象——质量记录保留，物流动作独立纠正。</div>
+    </div>
+  </div>
+
+  <!-- ====== 04. 方案1（推荐） ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">04 · 方案 1（推荐）：允许 102 冲销，但保留原检验批、不重新检验</div>
+    <div class="det2" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:start;">
+      <div class="vflow">
+        <div class="vstep">原 101 → 检验批 → QC → QA 放行</div>
+        <div class="vconn"></div>
+        <div class="vstep">库存可用</div>
+        <div class="vconn"></div>
+        <div class="vstep bad">发现物流错误</div>
+        <div class="vconn"></div>
+        <div class="vstep">102 冲销 → 重新 101</div>
+        <div class="vconn"></div>
+        <div class="vstep ok">关联原检验结果（不重新 QC）</div>
+      </div>
+      <div>
+        <div class="lotlink" style="margin-bottom:12px;">
+          <div class="ll"><div class="ll-t">500000001</div><div class="ll-d">第一次检验批</div></div>
+          <div class="ar">→</div>
+          <div class="ll ref"><div class="ll-t">500000002</div><div class="ll-d">参考检验批 = 500000001</div></div>
+        </div>
+        <div class="tip-inline">💡 核心：第二次收货不是「新质量事实」，而是「原物流动作修正」。系统加字段「参考检验批」，新批继承原质量状态。</div>
+        <div style="font-size:12.5px;color:var(--gray);line-height:1.7;margin-top:10px;">
+          这属于 <span class="c">质量结果继承（Inspection Result Copy）</span>：QC/QA 无需重录检验结果、特性、放行记录，仅做「确认转移」。SAP 标准不直接支持，需增强开发。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 05. 方案2 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">05 · 方案 2：不冲销，用后续调整处理（SAP 更推荐）</div>
+    <div class="field-table">
+      <tr><th style="width:200px;">错误类型</th><th>处理路径</th><th style="width:160px;">是否动 QM</th></tr>
+      <tr><td>采购价格错误</td><td>PO 价格 + MIRO 差异 + 财务处理</td><td class="tag tag-gray">不影响 QM</td></tr>
+      <tr><td>供应商发票金额错</td><td>走 MIRO 价格差异</td><td class="tag tag-gray">不影响 QM</td></tr>
+      <tr><td>库存价值错误</td><td>财务处理调整</td><td class="tag tag-gray">不影响 QM</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 呼应你之前的 MR21 问题：不要用库存动作解决财务问题——价格错就走财务，不要碰 101。</div>
+  </div>
+
+  <!-- ====== 06. 方案3 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">06 · 方案 3：设置「质量冻结窗口」与审批规则</div>
+    <div class="field-table">
+      <tr><th style="width:200px;">检验批状态</th><th>是否允许 102 冲销</th></tr>
+      <tr><td>未生成检验批</td><td class="tag tag-green">允许</td></tr>
+      <tr><td>检验中</td><td class="tag tag-amber">需质量确认</td></tr>
+      <tr><td>已 UD 未消耗</td><td class="tag tag-amber">审批后允许</td></tr>
+      <tr><td>已入生产</td><td class="tag tag-rose">禁止</td></tr>
+      <tr><td>已销售</td><td class="tag tag-rose">禁止</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 例如：101 后 24 小时内允许业务撤销；超过窗口必须质量审批。规则前置，减少扯皮。</div>
+  </div>
+
+  <!-- ====== 07. 方案4 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">07 · 方案 4：源头拦截——收货错误不要产生新检验批</div>
+    <div class="field-table">
+      <tr><th style="width:200px;">MIGO 阶段控制</th><th>校验逻辑</th></tr>
+      <tr><td>PO 价格检查</td><td class="tag tag-blue">PO 价格 ≠ 信息记录价格 → 提示/拦截</td></tr>
+      <tr><td>数量检查</td><td class="tag tag-blue">收货数量超 PO 允许范围 → 禁止</td></tr>
+      <tr><td>收货审批</td><td class="tag tag-blue">高价值物料 MIGO → 审批 → 101</td></tr>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 目的：把错误挡在收货前，减少后端冲销需求。</div>
+  </div>
+
+  <!-- ====== 08. 药企设计 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">08 · 药企（GMP）通常怎么设计</div>
+    <div class="conflict">
+      <div class="cf">
+        <div class="cf-h qa">质量对象不可逆</div>
+        <div class="cf-b">原则：QA 放行后，<strong>质量历史永久保留</strong>。不要删除、覆盖、重新生成质量记录。</div>
+      </div>
+      <div class="cf">
+        <div class="cf-h biz">物流错误允许纠正</div>
+        <div class="cf-b">通过独立的<strong>业务纠错流程</strong>修正物流，而不是破坏质量记录。二者走不同通道。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 09. 101冲销分类 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">09 · 建立「101 冲销分类」治理（不要一刀切）</div>
+    <div class="abc">
+      <div class="abc-col">
+        <div class="abc-h a">A 类 · 物流错误</div>
+        <div class="abc-b">
+          允许 <span class="c">102</span> + 重新 <span class="c">101</span>，但<strong>质量结果继承</strong>。<br><br>例：收货数量错、收货地点错。
+        </div>
+      </div>
+      <div class="abc-col">
+        <div class="abc-h b">B 类 · 质量相关错误</div>
+        <div class="abc-b">
+          必须 <strong>QA 介入</strong>重新评价。<br><br>例：批次错、供应商批次错、样品错。
+        </div>
+      </div>
+      <div class="abc-col">
+        <div class="abc-h c">C 类 · 财务错误</div>
+        <div class="abc-b">
+          <strong>禁止 102</strong>，走财务调整。<br><br>例：价格错、税率错。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 10. IT负责人设计 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">10 · 如果你是 IT 负责人（SAP ECC + MES + LIMS + 批次）</div>
+    <div class="vflow" style="max-width:420px; margin:0 auto 6px;">
+      <div class="vstep">101 收货 → 检验批生成 → QA 放行</div>
+    </div>
+    <div style="text-align:center;color:var(--gray-light);font-size:18px;">↓</div>
+    <div class="branch">
+      <div class="br-col q">
+        <div class="br-h">质量问题</div>
+        <div class="br-d">走 QM 流程：QM 通知单 → 调查 → CAPA。质量对象保持独立。</div>
+      </div>
+      <div class="br-col l">
+        <div class="br-h">物流问题</div>
+        <div class="br-d">走物流纠错流程：102 冲销 → 重新 101，原检验结果<strong>继承</strong>，不重新 QC。</div>
+      </div>
+    </div>
+    <div style="text-align:center;color:var(--gray-light);font-size:18px;">↓</div>
+    <div class="vflow" style="max-width:420px; margin:0 auto;">
+      <div class="vstep ok">库存调整质量影响规则（SAP × MES × LIMS 统一边界）</div>
+    </div>
+    <div class="tip-inline" style="margin-top:10px;">💡 不要在 SAP 标准 QM 上硬改，而是在 SAP 与 MES 之间设计「库存调整质量影响规则」。</div>
+  </div>
+
+  <!-- ====== 11. 最终答案 ====== -->
+  <div class="section">
+    <div class="sec-title" style="color:var(--navy);">11 · 你的问题的最终答案</div>
+    <div class="final">
+      <div class="f-title">其他企业最佳实践 = 质量状态与物流纠错解耦</div>
+      <div class="f-item"><div class="f-no">1</div><div class="f-t"><b>价格错误</b> → 财务调整，不冲销 101</div></div>
+      <div class="f-item"><div class="f-no">2</div><div class="f-t"><b>数量 / 仓库错误</b> → 允许 102，但保留原质量记录</div></div>
+      <div class="f-item"><div class="f-no">3</div><div class="f-t"><b>批次 / 物料错误</b> → QA 介入重新评价</div></div>
+      <div class="f-item"><div class="f-no">4</div><div class="f-t">建立<b>质量结果继承机制</b>，避免重复 QC 录入</div></div>
+      <div class="f-item"><div class="f-no">5</div><div class="f-t">建立<b>101 冲销分类（A/B/C）与审批规则</b></div></div>
+    </div>
+  </div>
+
+  <!-- ====== Summary ====== -->
+  <div class="summary-foot">
+    <div class="sf-title">一句话总结</div>
+    <div class="sf-text">
+      101 冲销冲突的本质是<code>质量链不可逆 vs 物流要纠错</code>。行业最佳答案不是「强制取消 UD」也不是「一律禁止冲销」，而是<code>质量状态与物流纠错解耦</code>：价格错走财务、数量错可 102 但继承质量、批次错由 QA 重评，并在 SAP/MES/LIMS 间定义「库存调整质量影响规则」。这已接近药企数字化架构设计层面——现在不定边界，后面必现「业务嫌 QA 太严、QA 嫌业务破坏合规」的长期矛盾。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
