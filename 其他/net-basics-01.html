@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600">
+<title>企业网络基础 · 第1课：企业网络整体架构 · 个人知识库</title>
+<style>
+:root {
+  --bg: #f8fafc; --panel: #ffffff; --panel2: #f1f5f9;
+  --line: #e2e8f0; --line2: #cbd5e1;
+  --t: #1f2937; --t2: #4b5563; --t3: #9ca3af;
+  --accent: #1E3A5F; --accent2: #334155;
+  --g1: #059669; --r1: #dc2626; --y1: #d97706;
+  --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 28px; --s7: 36px; --s8: 48px;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow: 0 1px 4px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.03);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--t); line-height: 1.65; font-size: 15px; }
+
+.hero { background: var(--accent); color: #fff; padding: var(--s7) var(--s8) var(--s6); text-align: center; }
+.hero .tag { display:inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); padding: 3px 16px; border-radius: 20px; font-size: 13px; letter-spacing: 1px; margin-bottom: var(--s3); }
+.hero h1 { font-size: 28px; font-weight: 700; margin-bottom: var(--s2); letter-spacing: .5px; }
+.hero .sub { font-size: 15px; opacity: .85; max-width: 760px; margin: 0 auto; }
+.hero .arrow { margin-top: var(--s4); font-size: 24px; opacity: .6; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: var(--s6) var(--s5); }
+
+.sec { margin-bottom: var(--s7); }
+.sec-title { display:flex; align-items:center; gap: var(--s3); margin-bottom: var(--s5); }
+.sec-title .num { width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 700; flex:none; }
+.sec-title .label { font-size: 18px; font-weight: 700; color: var(--t); }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s5); }
+.panel.warn  { border-left: 4px solid var(--r1); }
+.panel.info  { border-left: 4px solid var(--accent); }
+.panel.good  { border-left: 4px solid var(--g1); }
+
+.cols2 { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.cols3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s4); }
+
+.hi { color: var(--accent); font-weight: 700; }
+.dim { color: var(--t3); }
+
+/* quote / ask boxes */
+.ask { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); }
+.ask .q { font-size: 14px; font-weight: 700; color: var(--t); margin-bottom: var(--s2); }
+.ask .a { font-size: 13px; color: var(--t2); }
+.ask.no   { border-left: 4px solid var(--r1); }
+.ask.yes  { border-left: 4px solid var(--g1); }
+.ask .ex  { margin-top: var(--s2); font-family: "Courier New",monospace; font-size: 13px; color: var(--t3); }
+
+/* flow */
+.flow { display:flex; flex-direction:column; gap: 1px; font-family: "Courier New",monospace; font-size: 13px; background: var(--panel2); padding: var(--s4); border-radius: var(--radius-sm); color: var(--t2); line-height: 1.8; }
+.flow .hl { color: var(--accent); font-weight: 700; }
+
+/* step chain */
+.steps { display:flex; align-items:stretch; gap: 0; flex-wrap: nowrap; overflow-x:auto; }
+.step { flex:1; min-width: 200px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); position:relative; }
+.step .sn { width: 26px; height: 26px; background: var(--accent); color:#fff; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size: 13px; font-weight: 700; margin-bottom: var(--s2); }
+.step .s-t { font-size: 14px; font-weight: 700; color: var(--t); margin-bottom: 4px; }
+.step .s-c { font-size: 12px; color: var(--t2); }
+.step .s-cmd { margin-top: var(--s2); font-family: "Courier New",monospace; font-size: 12px; background: var(--panel2); padding: 4px 8px; border-radius: 4px; color: var(--accent); }
+.step:not(:last-child)::after { content:'→'; position:absolute; right:-14px; top:50%; transform: translateY(-50%); color: var(--line2); font-size: 20px; font-weight: 700; z-index: 2; }
+
+/* topology */
+.topo { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s6) var(--s5); display:flex; flex-direction:column; align-items:center; }
+.tnode { background: #fff; border: 1.5px solid var(--accent); color: var(--accent); font-weight: 700; border-radius: var(--radius-sm); padding: 8px 18px; font-size: 14px; text-align:center; }
+.tnode.internet { background: var(--accent); color:#fff; border-color: var(--accent); }
+.tlink { color: var(--accent); font-size: 18px; line-height: 1.2; font-weight: 700; }
+.tbranch { position: relative; display:flex; justify-content: space-between; gap: var(--s5); width: 100%; margin-top: var(--s2); padding-top: 26px; }
+.tbranch::before { content:''; position:absolute; top:0; left: 16.66%; right: 16.66%; border-top: 2px solid var(--line2); }
+.tcol { position: relative; flex:1; display:flex; flex-direction:column; align-items:center; gap: 8px; }
+.tcol::before { content:''; position:absolute; top:-26px; left:50%; height:26px; border-left: 2px solid var(--line2); }
+.tzone { width: 100%; background: var(--accent); color:#fff; font-weight: 700; font-size: 14px; text-align:center; border-radius: var(--radius-sm); padding: 8px 6px; }
+.tzone.prod { background: var(--accent2); border: 2px solid var(--y1); }
+.tzone .zt { display:block; font-size: 11px; font-weight: 600; opacity:.85; margin-top:2px; }
+.tdev { width: 100%; background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 6px 8px; font-size: 12.5px; color: var(--t2); text-align:center; }
+
+/* zone cards (4 regions) */
+.zcard { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); border-top: 3px solid var(--accent); }
+.zcard .zt { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: var(--s2); display:flex; align-items:center; gap:6px; }
+.zcard .zd { font-size: 13px; color: var(--t2); line-height: 1.6; }
+.zcard .zex { margin-top: var(--s2); font-size: 12px; color: var(--t3); font-family: "Courier New",monospace; }
+.zcard.star { border-top-color: var(--y1); }
+.zcard.star .zt { color: var(--y1); }
+
+/* concept cards */
+.ccard { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); }
+.ccard .ct { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: var(--s2); }
+.ccard .cmeta { font-size: 12px; color: var(--t3); margin-bottom: var(--s2); }
+.ccard .cbody { font-size: 13px; color: var(--t2); line-height: 1.6; }
+.ccard .csap { margin-top: var(--s3); padding-top: var(--s3); border-top: 1px dashed var(--line); font-size: 12.5px; color: var(--t2); }
+.ccard .csap b { color: var(--accent); }
+
+/* table */
+.tbl { width:100%; border-collapse:collapse; font-size: 14px; margin-top: var(--s3); }
+.tbl th { background: var(--panel2); padding: 10px 14px; text-align:left; font-weight: 700; border-bottom: 2px solid var(--line2); color: var(--t2); font-size: 13px; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.tbl tr:nth-child(even) td { background: var(--panel2); }
+.tbl td.k { color: var(--accent); font-weight: 700; width: 120px; }
+
+/* tags */
+.tag-sm { display:inline-block; font-size: 11px; padding: 1px 8px; border-radius: 4px; font-weight: 600; }
+.tag-green { background: #ecfdf5; color: var(--g1); }
+.tag-blue  { background: #eff6ff; color: var(--accent); }
+.tag-red   { background: #fef2f2; color: var(--r1); }
+.tag-amber { background: #fffbeb; color: var(--y1); }
+
+/* keywords grid */
+.kw-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap: var(--s3); }
+.kw { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--s4); box-shadow: var(--shadow); text-align:center; }
+.kw .kk { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.kw .kv { font-size: 12px; color: var(--t2); }
+
+/* course roadmap */
+.cr { display:flex; gap: var(--s3); }
+.cr-item { flex:1; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); }
+.cr-item.done { border-top: 3px solid var(--g1); }
+.cr-item.next { border-top: 3px solid var(--accent); }
+.cr-item.future { border-top: 3px solid var(--line2); }
+.cr-item .cn { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.cr-item .ct { font-size: 14px; font-weight: 700; color: var(--t); margin-bottom: var(--s2); line-height:1.4; }
+.cr-item .cd { font-size: 12px; color: var(--t2); }
+.cr-item .cbadge { margin-top: var(--s2); font-size: 11px; }
+.cr-item.done .cbadge { color: var(--g1); font-weight: 700; }
+.cr-item.next .cbadge { color: var(--accent); font-weight: 700; }
+
+.back { margin-bottom: var(--s5); }
+.back a { font-size: 13px; color: var(--t3); text-decoration:none; }
+.back a:hover { color: var(--accent); }
+
+.foot { margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--line); text-align:center; font-size: 12px; color: var(--t3); display:flex; justify-content:center; gap: var(--s6); }
+
+@media print {
+  body { background: #fff; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .panel, .zcard, .ccard, .kw, .cr-item, .step { break-inside: avoid; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">企业网络基础 · 第 1 课</div>
+  <h1>企业网络整体架构 —— IT 经理的全局认知</h1>
+  <div class="sub">不为考证学网络，而是构建「未来 IT 经理的大脑模型」：看懂拓扑、定位问题层级、能与网络工程师有效沟通。</div>
+  <div class="arrow">↓</div>
+</div>
+
+<div class="container">
+
+  <div class="back"><a href="../index.html">← 个人知识库</a> · <a href="it-career-roadmap.html">IT 能力升级路线 ↗</a></div>
+
+  <!-- ======== 0. 学习目标 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">0</span><span class="label">你为什么学 —— 这是一门「IT 经理」课，不是「网络工程师」课</span></div>
+    <div class="cols2">
+      <div class="ask no">
+        <div class="q">❌ 面试 IT 经理，面试官不会问</div>
+        <div class="ex">OSPF 怎么配置？<br>BGP 路由策略怎么写？</div>
+        <div class="a" style="margin-top:var(--s3);">这些是网络工程师的能力，不是 IT 管理者面试的重点。</div>
+      </div>
+      <div class="ask yes">
+        <div class="q">✅ 面试官会问的是</div>
+        <div class="a">你们公司 SAP、MES、LIMS 这些系统怎么部署？网络怎么规划？生产车间为什么访问不了 MES？如何保障系统稳定？</div>
+        <div class="s-cmd" style="margin-top:var(--s3);">目标 = 看拓扑理解架构 + 遇问题定位层级 + 与网工有效沟通</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 1. 典型企业网络拓扑 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">1</span><span class="label">第一步：建立企业网络模型（先看这张图）</span> <span class="tag-sm tag-blue">必须理解</span></div>
+    <div class="topo">
+      <div class="tnode internet">互联网 Internet</div>
+      <div class="tlink">↓</div>
+      <div class="tnode">防火墙 Firewall</div>
+      <div class="tlink">↓</div>
+      <div class="tnode">核心交换机 Core Switch</div>
+      <div class="tbranch">
+        <div class="tcol">
+          <div class="tzone">办公网<span class="zt">开放性较高</span></div>
+          <div class="tdev">PC 电脑</div>
+          <div class="tdev">SAP GUI / OA / 邮件</div>
+        </div>
+        <div class="tcol">
+          <div class="tzone prod">生产网<span class="zt">⭐ 稳定 · 安全 · IT/OT 隔离</span></div>
+          <div class="tdev">MES 工位机</div>
+          <div class="tdev">PLC / DCS</div>
+          <div class="tdev">SCADA</div>
+        </div>
+        <div class="tcol">
+          <div class="tzone">服务器区<span class="zt">机房</span></div>
+          <div class="tdev">SAP 应用 + 数据库</div>
+          <div class="tdev">MES / LIMS / QMS</div>
+          <div class="tdev">接口服务器</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel info" style="margin-top:var(--s4);">
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:var(--s2);">这张图你一定要理解</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.7;">
+        外部流量经 <span class="hi">防火墙</span> 进入 <span class="hi">核心交换机</span>，再分流到三个区域：<b>办公网</b>（人用）、<b>生产网</b>（设备用，贵司最看重）、<b>服务器区</b>（核心系统所在）。
+        药企 30 多个车间，本质就是大量 MES 终端挂在「生产网」上，访问「服务器区」的 MES / SAP / LIMS。
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 2. 网络为什么存在 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">2</span><span class="label">网络为什么存在？本质是「让设备之间可靠、安全地通信」</span></div>
+    <div class="cols2">
+      <div class="panel">
+        <div style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">以 MES「投料确认」为例</div>
+        <div class="flow">
+          <div>MES 客户端（车间工位机）</div>
+          <div style="margin-left:8px;">↓ 发送请求</div>
+          <div style="margin-left:16px;">↓ <span class="hl">网络传输</span></div>
+          <div style="margin-left:24px;">↓ MES 服务器接收</div>
+          <div style="margin-left:32px;">↓ 访问数据库</div>
+          <div style="margin-left:40px;">↓ 返回结果</div>
+        </div>
+      </div>
+      <div class="panel warn">
+        <div style="font-size:14px;font-weight:700;color:var(--r1);margin-bottom:var(--s3);">任何一个环节出问题 → 用户看到的就是</div>
+        <div style="font-size:22px;font-weight:700;color:var(--r1);text-align:center;padding:var(--s4) 0;">"MES 打不开"</div>
+        <div style="font-size:13px;color:var(--t2);margin-top:var(--s3);">所以「系统打不开」≠「开发 Bug」。先判断是哪一环，再决定找谁。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 3. 四个核心区域 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">3</span><span class="label">企业网络四个核心区域（IT 经理必须懂）</span></div>
+    <div class="cols3">
+      <div class="zcard">
+        <div class="zt">① 办公网</div>
+        <div class="zd">财务、行政的电脑，访问 SAP GUI / OA / 邮件。</div>
+        <div class="zex">特点：开放性较高</div>
+      </div>
+      <div class="zcard star">
+        <div class="zt">② 生产网络 ⭐⭐⭐⭐⭐</div>
+        <div class="zd">MES 工位机、PLC、SCADA、DCS。贵司所在行业特别重要。</div>
+        <div class="zex">强调 IT / OT 隔离：办公室电脑 ✕ 生产设备，不能随意互通</div>
+      </div>
+      <div class="zcard">
+        <div class="zt">③ 服务器区</div>
+        <div class="zd">SAP 应用 + 数据库、MES / LIMS / QMS、接口服务器。</div>
+        <div class="zex">通常放置于机房服务器区</div>
+      </div>
+      <div class="zcard" style="grid-column: span 3;">
+        <div class="zt">④ DMZ 隔离区</div>
+        <div class="zd">对外服务的「隔离缓冲区」。例如供应商门户（SRM）：供应商 → 互联网 → 防火墙 → DMZ 服务器 → 内部系统。关键是不能让外部人员直接进入内部网络。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 4. 三个最重要概念 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">4</span><span class="label">网络通信最重要的三个概念</span> <span class="tag-sm tag-blue">第一阶段核心</span></div>
+    <div class="cols3">
+      <div class="ccard">
+        <div class="ct">IP 地址</div>
+        <div class="cmeta">设备在网络中的「身份证」</div>
+        <div class="cbody">SAP 服务器：<span class="hi">192.168.10.20</span><br>MES 服务器：<span class="hi">192.168.20.30</span><br>两系统通信 = 192.168.20.30 访问 192.168.10.20</div>
+        <div class="csap"><b>SAP 场景：</b>你知道每个应用服务器的 IP，是排错第一步。</div>
+      </div>
+      <div class="ccard">
+        <div class="ct">端口</div>
+        <div class="cmeta">IP = 哪台电脑；端口 = 电脑上的哪个服务</div>
+        <div class="cbody">MES 服务器 192.168.20.30 上：<br>· MES 服务 → <span class="hi">8080</span><br>· 数据库 → <span class="hi">1521</span><br>MES 访问库 = 192.168.20.30:1521</div>
+        <div class="csap"><b>SAP 场景：</b>GUI 连接不是「连 SAP」，而是连 SAP Dispatcher 端口 → 实例。</div>
+      </div>
+      <div class="ccard">
+        <div class="ct">DNS</div>
+        <div class="cmeta">把名字翻译成 IP（人不喜欢记 IP）</div>
+        <div class="cbody">访问 www.baidu.com → DNS 转成 IP → 服务器。企业内部常用 mes.company.com 代替 192.168.20.30。</div>
+        <div class="csap"><b>SAP 场景：</b>客户端配主机名，靠 DNS 解析；DNS 挂了，输 IP 能通、输名字不通。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 5. 网络排查思维 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">5</span><span class="label">网络排查思维（IT 经理最重要）</span> <span class="tag-sm tag-amber">五步逐层法</span></div>
+    <div class="panel info" style="margin-bottom:var(--s4);">
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:var(--s2);">用户说「MES 打不开」，不要马上找开发</div>
+      <div class="flow" style="background:transparent;padding:0;">
+        <div>用户电脑 → 网络 → 服务器 → 应用 → 数据库  <span class="dim">（自下而上逐层排查）</span></div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="sn">1</div>
+        <div class="s-t">电脑是否联网？</div>
+        <div class="s-c">先确认客户端本身在线</div>
+        <div class="s-cmd">ping 网关</div>
+      </div>
+      <div class="step">
+        <div class="sn">2</div>
+        <div class="s-t">能否访问服务器？</div>
+        <div class="s-c">网络层是否通到 MES 服务器</div>
+        <div class="s-cmd">ping MES服务器IP</div>
+      </div>
+      <div class="step">
+        <div class="sn">3</div>
+        <div class="s-t">端口是否开放？</div>
+        <div class="s-c">服务端口是否被防火墙挡住</div>
+        <div class="s-cmd">telnet IP 端口</div>
+      </div>
+      <div class="step">
+        <div class="sn">4</div>
+        <div class="s-t">应用是否正常？</div>
+        <div class="s-c">MES 服务进程是否起得来</div>
+        <div class="s-cmd">检查 MES 服务</div>
+      </div>
+      <div class="step">
+        <div class="sn">5</div>
+        <div class="s-t">数据库是否正常？</div>
+        <div class="s-c">最后确认底层数据层</div>
+        <div class="s-cmd">检查 DB</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== 6. 十个关键词 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">6</span><span class="label">你的第一个学习任务：先掌握这 10 个关键词</span></div>
+    <div class="kw-grid">
+      <div class="kw"><div class="kk">IP 地址</div><div class="kv">设备身份证</div></div>
+      <div class="kw"><div class="kk">MAC 地址</div><div class="kv">网卡身份证</div></div>
+      <div class="kw"><div class="kk">端口</div><div class="kv">应用入口</div></div>
+      <div class="kw"><div class="kk">DNS</div><div class="kv">名字转换</div></div>
+      <div class="kw"><div class="kk">交换机</div><div class="kv">局域网连接</div></div>
+      <div class="kw"><div class="kk">路由器</div><div class="kv">不同网络连接</div></div>
+      <div class="kw"><div class="kk">防火墙</div><div class="kv">访问控制</div></div>
+      <div class="kw"><div class="kk">VLAN</div><div class="kv">逻辑隔离网络</div></div>
+      <div class="kw"><div class="kk">TCP/IP</div><div class="kv">通信规则</div></div>
+      <div class="kw"><div class="kk">VPN</div><div class="kv">安全远程访问</div></div>
+    </div>
+  </div>
+
+  <!-- ======== 7. 课程路线图 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">7</span><span class="label">结合你的 MES/SAP 背景，我设计的 6 课路线</span></div>
+    <div class="cr">
+      <div class="cr-item done">
+        <div class="cn">第 1 课 · 今天</div>
+        <div class="ct">企业网络整体架构</div>
+        <div class="cd">建立全局模型，看懂拓扑与四区域。</div>
+        <div class="cbadge">✅ 已完成</div>
+      </div>
+      <div class="cr-item next">
+        <div class="cn">第 2 课</div>
+        <div class="ct">IP 地址 + 子网 + VLAN</div>
+        <div class="cd">为什么 192.168.1.x 与 192.168.10.x 有时能通、有时不能通？</div>
+        <div class="cbadge">▶ 下一节</div>
+      </div>
+      <div class="cr-item future">
+        <div class="cn">第 3 课</div>
+        <div class="ct">交换机 · 防火墙 · 路由器</div>
+        <div class="cd">三类设备的作用与边界。</div>
+      </div>
+      <div class="cr-item future">
+        <div class="cn">第 4 课</div>
+        <div class="ct">生产网(OT) 与 办公网(IT)</div>
+        <div class="cd">结合 MES / PLC / SCADA 讲 IT-OT 隔离。</div>
+      </div>
+      <div class="cr-item future">
+        <div class="cn">第 5 课</div>
+        <div class="ct">接口通信网络</div>
+        <div class="cd">SAP-MES 接口：RFC / HTTP / REST / MQ。</div>
+      </div>
+      <div class="cr-item future">
+        <div class="cn">第 6 课</div>
+        <div class="ct">企业网络安全设计</div>
+        <div class="cd">结合药企 GMP 要求。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>个人知识库 · 企业网络基础第 1 课</span>
+    <span>PC / 4K 优先 · 固定布局 · 打印优先</span>
+  </div>
+
+</div>
+
+</body>
+</html>
