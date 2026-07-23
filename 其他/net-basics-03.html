@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1600">
+<title>企业网络基础 · 第3课：交换机、防火墙、路由器 · 个人知识库</title>
+<style>
+:root {
+  --bg: #f8fafc; --panel: #ffffff; --panel2: #f1f5f9;
+  --line: #e2e8f0; --line2: #cbd5e1;
+  --t: #1f2937; --t2: #4b5563; --t3: #9ca3af;
+  --accent: #1E3A5F; --accent2: #334155;
+  --g1: #059669; --r1: #dc2626; --y1: #d97706;
+  --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 28px; --s7: 36px; --s8: 48px;
+  --radius: 10px; --radius-sm: 6px;
+  --shadow: 0 1px 4px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.03);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--t); line-height: 1.65; font-size: 15px; }
+
+.hero { background: var(--accent); color: #fff; padding: var(--s7) var(--s8) var(--s6); text-align: center; }
+.hero .tag { display:inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); padding: 3px 16px; border-radius: 20px; font-size: 13px; letter-spacing: 1px; margin-bottom: var(--s3); }
+.hero h1 { font-size: 28px; font-weight: 700; margin-bottom: var(--s2); letter-spacing: .5px; }
+.hero .sub { font-size: 15px; opacity: .85; max-width: 820px; margin: 0 auto; }
+.hero .arrow { margin-top: var(--s4); font-size: 24px; opacity: .6; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: var(--s6) var(--s5); }
+
+.sec { margin-bottom: var(--s7); }
+.sec-title { display:flex; align-items:center; gap: var(--s3); margin-bottom: var(--s5); }
+.sec-title .num { width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 700; flex:none; }
+.sec-title .label { font-size: 18px; font-weight: 700; color: var(--t); }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s5); }
+.panel.warn  { border-left: 4px solid var(--r1); }
+.panel.info  { border-left: 4px solid var(--accent); }
+.panel.good  { border-left: 4px solid var(--g1); }
+
+.cols2 { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
+.cols3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s4); }
+
+.hi { color: var(--accent); font-weight: 700; }
+.dim { color: var(--t3); }
+
+.tag-sm { display:inline-block; font-size: 11px; padding: 1px 8px; border-radius: 4px; font-weight: 600; }
+.tag-green { background: #ecfdf5; color: var(--g1); }
+.tag-blue  { background: #eff6ff; color: var(--accent); }
+.tag-red   { background: #fef2f2; color: var(--r1); }
+.tag-amber { background: #fffbeb; color: var(--y1); }
+
+/* table */
+.tbl { width:100%; border-collapse:collapse; font-size: 14px; }
+.tbl th { background: var(--panel2); padding: 11px 14px; text-align:left; font-weight: 700; border-bottom: 2px solid var(--line2); color: var(--t2); font-size: 13px; }
+.tbl td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl tr:nth-child(even) td { background: var(--panel2); }
+.tbl td.k { color: var(--accent); font-weight: 700; white-space: nowrap; width: 110px; }
+
+.flow { font-family: "Courier New",monospace; font-size: 13px; background: var(--panel2); padding: var(--s4); border-radius: var(--radius-sm); color: var(--t2); line-height: 1.9; }
+.flow .hl { color: var(--accent); font-weight: 700; }
+
+/* ======== 整体拓扑图 ======== */
+.topo { display:flex; flex-direction:column; align-items:center; }
+.topo .tnode { background:#fff; border:1.5px solid var(--accent); border-radius: var(--radius-sm); padding:8px 18px; text-align:center; min-width:170px; }
+.topo .tnode .tn { font-size:13px; font-weight:700; color:var(--accent); }
+.topo .tnode .td { font-size:11px; color:var(--t3); }
+.topo .tnode.fw { background:#fff7ed; border-color:var(--y1); }
+.topo .tnode.fw .tn { color:var(--y1); }
+.topo .tnode.rtr { background:#eff6ff; border-color:var(--accent); }
+.topo .tconn { width:2px; height:24px; background:var(--line2); }
+.topo .tconn.dash { background:none; border-left:2px dashed var(--line2); height:18px; }
+.topo .zones { display:grid; grid-template-columns: repeat(3,1fr); gap: var(--s3); width:100%; margin-top: 4px; }
+.topo .zone { background: var(--panel2); border:1px solid var(--line); border-radius: var(--radius-sm); padding: var(--s3); text-align:center; }
+.topo .zone .zt { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:6px; }
+.topo .zone .zi { font-size:11.5px; color:var(--t2); line-height:1.7; }
+.topo .zone.prod { background:#fff7ed; border-color:var(--y1); }
+.topo .zone.prod .zt { color:var(--y1); }
+
+/* ======== MAC 转发表 ======== */
+.mactable { width:100%; border-collapse:collapse; font-family:"Courier New",monospace; font-size:13px; }
+.mactable th { background:var(--panel2); padding:9px 12px; text-align:left; border-bottom:2px solid var(--line2); color:var(--t2); font-size:12px; }
+.mactable td { padding:8px 12px; border-bottom:1px solid var(--line); }
+.mactable tr:nth-child(even) td { background:var(--panel2); }
+.mactable .p { color:var(--accent); font-weight:700; }
+
+/* ======== 三层架构树 ======== */
+.tree { display:flex; flex-direction:column; align-items:center; }
+.tree .tlayer { width:100%; }
+.tree .lv { background:#fff; border:1.5px solid var(--accent); border-radius:var(--radius-sm); text-align:center; padding:10px; }
+.tree .lv .ln { font-size:14px; font-weight:700; color:var(--accent); }
+.tree .lv .ld { font-size:11.5px; color:var(--t3); margin-top:2px; }
+.tree .lv.core { background:var(--accent); }
+.tree .lv.core .ln, .tree .lv.core .ld { color:#fff; }
+.tree .lv.agg { background:#eff6ff; }
+.tree .leafs { display:grid; grid-template-columns: repeat(3,1fr); gap:var(--s2); margin-top: 2px; }
+.tree .leaf { background:var(--panel2); border:1px solid var(--line); border-radius:var(--radius-sm); padding:8px; text-align:center; font-size:11.5px; color:var(--t2); }
+
+/* ======== 路由器跨网段 ======== */
+.route { display:flex; align-items:center; gap: var(--s3); flex-wrap:wrap; justify-content:center; }
+.route .rnode { background:#fff; border:1.5px solid var(--accent); border-radius: var(--radius-sm); padding: 8px 14px; text-align:center; min-width: 150px; }
+.route .rnode .rn { font-size: 13px; font-weight: 700; color: var(--accent); }
+.route .rnode .rip { font-size: 12px; color: var(--t2); font-family:"Courier New",monospace; margin-top: 2px; }
+.route .rarrow { color: var(--line2); font-size: 18px; font-weight: 700; }
+.route .rnode.rtr { background: var(--accent); border-color: var(--accent); }
+.route .rnode.rtr .rn, .route .rnode.rtr .rip { color:#fff; }
+
+/* ======== 防火墙 DMZ 对比 ======== */
+.cmp { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.cmp .cmpbox { background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: var(--s4); box-shadow: var(--shadow); }
+.cmp .cmpbox .ct { font-size: 14px; font-weight: 700; margin-bottom: var(--s3); display:flex; align-items:center; gap:6px; }
+.cmp .cmpbox.bad { border-left:4px solid var(--r1); }
+.cmp .cmpbox.good { border-left:4px solid var(--g1); }
+.chain { display:flex; flex-direction:column; align-items:center; gap:0; }
+.chain .cn { background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm); padding:6px 14px; text-align:center; font-size:12.5px; min-width:150px; }
+.chain .cn.x { background:#fef2f2; border-color:var(--r1); color:var(--r1); font-weight:700; }
+.chain .cn.ok { background:#ecfdf5; border-color:var(--g1); color:var(--g1); font-weight:700; }
+.chain .ca { width:2px; height:16px; background:var(--line2); }
+
+/* ======== 防火墙端口规则 ======== */
+.rulebox { border:1.5px solid var(--accent); border-radius:var(--radius-sm); overflow:hidden; font-family:"Courier New",monospace; }
+.rulebox .rh { background:var(--accent); color:#fff; font-size:13px; font-weight:700; text-align:center; padding:8px; letter-spacing:1px; }
+.rulebox .rgrid { display:grid; grid-template-columns: 1fr 1fr; }
+.rulebox .rc { padding:10px 14px; border-bottom:1px solid var(--line); }
+.rulebox .rc:nth-last-child(-n+2) { border-bottom:none; }
+.rulebox .rl { font-size:11px; color:var(--t3); }
+.rulebox .rv { font-size:14px; font-weight:700; color:var(--accent); margin-top:2px; }
+.rulebox .rc.act { grid-column: span 2; text-align:center; }
+.rulebox .rc.act .rv { color:var(--g1); }
+
+/* ======== 四层排查 ======== */
+.layer4 { display:flex; flex-direction:column; gap: var(--s2); }
+.layer4 .ly { display:flex; align-items:center; gap: var(--s3); background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-sm); padding: var(--s3) var(--s4); }
+.layer4 .ly .ln { width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex:none; }
+.layer4 .ly .lt { font-size:13.5px; font-weight:700; color:var(--accent); min-width:96px; }
+.layer4 .ly .ld { font-size:12.5px; color:var(--t2); }
+.layer4 .ly .chk { margin-left:auto; font-size:12px; }
+.layer4 .ly.l1 { border-left:4px solid var(--y1); }
+.layer4 .ly.l2 { border-left:4px solid var(--accent2); }
+.layer4 .ly.l3 { border-left:4px solid var(--accent); }
+.layer4 .ly.l4 { border-left:4px solid var(--g1); }
+
+/* ======== 网络分区模型 ======== */
+.zones2 { display:grid; grid-template-columns: 1fr 1.4fr; gap: var(--s4); }
+.zones2 .zcol { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:var(--s4); box-shadow:var(--shadow); }
+.zones2 .zcol .zh { font-size:14px; font-weight:700; color:var(--accent); text-align:center; margin-bottom:var(--s3); padding-bottom:6px; border-bottom:1px solid var(--line); }
+.zones2 .zitem { background:var(--panel2); border:1px solid var(--line); border-radius:var(--radius-sm); padding:8px 10px; margin-bottom:8px; }
+.zones2 .zitem:last-child { margin-bottom:0; }
+.zones2 .zitem .zi-t { font-size:12.5px; font-weight:700; color:var(--t); }
+.zones2 .zitem .zi-d { font-size:11px; color:var(--t3); margin-top:2px; }
+.zones2 .dmz { border:1.5px dashed var(--y1); }
+.zones2 .dmz .zh { color:var(--y1); }
+
+/* 路线进度 */
+.roadmap { display:grid; grid-template-columns: repeat(6,1fr); gap: var(--s2); }
+.rd { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-sm); padding: var(--s3) 8px; text-align:center; }
+.rd .rn { font-size:12px; font-weight:700; color:var(--accent); }
+.rd .rt { font-size:11px; color:var(--t3); margin-top:3px; line-height:1.4; }
+.rd.done { background:#ecfdf5; border-color:var(--g1); }
+.rd.done .rn { color:var(--g1); }
+.rd.cur { background:var(--accent); border-color:var(--accent); }
+.rd.cur .rn, .rd.cur .rt { color:#fff; }
+
+.back { margin-bottom: var(--s5); }
+.back a { color: var(--accent); text-decoration:none; font-size:13px; }
+.foot { text-align:center; color:var(--t3); font-size:12px; padding: var(--s5) 0; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">企业网络基础 · 第 3 课 / 共 6 课</div>
+  <h1>交换机、防火墙、路由器</h1>
+  <div class="sub">企业网络中的「交通系统」。前两课解决「设备之间能不能通信」，这一课解决「数据到底通过什么设备流动」——以后看任何 IT 架构图，核心就是看懂这几台设备。</div>
+  <div class="arrow">↓</div>
+</div>
+
+<div class="container">
+
+  <div class="back"><a href="net-basics-01.html">← 返回第1课（整体架构）</a> ｜ <a href="net-basics-02.html">← 第2课（IP/掩码/网关）</a> ｜ <a href="net-concepts.html">← 概念地图</a></div>
+
+  <!-- ===== 开篇整体模型 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">概</span><span class="label">先建立整体模型：一张典型药厂网络拓扑</span></div>
+    <div class="cols2">
+      <div class="panel info">
+        <table class="tbl">
+          <tr><th>设备</th><th>作用</th><th>类比</th></tr>
+          <tr><td class="k">交换机</td><td>连接内部设备，让同网段设备互相通信</td><td>公司内部道路</td></tr>
+          <tr><td class="k">路由器</td><td>连接不同网络，选择最佳路径转发</td><td>城市之间高速</td></tr>
+          <tr><td class="k">防火墙</td><td>按规则控制谁能通过、谁被拦截</td><td>保安 / 门禁</td></tr>
+        </table>
+        <div class="flow" style="margin-top:var(--s4);">
+<span class="hl">Internet</span> → 防火墙 → 路由器 → 核心交换机 →（办公网 / 生产网 / 服务器区）
+        </div>
+      </div>
+      <div class="panel">
+        <div class="topo">
+          <div class="tnode"><div class="tn">Internet</div><div class="td">互联网</div></div>
+          <div class="tconn"></div>
+          <div class="tnode fw"><div class="tn">防火墙 Firewall</div><div class="td">访问控制 / 安全边界</div></div>
+          <div class="tconn"></div>
+          <div class="tnode rtr"><div class="tn">路由器 Router</div><div class="td">连接不同网络</div></div>
+          <div class="tconn"></div>
+          <div class="tnode"><div class="tn">核心交换机 Core</div><div class="td">企业内部枢纽</div></div>
+          <div class="tconn dash"></div>
+          <div class="zones">
+            <div class="zone"><div class="zt">办公网</div><div class="zi">PC 电脑<br>OA / 邮件</div></div>
+            <div class="zone prod"><div class="zt">生产网 ⭐</div><div class="zi">MES 终端<br>SCADA / DCS</div></div>
+            <div class="zone"><div class="zt">服务器区</div><div class="zi">SAP / MES<br>LIMS 服务器</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 一、交换机 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">一</span><span class="label">交换机（Switch）：同一局域网内部的枢纽</span></div>
+    <div class="cols2">
+      <div class="panel">
+        <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s3);">1 · 交换机解决什么问题？</div>
+        <p style="color:var(--t2);font-size:14px;margin-bottom:var(--s4);">生产车间有 10 台 MES 工位电脑、5 台打印机、20 把扫码枪，它们都要互相通信——靠交换机把它们接到一起。</p>
+        <div class="topo">
+          <div class="tnode" style="min-width:140px;"><div class="tn">交换机</div></div>
+          <div class="tconn"></div>
+          <div class="tconn"></div>
+          <div class="zones" style="grid-template-columns:repeat(3,1fr);">
+            <div class="zone"><div class="zi">MES 电脑</div></div>
+            <div class="zone"><div class="zi">打印机</div></div>
+            <div class="zone"><div class="zi">扫码枪</div></div>
+          </div>
+        </div>
+        <p style="color:var(--t3);font-size:12.5px;margin-top:var(--s3);">交换机负责：在<b>同一个局域网内部</b>让设备互相通信。</p>
+      </div>
+      <div class="panel">
+        <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s3);">2 · 交换机为什么知道数据发给谁？（MAC 地址）</div>
+        <p style="color:var(--t2);font-size:14px;margin-bottom:var(--s3);">每台网卡有唯一编号（MAC），类似身份证号。交换机会记录「哪个 MAC 接在哪个端口」。</p>
+        <table class="mactable">
+          <tr><th>交换机端口</th><th>设备</th><th>MAC</th></tr>
+          <tr><td class="p">1 口</td><td>MES 服务器</td><td>AA-BB-CC-11-22</td></tr>
+          <tr><td class="p">2 口</td><td>MES 终端 1</td><td>AA-BB-CC-33-44</td></tr>
+          <tr><td class="p">3 口</td><td>打印机</td><td>AA-BB-CC-55-66</td></tr>
+        </table>
+        <p style="color:var(--t3);font-size:12.5px;margin-top:var(--s3);">数据来了 → 交换机查表 → 精准从对应端口发出去。关键词：<span class="tag-blue">MAC</span></p>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:var(--s4);">
+      <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s3);">3 · 为什么药厂需要「核心交换机」？——三层架构</div>
+      <p style="color:var(--t2);font-size:14px;margin-bottom:var(--s4);">小公司一个交换机就够；但你的药厂几十个车间，必须分三层。理解这三层，你就看懂了企业网络的骨架：</p>
+      <div class="tree">
+        <div class="tlayer"><div class="lv core"><div class="ln">核心层 · 企业大脑</div><div class="ld">核心交换机 — 全厂高速转发中枢</div></div></div>
+        <div class="tconn" style="margin:6px 0;"></div>
+        <div class="tlayer"><div class="lv agg"><div class="ln">汇聚层 · 汇总</div><div class="ld">汇聚交换机 — 把多个车间流量收拢</div></div></div>
+        <div class="tconn" style="margin:6px 0;"></div>
+        <div class="tlayer"><div class="lv"><div class="ln">接入层 · 靠近用户</div><div class="ld">接入交换机 — 直接连车间电脑 / MES 终端</div></div></div>
+        <div class="leafs">
+          <div class="leaf">车间 A<br>接入交换</div>
+          <div class="leaf">车间 B<br>接入交换</div>
+          <div class="leaf">车间 C<br>接入交换</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 二、路由器 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">二</span><span class="label">路由器（Router）：连接不同网络的「跨城高速」</span></div>
+    <div class="panel">
+      <p style="color:var(--t2);font-size:14px;margin-bottom:var(--s4);">交换机解决「同一个网络内部」通信；<b>不同网络</b>之间，靠路由器。例如 MES（<span class="hi">192.168.20.10</span>）和 SAP（<span class="hi">192.168.30.10</span>）不是同一网段，必须经过路由器转发。</p>
+      <div class="route">
+        <div class="rnode"><div class="rn">生产网络</div><div class="rip">192.168.20.X</div></div>
+        <div class="rarrow">→</div>
+        <div class="rnode rtr"><div class="rn">路由器</div><div class="rip">跨网段转发</div></div>
+        <div class="rarrow">→</div>
+        <div class="rnode"><div class="rn">服务器网络</div><div class="rip">192.168.30.X</div></div>
+      </div>
+      <p style="color:var(--t3);font-size:12.5px;margin-top:var(--s4);">路由器依据 <b>IP 地址</b> 选择路径。关键词：<span class="tag-blue">IP</span></p>
+    </div>
+  </div>
+
+  <!-- ===== 三、防火墙 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">三</span><span class="label">防火墙（Firewall）⭐⭐⭐⭐⭐：控制谁能通过</span></div>
+    <div class="panel warn" style="margin-bottom:var(--s4);">
+      <b>IT 经理必须重点理解防火墙</b>——企业最关注安全。一句话：防火墙按规则「放行 / 拦截」流量。
+    </div>
+
+    <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s3);">供应商访问 SRM：错误设计 vs 正确设计</div>
+    <div class="cmp">
+      <div class="cmpbox bad">
+        <div class="ct"><span class="tag-red">✕ 错误</span> 供应商直接进入内部</div>
+        <div class="chain">
+          <div class="cn x">供应商</div>
+          <div class="ca"></div>
+          <div class="cn x">↘ 直达 SAP 服务器</div>
+        </div>
+        <p style="color:var(--r1);font-size:12.5px;margin-top:var(--s3);">风险：外部人员直接进入内部网络，等于把大门钥匙给外人。</p>
+      </div>
+      <div class="cmpbox good">
+        <div class="ct"><span class="tag-green">✓ 正确</span> 经 DMZ 隔离区</div>
+        <div class="chain">
+          <div class="cn ok">供应商</div>
+          <div class="ca"></div>
+          <div class="cn">互联网</div>
+          <div class="ca"></div>
+          <div class="cn ok">防火墙</div>
+          <div class="ca"></div>
+          <div class="cn">DMZ 区 · 接口服务器</div>
+          <div class="ca"></div>
+          <div class="cn">SAP</div>
+        </div>
+        <p style="color:var(--g1);font-size:12.5px;margin-top:var(--s3);">外部只能到 DMZ 的接口服务器，无法直接触碰核心 SAP。</p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:var(--s4);">
+      <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s3);">防火墙 + 端口（非常重要，结合 MES 调 SAP 接口）</div>
+      <p style="color:var(--t2);font-size:14px;margin-bottom:var(--s3);">MES（<span class="hi">192.168.20.10</span>）要访问 SAP 接口服务器（<span class="hi">192.168.30.10:8000</span>），防火墙必须放开这条规则，否则 MES 报错。</p>
+      <div class="rulebox">
+        <div class="rh">防火墙访问规则</div>
+        <div class="rgrid">
+          <div class="rc"><div class="rl">源 SOURCE</div><div class="rv">192.168.20.10</div></div>
+          <div class="rc"><div class="rl">目标 DEST</div><div class="rv">192.168.30.10</div></div>
+          <div class="rc"><div class="rl">端口 PORT</div><div class="rv">8000</div></div>
+          <div class="rc"><div class="rl">协议 PROTO</div><div class="rv">TCP</div></div>
+          <div class="rc act"><div class="rl">动作 ACTION</div><div class="rv">✓ 允许 ALLOW</div></div>
+        </div>
+      </div>
+      <p style="color:var(--t3);font-size:12.5px;margin-top:var(--s3);">关键词：<span class="tag-blue">规则</span> <span class="tag-blue">端口</span> <span class="tag-blue">安全</span></p>
+    </div>
+  </div>
+
+  <!-- ===== 四、结合 SAP/MES 场景 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">四</span><span class="label">结合你的 SAP / MES 实际场景：四层排查</span></div>
+    <div class="cols2">
+      <div class="panel">
+        <div class="hi" style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">数据链路（用户说：MES 无法同步 SAP）</div>
+        <div class="flow">
+MES 终端<br>
+<span class="hl">↓</span> 生产交换机<br>
+<span class="hl">↓</span> 核心交换机<br>
+<span class="hl">↓</span> 防火墙（查端口规则）<br>
+<span class="hl">↓</span> 服务器交换机<br>
+<span class="hl">↓</span> MES 服务器<br>
+<span class="hl">↓</span> SAP 接口服务器<br>
+<span class="hl">↓</span> SAP
+        </div>
+      </div>
+      <div class="panel">
+        <div class="hi" style="font-size:14px;font-weight:700;margin-bottom:var(--s3);">不要马上找 SAP 顾问，先分层定位</div>
+        <div class="layer4">
+          <div class="ly l1"><div class="ln">1</div><div class="lt">网络层</div><div class="ld">MES 能否 ping 通 SAP IP？</div><div class="chk"><span class="tag-amber">不通=网络问题</span></div></div>
+          <div class="ly l2"><div class="ln">2</div><div class="lt">防火墙层</div><div class="ld">ping 通但接口失败，端口开了吗？</div><div class="chk"><span class="tag-amber">查规则</span></div></div>
+          <div class="ly l3"><div class="ln">3</div><div class="lt">应用层</div><div class="ld">端口通，接口程序正常吗？</div><div class="chk"><span class="tag-blue">查服务</span></div></div>
+          <div class="ly l4"><div class="ln">4</div><div class="lt">业务层</div><div class="ld">SAP 配置是否正确？</div><div class="chk"><span class="tag-green">查配置</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 五、网络分区模型 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">五</span><span class="label">IT 经理脑中的网络分区模型（药企）</span></div>
+    <div class="zones2">
+      <div class="zcol dmz">
+        <div class="zh">DMZ 隔离区（外部可访问）</div>
+        <div class="zitem"><div class="zi-t">SRM 供应商门户</div><div class="zi-d">供应商通过防火墙进出，不直接进内网</div></div>
+        <div class="zitem"><div class="zi-t">接口服务器</div><div class="zi-d">对外暴露，对内连接核心系统</div></div>
+      </div>
+      <div class="zcol">
+        <div class="zh">内部网络（核心资产）</div>
+        <div class="zitem"><div class="zi-t">办公网</div><div class="zi-d">OA / 邮件 / 普通 PC</div></div>
+        <div class="zitem"><div class="zi-t" style="color:var(--y1);">生产网 ⭐</div><div class="zi-d">MES / SCADA / DCS（IT 与 OT 隔离）</div></div>
+        <div class="zitem"><div class="zi-t">服务器区</div><div class="zi-d">SAP / LIMS / QMS 等核心业务系统</div></div>
+      </div>
+    </div>
+    <p style="color:var(--t3);font-size:12.5px;margin-top:var(--s3);">Internet → 防火墙 →（DMZ 区 / 内部网络）→ 内部再按办公网 / 生产网 / 服务器区隔离。</p>
+  </div>
+
+  <!-- ===== 六、面试问题 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">六</span><span class="label">一个 IT 经理面试问题</span></div>
+    <div class="panel good">
+      <div style="font-size:14px;margin-bottom:var(--s3);"><b>面试官：</b>你们 MES 为什么不直接连 SAP 数据库，而采用接口？</div>
+      <div style="font-size:14px;margin-bottom:var(--s2);"><span class="tag-red" style="margin-right:6px;">普通回答</span> “安全。”</div>
+      <div style="font-size:14px;color:var(--t);background:var(--panel2);padding:var(--s3);border-radius:var(--radius-sm);border-left:4px solid var(--g1);">
+        <span class="tag-green" style="margin-right:6px;">高级回答</span> 从网络架构看，SAP 数据库是核心业务系统，不应暴露给生产系统直接访问。通过接口服务器 / API，可实现<b>网络隔离、权限控制、访问审计</b>，同时降低系统耦合——这就是 IT 经理思维。
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 七、核心总结 ===== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">七</span><span class="label">今天你需要掌握的核心（不要背配置）</span></div>
+    <div class="cols3">
+      <div class="panel" style="border-top:3px solid var(--accent);">
+        <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s2);">交换机</div>
+        <div style="color:var(--t2);font-size:13.5px;margin-bottom:var(--s3);">解决：同一个网络内部怎么通信。</div>
+        <span class="tag-blue">关键词：MAC</span>
+      </div>
+      <div class="panel" style="border-top:3px solid var(--accent);">
+        <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s2);">路由器</div>
+        <div style="color:var(--t2);font-size:13.5px;margin-bottom:var(--s3);">解决：不同网络之间怎么通信。</div>
+        <span class="tag-blue">关键词：IP</span>
+      </div>
+      <div class="panel" style="border-top:3px solid var(--y1);">
+        <div class="hi" style="font-size:15px;font-weight:700;margin-bottom:var(--s2);">防火墙</div>
+        <div style="color:var(--t2);font-size:13.5px;margin-bottom:var(--s3);">解决：谁可以通信、谁不能通信。</div>
+        <span class="tag-amber">关键词：规则 / 端口 / 安全</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 八、路线进度 ===== -->
+  <div class="sec" style="margin-bottom:0;">
+    <div class="sec-title"><span class="num">课</span><span class="label">6 课路线图 · 当前进度</span></div>
+    <div class="roadmap">
+      <div class="rd done"><div class="rn">第1课 ✅</div><div class="rt">整体架构</div></div>
+      <div class="rd done"><div class="rn">第2课 ✅</div><div class="rt">IP / 掩码 / 网关</div></div>
+      <div class="rd cur"><div class="rn">第3课 ●</div><div class="rt">交换机 / 防火墙 / 路由器</div></div>
+      <div class="rd"><div class="rn">第4课 ⏳</div><div class="rt">VLAN 隔离</div></div>
+      <div class="rd"><div class="rn">第5课 ⏳</div><div class="rt">接口通信网络</div></div>
+      <div class="rd"><div class="rn">第6课 ⏳</div><div class="rt">企业网络安全设计</div></div>
+    </div>
+    <p style="color:var(--t3);font-size:12.5px;margin-top:var(--s4);"><b>下一课预告：</b>第4课《VLAN——为什么企业一定要把办公网、生产网、服务器网隔离？》直接结合药企场景：MES 为什么不能和办公电脑一个网络？车间电脑能访问 MES 却不能访问 SAP 数据库？</p>
+  </div>
+
+  <div class="foot">企业网络基础系列 · 第3课 · 面向未来 IT 经理（非网工考证路线）</div>
+
+</div>
+</body>
+</html>
