@@ -97,6 +97,64 @@ body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(
 .sum-item .st { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
 .sum-item .sd { font-size: 12.5px; color: var(--t2); line-height: 1.5; }
 
+/* ====== 可视化图解 ====== */
+.viz-grid { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.viz { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s5); }
+.viz .vh { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.viz .vsub { font-size: 12px; color: var(--t3); margin-bottom: var(--s4); font-family:"Courier New",monospace; }
+
+/* 图1 TCP/IP 封装 */
+.encap { font-size:12px; }
+.encap .box { border:1px solid var(--line2); border-radius: var(--radius-sm); padding: 10px; }
+.encap .lbl { display:block; font-size:11px; font-weight:700; color:var(--accent); margin-bottom:8px; font-family:"Courier New",monospace; }
+.encap .l-link { background:#eef2f7; }
+.encap .l-net  { background:#e5ecf3; }
+.encap .l-tran { background:#dbe4ef; }
+.encap .l-app  { background: var(--accent); color:#fff; text-align:center; padding:12px; border-radius: var(--radius-sm); font-weight:700; font-size:13px; }
+
+/* 图2 DNS 横向步骤 */
+.hstep { display:flex; align-items:stretch; }
+.hstep .hs { flex:1; background: var(--panel2); border:1px solid var(--line); border-radius: var(--radius-sm); padding:10px 8px; text-align:center; position:relative; margin-right:16px; }
+.hstep .hs:last-child { margin-right:0; }
+.hstep .hs::after { content:'\2192'; position:absolute; right:-13px; top:50%; transform:translateY(-50%); color:var(--line2); font-weight:700; font-size:15px; }
+.hstep .hs:last-child::after { content:''; }
+.hstep .hs .ht { font-size:12px; font-weight:700; color:var(--accent); }
+.hstep .hs .hd { font-size:11px; color:var(--t2); margin-top:3px; }
+
+/* 图3 交换机 vs 路由器 */
+.vs2 { display:grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.vs2 .vb { border:1px solid var(--line); border-radius: var(--radius-sm); padding: var(--s3); }
+.vs2 .vb .vt { font-size:14px; font-weight:700; color:var(--accent); margin-bottom:var(--s2); text-align:center; padding-bottom:6px; border-bottom:1px solid var(--line); }
+.vs2 .vb table { width:100%; font-size:12px; border-collapse:collapse; }
+.vs2 .vb td { padding:4px 0; color:var(--t2); border-bottom:1px dashed var(--line); }
+.vs2 .vb tr:last-child td { border-bottom:none; }
+.vs2 .vb td:first-child { color:var(--t3); width:52px; }
+
+/* 图4 VLAN */
+.vlan .sw { background: var(--accent); color:#fff; text-align:center; font-size:12px; font-weight:700; padding:8px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.vlan .vlanrow { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; padding:10px; background:var(--panel2); border:1px solid var(--line); border-top:none; border-radius:0 0 var(--radius-sm) var(--radius-sm); }
+.vlan .vg { border:1px dashed var(--line2); border-radius: var(--radius-sm); padding:10px 6px; text-align:center; background:#fff; }
+.vlan .vg .vn { font-size:12px; font-weight:700; color:var(--accent); font-family:"Courier New",monospace; }
+.vlan .vg .vd { font-size:11px; color:var(--t2); margin-top:3px; }
+.vlan .note { margin-top:10px; font-size:11px; color:var(--r1); text-align:center; }
+
+/* 图5 IP + 端口 */
+.ports .srv { border:1.5px solid var(--accent); border-radius: var(--radius-sm); padding: var(--s3); }
+.ports .sip { font-size:13px; font-weight:700; color:var(--accent); text-align:center; margin-bottom:var(--s3); font-family:"Courier New",monospace; }
+.ports .plist { display:grid; grid-template-columns: repeat(2,1fr); gap:8px; }
+.ports .p { background:var(--panel2); border:1px solid var(--line); border-radius: var(--radius-sm); padding:8px; text-align:center; }
+.ports .p .pp { font-size:13px; font-weight:700; color:var(--accent); font-family:"Courier New",monospace; }
+.ports .p .pn { font-size:11px; color:var(--t2); margin-top:3px; }
+
+/* 图6 VPN 隧道 */
+.tunnel { display:flex; align-items:center; }
+.tunnel .end { flex:none; text-align:center; min-width:120px; }
+.tunnel .end .ei { font-size:13px; font-weight:700; color:var(--accent); }
+.tunnel .end .ed { font-size:11px; color:var(--t2); margin-top:2px; }
+.tunnel .pipe { flex:1; margin:0 12px; border:2px dashed var(--accent); border-radius: 24px; padding: 14px 10px; text-align:center; background: rgba(30,58,95,.04); }
+.tunnel .pipe .pl { font-size:13px; font-weight:700; color:var(--accent); }
+.tunnel .pipe .pd { font-size:11px; color:var(--t3); margin-top:2px; }
+
 .back { margin-bottom: var(--s5); }
 .back a { font-size: 13px; color: var(--t3); text-decoration:none; }
 .back a:hover { color: var(--accent); }
@@ -190,6 +248,111 @@ body { font-family: "PingFang SC","Microsoft YaHei",sans-serif; background: var(
       <div class="rb">
         为安全与性能，在交换机上配置 <b>VLAN</b> 把财务部与普通员工网段隔开；数据包在不同 VLAN 之间或进入外网时，通过 <b>防火墙</b> 过滤（基于 IP、端口、规则放行或拦截）；出差员工访问内网时，建立 <b>VPN</b> 加密隧道，穿过互联网安全接入。
       </div>
+    </div>
+  </div>
+
+  <!-- ======== 图解补充 ======== -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">图</span><span class="label">图解补充：6 张示意图，把抽象概念「看」明白</span></div>
+    <div class="viz-grid">
+
+      <!-- 图1 封装 -->
+      <div class="viz">
+        <div class="vh">图 1 · 数据封装：一个请求如何被层层「打包」</div>
+        <div class="vsub">发送时自内向外逐层加头部，接收时逐层拆开 = TCP/IP 分层</div>
+        <div class="encap">
+          <div class="box l-link"><span class="lbl">链路层 · 加帧头（含 MAC 地址）→ 找网卡</span>
+            <div class="box l-net"><span class="lbl">网络层 · 加 IP 头（含 IP 地址）→ 找设备</span>
+              <div class="box l-tran"><span class="lbl">传输层 · 加 TCP 头（含端口号）→ 找应用</span>
+                <div class="l-app">应用层数据：报销请求</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图2 DNS -->
+      <div class="viz">
+        <div class="vh">图 2 · DNS 解析：把域名翻译成 IP</div>
+        <div class="vsub">oa.company.com　→　?　→　203.0.113.50</div>
+        <div class="hstep">
+          <div class="hs"><div class="ht">① 电脑</div><div class="hd">这网址 IP 是多少？</div></div>
+          <div class="hs"><div class="ht">② 本地 DNS</div><div class="hd">先查缓存</div></div>
+          <div class="hs"><div class="ht">③ 根/顶级/权威</div><div class="hd">逐级追问</div></div>
+          <div class="hs"><div class="ht">④ 返回 IP</div><div class="hd">203.0.113.50</div></div>
+        </div>
+        <div style="margin-top:var(--s4);font-size:12px;color:var(--t2);line-height:1.6;">拿到 IP 后，浏览器才知道该「往哪台服务器发请求」。DNS 挂了 = 输网址打不开，但直接输 IP 仍可访问。</div>
+      </div>
+
+      <!-- 图3 交换机 vs 路由器 -->
+      <div class="viz">
+        <div class="vh">图 3 · 交换机 vs 路由器</div>
+        <div class="vsub">一个管「同网段内部」，一个管「跨网段之间」</div>
+        <div class="vs2">
+          <div class="vb">
+            <div class="vt">交换机</div>
+            <table>
+              <tr><td>层级</td><td>二层</td></tr>
+              <tr><td>依据</td><td>MAC 地址</td></tr>
+              <tr><td>范围</td><td>同一局域网内</td></tr>
+              <tr><td>类比</td><td>楼内走廊电梯</td></tr>
+            </table>
+          </div>
+          <div class="vb">
+            <div class="vt">路由器</div>
+            <table>
+              <tr><td>层级</td><td>三层</td></tr>
+              <tr><td>依据</td><td>IP 地址</td></tr>
+              <tr><td>范围</td><td>连接不同网络</td></tr>
+              <tr><td>类比</td><td>跨城交通枢纽</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图4 VLAN -->
+      <div class="viz">
+        <div class="vh">图 4 · VLAN：一台交换机切成多个「独立部门网」</div>
+        <div class="vsub">物理上同一台交换机，逻辑上互相隔离</div>
+        <div class="vlan">
+          <div class="sw">同一台物理交换机</div>
+          <div class="vlanrow">
+            <div class="vg"><div class="vn">VLAN 10</div><div class="vd">办公区</div></div>
+            <div class="vg"><div class="vn">VLAN 20</div><div class="vd">财务专网</div></div>
+            <div class="vg"><div class="vn">VLAN 30</div><div class="vd">研发区</div></div>
+          </div>
+          <div class="note">✕ 不同 VLAN 默认互不可见，需经三层路由 / 防火墙才能互通</div>
+        </div>
+      </div>
+
+      <!-- 图5 IP + 端口 -->
+      <div class="viz">
+        <div class="vh">图 5 · IP + 端口：定位「哪台机 + 哪个应用」</div>
+        <div class="vsub">IP 找到服务器，端口找到服务器上的具体服务</div>
+        <div class="ports">
+          <div class="srv">
+            <div class="sip">服务器 IP：192.168.30.10</div>
+            <div class="plist">
+              <div class="p"><div class="pp">:443</div><div class="pn">财务系统 (HTTPS)</div></div>
+              <div class="p"><div class="pp">:80</div><div class="pn">Web (HTTP)</div></div>
+              <div class="p"><div class="pp">:1521</div><div class="pn">Oracle 数据库</div></div>
+              <div class="p"><div class="pp">:22</div><div class="pn">SSH 远程管理</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图6 VPN 隧道 -->
+      <div class="viz" style="grid-column: span 2;">
+        <div class="vh">图 6 · VPN：在公网里挖一条「加密隧道」</div>
+        <div class="vsub">数据虽走公共互联网，但全程加密，如同押运安保车</div>
+        <div class="tunnel">
+          <div class="end"><div class="ei">张三笔记本</div><div class="ed">明文 → 加密</div></div>
+          <div class="pipe"><div class="pl">【 VPN 加密隧道 】</div><div class="pd">穿越公共互联网，中途无法被窃听篡改</div></div>
+          <div class="end"><div class="ei">公司出口网关</div><div class="ed">解密 → 内网</div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
