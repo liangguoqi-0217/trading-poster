@@ -155,32 +155,6 @@ a { color: inherit; text-decoration: none; }
   flex: none; white-space: nowrap;
 }
 
-/* ---------- 分类导航 (横向标签栏，SVG 图标，无 emoji) ---------- */
-.cats { display: flex; gap: var(--s-2); margin-bottom: var(--s-6); flex-wrap: nowrap; }
-.cat-chip {
-  display: flex; align-items: center; gap: var(--s-2);
-  height: 44px; padding: 0 var(--s-4); border-radius: var(--radius);
-  background: var(--panel); border: 1px solid var(--line);
-  font-size: 14px; font-weight: 600; color: var(--text-soft);
-  cursor: pointer; white-space: nowrap; transition: border-color .15s, color .15s;
-  user-select: none;
-}
-.cat-chip .ico { width: 18px; height: 18px; flex: none; color: var(--text-dim); }
-.cat-chip:hover { color: var(--title); border-color: var(--text-soft); }
-.cat-chip.active { color: var(--title); background: var(--panel-2); border-color: var(--c-trading); }
-.cat-chip.active .ico { color: var(--c-trading); }
-/* 各栏目以边框色区分，不用彩色填充 */
-.cat-chip[data-cat="trading"].active { border-color: var(--c-trading); }
-.cat-chip[data-cat="trading"].active .ico { color: var(--c-trading); }
-.cat-chip[data-cat="pharma"].active { border-color: var(--c-pharma); }
-.cat-chip[data-cat="pharma"].active .ico { color: var(--c-pharma); }
-.cat-chip[data-cat="sap"].active { border-color: var(--c-sap); }
-.cat-chip[data-cat="sap"].active .ico { color: var(--c-sap); }
-.cat-chip[data-cat="ai"].active { border-color: var(--c-ai); }
-.cat-chip[data-cat="ai"].active .ico { color: var(--c-ai); }
-.cat-chip[data-cat="maps"].active { border-color: var(--c-mes); }
-.cat-chip[data-cat="maps"].active .ico { color: var(--c-mes); }
-
 /* ---------- 知识卡片网格 (固定列宽) ---------- */
 .grid {
   display: grid;
