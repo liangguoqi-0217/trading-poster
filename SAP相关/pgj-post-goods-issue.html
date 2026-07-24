@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP PGI 发货过账：概念、各部门价值与管理改善 · 知识图</title>
+<link rel="stylesheet" href="../global.css">
+<style>
+:root{
+  --navy:#1E3A5F;--navy-2:#2C4F7C;--line:#E5E7EB;--line-2:#EEF1F7;--bg:#F8FAFC;
+  --ink:#1F2937;--ink-2:#4B5563;--ink-3:#6B7280;--ok:#10B981;--warn:#F59E0B;
+  --err:#EF4444;--info:#3B82F6;--blue-l:#EFF6FF;--green-l:#D1FAE5;
+  --yellow-l:#FEF3C7;--red-l:#FEE2E2;--purple:#7C3AED;--cyan:#0891B2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:32px 28px 80px}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:14px;padding:36px 40px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero h1{margin:0 0 8px;font-size:29px;font-weight:700;letter-spacing:.5px}
+.hero .lead{margin:10px 0 0;font-size:14.5px;opacity:.85}
+.hero .core{margin-top:14px;padding:12px 18px;background:rgba(255,255,255,.08);border-left:3px solid #93C5FD;border-radius:6px;font-size:15px}
+.hero .core b{color:#FBBF24}
+.crumbs{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumbs a{color:var(--navy);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+
+/* ===== SECTION ===== */
+.sec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.sec h2{margin:0 0 16px;font-size:19px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px}
+.sec h2 .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--navy);color:#fff;font-size:13px;font-weight:700}
+.sec h3{margin:20px 0 10px;font-size:15.5px;font-weight:600;color:var(--ink);border-left:3px solid var(--navy);padding-left:10px}
+.sec h3 .label{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;margin-left:8px;background:var(--blue-l);color:var(--navy);font-weight:500}
+
+/* ===== GRIDS ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid-7{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+
+/* ===== TABLE ===== */
+table.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+table.tbl th{background:var(--navy);color:#fff;font-weight:600;text-align:left;padding:10px 12px;font-size:13px}
+table.tbl td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+table.tbl tbody tr:nth-child(even) td{background:#FAFBFC}
+table.tbl .mono{font-family:"SF Mono","Consolas","Courier New",monospace;font-size:12px;background:#F3F4F6;padding:2px 5px;border-radius:3px;color:var(--navy)}
+table.tbl td.hl{color:var(--navy);font-weight:600}
+
+/* ===== BANNER ===== */
+.banner{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;text-align:center;margin:14px 0}
+.banner.ok{background:var(--green-l);border:1px solid #6EE7B7;color:#065F46}
+.banner.warn{background:var(--yellow-l);border:1px solid #FCD34D;color:#92400E}
+.banner.err{background:var(--red-l);border:1px solid #FCA5A5;color:#991B1B}
+.banner.info{background:var(--blue-l);border:1px solid #BFDBFE;color:#1E40AF}
+
+/* ===== FLOW V ===== */
+.flow-v{display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;align-items:center}
+.flow-v .step{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;font-size:13px;color:var(--ink-2);text-align:center;min-width:200px}
+.flow-v .step b{color:var(--navy)}
+.flow-v .step.accent{background:var(--blue-l);border-color:#93C5FD;font-weight:600;color:var(--navy)}
+.flow-v .step.focus{background:#1E3A5F;color:#fff;font-weight:700;font-size:15px;border-color:#1E3A5F}
+.flow-v .sep{text-align:center;color:var(--ink-3);font-size:16px;line-height:1}
+
+/* ===== FLOW H ===== */
+.flow-h{display:flex;align-items:stretch;gap:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 8px;overflow-x:auto}
+.flow-step{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 6px;text-align:center;margin:0 3px;min-width:0}
+.flow-step .lbl{font-size:12px;font-weight:700;color:var(--navy)}
+.flow-step .code{font-size:11px;color:var(--ink-3);margin-top:2px;font-family:"SF Mono","Consolas",monospace}
+.flow-arrow{display:flex;align-items:center;color:var(--ink-3);font-size:16px;padding:0 1px;flex-shrink:0}
+
+/* ===== BEFORE/AFTER ===== */
+.before-after{display:grid;grid-template-columns:1fr 50px 1fr;gap:12px;align-items:stretch}
+.ba-box{padding:14px;border-radius:10px}
+.ba-box.before{background:var(--red-l);border:1px solid #FCA5A5}
+.ba-box.after{background:var(--green-l);border:1px solid #6EE7B7}
+.ba-box h4{margin:0 0 8px;font-size:14px;font-weight:700;text-align:center}
+.ba-box.before h4{color:#991B1B}
+.ba-box.after h4{color:#065F46}
+.ba-box ul{margin:4px 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}
+.ba-box ul li{margin:2px 0}
+.ba-mid{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--navy)}
+
+/* ===== ACTION CARD ===== */
+.action-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.action-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;border-top:3px solid var(--navy)}
+.action-card h4{margin:0 0 6px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.action-card .mod{font-size:11px;color:var(--ink-3);margin-bottom:4px}
+.action-card p{margin:4px 0;font-size:12px;color:var(--ink-2)}
+.action-card .entry{font-size:11px;color:var(--navy-2);font-family:"SF Mono","Consolas",monospace;background:var(--blue-l);padding:2px 6px;border-radius:3px;display:inline-block;margin-top:4px}
+
+/* ===== MODULE CROSS ===== */
+.module-cross{display:flex;flex-direction:column;align-items:center;padding:16px;background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.module-cross .top{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 30px;text-align:center;margin-bottom:8px}
+.module-cross .top .l{font-size:14px;font-weight:700;color:var(--navy)}
+.module-cross .top .s{font-size:11px;color:var(--ink-3)}
+.module-cross .mid-row{display:flex;align-items:center;gap:8px;margin:8px 0}
+.module-cross .mid-row .branch{background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 14px;text-align:center}
+.module-cross .mid-row .branch .b{font-size:12px;font-weight:600;color:var(--navy)}
+.module-cross .mid-row .branch .d{font-size:10px;color:var(--ink-3)}
+.module-cross .connect-v{color:var(--ink-3);font-size:18px;line-height:1}
+
+/* ===== DEPT PAIN ===== */
+.dept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dept-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;border-left:4px solid var(--navy)}
+.dept-card h4{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--navy)}
+.dept-card .pain{font-size:12px;color:var(--ink-2);margin:6px 0}
+.dept-card .pain::before{content:"痛点：";color:var(--err);font-weight:600}
+.dept-card .fix{font-size:12px;color:var(--ink-2);margin:6px 0}
+.dept-card .fix::before{content:"解决：";color:var(--ok);font-weight:600}
+
+/* ===== PROBLEM Q&A ===== */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qa-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px}
+.qa-item .q{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.qa-item .a{font-size:12.5px;color:var(--ink-2)}
+
+/* ===== PITFALL CARDS ===== */
+.pit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pit-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;border-left:4px solid var(--err)}
+.pit-card h4{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--err)}
+.pit-card p{margin:0;font-size:12.5px;color:var(--ink-2)}
+
+/* ===== BEST PRACTICE ===== */
+.bp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.bp-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;border-top:3px solid var(--ok)}
+.bp-card h4{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--ok)}
+.bp-card p{margin:0;font-size:12.5px;color:var(--ink-2)}
+
+/* ===== ARCH FLOW ===== */
+.arch-flow{display:flex;align-items:center;gap:8px;padding:16px;background:var(--bg);border:1px solid var(--line);border-radius:12px;flex-wrap:wrap;justify-content:center}
+.arch-box{background:#fff;border:2px solid var(--line);border-radius:8px;padding:10px 18px;text-align:center;min-width:90px}
+.arch-box .l{font-size:12px;font-weight:700;color:var(--navy)}
+.arch-box .s{font-size:10px;color:var(--ink-3)}
+.arch-box.erp{background:var(--navy);color:#fff;border-color:var(--navy)}
+.arch-box.erp .l{color:#FBBF24}
+.arch-box.erp .s{color:rgba(255,255,255,.7)}
+.arch-arr{color:var(--ink-3);font-size:14px}
+
+/* ===== FINAL ===== */
+.final{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:10px;padding:18px 22px;margin-top:0;font-size:14.5px}
+.final b{color:#FBBF24}
+
+/* ===== PROC FLOW ===== */
+.proc-flow{display:flex;align-items:center;gap:6px;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;flex-wrap:wrap;justify-content:center}
+.proc-step{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;text-align:center;min-width:70px}
+.proc-step .l{font-size:12px;font-weight:600;color:var(--navy)}
+.proc-step .c{font-size:10px;color:var(--ink-3);font-family:"SF Mono","Consolas",monospace}
+.proc-step.key{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.proc-step.key .l{color:#FBBF24}
+.proc-step.key .c{color:rgba(255,255,255,.7)}
+.proc-arr{color:var(--ink-3);font-size:14px}
+
+/* ===== DIVIDER ===== */
+.divider{border:none;border-top:2px solid var(--line);margin:22px 0}
+.divider.dashed{border-top-style:dashed}
+
+/* ===== ISSUE LIST ===== */
+.issue-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.issue-item{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.issue-item .prob{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.issue-item .sol{font-size:12px;color:var(--ink-2)}
+
+/* ===== CHECK LIST ===== */
+.check-list{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px}
+.check-list .check-row{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:13px;color:var(--ink-2)}
+.check-list .check-icon{color:var(--navy);font-weight:700;flex-shrink:0}
+
+/* ===== COMPACT TABLE ===== */
+table.ctbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:10px 0}
+table.ctbl th{background:var(--navy-2);color:#fff;font-weight:600;text-align:left;padding:8px 12px;font-size:12px}
+table.ctbl td{padding:7px 12px;border-top:1px solid var(--line);color:var(--ink-2)}
+table.ctbl tr:nth-child(even) td{background:#FAFBFC}
+
+/* ===== STATE COMPARE ===== */
+.state-comp{display:grid;grid-template-columns:1fr 60px 1fr;gap:10px;align-items:center;margin:12px 0}
+.state-box{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+.state-box .st{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.state-box .val{font-size:28px;font-weight:800;color:var(--ink)}
+.state-box .note{font-size:11px;color:var(--ink-3);margin-top:4px}
+.state-box.after-state{border-color:#6EE7B7;background:var(--green-l)}
+.state-box.after-state .val{color:var(--ok)}
+.state-mid{text-align:center;font-size:24px;font-weight:700;color:var(--navy)}
+
+@media(max-width:980px){
+  .grid-2,.grid-3,.grid-4,.grid-7,.dept-grid,.qa-grid,.pit-grid,.bp-grid,.issue-list{grid-template-columns:1fr}
+  .before-after{grid-template-columns:1fr}
+  .ba-mid,.state-mid{display:none}
+  .action-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs"><a href="../index.html">知识库</a> › <a href="index.html">SAP 相关</a> › PGI 发货过账</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>SAP PGI 发货过账：概念、各部门价值与管理改善</h1>
+  <div class="lead">Post Goods Issue 不是"仓库点个按钮"，而是连接 SD / MM / FI / CO / QM 的企业级业务事件确认点</div>
+  <div class="core">核心理解：PGI 是 SAP 中的<b>"业务事件确认点（Business Event）"</b>——它告诉整个 ERP：<b>这批货已经不属于企业库存了</b>。库存责任、成本责任、追溯责任都发生转移。</div>
+</div>
+
+<!-- ===== 一、PGI 是什么 ===== -->
+<div class="sec">
+  <h2><span class="num">一</span>PGI 到底是什么？</h2>
+
+  <h3>销售发货的标准流程链路</h3>
+  <div class="proc-flow" style="max-width:800px;margin:10px auto">
+    <div class="proc-step"><div class="l">客户订单</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">销售订单</div><div class="c">SD</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">交货单</div><div class="c">Delivery</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">拣配</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step key"><div class="l">PGI</div><div class="c">过账发货</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">开票</div><div class="c">Billing</div></div>
+  </div>
+
+  <h3>PGI 之前 vs 之后：库存变化</h3>
+  <div style="max-width:760px;margin:10px auto">
+    <div class="state-comp">
+      <div class="state-box">
+        <div class="st">PGI 之前</div>
+        <div class="val">1,000</div>
+        <div class="note">库存无变化 · 仅仅是通知仓库准备发货</div>
+      </div>
+      <div class="state-mid">→</div>
+      <div class="state-box after-state">
+        <div class="st">PGI 之后</div>
+        <div class="val">900</div>
+        <div class="note">库存减少 100 · 产生财务凭证 · 批次记录</div>
+      </div>
+    </div>
+  </div>
+  <div class="banner info" style="max-width:760px;margin:0 auto">关键认知：仓库把货搬走 ≠ SAP 里货已发出。只有执行 PGI，SAP 才承认货物离开企业库存。</div>
+</div>
+
+<!-- ===== 二、PGI 做了什么 ===== -->
+<div class="sec">
+  <h2><span class="num">二</span>一次 PGI 同时触发 4 个模块</h2>
+
+  <div class="action-grid">
+    <div class="action-card" style="border-top-color:var(--navy)">
+      <div class="mod">MM · 物料管理</div>
+      <h4>库存减少</h4>
+      <p>产生物料凭证（移动类型 <span class="mono">601</span> 销售发货），MSEG 记录数量/批次/库存地点。</p>
+      <span class="entry">MSEG: 601 / 数量 100 / 批次 B20260701</span>
+    </div>
+    <div class="action-card" style="border-top-color:var(--ok)">
+      <div class="mod">FI · 财务会计</div>
+      <h4>自动产生会计凭证</h4>
+      <p>借：主营业务成本  /  贷：库存商品。库存资产减少必须反映到财务账。</p>
+      <span class="entry">借: 主营业务成本 5,000 · 贷: 库存商品 5,000</span>
+    </div>
+    <div class="action-card" style="border-top-color:var(--purple)">
+      <div class="mod">QM · 质量管理</div>
+      <h4>批次追溯建立</h4>
+      <p>记录"哪个客户拿到哪个批次"，形成完整追溯链。药企发生召回时可反查。</p>
+      <span class="entry">客户 C × 批次 B001 × 数量 100 × 2026-07-24</span>
+    </div>
+    <div class="action-card" style="border-top-color:var(--info)">
+      <div class="mod">ATP · 可用性</div>
+      <h4>库存释放 &amp; 需求关闭</h4>
+      <p>已分配库存转为实际消耗，订单需求关闭，MRP 和 ATP 重新计算可用量。</p>
+      <span class="entry">可用库存: 900 · 已分配: 0（之前被订单占用 100）</span>
+    </div>
+  </div>
+
+  <h3>跨模块影响图</h3>
+  <div class="module-cross" style="max-width:560px;margin:14px auto 0">
+    <div class="top"><div class="l">SD 交货单 + PGI</div><div class="s">过账发货——业务事件中心</div></div>
+    <div class="connect-v">▼</div>
+    <div class="mid-row">
+      <div class="branch"><div class="b">MM</div><div class="d">库存减少</div></div>
+      <div class="branch"><div class="b">FI</div><div class="d">会计凭证</div></div>
+      <div class="branch"><div class="b">CO</div><div class="d">成本</div></div>
+      <div class="branch" style="border-color:var(--purple)"><div class="b" style="color:var(--purple)">批次</div><div class="d">追溯</div></div>
+      <div class="branch" style="border-color:var(--cyan)"><div class="b" style="color:var(--cyan)">QM</div><div class="d">质量状态</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 三、PGI vs 关键概念 ===== -->
+<div class="sec">
+  <h2><span class="num">三</span>PGI vs 容易混淆的概念</h2>
+
+  <h3>PGI ≠ 出库 ≠ 开票 ≠ GI</h3>
+  <table class="tbl">
+    <thead><tr><th>动作</th><th>业务含义</th><th>库存变化</th><th>财务影响</th><th>典型事务</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">交货单创建</td><td>通知仓库准备发货</td><td>❌ 无</td><td>❌ 无</td><td>VL01N</td></tr>
+      <tr><td class="hl">拣配</td><td>从货架取出货物</td><td>⚠️ 移库</td><td>❌ 无</td><td>LT03</td></tr>
+      <tr><td class="hl" style="color:var(--navy);font-size:14px">PGI（发货过账）</td><td>货物正式离开企业库存，责任转移</td><td>✅ 减少</td><td>✅ 成本结转</td><td>VL02N</td></tr>
+      <tr><td class="hl">开票 Billing</td><td>向客户收费</td><td>❌ 无</td><td>✅ 收入确认</td><td>VF01</td></tr>
+      <tr><td class="hl">GI（发料）</td><td>生产领料（非销售）</td><td>✅ 减少</td><td>✅ 生产成本</td><td>MB1A / 移动 261</td></tr>
+    </tbody>
+  </table>
+
+  <div class="banner info" style="margin-top:12px">
+    PGI 属于销售物流（移动类型 601）；GI（261）属于生产物流。两者都减少库存，但业务场景和会计科目完全不同。
+  </div>
+
+  <h3>典型时间线</h3>
+  <div class="proc-flow" style="max-width:680px;margin:10px auto">
+    <div class="proc-step"><div class="l">7/1 发货</div><div class="c">仓库装车</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step key"><div class="l">7/1 PGI</div><div class="c">库存减少 + 成本结转</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">7/5 开票</div><div class="c">收入确认</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--ink-3);text-align:center;margin-top:8px">
+    PGI 不一定等于车辆离厂 —— 它代表的是<b style="color:var(--navy)">企业确认货物责任已经转移</b>。
+  </p>
+</div>
+
+<!-- ===== 四、各部门痛点 ===== -->
+<div class="sec">
+  <h2><span class="num">四</span>没有 PGI 规范，各部门痛在哪？</h2>
+
+  <div class="dept-grid">
+    <div class="dept-card">
+      <h4>销售部门 SD</h4>
+      <div class="pain">订单承诺与实际发货脱节：不知道货是否发出、发了多少</div>
+      <div class="fix">PGI 后：订单状态透明（已交货 / 已 PGI / 未交货），避免超卖</div>
+    </div>
+    <div class="dept-card" style="border-left-color:var(--warn)">
+      <h4>仓库部门 物流</h4>
+      <div class="pain">实货已装车离厂，系统库存还在 → 账实不一致</div>
+      <div class="fix">PGI 实现：实物动作 → 系统动作 → 财务动作 三者一致</div>
+    </div>
+    <div class="dept-card" style="border-left-color:var(--ok)">
+      <h4>财务部门 FI</h4>
+      <div class="pain">收入与成本时间不匹配：货已发出但库存还在账上，资产虚高</div>
+      <div class="fix">PGI 自动触发：借主营业务成本 / 贷库存商品，账务同步</div>
+    </div>
+    <div class="dept-card" style="border-left-color:var(--info)">
+      <h4>成本会计 CO</h4>
+      <div class="pain">不知道销售成本何时发生，毛利分析不准</div>
+      <div class="fix">PGI 时成本从生产库存转入销售成本，CO 可分析毛利</div>
+    </div>
+    <div class="dept-card" style="border-left-color:var(--purple)">
+      <h4>质量部门 QM</h4>
+      <div class="pain">未放行库存可能被销售发货 → GMP 合规风险；召回时无法定位批次</div>
+      <div class="fix">QM 状态控制：未放行不允许 PGI；PGI 记录完整批次追溯</div>
+    </div>
+    <div class="dept-card" style="border-left-color:var(--cyan)">
+      <h4>生产部门 PP</h4>
+      <div class="pain">销售端库存不准 → MRP 运算失真 → 生产计划错误</div>
+      <div class="fix">PGI 后库存准确 → MRP 可靠 → 计划更准</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:18px">管理层视角</h3>
+  <div class="grid-3" style="margin-top:10px">
+    <div class="bp-card" style="border-top-color:var(--navy)">
+      <h4>库存准确率</h4>
+      <p>PGI 提高账实一致，减少月底大盘调整</p>
+    </div>
+    <div class="bp-card" style="border-top-color:var(--ok)">
+      <h4>应收及时性</h4>
+      <p>PGI → 开票 → 应收，链条缩短，加速回款</p>
+    </div>
+    <div class="bp-card" style="border-top-color:var(--warn)">
+      <h4>客户服务水平</h4>
+      <p>从订单量 → 交付量 → 准时交付率，全链可追踪</p>
+    </div>
+  </div>
+
+  <h3>如果没有 PGI 规范，这 7 个问题会持续发生</h3>
+  <table class="ctbl" style="max-width:700px;margin:10px auto">
+    <thead><tr><th>问题</th><th>影响部门</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">库存不准</td><td>仓库、财务</td></tr>
+      <tr><td class="hl">客户订单状态不透明</td><td>销售</td></tr>
+      <tr><td class="hl">成本不能及时结转</td><td>财务</td></tr>
+      <tr><td class="hl">月底大量调整</td><td>财务</td></tr>
+      <tr><td class="hl">批次无法追溯</td><td>质量</td></tr>
+      <tr><td class="hl">MRP 计划错误</td><td>生产</td></tr>
+      <tr><td class="hl">客户投诉无法快速定位</td><td>质量、销售</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== 五、为什么SAP要设计PGI ===== -->
+<div class="sec">
+  <h2><span class="num">五</span>为什么 SAP 设计 PGI 这个独立步骤？</h2>
+
+  <div class="grid-3">
+    <div class="pit-card" style="border-left-color:var(--navy)">
+      <h4>① 订单 ≠ 实际发货</h4>
+      <p>客户订 1000 箱，库存可能不足，不能直接减少库存。需要交货环节确认实际可发数量。</p>
+    </div>
+    <div class="pit-card" style="border-left-color:var(--navy)">
+      <h4>② 发货前有物流过程</h4>
+      <p>客户订 1000 箱，仓库实际只能发 800 箱。PGI 只确认实际发生的数量。</p>
+    </div>
+    <div class="pit-card" style="border-left-color:var(--navy)">
+      <h4>③ 需要库存责任切换</h4>
+      <p>货物从"企业库存"变成"在途/客户资产"，必须有明确的系统时间点记录责任转移。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 六、常见问题 ===== -->
+<div class="sec">
+  <h2><span class="num">六</span>PGI 常见问题与解决</h2>
+
+  <div class="qa-grid">
+    <div class="qa-item">
+      <div class="q">Q1: 交货单做了，为什么库存没减少？</div>
+      <div class="a">因为只创建了交货单，还没执行 PGI。检查 Goods Movement Status 是否仍为 "A"（未过账）。必须通过 VL02N 执行 PGI 才会减少库存。</div>
+    </div>
+    <div class="qa-item">
+      <div class="q">Q2: 为什么 PGI 报错做不了？</div>
+      <div class="a"><b>常见原因 4 种：</b><br>① 批次库存不足 ② 库存地点选错 ③ 过账期间已关闭 ④ QM 检验库存未放行（药企常见：Q 库存不能直接销售）</div>
+    </div>
+    <div class="qa-item">
+      <div class="q">Q3: PGI 错了能取消吗？</div>
+      <div class="a"><b>可以。</b>事务码 VL09（取消发货），产生反向移动类型 <span class="mono">602</span>，库存回来。不要直接改表，保证审计完整性。<br>流程：VL09 → 修改交货 → 重新 PGI</div>
+    </div>
+    <div class="qa-item">
+      <div class="q" style="color:var(--purple)">Q4: 药企 QM 库存如何限制 PGI？</div>
+      <div class="a">启用 QM 后：<b>质量检验库存（Q 库存）→ UD 放行 → 非限制库存 → 才允许 PGI。</b>没有放行则系统自动阻止发货，避免不合格品流向客户。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 七、最佳实践 ===== -->
+<div class="sec">
+  <h2><span class="num">七</span>PGI 最佳实践：不是"所有交货必须 PGI"就完了</h2>
+
+  <div class="bp-grid">
+    <div class="bp-card">
+      <h4>① 明确 PGI 责任人</h4>
+      <p>仓库负责 PGI，不要由销售执行。原则：谁控制实物流，谁确认发货。</p>
+    </div>
+    <div class="bp-card">
+      <h4>② 控制 PGI 前置条件</h4>
+      <p>必须检查：库存是否充足 → 批次是否指定 → 质量是否放行 → 数量是否超过订单。药企尤其必须锁住质量状态。</p>
+    </div>
+    <div class="bp-card">
+      <h4>③ 规范异常处理</h4>
+      <p>错误发货 ≠ 直接改表。标准路径：VL09 取消 PGI → 修改交货单 → 重新 PGI，保证审计追溯完整。</p>
+    </div>
+  </div>
+
+  <h3>药企销售链路（QM + PGI 完整流）</h3>
+  <div class="proc-flow" style="max-width:960px;margin:12px auto">
+    <div class="proc-step"><div class="l">生产完成</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">库存入库</div><div class="c">Q 库存</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step" style="border-color:var(--purple)"><div class="l" style="color:var(--purple)">质量检验</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step" style="border-color:var(--ok)"><div class="l" style="color:var(--ok)">UD 放行</div><div class="c">非限制库存</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">销售交货</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step key"><div class="l">PGI</div><div class="c">库存减少 + 成本</div></div>
+    <div class="proc-arr">→</div>
+    <div class="proc-step"><div class="l">客户</div></div>
+  </div>
+  <div class="banner ok" style="max-width:960px;margin:8px auto 0;font-size:12px">
+    红线：没有 UD 放行 → PGI 被限制。这是药企 GMP 合规的最低要求。
+  </div>
+</div>
+
+<!-- ===== 八、MES架构建议 ===== -->
+<div class="sec">
+  <h2><span class="num">八</span>药企 MES + SAP 架构下的 PGI 定位</h2>
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    你们目前 MES 负责投料、报工、收货，如果未来建设 MES/WMS 发货功能，需要明确：<b style="color:var(--navy)">PGI 应该作为 ERP 最终库存事件，不要让 MES 直接扣库存。</b>
+  </p>
+
+  <div class="arch-flow" style="margin:14px auto;max-width:960px">
+    <div class="arch-box"><div class="l">OMS</div><div class="s">订单管理</div></div>
+    <div class="arch-arr">→</div>
+    <div class="arch-box"><div class="l">销售订单</div><div class="s">SAP SD</div></div>
+    <div class="arch-arr">→</div>
+    <div class="arch-box"><div class="l">交货单</div><div class="s">SAP SD</div></div>
+    <div class="arch-arr">→</div>
+    <div class="arch-box" style="border-color:var(--cyan)"><div class="l" style="color:var(--cyan)">MES/WMS</div><div class="s">执行发货</div></div>
+    <div class="arch-arr">→</div>
+    <div class="arch-box erp"><div class="l">SAP PGI</div><div class="s">库存减少</div></div>
+    <div class="arch-arr">→</div>
+    <div class="arch-box erp"><div class="l">FI</div><div class="s">成本结转</div></div>
+  </div>
+
+  <div class="banner info" style="margin-top:10px;max-width:960px;margin-left:auto;margin-right:auto">
+    核心理由：库存价值、财务凭证、批次追溯最终应由 SAP 控制。MES 可以驱动发货动作，但"企业库存正式减少"这一事件必须由 ERP 的 PGI 来确认。
+  </div>
+
+  <div class="final" style="margin-top:14px">
+    从产品经理角度看：<b>PGI 和你设计的 MES 投料、报工、收货逆向操作理念本质相同——每一个关键业务事件，必须有明确的状态转换 + 财务/库存后果。</b>这是 SAP 产品架构的统一哲学。
+  </div>
+</div>
+
+<!-- ===== 总结 ===== -->
+<div class="sec" style="margin-bottom:0">
+  <h2><span class="num">九</span>一句话总结</h2>
+
+  <div class="final" style="font-size:15px;line-height:1.8">
+    <b>PGI 解决的不是"仓库发货操作"，而是解决企业从客户订单到库存、财务、质量追溯之间的信息断点。</b>它是连接 SD / MM / FI / CO / QM 的关键业务事件节点——当 PGI 发生时，SAP 正式承认这批货已离开企业，库存责任、成本责任、追溯责任同步转移。
+  </div>
+
+  <h3>PGI 一句话（产品经理版）</h3>
+  <table class="tbl" style="margin-top:12px">
+    <thead><tr><th>角色</th><th>一句话理解 PGI</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">业务用户</td><td>仓库发货后在系统里点一个按钮，库存就减少了</td></tr>
+      <tr><td class="hl">财务</td><td>自动触发主营业务成本结转，费用和库存实时同步</td></tr>
+      <tr><td class="hl">质量</td><td>锁定"哪个客户拿到哪个批次"的关键追溯节点</td></tr>
+      <tr><td class="hl" style="color:var(--navy)">产品经理</td><td style="color:var(--navy)">一个"业务事件确认点"：状态转换 + 库存变化 + 财务影响 + 追溯链 = 一个原子事件</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</body>
+</html>
