@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP QM 动态修改规则（DMR）· 知识图</title>
+<link rel="stylesheet" href="../global.css">
+<style>
+:root{
+  --navy:#1E3A5F;--navy-2:#2C4F7C;--line:#E5E7EB;--line-2:#EEF1F7;--bg:#F8FAFC;
+  --ink:#1F2937;--ink-2:#4B5563;--ink-3:#6B7280;--ok:#10B981;--warn:#F59E0B;
+  --err:#EF4444;--info:#3B82F6;--blue-l:#EFF6FF;--green-l:#D1FAE5;
+  --yellow-l:#FEF3C7;--red-l:#FEE2E2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:32px 28px 80px}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:14px;padding:36px 40px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero h1{margin:0 0 8px;font-size:29px;font-weight:700;letter-spacing:.5px}
+.hero .lead{margin:10px 0 0;font-size:14.5px;opacity:.85}
+.hero .core{margin-top:14px;padding:12px 18px;background:rgba(255,255,255,.08);border-left:3px solid #93C5FD;border-radius:6px;font-size:15px}
+.hero .core b{color:#FBBF24}
+.crumbs{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumbs a{color:var(--navy);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+
+/* ===== SECTION ===== */
+.sec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.sec h2{margin:0 0 16px;font-size:19px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px}
+.sec h2 .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--navy);color:#fff;font-size:13px;font-weight:700}
+.sec h3{margin:20px 0 10px;font-size:15.5px;font-weight:600;color:var(--ink);border-left:3px solid var(--navy);padding-left:10px}
+
+/* ===== GRIDS ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* ===== TABLE ===== */
+table.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+table.tbl th{background:var(--navy);color:#fff;font-weight:600;text-align:left;padding:10px 12px;font-size:13px}
+table.tbl td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+table.tbl tbody tr:nth-child(even) td{background:#FAFBFC}
+table.tbl .mono{font-family:"SF Mono","Consolas","Courier New",monospace;font-size:12px;background:#F3F4F6;padding:2px 5px;border-radius:3px;color:var(--navy)}
+table.tbl td.hl{color:var(--navy);font-weight:600}
+
+/* ===== BANNER ===== */
+.banner{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;text-align:center;margin:14px 0}
+.banner.ok{background:var(--green-l);border:1px solid #6EE7B7;color:#065F46}
+.banner.warn{background:var(--yellow-l);border:1px solid #FCD34D;color:#92400E}
+.banner.err{background:var(--red-l);border:1px solid #FCA5A5;color:#991B1B}
+.banner.info{background:var(--blue-l);border:1px solid #BFDBFE;color:#1E40AF}
+
+/* ===== FLOW ===== */
+.flow-h{display:flex;align-items:stretch;gap:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 8px;overflow-x:auto}
+.flow-step{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 6px;text-align:center;margin:0 3px;min-width:0}
+.flow-step .lbl{font-size:12px;font-weight:700;color:var(--navy)}
+.flow-step .code{font-size:11px;color:var(--ink-3);margin-top:2px;font-family:"SF Mono","Consolas",monospace}
+.flow-arrow{display:flex;align-items:center;color:var(--ink-3);font-size:16px;padding:0 1px;flex-shrink:0}
+
+.flow-v{display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;align-items:center}
+.flow-v .step{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;font-size:13px;color:var(--ink-2);text-align:center;min-width:160px}
+.flow-v .step b{color:var(--navy)}
+.flow-v .step.accent{background:var(--blue-l);border-color:#93C5FD;font-weight:600;color:var(--navy)}
+.flow-v .step.ok{background:var(--green-l);border-color:#6EE7B7;font-weight:600;color:#065F46}
+.flow-v .sep{text-align:center;color:var(--ink-3);font-size:16px;line-height:1}
+
+/* ===== ARCH DIAGRAM ===== */
+.arch{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px}
+.arch-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+.arch-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 16px;text-align:center;min-width:120px}
+.arch-box .t{font-size:13px;font-weight:600;color:var(--navy)}
+.arch-box .s{font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.arch-box.accent{background:var(--blue-l);border-color:#93C5FD}
+.arch-arr{color:var(--ink-3);font-size:18px}
+.arch-arrow-d{display:flex;flex-direction:column;align-items:center;color:var(--ink-3);font-size:14px;margin:4px 0}
+
+/* ===== CONCEPT CARD ===== */
+.cc{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px;border-top:4px solid var(--navy)}
+.cc h4{margin:0 0 8px;font-size:14px;font-weight:700;color:var(--navy)}
+.cc p{margin:4px 0;font-size:12.5px;color:var(--ink-2)}
+.cc .dbschema{margin-top:12px;padding:8px;background:#fff;border:1px solid var(--line-2);border-radius:6px;overflow-x:auto}
+.cc .dbschema .db-row{display:flex;gap:8px;margin:3px 0;font-size:11.5px;font-family:"SF Mono","Consolas",monospace}
+.cc .dbschema .db-row .db-name{color:var(--navy);font-weight:700;width:90px;flex-shrink:0}
+.cc .dbschema .db-row .db-desc{color:var(--ink-2)}
+
+/* ===== PHASE CARD ===== */
+.phases{display:flex;gap:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto}
+.phase{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center;margin:0 4px;min-width:140px}
+.phase .ph-num{font-size:22px;font-weight:700;color:var(--navy)}
+.phase .ph-name{font-size:13px;font-weight:600;color:var(--ink);margin:4px 0}
+.phase .ph-detail{font-size:11px;color:var(--ink-3)}
+.phase .ph-time{font-size:11px;color:var(--ok);font-weight:600;margin-top:4px}
+.phase .ph-fail{font-size:11px;color:var(--err);font-weight:600;margin-top:2px}
+.phase-arr{display:flex;align-items:center;color:var(--ink-3);font-size:18px;flex-shrink:0}
+
+/* ===== DMR DB DESIGN ===== */
+.dmr-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:10px 0}
+.dmr-tbl th{background:#2C4F7C;color:#fff;font-weight:600;text-align:left;padding:8px 10px;font-size:12px}
+.dmr-tbl td{padding:7px 10px;border-top:1px solid var(--line);color:var(--ink-2)}
+.dmr-tbl .pk{background:#EFF6FF;color:#1D4ED8;font-weight:600;font-size:11px;padding:1px 5px;border-radius:3px}
+.dmr-tbl tr:nth-child(even) td{background:#FAFBFC}
+
+/* ===== MES TABLE DESIGN ===== */
+.mes-design{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mes-tbl-wrap{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;border-top:3px solid var(--navy)}
+.mes-tbl-wrap h4{margin:0 0 8px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.mes-tbl-wrap table{width:100%;font-size:12px}
+.mes-tbl-wrap table td{padding:4px 6px;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+.mes-tbl-wrap table td:first-child{font-weight:600;color:var(--navy);width:110px}
+
+/* ===== KEY TAKEAWAYS ===== */
+.key-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.key-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;border-left:4px solid var(--navy)}
+.key-item .k-num{font-size:28px;font-weight:800;color:var(--navy);line-height:1;opacity:.2;margin-bottom:-8px}
+.key-item h4{margin:4px 0 6px;font-size:14px;font-weight:700;color:var(--navy)}
+.key-item p{margin:0;font-size:12.5px;color:var(--ink-2)}
+
+/* ===== FINAL ===== */
+.final{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:10px;padding:18px 22px;margin-top:0;font-size:14.5px}
+.final b{color:#FBBF24}
+
+/* ===== TIP BOX ===== */
+.tip-box{background:var(--blue-l);border:1px solid #BFDBFE;border-radius:8px;padding:12px 14px;margin-top:12px;font-size:13px;color:#1E40AF}
+
+/* ===== CODE BLOCK ===== */
+.code-block{background:#1F2937;color:#E5E7EB;padding:14px 18px;border-radius:8px;font-family:"SF Mono","Consolas",monospace;font-size:12.5px;overflow-x:auto;white-space:pre;line-height:1.7}
+
+@media(max-width:980px){
+  .grid-2,.grid-3,.grid-4,.key-grid,.mes-design{grid-template-columns:1fr}
+  .flow-h,.phases{flex-direction:column}
+  .arch-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs"><a href="../index.html">知识库</a> › <a href="index.html">SAP 相关</a> › 动态修改规则 DMR</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>SAP QM 动态修改规则 DMR：质量策略自动化设计</h1>
+  <div class="lead">Dynamic Modification Rule — 根据历史质量表现动态调整检验强度，实现「质量策略自动化」</div>
+  <div class="core">核心理念：<b>质量控制不是固定流程</b>，而是<b>根据历史质量表现动态调整检验强度</b></div>
+</div>
+
+<!-- ===== 一、业务模型 ===== -->
+<div class="sec">
+  <h2><span class="num">一</span>先理解业务模型</h2>
+
+  <h3>典型场景 — 采购检验动态调整</h3>
+  <p style="color:var(--ink-2);font-size:14px;margin:12px 0">
+    以物料 <b style="color:var(--navy)">A疫苗原液</b> + 供应商 <b style="color:var(--navy)">100001</b> 为例：
+  </p>
+
+  <div class="flow-v" style="max-width:400px;margin:0 auto">
+    <div class="step accent"><b>阶段 1：加强检验</b><br>每批全检（新供应商首次供货）</div>
+    <div class="sep">↓ 连续 10 批合格</div>
+    <div class="step"><b>阶段 2：正常检验</b><br>降低抽检频率</div>
+    <div class="sep">↓ 连续 30 批合格</div>
+    <div class="step"><b>阶段 3：减免检验</b><br>跳过检验</div>
+    <div class="sep" style="color:var(--err)">↓ 出现一次不合格</div>
+    <div class="step accent"><b>阶段 1：加强检验</b><br>恢复全检</div>
+  </div>
+
+  <div class="banner info" style="margin-top:16px">
+    系统自动判断：当前供应商 + 当前物料 → 历史质量表现 → 下一次采购是否需要检验？检验等级是多少？
+  </div>
+</div>
+
+<!-- ===== 二、整体架构 ===== -->
+<div class="sec">
+  <h2><span class="num">二</span>整体架构 — SAP QM 动态修改核心对象</h2>
+
+  <div class="arch">
+    <div class="arch-row">
+      <div class="arch-box">
+        <div class="t">采购订单</div>
+        <div class="s">ME21N</div>
+      </div>
+    </div>
+    <div class="arch-arrow-d">↓</div>
+    <div class="arch-row">
+      <div class="arch-box">
+        <div class="t">收货 101</div>
+        <div class="s">MIGO</div>
+      </div>
+    </div>
+    <div class="arch-arrow-d">↓</div>
+    <div class="arch-row">
+      <div class="arch-box accent">
+        <div class="t">创建检验批</div>
+        <div class="s">QALS</div>
+      </div>
+    </div>
+    <div class="arch-arrow-d">↓</div>
+    <div class="arch-row">
+      <div class="arch-box" style="border:2px solid var(--navy)">
+        <div class="t">检查质量等级</div>
+        <div class="s">QAVE</div>
+      </div>
+      <div class="arch-arr">+</div>
+      <div class="arch-box" style="border:2px solid var(--navy)">
+        <div class="t">匹配检验计划</div>
+        <div class="s">Inspection Plan</div>
+      </div>
+    </div>
+    <div class="arch-arrow-d">↓</div>
+    <div class="arch-row">
+      <div class="arch-box accent" style="border:2px solid var(--navy)">
+        <div class="t">动态修改规则</div>
+        <div class="s">DMR / QDQL</div>
+      </div>
+    </div>
+    <div class="arch-arrow-d">↓</div>
+    <div class="arch-row">
+      <div class="arch-box">
+        <div class="t">决定检验方案</div>
+        <div class="s">是否检验 · 频率 · 抽样</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 三、核心对象关系 ===== -->
+<div class="sec">
+  <h2><span class="num">三</span>核心对象关系 — 产品经理必解的数据模型</h2>
+
+  <div class="grid-3">
+    <div class="cc">
+      <h4>检验批 Inspection Lot</h4>
+      <p>每次收货触发的检验事务单元</p>
+      <div class="dbschema">
+        <div class="db-row"><span class="db-name">表：QALS</span><span class="db-desc">Inspection Lot Header</span></div>
+      </div>
+      <table class="dmr-tbl" style="margin-top:8px">
+        <thead><tr><th>字段</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pk">PRUEFLOS</span></td><td>检验批号</td></tr>
+          <tr><td>MATNR</td><td>物料</td></tr>
+          <tr><td>WERK</td><td>工厂</td></tr>
+          <tr><td>LIFNR</td><td>供应商</td></tr>
+          <tr><td>ART</td><td>检验类型</td></tr>
+          <tr><td>STAT35</td><td>检验状态</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cc">
+      <h4>质量等级 Quality Level</h4>
+      <p>记录某对象的<b>历史质量表现</b>，是 DMR 的判断依据</p>
+      <div class="dbschema">
+        <div class="db-row"><span class="db-name">表：QAVE</span><span class="db-desc">Quality Level Header</span></div>
+      </div>
+      <table class="dmr-tbl" style="margin-top:8px">
+        <thead><tr><th>维度</th><th>示例值</th></tr></thead>
+        <tbody>
+          <tr><td>物料</td><td class="hl">A疫苗原液</td></tr>
+          <tr><td>供应商</td><td class="hl">100001</td></tr>
+          <tr><td>已检验批数</td><td>20 批</td></tr>
+          <tr><td>合格批数</td><td style="color:var(--ok)">20 批</td></tr>
+          <tr><td>不合格批数</td><td style="color:var(--err)">0 批</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cc">
+      <h4>动态修改规则 DMR</h4>
+      <p>定义阶段转换规则和触发条件</p>
+      <div class="dbschema">
+        <div class="db-row"><span class="db-name">表：QDQL</span><span class="db-desc">DMR Stage Rules</span></div>
+      </div>
+      <table class="dmr-tbl" style="margin-top:8px">
+        <thead><tr><th>字段</th><th>示例</th></tr></thead>
+        <tbody>
+          <tr><td>DMR 编号</td><td class="hl">DMR001</td></tr>
+          <tr><td>当前阶段</td><td class="hl">10</td></tr>
+          <tr><td>成功数量</td><td>5 批</td></tr>
+          <tr><td>下一阶段</td><td style="color:var(--ok)">20</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="banner info">SAP 设计核心：检验事务（QALS）+ 质量历史（QAVE）+ 规则引擎（QDQL）三者分离</div>
+</div>
+
+<!-- ===== 四、质量等级唯一性设计 ===== -->
+<div class="sec">
+  <h2><span class="num">四</span>质量等级的唯一性设计 — 关键理解点</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    质量等级不是简单的「物料」单一维度，而是基于<b style="color:var(--navy)">多维度组合</b>的唯一键：
+  </p>
+
+  <table class="tbl" style="margin:12px 0">
+    <thead><tr><th>组合维度</th><th>说明</th><th>示例</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">物料 + 供应商</td><td>同一物料不同供应商独立计分</td><td>A疫苗 / 供应商A：100批合格<br>A疫苗 / 供应商B：5批不合格</td></tr>
+      <tr><td class="hl">物料 + 供应商 + 客户</td><td>按客户区分质量要求</td><td>不同客户可能有不同质量标准</td></tr>
+      <tr><td class="hl">物料 + 制造商</td><td>自制 vs 外购区分</td><td>自制批次 vs 外购批次</td></tr>
+      <tr><td class="hl">物料 + 批次</td><td>按批次粒度跟踪</td><td>特定批次的质量历史</td></tr>
+    </tbody>
+  </table>
+
+  <div class="banner ok">
+    同物料，供应商 A（100 批合格）和供应商 B（5 批不合格）的 DMR 质量等级不会混在一起
+  </div>
+</div>
+
+<!-- ===== 五、DMR 配置 ===== -->
+<div class="sec">
+  <h2><span class="num">五</span>DMR 配置：阶段 + 检验点</h2>
+
+  <h3>事务码</h3>
+  <div class="flow-h" style="max-width:600px">
+    <div class="flow-step"><div class="lbl">QDR1</div><div class="code">创建 DMR</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="lbl">QDR2</div><div class="code">修改 DMR</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="lbl">QDR3</div><div class="code">显示 DMR</div></div>
+  </div>
+
+  <h3>阶段定义 — DMR001：采购物料检验</h3>
+  <div class="phases" style="max-width:720px;margin:0 auto">
+    <div class="phase" style="border:2px solid var(--err);border-top:4px solid var(--err)">
+      <div class="ph-num">10</div>
+      <div class="ph-name" style="color:var(--err)">加强检验</div>
+      <div class="ph-detail">全检 / 加严抽检</div>
+      <div class="ph-fail">← 出现不合格降级到此</div>
+    </div>
+    <div class="phase-arr">→</div>
+    <div class="phase" style="border:2px solid var(--warn);border-top:4px solid var(--warn)">
+      <div class="ph-num">20</div>
+      <div class="ph-name" style="color:#92400E">正常检验</div>
+      <div class="ph-detail">标准抽样方案</div>
+      <div class="ph-time">连续 5 批合格</div>
+    </div>
+    <div class="phase-arr">→</div>
+    <div class="phase" style="border:2px solid var(--ok);border-top:4px solid var(--ok)">
+      <div class="ph-num">30</div>
+      <div class="ph-name" style="color:#065F46">减免检验</div>
+      <div class="ph-detail">跳检 / 免检</div>
+      <div class="ph-time">连续 10 批合格</div>
+    </div>
+  </div>
+
+  <div class="banner info" style="margin-top:14px">
+    每个阶段可配置：进入条件（连续合格 N 批）、退出条件（出现不合格 / 超期未检）、对应的抽样方案
+  </div>
+</div>
+
+<!-- ===== 六、数据库设计分析 ===== -->
+<div class="sec">
+  <h2><span class="num">六</span>数据库设计分析 — SAP 如何存储 DMR</h2>
+  <p style="color:var(--ink-2);font-size:14px">SAP 没有把所有对象放在一张表里，而是<b style="color:var(--navy)">配置表 + 运行数据</b>分层设计：</p>
+
+  <div class="grid-4" style="margin-top:14px">
+    <div class="cc" style="text-align:center">
+      <h4 style="text-align:center">QDQL</h4>
+      <p style="text-align:center"><b>DMR 配置表</b></p>
+      <div class="dbschema" style="text-align:left">
+        <div class="db-row"><span class="db-name">DMR 编号</span><span class="db-desc">规则 ID</span></div>
+        <div class="db-row"><span class="db-name">阶段</span><span class="db-desc">10/20/30</span></div>
+        <div class="db-row"><span class="db-name">成功数量</span><span class="db-desc">触发升级的阈值</span></div>
+        <div class="db-row"><span class="db-name">下一阶段</span><span class="db-desc">升级目标</span></div>
+        <div class="db-row"><span class="db-name">检验方案</span><span class="db-desc">各阶段对应的抽样</span></div>
+      </div>
+    </div>
+    <div class="cc" style="text-align:center">
+      <h4 style="text-align:center">QAVE</h4>
+      <p style="text-align:center"><b>质量等级运行数据</b></p>
+      <div class="dbschema" style="text-align:left">
+        <div class="db-row"><span class="db-name">物料</span><span class="db-desc">物料编码</span></div>
+        <div class="db-row"><span class="db-name">供应商</span><span class="db-desc">供应商编码</span></div>
+        <div class="db-row"><span class="db-name">当前等级</span><span class="db-desc">所在阶段</span></div>
+        <div class="db-row"><span class="db-name">合格累计</span><span class="db-desc">连续合格次数</span></div>
+        <div class="db-row"><span class="db-name">最后检验日</span><span class="db-desc">时间戳</span></div>
+      </div>
+    </div>
+    <div class="cc" style="text-align:center">
+      <h4 style="text-align:center">QAMR</h4>
+      <p style="text-align:center"><b>检验结果表</b></p>
+      <div class="dbschema" style="text-align:left">
+        <div class="db-row"><span class="db-name">检验批号</span><span class="db-desc">关联 QALS</span></div>
+        <div class="db-row"><span class="db-name">MIC</span><span class="db-desc">检验特性</span></div>
+        <div class="db-row"><span class="db-name">结果值</span><span class="db-desc">实测数据</span></div>
+        <div class="db-row"><span class="db-name">合格/不合格</span><span class="db-desc">判定</span></div>
+      </div>
+    </div>
+    <div class="cc" style="text-align:center">
+      <h4 style="text-align:center">QAVE / QAMB</h4>
+      <p style="text-align:center"><b>UD 使用决策</b></p>
+      <div class="dbschema" style="text-align:left">
+        <div class="db-row"><span class="db-name">UD 代码</span><span class="db-desc">A / R / S</span></div>
+        <div class="db-row"><span class="db-name">库存移动</span><span class="db-desc">321/350/122</span></div>
+        <div class="db-row"><span class="db-name">决策人</span><span class="db-desc">QA 人员</span></div>
+        <div class="db-row"><span class="db-name">决策日期</span><span class="db-desc">审计追溯</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <b>注意：</b>QAVE 表在 SAP 中既涉及质量等级数据，也涉及 UD 相关数据。S/4 版本部分数据模型有调整，但核心分层理念不变。
+  </div>
+</div>
+
+<!-- ===== 七、运行逻辑 ===== -->
+<div class="sec">
+  <h2><span class="num">七</span>运行逻辑 — DMR 完整生命周期</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    <b style="color:var(--navy)">场景：</b>供应商第一次送货，物料 A疫苗原液
+  </p>
+
+  <div class="flow-v" style="max-width:560px;margin:0 auto">
+    <div class="step accent"><b>Step 1：收货 MIGO 101</b><br>生成检验批 10000001</div>
+    <div class="sep">↓</div>
+    <div class="step"><b>Step 2：系统检查质量等级</b><br>读取 QAVE（物料 + 供应商）→ 无历史记录 → 默认阶段 10（加强检验）</div>
+    <div class="sep">↓</div>
+    <div class="step"><b>Step 3：创建检验规格</b><br>根据 DMR 阶段 10 → 决定：全检 + 标准抽样</div>
+    <div class="sep">↓</div>
+    <div class="step ok"><b>Step 4：QC 检验 + UD</b><br>QA11 执行 UD：合格 → 系统更新 QAVE：当前阶段 + 合格次数 +1</div>
+    <div class="sep">↓</div>
+    <div class="step accent"><b>Step 5：下一批</b><br>系统重新读取 QAVE → 判断：是否符合升级条件？</div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="banner ok">
+      <b>升级逻辑：</b>连续合格 N 批 → 自动提升阶段 → 降低检验强度
+    </div>
+    <div class="banner err">
+      <b>降级逻辑：</b>出现不合格 → 立即降回加强阶段 → 全检模式
+    </div>
+  </div>
+</div>
+
+<!-- ===== 八、药企案例 ===== -->
+<div class="sec">
+  <h2><span class="num">八</span>药企完整案例</h2>
+
+  <div class="grid-2" style="margin-bottom:14px">
+    <div>
+      <p style="font-size:13px;color:var(--ink-2)">
+        <b style="color:var(--navy)">供应商：</b>XX药材公司<br>
+        <b style="color:var(--navy)">物料：</b>中药材原料<br>
+        <b style="color:var(--navy)">DMR：</b>DMR_PHARMA_001
+      </p>
+    </div>
+  </div>
+
+  <div class="phases">
+    <div class="phase" style="border:2px solid var(--err);border-top:4px solid var(--err);min-width:150px">
+      <div class="ph-num" style="color:var(--err)">阶段 1</div>
+      <div class="ph-name" style="color:var(--err)">全检阶段</div>
+      <div class="ph-detail">前 10 批<br>每批全检</div>
+      <div class="ph-fail">← 出现重大不合格<br>立即回退</div>
+    </div>
+    <div class="phase-arr">10批合格 →</div>
+    <div class="phase" style="border:2px solid var(--warn);border-top:4px solid var(--warn);min-width:150px">
+      <div class="ph-num" style="color:#92400E">阶段 2</div>
+      <div class="ph-name" style="color:#92400E">抽检阶段</div>
+      <div class="ph-detail">降低抽检比例<br>按 AQL 标准</div>
+    </div>
+    <div class="phase-arr">50批合格 →</div>
+    <div class="phase" style="border:2px solid var(--ok);border-top:4px solid var(--ok);min-width:150px">
+      <div class="ph-num" style="color:#065F46">阶段 3</div>
+      <div class="ph-name" style="color:#065F46">免检阶段</div>
+      <div class="ph-detail">仅审查 COA<br>跳过全检</div>
+    </div>
+  </div>
+
+  <div class="banner ok" style="margin-top:14px">
+    整个过程中 SAP 自动判断、自动切换，无需人工干预 —— 这就是质量策略自动化
+  </div>
+</div>
+
+<!-- ===== 九、MES 设计建议 ===== -->
+<div class="sec">
+  <h2><span class="num">九</span>MES 如何借鉴 DMR 设计 — 数据库表设计</h2>
+
+  <p style="color:var(--ink-2);font-size:14px">
+    不要设计成一张「检验规则表」，而应该<b style="color:var(--navy)">将规则、质量历史、检验事务拆分为独立对象</b>：
+  </p>
+
+  <div class="mes-design" style="margin-top:14px">
+    <div class="mes-tbl-wrap">
+      <h4>① 动态修改规则主表 Z_QM_DMR</h4>
+      <table>
+        <tbody>
+          <tr><td>规则编号</td><td>DMR001</td></tr>
+          <tr><td>物料</td><td>A疫苗原液</td></tr>
+          <tr><td>供应商</td><td>100001</td></tr>
+          <tr><td>当前阶段</td><td>10 / 20 / 30</td></tr>
+          <tr><td>进入条件</td><td>连续合格 10 批</td></tr>
+          <tr><td>退出条件</td><td>出现 ≥1 次不合格</td></tr>
+          <tr><td>对应抽样方案</td><td>全检 / AQL / 免检</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mes-tbl-wrap">
+      <h4>② 质量等级表 Z_QM_LEVEL</h4>
+      <table>
+        <tbody>
+          <tr><td>物料</td><td>A疫苗原液</td></tr>
+          <tr><td>供应商</td><td>100001</td></tr>
+          <tr><td>当前等级</td><td>20（正常检验）</td></tr>
+          <tr><td>连续合格次数</td><td style="color:var(--ok);font-weight:600">15</td></tr>
+          <tr><td>连续失败次数</td><td style="color:var(--err);font-weight:600">0</td></tr>
+          <tr><td>累计检验批数</td><td>50</td></tr>
+          <tr><td>最后检验日期</td><td>2026-07-24</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mes-tbl-wrap">
+      <h4>③ 检验批表 Z_INSPECTION_LOT</h4>
+      <table>
+        <tbody>
+          <tr><td>检验批号</td><td>10000001</td></tr>
+          <tr><td>物料</td><td>A疫苗原液</td></tr>
+          <tr><td>供应商</td><td>100001</td></tr>
+          <tr><td>检验类型</td><td>采购收货</td></tr>
+          <tr><td>应用阶段</td><td>阶段 2（抽检）</td></tr>
+          <tr><td>状态</td><td>已完成 · UD A</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mes-tbl-wrap">
+      <h4>④ 结果表 Z_INS_RESULT</h4>
+      <table>
+        <tbody>
+          <tr><td>检验批号</td><td>10000001</td></tr>
+          <tr><td>MIC 编码</td><td>Z_CONTENT</td></tr>
+          <tr><td>结果值</td><td>99.5%</td></tr>
+          <tr><td>判定</td><td style="color:var(--ok)">合格</td></tr>
+          <tr><td>检验员</td><td>QA001</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>MES 调用逻辑</h3>
+  <div class="flow-v" style="max-width:500px;margin:0 auto">
+    <div class="step accent"><b>1. 创建检验批</b></div>
+    <div class="sep">↓</div>
+    <div class="step"><b>2. 查询质量等级</b>（Z_QM_LEVEL: 物料 + 供应商）</div>
+    <div class="sep">↓</div>
+    <div class="step"><b>3. 匹配动态规则</b>（Z_QM_DMR: 当前阶段 → 抽样方案）</div>
+    <div class="sep">↓</div>
+    <div class="step"><b>4. 决定检验方案</b>（全检 / 抽检 / 免检）</div>
+    <div class="sep">↓</div>
+    <div class="step"><b>5. 产生检验任务</b>（分配给 QC 人员）</div>
+    <div class="sep">↓</div>
+    <div class="step ok"><b>6. UD + 更新质量等级</b>（Z_QM_LEVEL: 合格 +1 / 不合格 +1）</div>
+  </div>
+
+  <div class="tip-box">
+    <b>未来扩展：</b>结合 MES 已有的设备、人员、物料、批次全生命周期数据，可进一步升级为<b>「质量风险等级引擎」</b>—— 本质就是 SAP DMR 的升级版，纳入更多维度（设备状态、环境参数、人员资质等）作为规则输入。
+  </div>
+</div>
+
+<!-- ===== 十、产品经理 TAKEAWAYS ===== -->
+<div class="sec">
+  <h2><span class="num">十</span>产品经理 TAKEAWAYS — SAP DMR 最值得学习的设计思想</h2>
+
+  <div class="key-grid">
+    <div class="key-item">
+      <div class="k-num">01</div>
+      <h4>配置驱动，非代码驱动</h4>
+      <p>业务规则变更（如 10 批→20 批）只需修改配置参数，无需开发。DMR 的「阶段 + 检验点」本质是一个可配置的状态机。</p>
+    </div>
+    <div class="key-item">
+      <div class="k-num">02</div>
+      <h4>业务对象严格分离</h4>
+      <p>检验事务（Lot）、检验结果（Result）、质量历史（Level）、规则引擎（DMR Rule）各司其职，互不耦合。每层可独立扩展。</p>
+    </div>
+    <div class="key-item">
+      <div class="k-num">03</div>
+      <h4>历史数据驱动未来流程</h4>
+      <p>过去质量表现 → 未来质量策略，这是非常先进的设计。同样适用于供应商评分、采购策略、库存策略、风险控制等场景。</p>
+    </div>
+  </div>
+
+  <div class="banner info" style="margin-top:16px">
+    这套「配置驱动的状态机 + 历史数据驱动的策略切换」思想，不仅适用于 QM，也适用于供应商评分、采购策略、库存策略、风险控制等多个领域
+  </div>
+</div>
+
+<!-- ===== 总结 ===== -->
+<div class="final">
+  <b>总结：</b>SAP QM 动态修改规则（DMR）的核心是<b>「质量等级（QAVE）+ 规则引擎（QDQL）」</b>的组合设计。
+  它通过检验批（QALS）触发、质量等级（QAVE）查询、DMR 规则（QDQL）匹配、结果（QAMR）记录、
+  UD（QAVE/QAMB）闭环的完整链路，实现了<b>质量策略的自动化和动态化</b>。
+  MES 设计中应借鉴其<b>「配置驱动 + 对象分离 + 历史驱动未来」</b>的架构思想，
+  构建独立的质量等级表和动态规则引擎，而非把所有逻辑耦合在一张表里。
+</div>
+
+</div>
+</body>
+</html>
