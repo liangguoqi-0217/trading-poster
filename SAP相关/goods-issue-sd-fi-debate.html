@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP 发出商品：SD与FI的争论与和解 · 知识图</title>
+<link rel="stylesheet" href="../global.css">
+<style>
+:root{
+  --navy:#1E3A5F;--navy-2:#2C4F7C;--line:#E5E7EB;--line-2:#EEF1F7;--bg:#F8FAFC;
+  --ink:#1F2937;--ink-2:#4B5563;--ink-3:#6B7280;--ok:#10B981;--warn:#F59E0B;
+  --err:#EF4444;--info:#3B82F6;--blue-l:#EFF6FF;--green-l:#D1FAE5;
+  --yellow-l:#FEF3C7;--red-l:#FEE2E2;--purple:#7C3AED;--cyan:#0891B2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:32px 28px 80px}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:14px;padding:36px 40px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero h1{margin:0 0 8px;font-size:29px;font-weight:700;letter-spacing:.5px}
+.hero .lead{margin:10px 0 0;font-size:14.5px;opacity:.85}
+.hero .core{margin-top:14px;padding:12px 18px;background:rgba(255,255,255,.08);border-left:3px solid #93C5FD;border-radius:6px;font-size:15px}
+.hero .core b{color:#FBBF24}
+.crumbs{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumbs a{color:var(--navy);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+
+/* ===== SECTION ===== */
+.sec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.sec h2{margin:0 0 16px;font-size:19px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px}
+.sec h2 .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--navy);color:#fff;font-size:13px;font-weight:700}
+.sec h3{margin:20px 0 10px;font-size:15.5px;font-weight:600;color:var(--ink);border-left:3px solid var(--navy);padding-left:10px}
+
+/* ===== GRIDS ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ===== TABLE ===== */
+table.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+table.tbl th{background:var(--navy);color:#fff;font-weight:600;text-align:left;padding:10px 12px;font-size:13px}
+table.tbl td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+table.tbl tbody tr:nth-child(even) td{background:#FAFBFC}
+table.tbl .mono{font-family:"SF Mono","Consolas","Courier New",monospace;font-size:12px;background:#F3F4F6;padding:2px 5px;border-radius:3px;color:var(--navy)}
+table.tbl td.hl{color:var(--navy);font-weight:600}
+table.tbl td.role{font-weight:600;font-size:12px}
+table.tbl td.role.sd{color:var(--info)}
+table.tbl td.role.wh{color:var(--warn)}
+table.tbl td.role.fi{color:var(--ok)}
+
+/* ===== BANNER ===== */
+.banner{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;text-align:center;margin:14px 0}
+.banner.ok{background:var(--green-l);border:1px solid #6EE7B7;color:#065F46}
+.banner.err{background:var(--red-l);border:1px solid #FCA5A5;color:#991B1B}
+.banner.info{background:var(--blue-l);border:1px solid #BFDBFE;color:#1E40AF}
+
+/* ===== FLOW V ===== */
+.flow-v{display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;align-items:center}
+.flow-v .step{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;font-size:13px;color:var(--ink-2);text-align:center;min-width:200px}
+.flow-v .step b{color:var(--navy)}
+.flow-v .step.accent{background:var(--blue-l);border-color:#93C5FD;font-weight:600;color:var(--navy)}
+.flow-v .step.key{background:#1E3A5F;color:#fff;font-weight:700;font-size:14px;border-color:#1E3A5F}
+.flow-v .step.goods-out{background:#FEF3C7;border:2px solid #F59E0B;color:#92400E;font-weight:600}
+.flow-v .step.rev{background:var(--green-l);border:2px solid #6EE7B7;color:#065F46;font-weight:600}
+.flow-v .sep{text-align:center;color:var(--ink-3);font-size:16px;line-height:1}
+
+/* ===== BEFORE/AFTER ===== */
+.before-after{display:grid;grid-template-columns:1fr 50px 1fr;gap:12px;align-items:stretch}
+.ba-box{padding:14px;border-radius:10px}
+.ba-box.before{background:var(--red-l);border:1px solid #FCA5A5}
+.ba-box.after{background:var(--green-l);border:1px solid #6EE7B7}
+.ba-box h4{margin:0 0 8px;font-size:14px;font-weight:700;text-align:center}
+.ba-box.before h4{color:#991B1B}
+.ba-box.after h4{color:#065F46}
+.ba-box ul{margin:4px 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}
+.ba-box ul li{margin:2px 0}
+.ba-mid{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--navy)}
+
+/* ===== VS / DEBATE ===== */
+.debate-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:12px;align-items:stretch;margin:14px 0}
+.debate-box{padding:16px;border-radius:10px;position:relative}
+.debate-box.sd{background:var(--blue-l);border:2px solid #93C5FD}
+.debate-box.fi{background:var(--yellow-l);border:2px solid #FCD34D}
+.debate-box h4{margin:0 0 8px;font-size:15px;font-weight:700;text-align:center}
+.debate-box.sd h4{color:#1E40AF}
+.debate-box.fi h4{color:#92400E}
+.debate-box .quote{font-size:13px;font-style:italic;color:var(--ink-2);margin:6px 0;text-align:center}
+.debate-box .reason{font-size:12px;color:var(--ink-2)}
+.debate-box .reason li{margin:3px 0}
+.debate-mid{display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:var(--err)}
+
+/* ===== JOURNAL ENTRY ===== */
+.je-box{background:#1F2937;color:#fff;border-radius:10px;padding:16px;margin:10px 0;font-family:"SF Mono","Consolas","Courier New",monospace;font-size:13px;line-height:1.9}
+.je-box .je-title{color:#93C5FD;font-weight:600;font-size:12px;margin-bottom:6px;text-transform:uppercase}
+.je-box .dr{color:#10B981}
+.je-box .cr{color:#F59E0B}
+.je-box .amt{color:#E5E7EB}
+
+/* ===== PROC FLOW ===== */
+.proc-flow{display:flex;align-items:center;gap:6px;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;flex-wrap:wrap;justify-content:center}
+.proc-step{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;text-align:center;min-width:70px}
+.proc-step .l{font-size:12px;font-weight:600;color:var(--navy)}
+.proc-step .c{font-size:10px;color:var(--ink-3);font-family:"SF Mono","Consolas",monospace}
+.proc-step.key{background:#1E3A5F;color:#fff;border-color:#1E3A5F}
+.proc-step.key .l{color:#FBBF24}
+.proc-step.key .c{color:rgba(255,255,255,.7)}
+.proc-step.alt{background:var(--yellow-l);border-color:#FCD34D}
+.proc-step.alt .l{color:#92400E}
+.proc-arr{color:var(--ink-3);font-size:14px}
+
+/* ===== DEPT PERSPECTIVE ===== */
+.persp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.persp-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;border-top:4px solid var(--navy);position:relative;overflow:hidden}
+.persp-card .persp-icon{font-size:28px;position:absolute;top:6px;right:10px;opacity:.07}
+.persp-card h4{margin:0 0 8px;font-size:14px;font-weight:700;color:var(--navy)}
+.persp-card .view{font-size:11px;color:var(--ink-3);margin-bottom:6px}
+.persp-card ul{margin:4px 0;padding-left:16px;font-size:12px;color:var(--ink-2)}
+.persp-card ul li{margin:2px 0}
+
+/* ===== CONTRAST ===== */
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+.contrast-box{padding:14px;border-radius:10px}
+.contrast-box.standard{background:var(--bg);border:1px solid var(--line)}
+.contrast-box.special{background:var(--yellow-l);border:2px solid #FCD34D}
+.contrast-box h4{margin:0 0 8px;font-size:14px;font-weight:700;text-align:center}
+.contrast-box.special h4{color:#92400E}
+
+/* ===== SCENARIO ===== */
+.scene-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.scene-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;border-left:4px solid var(--navy)}
+.scene-card h4{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--navy)}
+.scene-card .tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;background:var(--blue-l);color:var(--navy);font-weight:600;margin-bottom:6px}
+.scene-card p{margin:4px 0;font-size:12.5px;color:var(--ink-2)}
+
+/* ===== RACI ===== */
+table.raci{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:10px 0}
+table.raci th{background:var(--navy-2);color:#fff;font-weight:600;text-align:center;padding:8px 10px;font-size:12px}
+table.raci td{padding:7px 10px;border-top:1px solid var(--line);text-align:center;color:var(--ink-2)}
+table.raci td:first-child{text-align:left;font-weight:600;color:var(--navy)}
+table.raci td.R{background:var(--blue-l);color:#1E40AF;font-weight:700}
+table.raci td.A{background:var(--yellow-l);color:#92400E;font-weight:700}
+table.raci td.C{color:var(--ink-3)}
+table.raci td.I{color:var(--ink-3)}
+table.raci tr:nth-child(even) td.R{background:#DBEAFA}
+table.raci tr:nth-child(even) td.A{background:#FDE9B5}
+
+/* ===== FINAL ===== */
+.final{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:10px;padding:18px 22px;margin-top:0;font-size:14.5px}
+.final b{color:#FBBF24}
+
+/* ===== ARCH INSIGHT ===== */
+.insight-box{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px}
+.insight-box .tagline{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.insight-box .body{font-size:13px;color:var(--ink-2)}
+
+/* ===== DISPUTE LIST ===== */
+.disp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.disp-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;border-left:4px solid var(--err)}
+.disp-card h4{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--err)}
+.disp-card .q{font-size:12px;color:var(--ink-3);margin-bottom:4px;font-style:italic}
+.disp-card .a{font-size:12px;color:var(--navy);font-weight:600}
+
+/* ===== DECOUPLE DIAGRAM ===== */
+.decouple{display:flex;flex-direction:column;align-items:center;padding:16px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+.decouple .layer{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 20px;text-align:center;margin:4px 0}
+.decouple .layer .lt{font-size:13px;font-weight:700;color:var(--navy)}
+.decouple .layer .ls{font-size:11px;color:var(--ink-3)}
+.decouple .layer.logistics{border-color:var(--info);background:var(--blue-l)}
+.decouple .layer.logistics .lt{color:#1E40AF}
+.decouple .layer.account{border-color:var(--warn);background:var(--yellow-l)}
+.decouple .layer.account .lt{color:#92400E}
+.decouple .layer.revenue{border-color:var(--ok);background:var(--green-l)}
+.decouple .layer.revenue .lt{color:#065F46}
+.decouple .connect{color:var(--ink-3);font-size:20px;line-height:1}
+
+@media(max-width:980px){
+  .grid-2,.grid-3,.persp-grid,.scene-grid,.disp-grid{grid-template-columns:1fr}
+  .before-after,.contrast{grid-template-columns:1fr}
+  .ba-mid{display:none}
+  .debate-grid{grid-template-columns:1fr}
+  .debate-mid{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs"><a href="../index.html">知识库</a> › <a href="index.html">SAP 相关</a> › 发出商品 SD×FI</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>SAP 发出商品：SD 与 FI 的争论与和解</h1>
+  <div class="lead">货已经给客户了，但能不能确认收入？SD 看物流、FI 看会计准则、仓库看实物——三个部门看的不是同一个问题</div>
+  <div class="core">核心洞察：<b>ERP 最难的地方不是单据，而是"业务事件和财务事件如何解耦"。</b>PGI 解决物流真实性，发出商品解决价值确认延迟——两者不是冲突，是分层设计。</div>
+</div>
+
+<!-- ===== 一、什么叫"发出商品" ===== -->
+<div class="sec">
+  <h2><span class="num">一</span>什么叫"发出商品"？</h2>
+
+  <h3>普通销售 vs 发出商品：两条完全不同的财务路径</h3>
+  <div class="contrast">
+    <div class="contrast-box standard">
+      <h4>普通销售：PGI → 直接进成本</h4>
+      <div class="proc-flow" style="max-width:480px;margin:8px auto">
+        <div class="proc-step"><div class="l">销售订单</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">交货</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step key"><div class="l">PGI</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">开票</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--green-l);border-color:#6EE7B7"><div class="l" style="color:#065F46">收入确认</div></div>
+      </div>
+      <div class="je-box" style="margin-top:10px">
+        <div class="je-title">PGI 时凭证</div>
+        <span class="dr">借：主营业务成本</span>　<span class="amt">5,000</span><br>
+        <span class="cr">&emsp;&emsp;贷：库存商品</span>　<span class="amt">5,000</span>
+      </div>
+    </div>
+    <div class="contrast-box special">
+      <h4>发出商品：PGI → 先进"发出商品"科目</h4>
+      <div class="proc-flow" style="max-width:540px;margin:8px auto">
+        <div class="proc-step"><div class="l">销售订单</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">交货</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step key"><div class="l">PGI</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step alt"><div class="l">发出商品</div><div class="c">特殊科目</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">客户确认</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--green-l);border-color:#6EE7B7"><div class="l" style="color:#065F46">收入确认</div></div>
+      </div>
+      <div class="je-box" style="margin-top:10px">
+        <div class="je-title">PGI 时凭证</div>
+        <span class="dr">借：发出商品</span>　<span class="amt">5,000</span><br>
+        <span class="cr">&emsp;&emsp;贷：库存商品</span>　<span class="amt">5,000</span><br><br>
+        <div class="je-title">客户确认后</div>
+        <span class="dr">借：主营业务成本</span>　<span class="amt">5,000</span><br>
+        <span class="cr">&emsp;&emsp;贷：发出商品</span>　<span class="amt">5,000</span><br>
+        <span class="dr">借：应收账款</span>　<span class="amt">10,000</span><br>
+        <span class="cr">&emsp;&emsp;贷：主营业务收入</span>　<span class="amt">10,000</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>触发发出商品的典型业务场景</h3>
+  <div class="scene-grid">
+    <div class="scene-card">
+      <h4>寄售 Consignment</h4>
+      <div class="tag">药企最常见</div>
+      <p>药品发到医院/经销商库房，客户实际使用/销售后才结算。货物已离厂，但控制权未转移。</p>
+    </div>
+    <div class="scene-card" style="border-left-color:var(--warn)">
+      <h4>客户验收确认</h4>
+      <div class="tag">设备/工程类</div>
+      <p>客户收货后需要质量验收、安装调试通过后才确认收入。未验收 = 不确认。</p>
+    </div>
+    <div class="scene-card" style="border-left-color:var(--ok)">
+      <h4>试用 / 委托代销</h4>
+      <div class="tag">市场推广期</div>
+      <p>免费试用一段时间再决定是否购买，或委托第三方代销，售出才结算。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 二、SD vs FI 核心争论 ===== -->
+<div class="sec">
+  <h2><span class="num">二</span>SD 和 FI 的核心争论：PGI 后到底算不算销售完成？</h2>
+
+  <div class="debate-grid">
+    <div class="debate-box sd">
+      <h4>SD 观点</h4>
+      <div class="quote">"货已经给客户了，为什么不 PGI？"</div>
+      <ul class="reason">
+        <li>仓库已经发货，货不在企业手里</li>
+        <li>客户已经收货、占有货物</li>
+        <li>不 PGI 导致库存不准（系统有货、实物没了）</li>
+        <li>影响 ATP / MRP / 盘点 / 销售绩效</li>
+      </ul>
+      <div style="font-size:12px;color:#1E40AF;font-weight:600;margin-top:8px">关注：物流真实状态</div>
+    </div>
+    <div class="debate-mid">VS</div>
+    <div class="debate-box fi">
+      <h4>FI 观点</h4>
+      <div class="quote">"不能这么早确认收入。"</div>
+      <ul class="reason">
+        <li>会计准则要求：控制权转移、风险转移、客户接受</li>
+        <li>客户可能拒收、退货、未验收</li>
+        <li>过早确认收入 → 审计风险、利润虚增</li>
+        <li>税务时点也需要匹配</li>
+      </ul>
+      <div style="font-size:12px;color:#92400E;font-weight:600;margin-top:8px">关注：价值确认合规</div>
+    </div>
+  </div>
+
+  <div class="banner info" style="margin-top:12px">
+    SD："不 PGI，库存不准。" &nbsp;&nbsp;← 矛盾 →&nbsp;&nbsp; FI："PGI 后收入成本处理不符合财务要求。"<br>
+    问题的本质：<b>物流事件</b>和<b>财务事件</b>时间点不同，需要解耦。
+  </div>
+</div>
+
+<!-- ===== 三、SAP 怎么解决 ===== -->
+<div class="sec">
+  <h2><span class="num">三</span>SAP 的解决思路：物流与财务解耦</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    SAP 设计思想：<b style="color:var(--navy)">PGI ≠ 一定收入确认。</b>把物流事件和财务确认拆开为两个独立步骤。
+  </p>
+
+  <h3>核心方案：PGI + 发出商品科目（最常见）</h3>
+  <div class="flow-v" style="max-width:520px;margin:14px auto">
+    <div class="step"><b>①</b> 创建销售订单 &amp; 交货单</div>
+    <div class="sep">↓</div>
+    <div class="step key"><b>② PGI 过账发货</b></div>
+    <div class="sep">↓</div>
+    <div class="step accent">③ <b>物流：</b>库存减少（实物已离开企业）</div>
+    <div class="sep">↓</div>
+    <div class="step goods-out"><b>④ 财务：</b>借 发出商品 / 贷 库存商品<br><span style="font-size:11px;font-weight:400">↑ 不是"主营业务成本"，而是"发出商品"</span></div>
+    <div class="sep">↓</div>
+    <div class="step">⑤ 客户确认销售 / 验收 / 消耗</div>
+    <div class="sep">↓</div>
+    <div class="step rev"><b>⑥ 财务确认：</b>借 主营业务成本 / 贷 发出商品<br>同时：借 应收账款 / 贷 主营业务收入</div>
+  </div>
+
+  <div class="grid-2" style="margin-top:14px">
+    <div class="insight-box">
+      <div class="tagline">SD 获得什么？</div>
+      <div class="body">物流动作可以先发生，库存实时减少，ATP 和 MRP 准确，交货状态可见。不用等财务确认就能反映真实库存。</div>
+    </div>
+    <div class="insight-box">
+      <div class="tagline">FI 获得什么？</div>
+      <div class="body">收入确认时机与会计准则对齐，发出商品仍算资产（不在库存但在财务报表中），月末无需人工调整。审计轨迹清晰。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 四、各部门视角 ===== -->
+<div class="sec">
+  <h2><span class="num">四</span>四个部门在同一件事上看到的是什么？</h2>
+
+  <div class="persp-grid">
+    <div class="persp-card">
+      <div class="persp-icon">SD</div>
+      <h4>SD 销售</h4>
+      <div class="view">看到的：货物流</div>
+      <ul>
+        <li>货已经给客户了 → 系统应该反映</li>
+        <li>不 PGI → 库存虚高 → 可能超卖</li>
+        <li>订单状态不透明 → 销售绩效难统计</li>
+      </ul>
+    </div>
+    <div class="persp-card" style="border-top-color:var(--ok)">
+      <div class="persp-icon">FI</div>
+      <h4>FI 财务</h4>
+      <div class="view">看到的：价值流</div>
+      <ul>
+        <li>收入确认必须满足准则条件</li>
+        <li>简单 PGI → 收入提前确认 → 审计风险</li>
+        <li>月末大量调整 → 财务部门崩溃</li>
+      </ul>
+    </div>
+    <div class="persp-card" style="border-top-color:var(--warn)">
+      <div class="persp-icon">WH</div>
+      <h4>仓库/物流</h4>
+      <div class="view">看到的：实物在哪</div>
+      <ul>
+        <li>系统库存 1000，实物 800 → 每次盘点都打架</li>
+        <li>不知道哪些货在客户那里</li>
+        <li>SAP 通过库存状态区分（非限制 / 发出商品 / 客户库存）</li>
+      </ul>
+    </div>
+    <div class="persp-card" style="border-top-color:var(--purple)">
+      <div class="persp-icon">QM</div>
+      <h4>QM 质量</h4>
+      <div class="view">看到：追溯责任</div>
+      <ul>
+        <li>药企：批次召回责任不因发货而消失</li>
+        <li>必须知道：哪个批次 → 哪个客户 → 多少数量 → 什么时间</li>
+        <li>PGI + 发货凭证 = 完整批次追溯链</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 五、三大争议点 ===== -->
+<div class="sec">
+  <h2><span class="num">五</span>最容易争论的三个业务点</h2>
+
+  <div class="disp-grid">
+    <div class="disp-card">
+      <h4>争议 ① PGI 时间点</h4>
+      <div class="q">SD："装车就该 PGI" / FI："客户验收才算"</div>
+      <div class="a">最佳实践：根据贸易模式定义。标准销售 = 装车 PGI；寄售/验收 = 装车 PGI 但财务进发出商品。</div>
+    </div>
+    <div class="disp-card" style="border-left-color:var(--warn)">
+      <h4>争议 ② 发出商品算库存吗？</h4>
+      <div class="q">SD："货没了，不算" / FI："资产还存在"</div>
+      <div class="a">SAP 定位：不是普通库存，而是特殊库存/财务科目。财务报表算资产，但不出现在可用库存中。</div>
+    </div>
+    <div class="disp-card" style="border-left-color:var(--info)">
+      <h4>争议 ③ 谁负责确认？</h4>
+      <div class="q">销售？仓库？财务？三方都觉得不是自己的事</div>
+      <div class="a">必须定义 RACI，明确每个动作的责任人，避免月末互相甩锅。</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:16px">建议的 RACI 矩阵</h3>
+  <table class="raci" style="max-width:700px;margin:10px auto">
+    <thead><tr><th>动作</th><th>销售 SD</th><th>仓库</th><th>财务 FI</th><th>质量 QM</th></tr></thead>
+    <tbody>
+      <tr><td>创建交货单</td><td class="R">R</td><td class="I">I</td><td></td><td></td></tr>
+      <tr><td>拣配</td><td class="I">I</td><td class="R">R</td><td></td><td></td></tr>
+      <tr><td>PGI 过账</td><td class="I">I</td><td class="R">R</td><td class="I">I</td><td></td></tr>
+      <tr><td>收入确认时机判断</td><td class="C">C</td><td></td><td class="A">A</td><td></td></tr>
+      <tr><td>发出商品→成本结转</td><td></td><td></td><td class="R">R</td><td></td></tr>
+      <tr><td>批次追溯完整性</td><td class="I">I</td><td class="C">C</td><td class="I">I</td><td class="A">A</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">
+    R = 执行 / A = 审批 / C = 咨询 / I = 知悉
+  </p>
+</div>
+
+<!-- ===== 六、药企三个典型场景 ===== -->
+<div class="sec">
+  <h2><span class="num">六</span>结合药企：最容易遇到的三个场景</h2>
+
+  <div class="scene-grid">
+    <div class="scene-card">
+      <h4>场景 ① 商业配送</h4>
+      <div class="tag">最常见</div>
+      <p>生产厂家 → 商业公司 → 医院。商业公司先收货，但医院实际销售后才结算。需要发出商品管理：货已到经销商，但收入确认延迟到终端消耗。</p>
+    </div>
+    <div class="scene-card" style="border-left-color:var(--warn)">
+      <h4>场景 ② 寄售 Consignment</h4>
+      <div class="tag">SAP 标准功能</div>
+      <p>药品放到医院库房，医院使用后结算消耗。SAP 寄售流程：寄售补货 → 客户寄售库存 → 消耗过账 → 开票。全程不需要"发出商品"科目但逻辑一致。</p>
+    </div>
+    <div class="scene-card" style="border-left-color:var(--info)">
+      <h4>场景 ③ 客户质量验收</h4>
+      <div class="tag">高价值药品</div>
+      <p>客户收货后需质量确认或检验合格后才接受。未验收期间货物虽离开企业，但 GMP 批次追溯责任仍存在，且收入不能确认。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 七、架构总结 ===== -->
+<div class="sec">
+  <h2><span class="num">七</span>架构视角：物流事件与财务事件如何解耦？</h2>
+
+  <div class="decouple" style="max-width:560px;margin:14px auto">
+    <div class="layer logistics">
+      <div class="lt">物流事件层（SD 视角）</div>
+      <div class="ls">PGI → 货离开企业 → 库存减少 → 批次记录</div>
+    </div>
+    <div class="connect">↓ 时间差</div>
+    <div class="layer account">
+      <div class="lt">财务判断层（FI 视角）</div>
+      <div class="ls">判断：立即进成本？还是先进"发出商品"？</div>
+    </div>
+    <div class="connect">↓ 条件满足</div>
+    <div class="layer revenue">
+      <div class="lt">收入确认层（准则要求）</div>
+      <div class="ls">控制权转移 + 风险转移 → 确认收入 &amp; 成本</div>
+    </div>
+  </div>
+
+  <div class="banner info" style="margin-top:14px">
+    SAP 中的 PGI、GR（收货）、UD（质量放行）、TECO（技术完成）这些节点，本质都是在定义：<b>"什么时候系统承认某件业务事实发生？"</b>SD 和 FI 的争论，实际是在争论企业经营规则，而不是 SAP 操作问题。
+  </div>
+
+  <div class="grid-2" style="margin-top:14px">
+    <div class="insight-box">
+      <div class="tagline">产品经理视角</div>
+      <div class="body">每个关键业务事件必须有：<b>状态转换</b>（库存从"企业"到"发出"）+ <b>财务后果</b>（进哪个科目）+ <b>责任归属</b>（谁确认）。这三个维度缺一不可。</div>
+    </div>
+    <div class="insight-box">
+      <div class="tagline">IT 架构视角</div>
+      <div class="body">不要让 MES/WMS 替代 ERP 做库存确认和财务判断。MES 驱动物流动作，SAP PGI 作为最终状态确认点——层次清晰、责任明确、审计可追溯。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 总结 ===== -->
+<div class="sec" style="margin-bottom:0">
+  <h2><span class="num">八</span>一句话总结</h2>
+
+  <div class="final" style="font-size:15px;line-height:1.8">
+    <b>SD 和 FI 争论的不是"要不要 PGI"，而是"PGI 之后走哪条财务路径"。</b>SD 看物流——货离厂就该反映；FI 看准则——收入确认必须合规。SAP 的答案是分层解耦：<b>PGI 照做（满足物流真实），但财务科目用"发出商品"（满足会计审慎）</b>——不是冲突，是两层设计。
+  </div>
+
+  <h3 style="margin-top:18px">三种视角一句话</h3>
+  <table class="tbl">
+    <thead><tr><th>角色</th><th>核心关注</th><th>PGI + 发出商品 如何满足？</th></tr></thead>
+    <tbody>
+      <tr><td class="role sd">SD 销售</td><td>库存必须真实反映实物状态</td><td>PGI 立即减少库存，MRP / ATP 准确，不阻塞物流</td></tr>
+      <tr><td class="role fi">FI 财务</td><td>收入确认必须符合会计准则</td><td>PGI 可不直接进成本，先进"发出商品"，条件满足后再结转</td></tr>
+      <tr><td class="role wh">仓库/物流</td><td>货在哪里必须清楚</td><td>库存状态区分：非限制库 / 发出商品 / 客户寄售库存，各状态可见</td></tr>
+      <tr><td class="hl">IT 负责人</td><td>系统架构不能耦合</td><td>MES/WMS 驱动实物 → SAP PGI 确认状态 → FI 做财务判断 → 三层不耦合</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</body>
+</html>
