@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP PM 对财务的核心价值 · 知识图</title>
+<link rel="stylesheet" href="../global.css">
+<style>
+:root{
+  --navy:#1E3A5F;--navy-2:#2C4F7C;--line:#E5E7EB;--line-2:#EEF1F7;--bg:#F8FAFC;
+  --ink:#1F2937;--ink-2:#4B5563;--ink-3:#6B7280;--ok:#10B981;--warn:#F59E0B;
+  --err:#EF4444;--info:#3B82F6;--blue-l:#EFF6FF;--green-l:#D1FAE5;
+  --yellow-l:#FEF3C7;--red-l:#FEE2E2;--purple:#7C3AED;--cyan:#0891B2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:32px 28px 80px}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:14px;padding:36px 40px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero h1{margin:0 0 8px;font-size:29px;font-weight:700;letter-spacing:.5px}
+.hero .lead{margin:10px 0 0;font-size:14.5px;opacity:.85}
+.hero .core{margin-top:14px;padding:12px 18px;background:rgba(255,255,255,.08);border-left:3px solid #93C5FD;border-radius:6px;font-size:15px}
+.hero .core b{color:#FBBF24}
+.crumbs{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+.crumbs a{color:var(--navy);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+
+/* ===== SECTION ===== */
+.sec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.sec h2{margin:0 0 16px;font-size:19px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px}
+.sec h2 .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--navy);color:#fff;font-size:13px;font-weight:700}
+.sec h3{margin:20px 0 10px;font-size:15.5px;font-weight:600;color:var(--ink);border-left:3px solid var(--navy);padding-left:10px}
+
+/* ===== GRIDS ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+
+/* ===== TABLE ===== */
+table.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+table.tbl th{background:var(--navy);color:#fff;font-weight:600;text-align:left;padding:10px 12px;font-size:13px}
+table.tbl td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+table.tbl tbody tr:nth-child(even) td{background:#FAFBFC}
+table.tbl .mono{font-family:"SF Mono","Consolas","Courier New",monospace;font-size:12px;background:#F3F4F6;padding:2px 5px;border-radius:3px;color:var(--navy)}
+table.tbl td.hl{color:var(--navy);font-weight:600}
+table.tbl td.yes{color:var(--ok);font-weight:600;text-align:center}
+table.tbl td.no{color:var(--err);font-weight:600;text-align:center}
+
+/* ===== BANNER ===== */
+.banner{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;text-align:center;margin:14px 0}
+.banner.ok{background:var(--green-l);border:1px solid #6EE7B7;color:#065F46}
+.banner.warn{background:var(--yellow-l);border:1px solid #FCD34D;color:#92400E}
+.banner.err{background:var(--red-l);border:1px solid #FCA5A5;color:#991B1B}
+.banner.info{background:var(--blue-l);border:1px solid #BFDBFE;color:#1E40AF}
+
+/* ===== FLOW V (vertical) ===== */
+.flow-v{display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;align-items:center}
+.flow-v .step{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;font-size:13px;color:var(--ink-2);text-align:center;min-width:200px}
+.flow-v .step b{color:var(--navy)}
+.flow-v .step.accent{background:var(--blue-l);border-color:#93C5FD;font-weight:600;color:var(--navy)}
+.flow-v .sep{text-align:center;color:var(--ink-3);font-size:16px;line-height:1}
+
+/* ===== FLOW H (horizontal) ===== */
+.flow-h{display:flex;align-items:stretch;gap:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 8px;overflow-x:auto}
+.flow-step{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 6px;text-align:center;margin:0 3px;min-width:0}
+.flow-step .lbl{font-size:12px;font-weight:700;color:var(--navy)}
+.flow-step .code{font-size:11px;color:var(--ink-3);margin-top:2px;font-family:"SF Mono","Consolas",monospace}
+.flow-arrow{display:flex;align-items:center;color:var(--ink-3);font-size:16px;padding:0 1px;flex-shrink:0}
+
+/* ===== BEFORE/AFTER ===== */
+.before-after{display:grid;grid-template-columns:1fr 50px 1fr;gap:12px;align-items:stretch}
+.ba-box{padding:14px;border-radius:10px}
+.ba-box.before{background:var(--red-l);border:1px solid #FCA5A5}
+.ba-box.after{background:var(--green-l);border:1px solid #6EE7B7}
+.ba-box h4{margin:0 0 8px;font-size:14px;font-weight:700;text-align:center}
+.ba-box.before h4{color:#991B1B}
+.ba-box.after h4{color:#065F46}
+.ba-box ul{margin:4px 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}
+.ba-box ul li{margin:2px 0}
+.ba-mid{display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--navy)}
+
+/* ===== COST BREAKDOWN ===== */
+.cost-box{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0}
+.cost-box h4{margin:0 0 10px;font-size:14px;font-weight:600;color:var(--navy)}
+.cost-box .cost-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line-2);font-size:13px;color:var(--ink-2)}
+.cost-box .cost-row:last-child{border-bottom:none}
+.cost-box .cost-total{font-weight:700;color:var(--navy);font-size:14px}
+
+/* ===== IMPROVEMENT CARD ===== */
+.imp-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;border-top:4px solid var(--navy);position:relative}
+.imp-card .imp-num{font-size:24px;font-weight:800;color:var(--navy);opacity:.12;position:absolute;top:8px;right:12px;line-height:1}
+.imp-card h4{margin:0 0 8px;font-size:14px;font-weight:700;color:var(--navy)}
+.imp-card p{margin:4px 0;font-size:12.5px;color:var(--ink-2)}
+.imp-card .highlight{font-size:12px;color:var(--ok);font-weight:600;margin-top:6px}
+
+/* ===== STAR RATING ===== */
+.stars{display:flex;gap:2px;font-size:16px}
+.stars .s{color:var(--warn)}
+.stars .e{color:var(--line)}
+
+/* ===== BEFORE TABLE COMPARE ===== */
+.how-table{margin:10px 0}
+.how-table .hdr-bad{background:var(--red-l);border:1px solid #FCA5A5;border-radius:8px 8px 0 0;padding:8px 12px;font-weight:700;color:#991B1B;font-size:13px;text-align:center}
+.how-table .hdr-good{background:var(--green-l);border:1px solid #6EE7B7;border-radius:8px 8px 0 0;padding:8px 12px;font-weight:700;color:#065F46;font-size:13px;text-align:center}
+
+/* ===== CYCLE COST ===== */
+.life-cycle{display:flex;align-items:center;gap:8px;padding:16px;background:var(--bg);border:1px solid var(--line);border-radius:10px;flex-wrap:wrap;justify-content:center}
+.lc-step{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 16px;text-align:center;min-width:80px}
+.lc-step .lc-name{font-size:12px;font-weight:600;color:var(--navy)}
+.lc-step .lc-amt{font-size:15px;font-weight:700;color:var(--ink);margin:2px 0}
+.lc-step .lc-pct{font-size:10px;color:var(--ink-3)}
+.lc-arr{color:var(--ink-3);font-size:16px}
+
+/* ===== BC COMPARE ===== */
+.bc-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bc-box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px}
+.bc-box h4{margin:0 0 10px;font-size:14px;font-weight:700;color:var(--navy);text-align:center}
+.bc-decision{grid-column:1/-1;padding:14px;background:var(--blue-l);border:1px solid #BFDBFE;border-radius:8px;text-align:center;font-size:14px;font-weight:600;color:#1E40AF}
+
+/* ===== PITFALL CARDS ===== */
+.pit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pit-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;border-left:4px solid var(--err)}
+.pit-card h4{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--err)}
+.pit-card p{margin:0;font-size:12.5px;color:var(--ink-2)}
+
+/* ===== VALUE CHAIN FLOW ===== */
+.chain-flow{display:flex;align-items:center;gap:8px;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;flex-wrap:wrap;justify-content:center}
+.chain-box{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 14px;text-align:center;min-width:80px}
+.chain-box .t{font-size:12px;font-weight:600;color:var(--navy)}
+.chain-box .s{font-size:10px;color:var(--ink-3)}
+.chain-arr{color:var(--ink-3);font-size:14px}
+
+/* ===== FINAL ===== */
+.final{background:linear-gradient(135deg,#1E3A5F 0%,#2C4F7C 100%);color:#fff;border-radius:10px;padding:18px 22px;margin-top:0;font-size:14.5px}
+.final b{color:#FBBF24}
+
+/* ===== VALUE TABLE ===== */
+.val-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:10px 0}
+.val-tbl th{background:var(--navy-2);color:#fff;font-weight:600;text-align:left;padding:8px 12px;font-size:12px}
+.val-tbl td{padding:7px 12px;border-top:1px solid var(--line);color:var(--ink-2)}
+.val-tbl tr:nth-child(even) td{background:#FAFBFC}
+
+/* ===== CAPEX vs OPEX ===== */
+.capex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.capex-item{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center}
+.capex-item .ca-name{font-size:12.5px;font-weight:600;color:var(--navy)}
+.capex-item .ca-type{font-size:13px;font-weight:700;margin:4px 0}
+.capex-item .ca-type.expense{color:#92400E}
+.capex-item .ca-type.asset{color:var(--ok)}
+.capex-item .ca-type.change{color:var(--info)}
+.capex-item .ca-desc{font-size:11px;color:var(--ink-3)}
+
+@media(max-width:980px){
+  .grid-2,.grid-3,.grid-5,.bc-compare,.pit-grid,.capex-grid{grid-template-columns:1fr}
+  .before-after{grid-template-columns:1fr}
+  .ba-mid{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumbs"><a href="../index.html">知识库</a> › <a href="index.html">SAP 相关</a> › PM 财务价值</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>SAP PM 对财务的核心价值</h1>
+  <div class="lead">Plant Maintenance 不是设备部门的工具，而是让企业第一次知道"每台设备到底花了多少钱、是否值得继续使用"</div>
+  <div class="core">核心提升：把以前的<b>"设备维修黑盒费用"</b>变成<b>"可追踪、可分析、可控制的设备成本"</b></div>
+</div>
+
+<!-- ===== 一、没有PM时财务看到的 ===== -->
+<div class="sec">
+  <h2><span class="num">一</span>没有 SAP PM 时，财务能看到什么？</h2>
+
+  <div class="before-after">
+    <div class="ba-box before">
+      <h4>财务现状：维修费用 = 黑盒</h4>
+      <ul>
+        <li>买了多少备件 → ✅ 知道</li>
+        <li>花了多少钱 → ✅ 知道</li>
+        <li>谁申请的 → ⚠️ 部分知道</li>
+        <li>哪台设备用了 → ❌ 不知道</li>
+        <li>为什么维修 → ❌ 不知道</li>
+        <li>维修成本趋势 → ❌ 不知道</li>
+        <li>设备生命周期成本 → ❌ 不知道</li>
+      </ul>
+    </div>
+    <div class="ba-mid">→</div>
+    <div class="ba-box after">
+      <h4>SAP PM 之后：费用可追踪</h4>
+      <ul>
+        <li>每笔费用 → 归属具体设备</li>
+        <li>每台设备 → 完整的维修历史</li>
+        <li>维修原因 → 关联维护通知</li>
+        <li>成本趋势 → 按设备/类型分析</li>
+        <li>生命周期 → 购价+维修汇总</li>
+        <li>预算依据 → 历史数据驱动</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>典型场景：一台压片机的维修费用</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px">
+    <div>
+      <div class="how-table"><div class="hdr-bad">没有 PM：财务看到的</div></div>
+      <div style="background:#fff;border:1px solid #FCA5A5;border-top:none;border-radius:0 0 8px 8px;padding:12px;font-size:13px;color:#991B1B">
+        维修费用科目：<b>11 万</b><br>
+        具体是哪台设备？不知道<br>
+        值不值得继续维修？无法判断
+      </div>
+    </div>
+    <div>
+      <div class="how-table"><div class="hdr-good">有 PM：财务看到的</div></div>
+      <div style="background:#fff;border:1px solid #6EE7B7;border-top:none;border-radius:0 0 8px 8px;padding:12px;font-size:13px;color:#065F46">
+        设备 TAB-001 压片机：<br>
+        电机更换 5万 + 轴承 2万 + 人工 1万 + 外协 3万 = <b>11 万</b><br>
+        可判断：继续修还是换新
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 二、核心变化：维护订单 ===== -->
+<div class="sec">
+  <h2><span class="num">二</span>启用 PM 后的核心变化：维护订单（PM Order）</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    SAP PM 通过<b style="color:var(--navy)">维护订单</b>把设备维修的费用按"生产订单归集生产成本"的逻辑归集维修成本。
+  </p>
+
+  <h3>维护订单 → 成本收集器（类比生产订单）</h3>
+  <table class="tbl" style="margin-bottom:12px">
+    <thead><tr><th>对象</th><th>成本收集什么</th><th>结算到</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">生产订单</td><td>为生产一个产品收集成本（物料 + 人工 + 机时）</td><td>物料成本</td></tr>
+      <tr><td class="hl">维护订单</td><td>为维修一台设备收集成本（备件 + 人工 + 外协）</td><td>成本中心 / 设备</td></tr>
+    </tbody>
+  </table>
+
+  <h3>实例：一次故障维修的费用归集</h3>
+  <div class="flow-v" style="max-width:520px;margin:0 auto">
+    <div class="step accent"><b>步骤 1：</b>设备 TAB-001 压片机异常振动 → 创建维护通知</div>
+    <div class="sep">↓</div>
+    <div class="step accent"><b>步骤 2：</b>转维护订单 4000012345</div>
+    <div class="sep">↓</div>
+    <div class="cost-box" style="max-width:360px;margin:0 auto">
+      <h4>PM 订单 4000012345</h4>
+      <div class="cost-row"><span>材料：轴承</span><span>5,000</span></div>
+      <div class="cost-row"><span>人工：维修工时</span><span>2,000</span></div>
+      <div class="cost-row"><span>外协：电机维修</span><span>8,000</span></div>
+      <div class="cost-row cost-total"><span>合计</span><span>15,000 元</span></div>
+    </div>
+    <div class="sep">↓</div>
+    <div class="step"><b>步骤 3：</b>结算到成本中心 / 关联设备 TAB-001</div>
+  </div>
+</div>
+
+<!-- ===== 三、提升1 ===== -->
+<div class="sec">
+  <h2><span class="num">三</span>财务提升 ①：维修费用精细化核算 ★★★★★</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    这是 SAP PM 对财务<b style="color:var(--navy)">最大的价值</b>：维修费用从"总账科目里的一个数"变成"可下钻到设备级别"。
+  </p>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:14px 0">
+    <div class="flow-v" style="max-width:220px">
+      <div class="step">维修费用<br><span style="color:var(--err);font-size:11px">不知道花在哪</span></div>
+    </div>
+    <div style="font-size:28px;font-weight:700;color:var(--navy)">→</div>
+    <div class="flow-v" style="max-width:300px">
+      <div class="step"><b>维护订单</b></div>
+      <div class="sep">↓</div>
+      <div class="step"><b>设备</b></div>
+      <div class="sep">↓</div>
+      <div class="step"><b>设备类别</b></div>
+    </div>
+  </div>
+
+  <h3>财务可以分析：哪类设备最烧钱？</h3>
+  <table class="tbl" style="max-width:500px">
+    <thead><tr><th>设备类别</th><th style="text-align:right">年度维修费用</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">冻干机</td><td style="text-align:right;color:var(--err);font-weight:700">300 万</td></tr>
+      <tr><td>压片机</td><td style="text-align:right;color:var(--warn);font-weight:600">200 万</td></tr>
+      <tr><td>灌装线</td><td style="text-align:right;color:var(--ok)">50 万</td></tr>
+    </tbody>
+  </table>
+  <div class="banner err" style="max-width:500px">发现：冻干机成本异常 → 进一步分析 → 是否需要技改或替换？</div>
+</div>
+
+<!-- ===== 四、提升2 ===== -->
+<div class="sec">
+  <h2><span class="num">四</span>财务提升 ②：支持设备投资决策 ★★★★★</h2>
+
+  <h3>资产成本 + 维修成本不再割裂 → 生命周期成本</h3>
+
+  <div class="life-cycle">
+    <div class="lc-step"><div class="lc-name">购买</div><div class="lc-amt">500万</div></div>
+    <div class="lc-arr">+</div>
+    <div class="lc-step"><div class="lc-name">安装</div><div class="lc-amt">50万</div></div>
+    <div class="lc-arr">+</div>
+    <div class="lc-step"><div class="lc-name">运行</div><div class="lc-amt">200万</div></div>
+    <div class="lc-arr">+</div>
+    <div class="lc-step" style="border:2px solid var(--err)"><div class="lc-name" style="color:var(--err)">维修</div><div class="lc-amt" style="color:var(--err)">400万</div></div>
+    <div class="lc-arr">+</div>
+    <div class="lc-step"><div class="lc-name">改造</div><div class="lc-amt">100万</div></div>
+    <div class="lc-arr">=</div>
+    <div class="lc-step" style="background:var(--navy);color:#fff;border-color:var(--navy)">
+      <div class="lc-name" style="color:#FBBF24">全生命周期</div>
+      <div class="lc-amt" style="color:#fff">1,250万</div>
+    </div>
+  </div>
+
+  <h3>CFO 的核心决策：继续维修 vs 换新？</h3>
+  <div class="bc-compare" style="margin-top:10px">
+    <div class="bc-box" style="border:2px solid var(--err)">
+      <h4 style="color:var(--err)">设备 A（老旧）</h4>
+      <div class="cost-row"><span>购买价</span><span>500 万</span></div>
+      <div class="cost-row"><span style="color:var(--err)">累计维修</span><span style="color:var(--err);font-weight:700">600 万</span></div>
+      <div class="cost-row cost-total"><span>总成本</span><span style="color:var(--err)">1,100 万</span></div>
+    </div>
+    <div class="bc-box" style="border:2px solid var(--ok)">
+      <h4 style="color:var(--ok)">设备 B（新选型）</h4>
+      <div class="cost-row"><span>购买价</span><span>700 万</span></div>
+      <div class="cost-row"><span style="color:var(--ok)">预估维修</span><span style="color:var(--ok)">100 万</span></div>
+      <div class="cost-row cost-total"><span>总成本</span><span style="color:var(--ok)">800 万</span></div>
+    </div>
+    <div class="bc-decision">
+      结论：虽然 B 采购价更高，但全生命周期成本更低 → 决策：淘汰 A，采购 B
+    </div>
+  </div>
+</div>
+
+<!-- ===== 五、提升3 ===== -->
+<div class="sec">
+  <h2><span class="num">五</span>财务提升 ③：维修预算管理 ★★★★</h2>
+
+  <div class="before-after" style="margin:14px 0">
+    <div class="ba-box before">
+      <h4>没有 PM</h4>
+      <p style="font-size:12.5px;color:#991B1B;text-align:center">
+        动力部申请："今年维修预算 800 万。"<br>
+        财务问："为什么？"<br>
+        回答："去年差不多。"
+      </p>
+      <div class="banner err" style="font-size:12px">缺少依据，拍脑袋决定</div>
+    </div>
+    <div class="ba-mid">→</div>
+    <div class="ba-box after">
+      <h4>有 PM</h4>
+      <table class="val-tbl">
+        <thead><tr><th>设备</th><th>历史年维修</th><th>预测</th></tr></thead>
+        <tbody>
+          <tr><td class="hl">设备 A</td><td>120 万</td><td style="font-weight:600">150 万</td></tr>
+          <tr><td class="hl">设备 B</td><td>20 万</td><td style="font-weight:600">30 万</td></tr>
+          <tr><td class="hl">设备 C</td><td>60 万</td><td style="font-weight:600">60 万</td></tr>
+        </tbody>
+      </table>
+      <div class="banner ok" style="font-size:12px">基于历史数据 + 设备状态 → 科学编制预算</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 六、提升4 ===== -->
+<div class="sec">
+  <h2><span class="num">六</span>财务提升 ④：备件库存成本管理 ★★★★</h2>
+
+  <div class="before-after" style="margin:14px 0">
+    <div class="ba-box before">
+      <h4>没有 PM</h4>
+      <p style="font-size:12.5px;color:#991B1B;text-align:center">
+        仓库轴承库存 1000 个<br>
+        财务无法判断：<br>这个库存是否合理？<br>有没有呆滞？
+      </p>
+    </div>
+    <div class="ba-mid">→</div>
+    <div class="ba-box after">
+      <h4>有 PM：备件 → 订单 → 设备</h4>
+      <p style="font-size:12.5px;color:#065F46;text-align:center">
+        设备 A 一年消耗：<br>轴承 50 个 / 密封圈 200 个<br>
+        ↓<br>
+        <b>建立维修 BOM</b><br>
+        ↓<br>
+        降低呆滞库存
+      </p>
+    </div>
+  </div>
+
+  <div class="flow-h" style="max-width:620px;margin:0 auto">
+    <div class="flow-step"><div class="lbl">备件</div><div class="code">MM 库存</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="lbl">维护订单</div><div class="code">PM Order</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="lbl">设备</div><div class="code">Equipment</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="background:var(--green-l);border-color:#6EE7B7"><div class="lbl" style="color:#065F46">维修 BOM</div><div class="code">优化库存</div></div>
+  </div>
+</div>
+
+<!-- ===== 七、提升5 ===== -->
+<div class="sec">
+  <h2><span class="num">七</span>财务提升 ⑤：区分费用性维修和资本化改造 ★★★</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    以前业务部门随便报，PM + FI-AA 结合后可以规范化区分：
+  </p>
+
+  <div class="capex-grid">
+    <div class="capex-item" style="border-left:4px solid var(--warn)">
+      <div class="ca-name">日常维修</div>
+      <div class="ca-type expense">费用化</div>
+      <div class="ca-desc">换普通零件、保养</div>
+    </div>
+    <div class="capex-item" style="border-left:4px solid var(--ok)">
+      <div class="ca-name">设备改造</div>
+      <div class="ca-type asset">资本化</div>
+      <div class="ca-desc">增加设备寿命或产能</div>
+    </div>
+    <div class="capex-item" style="border-left:4px solid var(--info)">
+      <div class="ca-name">设备重置</div>
+      <div class="ca-type change">资产变更</div>
+      <div class="ca-desc">整机替换、报废重购</div>
+    </div>
+  </div>
+
+  <div class="banner info" style="margin-top:14px">
+    财务意义：正确区分费用/资产 → 准确反映企业利润和资产价值，避免审计风险
+  </div>
+</div>
+
+<!-- ===== 八、药企价值 ===== -->
+<div class="sec">
+  <h2><span class="num">八</span>对药企场景的特定价值</h2>
+
+  <h3>以冻干机 FD-001 为例</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px">
+    <div class="cost-box">
+      <h4>PM 关联的数据维度</h4>
+      <div class="cost-row"><span>生产批次</span><span>关联</span></div>
+      <div class="cost-row"><span>生产订单</span><span>关联</span></div>
+      <div class="cost-row"><span>维护记录</span><span>完整</span></div>
+      <div class="cost-row"><span>维修成本</span><span>可追踪</span></div>
+      <div class="cost-row"><span>校准记录</span><span>GMP 合规</span></div>
+      <div class="cost-row"><span>备件消耗</span><span>可控</span></div>
+    </div>
+    <div>
+      <div class="cost-box">
+        <h4>产品成本影响分析</h4>
+        <div class="cost-row"><span>某产品单位成本</span><span>100 元/瓶</span></div>
+        <div class="cost-row"><span style="color:var(--err)">其中设备维护贡献</span><span style="color:var(--err);font-weight:600">8 元/瓶</span></div>
+      </div>
+      <div class="banner warn" style="margin-top:10px;font-size:13px">
+        发现某生产线维护成本异常 → 深入分析 → 优化维修策略
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 九、注意事项 ===== -->
+<div class="sec">
+  <h2><span class="num">九</span>PM 上线 ≠ 自动产生价值 — 三个必要条件</h2>
+
+  <div class="pit-grid">
+    <div class="pit-card">
+      <h4>① 设备主数据必须规范</h4>
+      <p>设备层级：工厂 → 车间 → 生产线 → 设备 → 部件。层级不清晰则成本无法正确归集。</p>
+    </div>
+    <div class="pit-card">
+      <h4>② 维护订单成本归集必须强制</h4>
+      <p>所有维修必须有 PM 订单。否则采购直接买备件，财务还是不知道花在哪里。</p>
+    </div>
+    <div class="pit-card">
+      <h4>③ 必须与 MM/FI/CO 联动</h4>
+      <p>设备 → PM 订单 → 备件领用 → 采购 → 成本归集 → 财务分析，缺任一环节都断链。</p>
+    </div>
+  </div>
+
+  <h3>完整价值链</h3>
+  <div class="chain-flow" style="margin-top:10px">
+    <div class="chain-box"><div class="t">设备</div><div class="s">Equipment</div></div>
+    <div class="chain-arr">→</div>
+    <div class="chain-box"><div class="t">PM 维护订单</div><div class="s">Cost Collector</div></div>
+    <div class="chain-arr">→</div>
+    <div class="chain-box"><div class="t">备件领用</div><div class="s">MM</div></div>
+    <div class="chain-arr">→</div>
+    <div class="chain-box"><div class="t">采购</div><div class="s">MM-PUR</div></div>
+    <div class="chain-arr">→</div>
+    <div class="chain-box" style="border:2px solid var(--navy)"><div class="t">成本归集</div><div class="s">CO</div></div>
+    <div class="chain-arr">→</div>
+    <div class="chain-box" style="border:2px solid var(--navy)"><div class="t">财务分析</div><div class="s">FI</div></div>
+  </div>
+</div>
+
+<!-- ===== 总结 ===== -->
+<div class="sec" style="margin-bottom:0">
+  <h2><span class="num">十</span>一句话总结（CFO 视角）</h2>
+
+  <div class="final" style="font-size:15px;line-height:1.8">
+    <b>SAP PM 不是为了让设备部门更方便，而是让企业第一次知道"每一台设备到底花了多少钱、是否值得继续使用"。</b>
+  </div>
+
+  <h3 style="margin-top:18px">六大财务提升一览</h3>
+  <table class="tbl">
+    <thead><tr><th>维度</th><th>提升程度</th><th>关键价值</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">维修费用透明</td><td><span class="stars"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span></span></td><td>从总账科目 → 下钻设备级</td></tr>
+      <tr><td class="hl">设备生命周期成本</td><td><span class="stars"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span></span></td><td>购置 + 维修不再割裂</td></tr>
+      <tr><td class="hl">维修预算管理</td><td><span class="stars"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="e">★</span></span></td><td>历史数据驱动预算</td></tr>
+      <tr><td class="hl">备件成本控制</td><td><span class="stars"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="e">★</span></span></td><td>维修 BOM 降低呆滞库存</td></tr>
+      <tr><td class="hl">资产投资决策</td><td><span class="stars"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="e">★</span></span></td><td>修 or 换 → 数据决策</td></tr>
+      <tr><td class="hl">财务核算准确性</td><td><span class="stars"><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="e">★</span><span class="e">★</span></span></td><td>费用 vs 资本化规范区分</td></tr>
+    </tbody>
+  </table>
+
+  <div class="banner info" style="margin-top:14px">
+    结合药企 + MES + SAP 背景：PM 可作为<b>"SAP 设备资产管理中心"</b>，MES 负责生产执行，PM 负责设备生命周期，两者结合比单纯 MES 记录设备参数更有管理价值。
+  </div>
+</div>
+
+</div>
+</body>
+</html>
