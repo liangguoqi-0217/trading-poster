@@ -675,24 +675,208 @@ table.raci tr:nth-child(even) td.A{background:#FDE9B5}
     </tbody>
   </table>
 
-  <h3 style="margin-top:18px">各岗位日常操作变化</h3>
-  <div class="grid-2">
-    <div class="insight-box" style="border-left:3px solid var(--info)">
-      <div class="tagline">销售 / 销售内勤</div>
-      <div class="body">以前 PGI 就结束。现在 PGI 后还需跟踪客户签收状态，催客户签收——否则财务不能确认收入。</div>
+  <h3 style="margin-top:18px">各岗位日常操作变化（用户视角）</h3>
+  <p style="color:var(--ink-2);font-size:13px;margin:6px 0 14px">
+    启用发出商品后，最大变化不是仓库怎么发货，而是<b style="color:var(--navy)">PGI 之后多了一个"客户收货/收入确认"的状态管理环节</b>。
+  </p>
+
+  <!-- Role 1: 销售 -->
+  <div class="contrast" style="margin-bottom:14px">
+    <div class="contrast-box standard">
+      <h4>销售 — 以前</h4>
+      <div class="proc-flow" style="max-width:300px;margin:6px auto">
+        <div class="proc-step"><div class="l">客户订单</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">安排发货</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">仓库PGI</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">通知开票</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">PGI 后认为业务完成，只关心"发了多少"</p>
     </div>
-    <div class="insight-box" style="border-left:3px solid var(--ok)">
-      <div class="tagline">仓库</div>
-      <div class="body">PGI 操作本身几乎不变。但 PGI 不代表流程结束，后面还有"签收"环节。</div>
+    <div class="contrast-box special">
+      <h4>销售 — 以后</h4>
+      <div class="proc-flow" style="max-width:360px;margin:6px auto">
+        <div class="proc-step"><div class="l">订单</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">交货</div></div><div class="proc-arr">→</div>
+        <div class="proc-step key"><div class="l">PGI</div></div><div class="proc-arr">→</div>
+        <div class="proc-step alt"><div class="l">运输中</div></div><div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--green-l);border-color:#6EE7B7"><div class="l" style="color:#065F46">客户签收</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--ink-2);margin:6px 0 0"><b>新增工作：</b>① 查询未签收发货报表（客户/金额/状态）② 跟踪异常订单（客户未收货？物流异常？拒收？）③ 月底被财务追问"为什么还有发出商品挂账"</p>
+      <p style="font-size:11px;color:#92400E;text-align:center;margin-top:4px">感受变化：★★★☆☆ &nbsp;|&nbsp; 以前"发货完成" → 以后"签收才闭环"</p>
     </div>
-    <div class="insight-box" style="border-left:3px solid var(--warn)">
-      <div class="tagline">财务</div>
-      <div class="body">变化最大：月底不再只看库存，新增"发出商品余额核对"——哪些客户、哪些单据、为什么没签收、何时清理。</div>
+  </div>
+
+  <!-- Role 2: 仓库 -->
+  <div class="contrast" style="margin-bottom:14px">
+    <div class="contrast-box standard">
+      <h4>仓库 — 以前</h4>
+      <div class="proc-flow" style="max-width:260px;margin:6px auto">
+        <div class="proc-step"><div class="l">创建交货</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">拣配</div></div><div class="proc-arr">→</div>
+        <div class="proc-step key"><div class="l">PGI</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">PGI = 结束，仓库任务完成</p>
     </div>
-    <div class="insight-box" style="border-left:3px solid var(--err)">
-      <div class="tagline">项目实施最大难点</div>
-      <div class="body"><b>签收数据从哪里来？</b>不是 SAP 配置问题，而是业务规则问题。客户什么时候收到？依据什么？物流电子签收？客户 ERP？纸质回单？这决定了发出商品能否被清理。</div>
+    <div class="contrast-box special">
+      <h4>仓库 — 以后</h4>
+      <p style="font-size:12px;color:var(--ink-2);margin:4px 0">SAP 操作<b>几乎不变</b>：仍然是创建交货→拣配→PGI。但管理要求变了：</p>
+      <ul style="font-size:12px;color:var(--ink-2);padding-left:18px;margin:4px 0">
+        <li>PGI ≠ 结束，后面还有签收</li>
+        <li>可能需要录入：出库日期 / 承运商 / 运单号</li>
+        <li>关注是否有异常退回</li>
+      </ul>
+      <p style="font-size:11px;color:#92400E;text-align:center;margin-top:4px">SAP 操作变化 ★☆☆☆☆ &nbsp;|&nbsp; 管理责任变化 ★★★☆☆</p>
     </div>
+  </div>
+
+  <!-- Role 3: 销售内勤 -->
+  <div class="contrast" style="margin-bottom:14px">
+    <div class="contrast-box standard">
+      <h4>销售内勤/订单管理员 — 以前</h4>
+      <div class="proc-flow" style="max-width:240px;margin:6px auto">
+        <div class="proc-step"><div class="l">客户订单</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">交货</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">开票</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">跟踪链路结束在开票</p>
+    </div>
+    <div class="contrast-box special">
+      <h4>销售内勤/订单管理员 — 以后</h4>
+      <p style="font-size:12px;color:var(--ink-2);margin:4px 0">流程延长：交货→PGI→<b>签收确认</b>→财务确认，新增操作：</p>
+      <ul style="font-size:12px;color:var(--ink-2);padding-left:18px;margin:4px 0">
+        <li><b>维护签收信息</b>：签收日期 / 签收数量 / 签收凭证编号</li>
+        <li><b>查询异常</b>：超过 7 天未签收 → 提醒销售跟进</li>
+      </ul>
+      <p style="font-size:11px;color:#92400E;text-align:center;margin-top:4px">变化较明显 ★★★☆☆</p>
+    </div>
+  </div>
+
+  <!-- Role 4: 财务 -->
+  <div class="contrast" style="margin-bottom:14px">
+    <div class="contrast-box standard">
+      <h4>财务 — 以前月底</h4>
+      <p style="font-size:12px;color:var(--ink-2);margin:4px 0">关注三件事：</p>
+      <ul style="font-size:12px;color:var(--ink-2);padding-left:18px;margin:4px 0">
+        <li>库存商品余额检查</li>
+        <li>销售收入（开票金额）</li>
+        <li>主营业务成本</li>
+      </ul>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">月底关账相对简单</p>
+    </div>
+    <div class="contrast-box special">
+      <h4>财务 — 以后月底（变化最大）</h4>
+      <p style="font-size:12px;color:var(--ink-2);margin:4px 0">新增三项核心工作：</p>
+      <ol style="font-size:12px;color:var(--ink-2);padding-left:18px;margin:4px 0">
+        <li><b>发出商品余额检查</b>：哪些客户/单据/金额待清理，是否正常</li>
+        <li><b>发出商品清理</b>：客户签收后，从"发出商品"→"主营业务成本"</li>
+        <li><b>账龄分析</b>：0-7天 / 8-30天 / 30天以上，判断是否需要计提或跟进</li>
+      </ol>
+      <p style="font-size:11px;color:#92400E;text-align:center;margin-top:4px">感受变化 ★★★★★ &nbsp;|&nbsp; 从"看库存"变成"管发出商品"</p>
+    </div>
+  </div>
+
+  <!-- Role 5: 开票 -->
+  <div class="contrast" style="margin-bottom:14px">
+    <div class="contrast-box standard">
+      <h4>开票人员 — 以前</h4>
+      <div class="proc-flow" style="max-width:200px;margin:6px auto">
+        <div class="proc-step key"><div class="l">PGI</div></div><div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">VF01 开票</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">PGI 之后立即开票，无等待环节</p>
+    </div>
+    <div class="contrast-box special">
+      <h4>开票人员 — 以后（两种策略）</h4>
+      <div class="grid-2" style="gap:10px;margin-top:6px">
+        <div style="font-size:12px;color:var(--ink-2);padding:8px;background:var(--bg);border-radius:6px">
+          <b style="color:var(--navy)">策略 A：签收后开票</b><br>
+          PGI → 等待签收 → VF01 开票<br>
+          <span style="font-size:11px;color:var(--ink-3)">增加等待环节，操作节奏变化大</span>
+        </div>
+        <div style="font-size:12px;color:var(--ink-2);padding:8px;background:var(--bg);border-radius:6px">
+          <b style="color:var(--navy)">策略 B：先开票，成本不确认</b><br>
+          PGI → Billing（照常）→ 收入确认单独处理<br>
+          <span style="font-size:11px;color:var(--ink-3)">业务操作变化小，财务逻辑单独管理</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role 6-8: 生产/质量/IT compact -->
+  <div class="grid-3" style="margin-bottom:14px">
+    <div class="persp-card" style="border-top-color:var(--info)">
+      <h4>生产计划</h4>
+      <div class="view">操作基本不变，理解要跟上</div>
+      <ul>
+        <li>发出商品不再占用工厂库存</li>
+        <li>MRP 看到库存已减少 → 正确</li>
+        <li>不要把运输中货物当作可用库存</li>
+      </ul>
+    </div>
+    <div class="persp-card" style="border-top-color:var(--purple)">
+      <h4>质量部门（药企重点）</h4>
+      <div class="view">追溯要求升级</div>
+      <ul>
+        <li>以前查"销售出库记录"</li>
+        <li>以后查"发出商品 + 批次 + 客户 + 签收状态"</li>
+        <li>召回时需知：哪些已出库/在途/客户签收</li>
+      </ul>
+    </div>
+    <div class="persp-card" style="border-top-color:var(--ink-3)">
+      <h4>IT / 系统管理员</h4>
+      <div class="view">新增报表和监控</div>
+      <ul>
+        <li>《发出商品明细表》：订单/交货单/客户/物料/批次/数量/金额/发货日期/签收日期</li>
+        <li>每日监控：30 天未清理发出商品预警</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Summary Matrix -->
+  <h3 style="margin:18px 0 10px">岗位变化矩阵总览</h3>
+  <table class="tbl" style="margin-top:6px">
+    <thead><tr><th>岗位</th><th style="width:25%">以前关注什么</th><th style="width:25%">启用后变化</th><th style="width:12%">操作变化度</th></tr></thead>
+    <tbody>
+      <tr><td class="hl">销售</td><td>关注发货</td><td>关注签收闭环，新增异常跟踪</td><td style="text-align:center">★★★☆☆</td></tr>
+      <tr><td class="hl">仓库</td><td>PGI 结束</td><td>PGI 后关注物流状态，可能录入运单</td><td style="text-align:center">★★☆☆☆</td></tr>
+      <tr><td class="hl">销售内勤</td><td>订单→开票</td><td>增加签收跟踪、签收信息录入</td><td style="text-align:center">★★★☆☆</td></tr>
+      <tr><td class="hl">财务</td><td>库存/成本核算</td><td>增加发出商品管理、余额清理、账龄分析</td><td style="text-align:center;font-weight:700;color:var(--err)">★★★★★</td></tr>
+      <tr><td class="hl">开票员</td><td>PGI 后开票</td><td>可能等待签收（策略A）或照常开票（策略B）</td><td style="text-align:center">★★☆☆☆</td></tr>
+      <tr><td class="hl">生产计划</td><td>看库存</td><td>关注运输中库存，理解 MRP 差异</td><td style="text-align:center">★☆☆☆☆</td></tr>
+      <tr><td class="hl">质量</td><td>看销售批次</td><td>增加客户流向追踪，召回范围判断更精准</td><td style="text-align:center">★★☆☆☆</td></tr>
+      <tr><td class="hl">IT</td><td>维护流程</td><td>增加报表、监控、预警</td><td style="text-align:center">★★★☆☆</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 药企管理链变化 -->
+  <h3 style="margin:18px 0 10px">药企管理链：从简单到多状态</h3>
+  <div class="contrast">
+    <div class="contrast-box standard">
+      <h4>以前：单线管理</h4>
+      <div class="flow-v" style="max-width:200px;margin:6px auto">
+        <div class="step">生产完成</div><div class="sep">↓</div>
+        <div class="step">库存</div><div class="sep">↓</div>
+        <div class="step">发货</div><div class="sep">↓</div>
+        <div class="step">收入</div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px">管理链简单，发货≈完成</p>
+    </div>
+    <div class="contrast-box special">
+      <h4>以后：多状态管理</h4>
+      <div class="flow-v" style="max-width:240px;margin:6px auto">
+        <div class="step">生产完成</div><div class="sep">↓</div>
+        <div class="step">库存</div><div class="sep">↓</div>
+        <div class="step key">发货 PGI</div><div class="sep">↓</div>
+        <div class="step goods-out">发出商品</div><div class="sep">↓</div>
+        <div class="step">客户签收</div><div class="sep">↓</div>
+        <div class="step rev">收入确认</div>
+      </div>
+      <p style="font-size:12px;color:#92400E;text-align:center;margin-top:4px"><b>新增一个关键管理状态：货不在手里，销售还没完成</b></p>
+    </div>
+  </div>
+
+  <div class="banner info" style="margin-top:12px;text-align:left;font-size:13px">
+    这也是财务推动"发出商品"需求的根本原因：<b>它解决月底关账最头疼的问题——物流状态和财务状态不一致。</b>有了这个中间状态，12/31 发货未签收的货物 = 发出商品（资产），而不是错误地计入 12 月的主营业务成本。
   </div>
 </div>
 
