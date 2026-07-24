@@ -337,6 +337,35 @@ table.raci tr:nth-child(even) td.A{background:#FDE9B5}
       <div class="body">收入确认时机与会计准则对齐，发出商品仍算资产（不在库存但在财务报表中），月末无需人工调整。审计轨迹清晰。</div>
     </div>
   </div>
+
+  <h3 style="margin-top:18px">三种方案横向对比：PGI 后库存与财务走哪条路？</h3>
+  <table class="tbl" style="margin-top:10px">
+    <thead><tr><th style="width:12%">方案</th><th>做法</th><th style="width:14%">优点</th><th style="width:14%">缺点</th><th style="width:10%">推荐</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="hl" style="font-size:13px">方案一<br><span style="font-weight:400;color:var(--ink-3)">PGI → 发出商品</span></td>
+        <td>仓库照常 PGI，财务凭证<span class="mono">借 发出商品 / 贷 库存商品</span>；客户签收后再<span class="mono">借 主营业务成本 / 贷 发出商品</span>。物流与财务时间点完全解耦。</td>
+        <td style="color:var(--ok)">权责发生制合规 · 库存实时准确 · 批次可追溯 · 审计轨迹完整</td>
+        <td style="color:var(--err)">需管理发出商品余额 · 需客户签收确认机制 · 后续清理工作量</td>
+        <td class="hl" style="font-size:17px">✅</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;font-size:13px">方案二<br><span style="font-weight:400;color:var(--ink-3)">月底不 PGI</span></td>
+        <td>实际发货但 SAP 暂不做 PGI，等客户签收后再统一 PGI + 确认成本。很多企业初期采用此方案。</td>
+        <td style="color:var(--ok)">操作简单 · 无需发出商品管理</td>
+        <td style="color:var(--err)">系统库存虚高 · 订单状态不透明 · 批次追溯不准 · 仓库责任不清 · 月末大盘点大混乱</td>
+        <td class="hl" style="font-size:13px;color:var(--ink-3)">不推荐</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;font-size:13px">方案三<br><span style="font-weight:400;color:var(--ink-3)">在途库存</span></td>
+        <td>设计多级库存地点：<span class="mono">1000 工厂</span> → <span class="mono">2000 在途</span> → <span class="mono">3000 客户寄售</span>，PGI 后物料转入在途库存地点。适用长运输周期、国际贸易场景。</td>
+        <td style="color:var(--ok)">实物位置可追踪 · 适合多段物流</td>
+        <td style="color:var(--err)">需业务模式支持 · 库存地点管理复杂 · 仍需配合财务科目设计</td>
+        <td style="font-size:11px;color:var(--ink-3)">特定场景</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--ink-3);margin-top:6px">方案一是 SAP 标准推荐方案，也是本文重点讨论的路径。方案二看似简单但问题最多，不建议长期使用。</p>
 </div>
 
 <!-- ===== 四、各部门视角 ===== -->
@@ -486,17 +515,198 @@ table.raci tr:nth-child(even) td.A{background:#FDE9B5}
   </div>
 </div>
 
-<!-- ===== 总结 ===== -->
+<!-- ===== 八、月底场景 ===== -->
+<div class="sec">
+  <h2><span class="num">八</span>月底场景：为什么这个问题在关账时特别突出？</h2>
+
+  <h3>一个具体场景：12 月末发货纠纷</h3>
+  <div class="decouple" style="max-width:680px;margin:14px auto">
+    <div class="layer logistics">
+      <div class="lt">12月28日 — 仓库发货</div>
+      <div class="ls">药品装车离开企业仓库，SAP 执行 PGI —— 库存减少</div>
+    </div>
+    <div class="connect">↓ 在途中</div>
+    <div class="layer account">
+      <div class="lt">12月31日 — 财务关账</div>
+      <div class="ls">客户尚未收到货物。财务需要回答：这批货算什么？库存？成本？收入？</div>
+    </div>
+    <div class="connect">↓ 运输完成</div>
+    <div class="layer revenue">
+      <div class="lt">1月2日 — 客户签收</div>
+      <div class="ls">客户确认收货，控制权正式转移。此时才满足收入确认条件。</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:14px">
+    <div class="insight-box" style="background:var(--red-l);border:1px solid #FCA5A5">
+      <div class="tagline" style="color:#991B1B">如果 PGI 直接进主营业务成本</div>
+      <div class="body" style="color:#991B1B">12 月报表：收入增加、成本增加 → <b>提前确认收入风险</b><br>但客户 12/31 尚未取得货物 → <b>审计风险、利润虚增</b></div>
+    </div>
+    <div class="insight-box" style="background:var(--green-l);border:1px solid #6EE7B7">
+      <div class="tagline" style="color:#065F46">如果 PGI 进发出商品</div>
+      <div class="body" style="color:#065F46">12 月报表：库存→发出商品（仍是资产）<br>1 月客户签收后 → 结转成本 + 确认收入<br>→ 收入与成本在同一期间匹配，合规且可审计</div>
+    </div>
+  </div>
+
+  <div class="banner err" style="margin-top:12px">
+    月底关账时，财务必须回答：<b>12 月 31 日企业的资产、收入、成本各是多少？</b>如果跨月发货没有规范的发出商品管理，每月末都会出现大量人工调整。
+  </div>
+
+  <h3>IT 需求分析：必须先向财务确认的 5 个业务规则</h3>
+  <p style="color:var(--ink-2);font-size:13px;margin:8px 0">这些问题不确认，SAP 配置无从下手。不是技术问题，是业务规则问题。</p>
+  <table class="tbl" style="margin-top:8px">
+    <thead><tr><th style="width:8%">#</th><th>要确认的问题</th><th>可能的答案</th><th style="width:14%">谁决定</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="hl">1</td>
+        <td><b>什么叫"客户收到货"？依据是什么？</b></td>
+        <td>A. 客户签收单　B. 物流回单　C. 电子回执　D. 客户系统确认</td>
+        <td class="role sd">销售+法务</td>
+      </tr>
+      <tr>
+        <td class="hl">2</td>
+        <td><b>SAP 什么时候执行 PGI？</b></td>
+        <td>A. 仓库装车即 PGI　B. 物流公司提货 PGI　C. 客户签收才 PGI<br>三种选择财务影响完全不同</td>
+        <td class="role wh">仓库</td>
+      </tr>
+      <tr>
+        <td class="hl">3</td>
+        <td><b>什么时候确认收入？触发条件是什么？</b></td>
+        <td>客户签收？验收合格？开票完成？——必须明确收入确认的"标志事件"</td>
+        <td class="role fi">财务</td>
+      </tr>
+      <tr>
+        <td class="hl">4</td>
+        <td><b>未签收货物月末怎么管理？</b></td>
+        <td>需要报表：客户/销售订单/交货单/批次/数量/金额/发货日期/预计到货日期</td>
+        <td class="role fi">财务</td>
+      </tr>
+      <tr>
+        <td class="hl">5</td>
+        <td><b>签收数据从哪里来？系统接口还是人工？</b></td>
+        <td>物流系统(TMS)回传？客户 ERP 对接？纸质回单扫描录入？</td>
+        <td style="color:var(--navy);font-weight:600">IT+物流</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== 九、实施影响 ===== -->
+<div class="sec">
+  <h2><span class="num">九</span>实施影响全景图：启用"发出商品"后各模块要做什么？</h2>
+
+  <p style="color:var(--ink-2);font-size:14px;margin:10px 0">
+    从<b style="color:var(--navy)">"PGI 立即确认成本"</b>切换到<b style="color:var(--warn)">"PGI 进入发出商品"</b>，几乎涉及整个 Order-to-Cash 流程。<br>
+    它不是 FI 多建几个科目，而是 <b>SD + MM + FI + CO + ABAP + 报表 + 用户操作流程</b>的全面联动。
+  </p>
+
+  <h3>总体架构变化</h3>
+  <div class="contrast">
+    <div class="contrast-box standard">
+      <h4>未启用（传统模式）</h4>
+      <div class="proc-flow" style="max-width:400px;margin:8px auto">
+        <div class="proc-step"><div class="l">PGI</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--red-l);border-color:#FCA5A5"><div class="l" style="color:#991B1B">库存减少<br>+ 主营业务成本</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">Billing</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--green-l);border-color:#6EE7B7"><div class="l" style="color:#065F46">主营业务收入</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:6px">只有两个关键事件：PGI + Billing</p>
+    </div>
+    <div class="contrast-box special">
+      <h4>启用后（解耦模式）</h4>
+      <div class="proc-flow" style="max-width:500px;margin:8px auto">
+        <div class="proc-step"><div class="l">PGI</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step alt"><div class="l">发出商品</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step"><div class="l">客户签收</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--red-l);border-color:#FCA5A5;opacity:.8"><div class="l" style="color:#991B1B">主营业务成本</div></div>
+        <div class="proc-arr">→</div>
+        <div class="proc-step" style="background:var(--green-l);border-color:#6EE7B7"><div class="l" style="color:#065F46">主营业务收入</div></div>
+      </div>
+      <p style="font-size:11px;color:var(--ink-3);text-align:center;margin-top:6px">多了一个关键事件：<b>发出商品清理（客户签收确认）</b></p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:18px">各模块顾问工作清单</h3>
+  <table class="tbl" style="margin-top:8px">
+    <thead><tr><th style="width:8%">模块</th><th style="width:40%">主要工作</th><th style="width:18%">关键要点</th><th style="width:8%">工作量</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="hl">SD</td>
+        <td>① PGI 操作流程不变（VA01→VL01N→VL02N→PGI）<br>② Billing 时机决策：客户签收后才开票？还是照常开票仅延迟收入确认？<br>③ 客户签收状态管理（POD / 自开发签收确认）<br>④ 新增运输中/已签收等物流节点可见性</td>
+        <td>PGI 操作不变，但 Billing 策略和签收状态是新增功能</td>
+        <td style="font-weight:700;color:var(--warn)">★★★★☆</td>
+      </tr>
+      <tr>
+        <td class="hl">FI</td>
+        <td>① 新建科目：<span class="mono">发出商品</span>（如 140102）<br>② 修改自动记账 OBYC：PGI 时<span class="mono">借 发出商品 / 贷 库存商品</span><br>③ 设计收入确认规则：Billing 后是主营业务收入还是递延收入<br>④ 月末发出商品余额核对与清理流程</td>
+        <td>OBYC 自动科目确定是核心配置，工作量最大</td>
+        <td style="font-weight:700;color:var(--warn)">★★★★★</td>
+      </tr>
+      <tr>
+        <td class="hl">CO</td>
+        <td>① 成本流从"PGI→COGS"变为"PGI→发出商品→签收→COGS"<br>② CO-PA 利润分析取数时点验证<br>③ 标准成本 vs 实际成本在发出商品期间的差异处理</td>
+        <td>利润分析取数时点需重新验证</td>
+        <td style="font-weight:600;color:var(--ink)">★★★☆☆</td>
+      </tr>
+      <tr>
+        <td class="hl">MM</td>
+        <td>① 601 等移动类型对应新科目的自动记账联调<br>② 库存价值变化：非限制库存减少 → 发出商品增加<br>③ 可选：多级库存地点设计（工厂/在途/寄售）</td>
+        <td>MM 与 FI 自动记账联调是重点</td>
+        <td style="font-weight:600">★★☆☆☆</td>
+      </tr>
+      <tr>
+        <td class="hl">ABAP</td>
+        <td>① 签收接口开发（物流系统回传 → SAP 清理发出商品）<br>② 发出商品余额报表（客户/金额/账龄/预计签收时间）<br>③ 自动清理程序（超期未签收预警）<br>④ 增强开发（POD 状态、自动触发等）</td>
+        <td>签收数据从哪里来？这是项目最大难点</td>
+        <td style="font-weight:700;color:var(--warn)">★★★★☆</td>
+      </tr>
+      <tr>
+        <td class="hl">Basis</td>
+        <td>基本无特殊配置，仅关注接口传输和权限分配</td>
+        <td>—</td>
+        <td style="color:var(--ink-3)">★☆☆☆☆</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:18px">各岗位日常操作变化</h3>
+  <div class="grid-2">
+    <div class="insight-box" style="border-left:3px solid var(--info)">
+      <div class="tagline">销售 / 销售内勤</div>
+      <div class="body">以前 PGI 就结束。现在 PGI 后还需跟踪客户签收状态，催客户签收——否则财务不能确认收入。</div>
+    </div>
+    <div class="insight-box" style="border-left:3px solid var(--ok)">
+      <div class="tagline">仓库</div>
+      <div class="body">PGI 操作本身几乎不变。但 PGI 不代表流程结束，后面还有"签收"环节。</div>
+    </div>
+    <div class="insight-box" style="border-left:3px solid var(--warn)">
+      <div class="tagline">财务</div>
+      <div class="body">变化最大：月底不再只看库存，新增"发出商品余额核对"——哪些客户、哪些单据、为什么没签收、何时清理。</div>
+    </div>
+    <div class="insight-box" style="border-left:3px solid var(--err)">
+      <div class="tagline">项目实施最大难点</div>
+      <div class="body"><b>签收数据从哪里来？</b>不是 SAP 配置问题，而是业务规则问题。客户什么时候收到？依据什么？物流电子签收？客户 ERP？纸质回单？这决定了发出商品能否被清理。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 十、总结 ===== -->
 <div class="sec" style="margin-bottom:0">
-  <h2><span class="num">八</span>一句话总结</h2>
+  <h2><span class="num">十</span>总结</h2>
 
   <div class="final" style="font-size:15px;line-height:1.8">
     <b>SD 和 FI 争论的不是"要不要 PGI"，而是"PGI 之后走哪条财务路径"。</b>SD 看物流——货离厂就该反映；FI 看准则——收入确认必须合规。SAP 的答案是分层解耦：<b>PGI 照做（满足物流真实），但财务科目用"发出商品"（满足会计审慎）</b>——不是冲突，是两层设计。
   </div>
 
-  <h3 style="margin-top:18px">三种视角一句话</h3>
+  <h3 style="margin-top:18px">各角色一句话理解</h3>
   <table class="tbl">
-    <thead><tr><th>角色</th><th>核心关注</th><th>PGI + 发出商品 如何满足？</th></tr></thead>
+    <thead><tr><th>角色</th><th>核心关注</th><th style="width:38%">PGI + 发出商品 如何满足？</th></tr></thead>
     <tbody>
       <tr><td class="role sd">SD 销售</td><td>库存必须真实反映实物状态</td><td>PGI 立即减少库存，MRP / ATP 准确，不阻塞物流</td></tr>
       <tr><td class="role fi">FI 财务</td><td>收入确认必须符合会计准则</td><td>PGI 可不直接进成本，先进"发出商品"，条件满足后再结转</td></tr>
@@ -504,6 +714,16 @@ table.raci tr:nth-child(even) td.A{background:#FDE9B5}
       <tr><td class="hl">IT 负责人</td><td>系统架构不能耦合</td><td>MES/WMS 驱动实物 → SAP PGI 确认状态 → FI 做财务判断 → 三层不耦合</td></tr>
     </tbody>
   </table>
+
+  <div class="banner info" style="margin-top:16px;text-align:left;font-weight:400;font-size:13px">
+    <b style="color:var(--navy)">S/4HANA 特别提醒：</b>你们已升级到 S/4HANA，建议项目启动前先确认：财务讨论的是 ECC 时代的"传统发出商品（自定义科目+增强）"，还是采用 S/4HANA 标准功能——如 <b>Event-Based Revenue Recognition（基于事件的收入确认）</b>或新的销售成本递延能力。S/4HANA 标准方案能减少大量 ABAP 自开发，各模块配置重点和事务码也会不同。
+  </div>
+
+  <div class="final" style="margin-top:14px;font-size:13.5px;line-height:1.7;background:rgba(255,255,255,.05);padding:14px 18px">
+    MES 记录生产事实，SAP 记录企业价值状态。<br>
+    仓库"发货"是物流事实；客户"签收"是商业事实；财务"确认收入"是会计事实。<br>
+    <b>优秀 ERP 设计就是把这三个事实拆开，而不是强行绑定在一个操作上。</b>
+  </div>
 </div>
 
 </div>
